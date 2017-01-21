@@ -33,5 +33,5 @@ or help further when certain expected methods are not available.
 
 ## Contribute
 
-Any contributions are wellcome.
+Any contributions are welcome.
 Note that at the moment only Java templates are supported.
