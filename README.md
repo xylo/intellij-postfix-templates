@@ -25,8 +25,8 @@ These templates provide some common Scala functions, such as:
 * sort, sortBy, minBy, maxBy, groupBy
 * exists, forall
 * reverse, concat
-* forEach on Optional
-* r on Strings to convert them into regular expression patterns
+* Optional.forEach
+* String.r to convert the string into a regular expression
 
 I assume that most of the templates are also useful for Non-Scala users, since they provide a cleaner interface to convert values
 or help further when certain expected methods are not available.
