@@ -1,0 +1,52 @@
+java.lang.String         →  toBoolean  →  convert to boolean                    →  Boolean.parse($expr$)$END$
+java.lang.String         →  toByte     →  Byte.parse(string)                    →  Byte.parse($expr$)$END$
+java.lang.String         →  toChar     →  Character.parse(string)               →  Character.parse($expr$)$END$
+java.lang.String         →  toInt      →  Integer.parse(string)                 →  Integer.parse($expr$)$END$
+java.lang.String         →  toLong     →  Long.parse(string)                    →  Long.parse($expr$)$END$
+java.lang.String         →  toFloat    →  Float.parse(string)                   →  Float.parse($expr$)$END$
+java.lang.String         →  toDouble   →  Double.parse(string)                  →  Double.parse($expr$)$END$
+NUMBER                   →  toByte     →  convert to byte                       →  ((byte) ($expr$))$END$
+NUMBER                   →  toChar     →  (char) expr                           →  ((char) ($expr$))$END$
+NUMBER                   →  toInt      →  (int) expr                            →  ((int) ($expr$))$END$
+NUMBER                   →  toLong     →  (long) expr                           →  ((long) ($expr$))$END$
+NUMBER                   →  toFloat    →  (float) expr                          →  ((float) ($expr$))$END$
+NUMBER                   →  toDouble   →  (double) expr                         →  ((double) ($expr$))$END$
+
+java.util.Collection     →  toList     →  convert to List                       →  new ArrayList<>($expr$)$END$
+ARRAY                    →  toList     →  convert to List                       →  Arrays.asList($expr$)$END$
+java.util.Collection     →  toSet      →  convert to Set                        →  new HashSet<>($expr$)$END$
+ARRAY                    →  toSet      →  convert to Set                        →  new HashSet<>(Arrays.asList($expr$))$END$
+java.util.Collection     →  toMap      →  convert to Map                        →  $expr$.stream().collect(Collectors.toMap($END$))
+ARRAY                    →  toMap      →  convert to Map                        →  Arrays.stream($expr$).collect(Collectors.toMap($END$))
+java.util.stream.Stream  →  toMap      →  convert to Map                        →  $expr$.collect(Collectors.toMap($END$))
+
+ARRAY                    →  sort       →  Arrays.sort(array)                    →  Arrays.sort($expr$)$END$
+ARRAY                    →  sortBy     →  sort by attribute                     →  Arrays.sort($expr$, Comparator.comparing($END$))
+java.util.List           →  sortBy     →  sort by attribute                     →  $expr$.sort(Comparator.comparing($END$))
+java.util.stream.Stream  →  sortBy     →  sort by attribute                     →  $expr$.sorted(Comparator.comparing($END$))
+
+ARRAY                    →  minBy      →  minimum by attribute                  →  Arrays.stream($expr$).min(Comparator.comparing($END$))
+java.util.Collection     →  minBy      →  minimum by attribute                  →  $expr$.stream().min(Comparator.comparing($END$))
+java.util.stream.Stream  →  minBy      →  minimum by attribute                  →  $expr$.min(Comparator.comparing($END$))
+
+ARRAY                    →  maxBy      →  maximum by attribute                  →  Arrays.stream($expr$).max(Comparator.comparing($END$))
+java.util.Collection     →  maxBy      →  maximum by attribute                  →  $expr$.stream().max(Comparator.comparing($END$))
+java.util.stream.Stream  →  maxBy      →  maximum by attribute                  →  $expr$.max(Comparator.comparing($END$))
+
+java.util.Collection     →  groupBy    →  group by attribute                    →  $expr$.stream().collect(Collectors.groupingBy($END$))
+java.util.stream.Stream  →  groupBy    →  group by attribute                    →  $expr$.collect(Collectors.groupingBy($END$))
+
+java.util.Collection     →  exists     →  any match                             →  $expr$.stream().anyMatch($END$)
+java.util.stream.Stream  →  exists     →  any match                             →  $expr$.anyMatch($END$)
+
+java.util.Collection     →  forall     →  all match                             →  $expr$.stream().allMatch($END$)
+java.util.stream.Stream  →  forall     →  all match                             →  $expr$.allMatch($END$)
+
+java.util.List           →  reverse    →  reverse collection                    →  Collections.reverse($expr$)$END$
+
+ARRAY                    →  concat     →  concat                                →  Stream.concat(Arrays.stream($expr$), $END$)
+java.util.stream.Stream  →  concat     →  concat                                →  Stream.concat($expr$, $END$)
+
+java.util.Optional       →  forEach    →  for each                              →  $expr$.ifPresent($END$)
+
+java.lang.String         →  r          →  Pattern.compile(string)               →  Pattern.compile($expr$)$END$
