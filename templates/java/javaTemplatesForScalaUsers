@@ -1,16 +1,16 @@
 java.lang.String         →  toBoolean  →  convert to boolean                    →  Boolean.parse($expr$)$END$
-java.lang.String         →  toByte     →  Byte.parse(string)                    →  Byte.parse($expr$)$END$
-java.lang.String         →  toChar     →  Character.parse(string)               →  Character.parse($expr$)$END$
-java.lang.String         →  toInt      →  Integer.parse(string)                 →  Integer.parse($expr$)$END$
-java.lang.String         →  toLong     →  Long.parse(string)                    →  Long.parse($expr$)$END$
-java.lang.String         →  toFloat    →  Float.parse(string)                   →  Float.parse($expr$)$END$
-java.lang.String         →  toDouble   →  Double.parse(string)                  →  Double.parse($expr$)$END$
+java.lang.String         →  toByte     →  convert to byte                       →  Byte.parse($expr$)$END$
+java.lang.String         →  toChar     →  convert to char                       →  Character.parse($expr$)$END$
+java.lang.String         →  toInt      →  convert to int                        →  Integer.parse($expr$)$END$
+java.lang.String         →  toLong     →  convert to long                       →  Long.parse($expr$)$END$
+java.lang.String         →  toFloat    →  convert to float                      →  Float.parse($expr$)$END$
+java.lang.String         →  toDouble   →  convert to double                     →  Double.parse($expr$)$END$
 NUMBER                   →  toByte     →  convert to byte                       →  ((byte) ($expr$))$END$
-NUMBER                   →  toChar     →  (char) expr                           →  ((char) ($expr$))$END$
-NUMBER                   →  toInt      →  (int) expr                            →  ((int) ($expr$))$END$
-NUMBER                   →  toLong     →  (long) expr                           →  ((long) ($expr$))$END$
-NUMBER                   →  toFloat    →  (float) expr                          →  ((float) ($expr$))$END$
-NUMBER                   →  toDouble   →  (double) expr                         →  ((double) ($expr$))$END$
+NUMBER                   →  toChar     →  convert to char                       →  ((char) ($expr$))$END$
+NUMBER                   →  toInt      →  convert to int                        →  ((int) ($expr$))$END$
+NUMBER                   →  toLong     →  convert to long                       →  ((long) ($expr$))$END$
+NUMBER                   →  toFloat    →  convert to float                      →  ((float) ($expr$))$END$
+NUMBER                   →  toDouble   →  convert to double                     →  ((double) ($expr$))$END$
 
 java.util.Collection     →  toList     →  convert to List                       →  new ArrayList<>($expr$)$END$
 ARRAY                    →  toList     →  convert to List                       →  Arrays.asList($expr$)$END$
