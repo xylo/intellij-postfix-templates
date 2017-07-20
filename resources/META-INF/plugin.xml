@@ -1,0 +1,70 @@
+<idea-plugin>
+	<id>de.endrullis.idea.postfixtemplates</id>
+	<name>Postfix Templates</name>
+	<version>1.0</version>
+	<vendor email="stefan@endrullis.de" url="http://stefan.endrullis.de">Stefan Endrullis</vendor>
+
+	<description><![CDATA[
+      Enter short description for your plugin here.<br>
+      <em>most HTML tags may be used</em>
+    ]]></description>
+
+	<change-notes><![CDATA[
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>
+    ]]>
+	</change-notes>
+
+	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+	<idea-version since-build="171.0"/>
+
+	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+			 on how to target different products -->
+	<!-- uncomment to enable plugin in all products
+	<depends>com.intellij.modules.lang</depends>
+	-->
+
+	<application-components>
+		<component>
+			<interface-class>de.endrullis.idea.postfixtemplates.ApplicationInterface</interface-class>
+			<implementation-class>de.endrullis.idea.postfixtemplates.ApplicationImpl</implementation-class>
+		</component>
+	</application-components>
+
+	<extensions defaultExtensionNs="com.intellij">
+		<!-- Add your extensions here -->
+		<codeInsight.template.postfixTemplateProvider language="JAVA"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateProvider"/>
+
+		<applicationConfigurable id="Settings.CustomPostfixTemplates"
+		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"
+		                         groupId="tools"
+		                         nonDefaultProject="true"
+		                         key="settings.plugin.name"
+		                         instance="de.endrullis.idea.postfixtemplates.settings.PluginConfigurable"/>
+		<applicationService serviceImplementation="de.endrullis.idea.postfixtemplates.settings.PluginApplicationSettings"/>
+
+		<!-- Postfix templates file type and language -->
+		<fileTypeFactory implementation="de.endrullis.idea.postfixtemplates.language.CptFileTypeFactory"/>
+		<lang.parserDefinition language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptParserDefinition"/>
+		<lang.syntaxHighlighterFactory key="CPT"
+		                               language="CPT"
+		                               implementationClass="de.endrullis.idea.postfixtemplates.language.CptSyntaxHighlighterFactory"/>
+		<colorSettingsPage implementation="de.endrullis.idea.postfixtemplates.language.CptColorSettingsPage"/>
+		<annotator language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptAnnotator"/>
+		<completion.contributor language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptCompletionContributor" order="first" id="compositieAttributeValues"/>
+		<psi.referenceContributor implementation="de.endrullis.idea.postfixtemplates.language.CptReferenceContributor"/>
+		<gotoSymbolContributor implementation="de.endrullis.idea.postfixtemplates.language.CptChooseByNameContributor"/>
+		<lang.psiStructureViewFactory language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptStructureViewFactory"/>
+		<lang.formatter language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptFormattingModelBuilder"/>
+		<codeStyleSettingsProvider implementation="de.endrullis.idea.postfixtemplates.language.CptCodeStyleSettingsProvider"/>
+		<langCodeStyleSettingsProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLanguageCodeStyleSettingsProvider"/>
+		<lang.commenter language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptCommenter"/>
+		<todoIndexer filetype="CPT file" implementationClass="de.endrullis.idea.postfixtemplates.language.CptTodoIndexer"/>
+	</extensions>
+
+	<actions>
+		<!-- Add your actions here -->
+	</actions>
+
+</idea-plugin>

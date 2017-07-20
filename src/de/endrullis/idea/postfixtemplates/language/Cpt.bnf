@@ -1,0 +1,40 @@
+{
+  parserClass="de.endrullis.idea.postfixtemplates.language.parser.CptParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Cpt"
+  psiImplClassSuffix="Impl"
+  psiPackage="de.endrullis.idea.postfixtemplates.language.psi"
+  psiImplPackage="de.endrullis.idea.postfixtemplates.language.psi.impl"
+
+  elementTypeHolderClass="de.endrullis.idea.postfixtemplates.language.psi.CptTypes"
+  elementTypeClass="de.endrullis.idea.postfixtemplates.language.psi.CptElementType"
+  tokenTypeClass="de.endrullis.idea.postfixtemplates.language.psi.CptTokenType"
+
+  psiImplUtilClass="de.endrullis.idea.postfixtemplates.language.psi.impl.CptPsiImplUtil"
+}
+
+CptFile ::= (template|COMMENT)*
+
+template ::= (TEMPLATE_NAME SEPARATOR TEMPLATE_DESCRIPTION) mappings {
+    //pin=3
+    recoverWhile="recover_parser"
+    mixin="de.endrullis.idea.postfixtemplates.language.psi.impl.CptNamedElementImpl"
+    implements="de.endrullis.idea.postfixtemplates.language.psi.CptNamedElement"
+    methods=[getTemplateName getTemplateDescription getName setName getNameIdentifier getPresentation]
+}
+
+mappings ::= mapping+
+
+mapping ::= (CLASS_NAME MAP replacement) {
+    //pin=3
+    recoverWhile="recover_parser"
+    mixin="de.endrullis.idea.postfixtemplates.language.psi.impl.CptNamedElementImpl"
+    implements="de.endrullis.idea.postfixtemplates.language.psi.CptNamedElement"
+    methods=[getClassName getReplacementString getName setName getNameIdentifier getPresentation]
+}
+
+replacement ::= (TEMPLATE_CODE|TEMPLATE_VARIABLE)+
+
+private recover_parser ::= !(TEMPLATE_NAME|CLASS_NAME|COMMENT)
