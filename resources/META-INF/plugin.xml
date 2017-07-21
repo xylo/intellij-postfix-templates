@@ -41,8 +41,8 @@
 		                         groupId="tools"
 		                         nonDefaultProject="true"
 		                         key="settings.plugin.name"
-		                         instance="de.endrullis.idea.postfixtemplates.settings.PluginConfigurable"/>
-		<applicationService serviceImplementation="de.endrullis.idea.postfixtemplates.settings.PluginApplicationSettings"/>
+		                         instance="de.endrullis.idea.postfixtemplates.settings.CptPluginConfigurable"/>
+		<applicationService serviceImplementation="de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings"/>
 
 		<!-- Postfix templates file type and language -->
 		<fileTypeFactory implementation="de.endrullis.idea.postfixtemplates.language.CptFileTypeFactory"/>

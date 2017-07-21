@@ -25,13 +25,4 @@ public class CptCompletionContributor extends CompletionContributor {
 			}
 		);
 	}
-
-	/*
-	@Override
-	public void fillCompletionVariants(@NotNull CompletionParameters parameters, @NotNull CompletionResultSet resultSet) {
-		//super.fillCompletionVariants(parameters, resultSet);
-
-		DataBindingCompletionUtil.addCompletions(parameters, resultSet);
-	}
-	*/
 }

@@ -1,10 +1,11 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
 import com.intellij.util.xmlb.annotations.Attribute;
+import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import org.jetbrains.annotations.NotNull;
 
-public final class PluginSettings {
-  public static final PluginSettings DEFAULT = new PluginSettings();
+public final class CptPluginSettings {
+  public static final CptPluginSettings DEFAULT = new CptPluginSettings();
 
   @Attribute("PluginEnabled")
   private boolean pluginEnabled;
@@ -12,11 +13,11 @@ public final class PluginSettings {
   @NotNull
   private String templatesText;
 
-  private PluginSettings() {
-    this(true, "");
+  private CptPluginSettings() {
+    this(true, CptUtil.getDefaultJavaTemplates());
   }
 
-	public PluginSettings(boolean pluginEnabled, @NotNull String templatesText) {
+	public CptPluginSettings(boolean pluginEnabled, @NotNull String templatesText) {
 		this.pluginEnabled = pluginEnabled;
 		this.templatesText = templatesText;
 	}
@@ -35,7 +36,7 @@ public final class PluginSettings {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		PluginSettings that = (PluginSettings) o;
+		CptPluginSettings that = (CptPluginSettings) o;
 
 		if (pluginEnabled != that.pluginEnabled) return false;
 		return templatesText.equals(that.templatesText);
@@ -49,9 +50,9 @@ public final class PluginSettings {
 	}
 
 	public interface Holder {
-    void setPluginSettings(@NotNull PluginSettings settings);
+    void setPluginSettings(@NotNull CptPluginSettings settings);
 
     @NotNull
-    PluginSettings getPluginSettings();
+    CptPluginSettings getPluginSettings();
   }
 }

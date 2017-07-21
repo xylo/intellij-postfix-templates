@@ -2,8 +2,11 @@ package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
-import com.intellij.openapi.options.colors.*;
-import org.jetbrains.annotations.*;
+import com.intellij.openapi.options.colors.AttributesDescriptor;
+import com.intellij.openapi.options.colors.ColorDescriptor;
+import com.intellij.openapi.options.colors.ColorSettingsPage;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.util.Map;
@@ -32,10 +35,7 @@ public class CptColorSettingsPage implements ColorSettingsPage {
   @NotNull
   @Override
   public String getDemoText() {
-    return "# You are reading the \".properties\" entry.\n" +
-	    ".test : My description\n" +
-	    "  java.lang.Integer   -> test\n" +
-	    "  yxcvyxc.yxc         -> aa$END$";
+	  return CptUtil.getDefaultJavaTemplates();
   }
 
   @Nullable

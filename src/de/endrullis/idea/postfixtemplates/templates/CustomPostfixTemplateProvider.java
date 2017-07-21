@@ -14,7 +14,7 @@ import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.containers.OrderedSet;
 import com.intellij.util.messages.MessageBusConnection;
-import de.endrullis.idea.postfixtemplates.settings.PluginApplicationSettings;
+import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
@@ -27,18 +27,18 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
-public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, PluginApplicationSettings.SettingsChangedListener {
+public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, CptApplicationSettings.SettingsChangedListener {
 	private Set<PostfixTemplate> templates;
 
 	public CustomPostfixTemplateProvider() {
 		MessageBusConnection settingsConnection = ApplicationManager.getApplication().getMessageBus().connect();
-		settingsConnection.subscribe(PluginApplicationSettings.SettingsChangedListener.TOPIC, this);
+		settingsConnection.subscribe(CptApplicationSettings.SettingsChangedListener.TOPIC, this);
 
 		reloadTemplates();
 	}
 
 	private void reloadTemplates() {
-		String templatesText = PluginApplicationSettings.getInstance().getPluginSettings().getTemplatesText();
+		String templatesText = CptApplicationSettings.getInstance().getPluginSettings().getTemplatesText();
 		templates = loadTemplatesFrom(templatesText);
 	}
 
@@ -131,7 +131,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, P
 	}
 
 	@Override
-	public void onSettingsChange(@NotNull PluginApplicationSettings settings) {
+	public void onSettingsChange(@NotNull CptApplicationSettings settings) {
 		reloadTemplates();
 	}
 }

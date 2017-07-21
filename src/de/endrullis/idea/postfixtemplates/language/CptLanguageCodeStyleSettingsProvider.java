@@ -1,7 +1,8 @@
 package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.lang.Language;
-import com.intellij.psi.codeStyle.*;
+import com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable;
+import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider;
 import org.jetbrains.annotations.NotNull;
 
 public class CptLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSettingsProvider {
@@ -23,20 +24,6 @@ public class CptLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSetti
 
   @Override
   public String getCodeSample(@NotNull SettingsType settingsType) {
-    return "# You are reading the \".properties\" entry.\n" +
-           "! The exclamation mark can also mark text as comments.\n" +
-           "website = http://en.wikipedia.org/\n" +
-           "\n" +
-           "\n" +
-           "\n" +
-           "language = English\n" +
-           "# The backslash below tells the application to continue reading\n" +
-           "# the value onto the next line.\n" +
-           "message = Welcome to \\\n" +
-           "          Wikipedia!\n" +
-           "# Add spaces to the key\n" +
-           "key\\ with\\ spaces = This is the value that could be looked up with the key \"key with spaces\".\n" +
-           "# Unicode\n" +
-           "tab : \\u0009";
+  	return CptUtil.getDefaultJavaTemplates();
   }
 }

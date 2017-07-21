@@ -55,7 +55,7 @@ public class CptStructureViewElement implements StructureViewTreeElement, Sortab
   public TreeElement[] getChildren() {
     if (element instanceof CptFile) {
 	    CptTemplate[] templates = PsiTreeUtil.getChildrenOfType(element, CptTemplate.class);
-      List<TreeElement> treeElements = new ArrayList<TreeElement>(templates.length);
+      List<TreeElement> treeElements = new ArrayList<>(templates.length);
       for (CptTemplate template : templates) {
         treeElements.add(new CptStructureViewElement(template));
       }

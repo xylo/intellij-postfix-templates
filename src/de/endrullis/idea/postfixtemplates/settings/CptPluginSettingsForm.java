@@ -1,21 +1,15 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
-import com.intellij.ide.highlighter.HighlighterFactory;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ReadAction;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
-import com.intellij.openapi.editor.EditorSettings;
-import com.intellij.openapi.editor.colors.EditorColorsManager;
 import com.intellij.openapi.editor.ex.EditorEx;
-import com.intellij.openapi.editor.highlighter.EditorHighlighter;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.FileTypeManager;
-import com.intellij.openapi.fileTypes.UnknownFileType;
 import com.intellij.ui.ColorUtil;
 import com.intellij.ui.components.JBCheckBox;
+import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +17,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class PluginSettingsForm implements PluginSettings.Holder, Disposable {
+public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposable {
 	private JPanel mainPanel;
 	private JBCheckBox pluginEnabledField;
 	private JPanel templatesEditorPanel;
@@ -36,7 +30,7 @@ public class PluginSettingsForm implements PluginSettings.Holder, Disposable {
 	private final ActionListener actionListener;
 
 
-	public PluginSettingsForm() {
+	public CptPluginSettingsForm() {
 		actionListener = e -> {
 			templatesEditorPanel.setEnabled(pluginEnabledField.isSelected());
 			if (templatesEditor != null && !templatesEditor.isDisposed()) {
@@ -72,35 +66,11 @@ public class PluginSettingsForm implements PluginSettings.Holder, Disposable {
 	private static Editor createEditor() {
 		EditorFactory editorFactory = EditorFactory.getInstance();
 		Document editorDocument = editorFactory.createDocument("");
-		EditorEx editor = (EditorEx) editorFactory.createEditor(editorDocument);
-		fillEditorSettings(editor.getSettings());
-		setHighlighting(editor);
-		return editor;
-	}
-
-	private static void setHighlighting(EditorEx editor) {
-		final FileType txtFileType = FileTypeManager.getInstance().getFileTypeByExtension("txt");
-		if (txtFileType == UnknownFileType.INSTANCE) {
-			return;
-		}
-		final EditorHighlighter editorHighlighter =
-			HighlighterFactory.createHighlighter(txtFileType, EditorColorsManager.getInstance().getGlobalScheme(), null);
-		editor.setHighlighter(editorHighlighter);
-	}
-
-	private static void fillEditorSettings(final EditorSettings editorSettings) {
-		editorSettings.setWhitespacesShown(false);
-		editorSettings.setLineMarkerAreaShown(false);
-		editorSettings.setIndentGuidesShown(false);
-		editorSettings.setLineNumbersShown(true);
-		editorSettings.setFoldingOutlineShown(false);
-		editorSettings.setAdditionalColumnsCount(1);
-		editorSettings.setAdditionalLinesCount(1);
-		editorSettings.setUseSoftWraps(false);
+		return editorFactory.createEditor(editorDocument, null, CptFileType.INSTANCE, false);
 	}
 
 	@Override
-	public void setPluginSettings(@NotNull PluginSettings settings) {
+	public void setPluginSettings(@NotNull CptPluginSettings settings) {
 		pluginEnabledField.setSelected(settings.isPluginEnabled());
 		templatesText = settings.getTemplatesText();
 		if (templatesEditor != null && !templatesEditor.isDisposed()) {
@@ -113,11 +83,11 @@ public class PluginSettingsForm implements PluginSettings.Holder, Disposable {
 
 	@NotNull
 	@Override
-	public PluginSettings getPluginSettings() {
+	public CptPluginSettings getPluginSettings() {
 		if (templatesEditor != null && !templatesEditor.isDisposed()) {
 			templatesText = ReadAction.compute(() -> templatesEditor.getDocument().getText());
 		}
-		return new PluginSettings(pluginEnabledField.isSelected(), templatesText);
+		return new CptPluginSettings(pluginEnabledField.isSelected(), templatesText);
 	}
 
 	@Override

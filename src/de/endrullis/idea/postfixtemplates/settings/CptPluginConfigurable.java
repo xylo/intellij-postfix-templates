@@ -10,13 +10,13 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class PluginConfigurable implements SearchableConfigurable {
+public class CptPluginConfigurable implements SearchableConfigurable {
   @Nullable
-  private PluginSettingsForm form = null;
+  private CptPluginSettingsForm form = null;
   @NotNull
-  private PluginApplicationSettings pluginApplicationSettings;
+  private CptApplicationSettings pluginApplicationSettings;
 
-  public PluginConfigurable(@NotNull PluginApplicationSettings pluginApplicationSettings) {
+  public CptPluginConfigurable(@NotNull CptApplicationSettings pluginApplicationSettings) {
     this.pluginApplicationSettings = pluginApplicationSettings;
   }
 
@@ -39,9 +39,9 @@ public class PluginConfigurable implements SearchableConfigurable {
   }
 
   @NotNull
-  public PluginSettingsForm getForm() {
+  public CptPluginSettingsForm getForm() {
     if (form == null) {
-      form = new PluginSettingsForm();
+      form = new CptPluginSettingsForm();
     }
     return form;
   }

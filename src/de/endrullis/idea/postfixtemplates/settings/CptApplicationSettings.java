@@ -15,16 +15,16 @@ import org.jetbrains.annotations.Nullable;
   name = "CustomPostfixTemplatesApplicationSettings",
   storages = @Storage("customPostfixTemplates.xml")
 )
-public class PluginApplicationSettings implements PersistentStateComponent<PluginApplicationSettings.State>, PluginSettings.Holder {
+public class CptApplicationSettings implements PersistentStateComponent<CptApplicationSettings.State>, CptPluginSettings.Holder {
 
   private State state = new State();
 
-  public PluginApplicationSettings() {
+  public CptApplicationSettings() {
   }
 
   @NotNull
-  public static PluginApplicationSettings getInstance() {
-    return ServiceManager.getService(PluginApplicationSettings.class);
+  public static CptApplicationSettings getInstance() {
+    return ServiceManager.getService(CptApplicationSettings.class);
   }
 
   @Nullable
@@ -39,7 +39,7 @@ public class PluginApplicationSettings implements PersistentStateComponent<Plugi
   }
 
   @Override
-  public void setPluginSettings(@NotNull PluginSettings settings) {
+  public void setPluginSettings(@NotNull CptPluginSettings settings) {
     state.pluginSettings = settings;
 
     ApplicationManager.getApplication().getMessageBus().syncPublisher(SettingsChangedListener.TOPIC).onSettingsChange(this);
@@ -47,7 +47,7 @@ public class PluginApplicationSettings implements PersistentStateComponent<Plugi
 
   @NotNull
   @Override
-  public PluginSettings getPluginSettings() {
+  public CptPluginSettings getPluginSettings() {
     return state.pluginSettings;
   }
 
@@ -56,12 +56,12 @@ public class PluginApplicationSettings implements PersistentStateComponent<Plugi
   public static class State {
     @Property(surroundWithTag = false)
     @NotNull
-    private PluginSettings pluginSettings = PluginSettings.DEFAULT;
+    private CptPluginSettings pluginSettings = CptPluginSettings.DEFAULT;
   }
 
   public interface SettingsChangedListener {
     Topic<SettingsChangedListener> TOPIC = Topic.create("CustomPostfixTemplatesApplicationSettingsChanged", SettingsChangedListener.class);
 
-    void onSettingsChange(@NotNull PluginApplicationSettings settings);
+    void onSettingsChange(@NotNull CptApplicationSettings settings);
   }
 }

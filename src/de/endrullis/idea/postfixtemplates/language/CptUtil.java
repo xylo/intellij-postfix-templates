@@ -51,4 +51,9 @@ public class CptUtil {
     }
     return result;
   }
+
+  public static String getDefaultJavaTemplates() {
+	  return new Scanner(CptUtil.class.getResourceAsStream("defaultJavaTemplates.postfixTemplates"), "UTF-8")
+		  .useDelimiter("\\A").next();
+  }
 }
