@@ -8,13 +8,13 @@ You can download the plugin **Custom Postfix Templates** via *Settings → Plugi
 
 ## Usage
 
-The plugin comes with a predefined set of templates (details below) which you can immediatly try out in a Java file.
+The plugin comes with a predefined set of templates (details below) which you can immediatly apply in a Java files.
 For instance, type 
 
     "1".to
     
-in a new line of a Java file and press tab.
-A popup should appear showing you different conversion options (`toInt`, `toDouble`, ...).
+in a new line of a Java file and press *Ctrl+SPACE*.
+A completion popup should appear showing you different postfix templates (`toInt`, `toDouble`, ...) to convert the string `"1"` into a number.
 
 ## Preconfigured Java templates for Scala users and those who want to simplify their life
 
