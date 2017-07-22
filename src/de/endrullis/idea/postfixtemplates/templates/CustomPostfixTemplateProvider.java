@@ -111,11 +111,16 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		return combineTemplatesWithSameName(templates);
 	}
 
-	public Set<PostfixTemplate> loadTemplatesFrom(File file) {
-		return loadTemplatesFrom(LocalFileSystem.getInstance().findFileByIoFile(file));
+	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull File file) {
+		VirtualFile vFile = LocalFileSystem.getInstance().findFileByIoFile(file);
+		if (vFile != null) {
+			return loadTemplatesFrom(vFile);
+		} else {
+			return new OrderedSet<>();
+		}
 	}
 
-	public Set<PostfixTemplate> loadTemplatesFrom(VirtualFile vFile) {
+	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull VirtualFile vFile) {
 		Set<PostfixTemplate> templates = new OrderedSet<>();
 
 		Project project = ProjectManager.getInstance().getOpenProjects()[0];
