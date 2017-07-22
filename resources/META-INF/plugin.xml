@@ -1,8 +1,8 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>0.6</version>
-	<vendor email="stefan@endrullis.de" url="http://stefan.endrullis.de">Stefan Endrullis</vendor>
+	<version>0.8</version>
+	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>editor</category>
 
 	<description><![CDATA[
@@ -24,8 +24,8 @@
     ]]></description>
 
 	<change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
+			<h4>Version 0.8</h4>
+			First alpha release.
     ]]>
 	</change-notes>
 
