@@ -6,6 +6,8 @@ import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
@@ -23,6 +25,18 @@ public class CptUtil {
 	public static final String PLUGIN_ID = "de.endrullis.idea.postfixtemplates";
 	public static final Set<String> SUPPORTED_LANGUAGES = new HashSet<>(Arrays.asList("java"));
 
+	public static Project findProject(PsiElement element) {
+		PsiFile containingFile = element.getContainingFile();
+		if (containingFile == null) {
+			if (!element.isValid()) {
+				return null;
+			}
+		} else if (!containingFile.isValid()) {
+			return null;
+		}
+
+		return (containingFile == null ? element : containingFile).getProject();
+	}
 
 	public static List<CptMapping> findMappings(Project project, String key) {
 		List<CptMapping> result = null;

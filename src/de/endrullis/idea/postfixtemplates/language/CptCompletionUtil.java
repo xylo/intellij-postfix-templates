@@ -3,11 +3,8 @@ package de.endrullis.idea.postfixtemplates.language;
 import com.intellij.codeInsight.completion.*;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
-import com.intellij.psi.search.GlobalSearchScope;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -21,17 +18,20 @@ public class CptCompletionUtil {
 		if (originalParent == null) {
 			return;
 		}
+		final Project project = CptUtil.findProject(originalParent);
+		/*
 		final Module module = ModuleUtilCore.findModuleForPsiElement(originalParent);
 		if (module == null) {
 			return;
 		}
+		*/
 		final PsiFile containingFile = originalParent.getContainingFile();
 		if (containingFile == null) {
 			return;
 		}
 		final String packagePrefix = getPackagePrefix(originalParent, params.getOffset());
 		//fillAliases(resultSet, packagePrefix, originalPosition, module, originalParent);
-		fillClassNames(resultSet, packagePrefix, module);
+		fillClassNames(resultSet, packagePrefix, project);
 		/*
 		JavaClassNameCompletionContributor.addAllClasses(params, true, resultSet.getPrefixMatcher(), element -> {
 			System.out.println(packagePrefix + "." + element.getLookupString());
@@ -41,25 +41,11 @@ public class CptCompletionUtil {
 		resultSet.stopHere();
 	}
 
-	private static void fillClassNames(@NotNull CompletionResultSet resultSet, @NotNull String packagePrefix, @NotNull Module module) {
-		final Project project = module.getProject();
+	private static void fillClassNames(@NotNull CompletionResultSet resultSet, @NotNull String packagePrefix, @NotNull Project project) {
 		JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);
 		PsiPackage basePackage = javaPsiFacade.findPackage(packagePrefix);
-		//System.out.println("basePackage = " + basePackage);
-		if (basePackage == null) {
-			System.out.println("basePackage = " + basePackage);
-			PsiClass aClass = javaPsiFacade.findClass(packagePrefix, module.getModuleWithDependenciesAndLibrariesScope(false));
-			if (aClass != null) {
-				PsiClass[] innerClasses = aClass.getInnerClasses();
-				for (PsiClass innerClass : innerClasses) {
-					resultSet.addElement(new JavaPsiClassReferenceElement(innerClass));
-				}
-			}
-			// TODO: add completions for java.lang classes
-		} else {
-			GlobalSearchScope scope = module.getModuleWithDependenciesAndLibrariesScope(false);
-			PsiPackage[] subPackages = basePackage.getSubPackages(scope);
-			//System.out.println("subPackages = " + Arrays.toString(subPackages));
+		if (basePackage != null) {
+			PsiPackage[] subPackages = basePackage.getSubPackages();
 			for (PsiPackage pkg : subPackages) {
 				// For some reason, we see some invalid packages here - eg. META-INF. Filter them out.
 				String name = pkg.getName();
@@ -75,27 +61,27 @@ public class CptCompletionUtil {
 					continue;  // skip adding this package.
 				}
 				LookupElementBuilder element = LookupElementBuilder.create(pkg.getQualifiedName()).withIcon(pkg.getIcon(0));
-					/*
-					LookupElement element = new TailTypeDecorator<LookupElement>(LookupElementBuilder.createWithIcon(pkg)) {
-						@Nullable
-						@Override
-						protected TailType computeTailType(InsertionContext context) {
-							return TailType.DOT;
-						}
+				/*
+				LookupElement element = new TailTypeDecorator<LookupElement>(LookupElementBuilder.createWithIcon(pkg)) {
+					@Nullable
+					@Override
+					protected TailType computeTailType(InsertionContext context) {
+						return TailType.DOT;
+					}
 
-						@Override
-						public void handleInsert(InsertionContext context) {
-							super.handleInsert(context);
-							System.out.println("DataBindingCompletionUtil.handleInsert");
-							AutoPopupController.getInstance(project).scheduleAutoPopup(context.getEditor());
-						}
-					};
-					//System.out.println("element = " + element);
-					*/
+					@Override
+					public void handleInsert(InsertionContext context) {
+						super.handleInsert(context);
+						System.out.println("DataBindingCompletionUtil.handleInsert");
+						AutoPopupController.getInstance(project).scheduleAutoPopup(context.getEditor());
+					}
+				};
+				//System.out.println("element = " + element);
+				*/
 				resultSet.addElement(element);
 			}
 
-			for (PsiClass psiClass : basePackage.getClasses(scope)) {
+			for (PsiClass psiClass : basePackage.getClasses()) {
 				LookupElementBuilder element = LookupElementBuilder.create(psiClass.getQualifiedName()).withIcon(psiClass.getIcon(0));
 				resultSet.addElement(element);
 			}
