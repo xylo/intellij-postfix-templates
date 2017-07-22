@@ -1,13 +1,12 @@
 # Custom Postfix Templates for Intellij IDEA
 
-The idea of this project is to collect and share custom postfix templates for Intellij IDEA.
+''Custom Postfix Templates'' is an Intellij IDEA plugin that allows the user to define custom [postfix templates](https://blog.jetbrains.com/idea/2014/03/postfix-completion/) for Java (and in future also for other languages).
+
+TODO: update this README
 
 At the moment IDEA does not support custom postfix templates.
 But there is a [popular feature request](https://youtrack.jetbrains.com/issue/IDEA-122443) and
 a ([pull request](https://github.com/JetBrains/intellij-community/pull/505) implementing the feature.
-
-If you do not want to wait until the feature gets integrated in the official IDEA Community Edition
-you can build IDEA from my [custom-postfix-templates branch](https://github.com/xylo/intellij-community/tree/custom-postfix-templates).
 
 ## Usage
 
