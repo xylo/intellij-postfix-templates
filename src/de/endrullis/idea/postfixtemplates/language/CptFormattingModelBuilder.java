@@ -15,7 +15,7 @@ public class CptFormattingModelBuilder implements FormattingModelBuilder {
 		return FormattingModelProvider.createFormattingModelForPsiFile(element.getContainingFile(),
 			new CptBlock(element.getNode(),
 				Wrap.createWrap(WrapType.NONE, false),
-				Indent.getNoneIndent(), 
+				Indent.getNoneIndent(),
 				Alignment.createAlignment(),
 				createSpaceBuilder(settings)),
 			settings);

@@ -22,13 +22,13 @@ import org.jetbrains.annotations.PropertyKey;
 import java.util.ResourceBundle;
 
 public class PostfixTemplatesBundle {
-  @NotNull
-  private static final String BUNDLE_NAME = "de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle";
-  @NotNull
-  private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+	@NotNull
+	private static final String BUNDLE_NAME = "de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle";
+	@NotNull
+	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
-  @NotNull
-  public static String message(@NotNull @PropertyKey(resourceBundle = BUNDLE_NAME) String key, Object... params) {
-    return CommonBundle.message(BUNDLE, key, params);
-  }
+	@NotNull
+	public static String message(@NotNull @PropertyKey(resourceBundle = BUNDLE_NAME) String key, Object... params) {
+		return CommonBundle.message(BUNDLE, key, params);
+	}
 }

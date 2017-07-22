@@ -10,52 +10,52 @@ import de.endrullis.idea.postfixtemplates.language.psi.*;
 import org.jetbrains.annotations.NotNull;
 
 public class CptParserDefinition implements ParserDefinition {
-  public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
-  public static final TokenSet COMMENTS = TokenSet.create(CptTypes.COMMENT);
+	public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
+	public static final TokenSet COMMENTS = TokenSet.create(CptTypes.COMMENT);
 
-  public static final IFileElementType FILE = new IFileElementType(CptLanguage.INSTANCE);
+	public static final IFileElementType FILE = new IFileElementType(CptLanguage.INSTANCE);
 
-  @NotNull
-  @Override
-  public Lexer createLexer(Project project) {
-    return new CptLexerAdapter();
-  }
+	@NotNull
+	@Override
+	public Lexer createLexer(Project project) {
+		return new CptLexerAdapter();
+	}
 
-  @NotNull
-  public TokenSet getWhitespaceTokens() {
-    return WHITE_SPACES;
-  }
+	@NotNull
+	public TokenSet getWhitespaceTokens() {
+		return WHITE_SPACES;
+	}
 
-  @NotNull
-  public TokenSet getCommentTokens() {
-    return COMMENTS;
-  }
+	@NotNull
+	public TokenSet getCommentTokens() {
+		return COMMENTS;
+	}
 
-  @NotNull
-  public TokenSet getStringLiteralElements() {
-    return TokenSet.EMPTY;
-  }
+	@NotNull
+	public TokenSet getStringLiteralElements() {
+		return TokenSet.EMPTY;
+	}
 
-  @NotNull
-  public PsiParser createParser(final Project project) {
-    return new CptParser();
-  }
+	@NotNull
+	public PsiParser createParser(final Project project) {
+		return new CptParser();
+	}
 
-  @Override
-  public IFileElementType getFileNodeType() {
-    return FILE;
-  }
+	@Override
+	public IFileElementType getFileNodeType() {
+		return FILE;
+	}
 
-  public PsiFile createFile(FileViewProvider viewProvider) {
-    return new CptFile(viewProvider);
-  }
+	public PsiFile createFile(FileViewProvider viewProvider) {
+		return new CptFile(viewProvider);
+	}
 
-  public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
-    return SpaceRequirements.MAY;
-  }
+	public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
+		return SpaceRequirements.MAY;
+	}
 
-  @NotNull
-  public PsiElement createElement(ASTNode node) {
-    return CptTypes.Factory.createElement(node);
-  }
+	@NotNull
+	public PsiElement createElement(ASTNode node) {
+		return CptTypes.Factory.createElement(node);
+	}
 }

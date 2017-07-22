@@ -6,7 +6,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptNamedElement;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class CptNamedElementImpl extends ASTWrapperPsiElement implements CptNamedElement {
-  public CptNamedElementImpl(@NotNull ASTNode node) {
-    super(node);
-  }
+	public CptNamedElementImpl(@NotNull ASTNode node) {
+		super(node);
+	}
 }

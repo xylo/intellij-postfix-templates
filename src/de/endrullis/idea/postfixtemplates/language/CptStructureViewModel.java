@@ -7,24 +7,24 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import org.jetbrains.annotations.NotNull;
 
 public class CptStructureViewModel extends StructureViewModelBase implements
-    StructureViewModel.ElementInfoProvider {
-  public CptStructureViewModel(PsiFile psiFile) {
-    super(psiFile, new CptStructureViewElement(psiFile));
-  }
+	StructureViewModel.ElementInfoProvider {
+	public CptStructureViewModel(PsiFile psiFile) {
+		super(psiFile, new CptStructureViewElement(psiFile));
+	}
 
-  @NotNull
-  public Sorter[] getSorters() {
-    return new Sorter[]{Sorter.ALPHA_SORTER};
-  }
+	@NotNull
+	public Sorter[] getSorters() {
+		return new Sorter[]{Sorter.ALPHA_SORTER};
+	}
 
 
-  @Override
-  public boolean isAlwaysShowsPlus(StructureViewTreeElement element) {
-    return false;
-  }
+	@Override
+	public boolean isAlwaysShowsPlus(StructureViewTreeElement element) {
+		return false;
+	}
 
-  @Override
-  public boolean isAlwaysLeaf(StructureViewTreeElement element) {
-    return element instanceof CptFile;
-  }
+	@Override
+	public boolean isAlwaysLeaf(StructureViewTreeElement element) {
+		return element instanceof CptFile;
+	}
 }

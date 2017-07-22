@@ -12,53 +12,53 @@ import javax.swing.*;
 import java.util.Map;
 
 public class CptColorSettingsPage implements ColorSettingsPage {
-  private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
-      new AttributesDescriptor("Template name", CptSyntaxHighlighter.TEMPLATE_NAME),
-      new AttributesDescriptor("Class name", CptSyntaxHighlighter.CLASS_NAME),
-      new AttributesDescriptor("Separator", CptSyntaxHighlighter.SEPARATOR),
-      new AttributesDescriptor("Description", CptSyntaxHighlighter.TEMPLATE_DESCRIPTION),
-      new AttributesDescriptor("Template code", CptSyntaxHighlighter.TEMPLATE_CODE),
-  };
+	private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
+		new AttributesDescriptor("Template name", CptSyntaxHighlighter.TEMPLATE_NAME),
+		new AttributesDescriptor("Class name", CptSyntaxHighlighter.CLASS_NAME),
+		new AttributesDescriptor("Separator", CptSyntaxHighlighter.SEPARATOR),
+		new AttributesDescriptor("Description", CptSyntaxHighlighter.TEMPLATE_DESCRIPTION),
+		new AttributesDescriptor("Template code", CptSyntaxHighlighter.TEMPLATE_CODE),
+	};
 
-  @Nullable
-  @Override
-  public Icon getIcon() {
-    return CptIcons.FILE;
-  }
+	@Nullable
+	@Override
+	public Icon getIcon() {
+		return CptIcons.FILE;
+	}
 
-  @NotNull
-  @Override
-  public SyntaxHighlighter getHighlighter() {
-    return new CptSyntaxHighlighter();
-  }
+	@NotNull
+	@Override
+	public SyntaxHighlighter getHighlighter() {
+		return new CptSyntaxHighlighter();
+	}
 
-  @NotNull
-  @Override
-  public String getDemoText() {
-	  return CptUtil.getDefaultJavaTemplates();
-  }
+	@NotNull
+	@Override
+	public String getDemoText() {
+		return CptUtil.getDefaultJavaTemplates();
+	}
 
-  @Nullable
-  @Override
-  public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap() {
-    return null;
-  }
+	@Nullable
+	@Override
+	public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap() {
+		return null;
+	}
 
-  @NotNull
-  @Override
-  public AttributesDescriptor[] getAttributeDescriptors() {
-    return DESCRIPTORS;
-  }
+	@NotNull
+	@Override
+	public AttributesDescriptor[] getAttributeDescriptors() {
+		return DESCRIPTORS;
+	}
 
-  @NotNull
-  @Override
-  public ColorDescriptor[] getColorDescriptors() {
-    return ColorDescriptor.EMPTY_ARRAY;
-  }
+	@NotNull
+	@Override
+	public ColorDescriptor[] getColorDescriptors() {
+		return ColorDescriptor.EMPTY_ARRAY;
+	}
 
-  @NotNull
-  @Override
-  public String getDisplayName() {
-    return "Custom Postfix Templates";
-  }
+	@NotNull
+	@Override
+	public String getDisplayName() {
+		return "Custom Postfix Templates";
+	}
 }

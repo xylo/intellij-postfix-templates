@@ -25,35 +25,40 @@ import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplate
 
 public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 
-  private final String template;
+	private final String template;
 
-  public CustomStringPostfixTemplate(String clazz, String name, String example, String template) {
-    super(name, example, selectorTopmost(getCondition(clazz)));
-    this.template = template;
-  }
+	public CustomStringPostfixTemplate(String clazz, String name, String example, String template) {
+		super(name, example, selectorTopmost(getCondition(clazz)));
+		this.template = template;
+	}
 
-  @NotNull
-  private static Condition<PsiElement> getCondition(String clazz) {
-    if (clazz.equals(SpecialType.ARRAY.name())) {
-      return IS_ARRAY;
-    } if (clazz.equals(SpecialType.BOOLEAN.name())) {
-      return IS_BOOLEAN;
-    } if (clazz.equals(SpecialType.ITERABLE_OR_ARRAY.name())) {
-      return IS_ITERABLE_OR_ARRAY;
-    } if (clazz.equals(SpecialType.NON_VOID.name())) {
-      return IS_NON_VOID;
-    } if (clazz.equals(SpecialType.NOT_PRIMITIVE.name())) {
-      return IS_NOT_PRIMITIVE;
-    } if (clazz.equals(SpecialType.NUMBER.name())) {
-      return MyJavaPostfixTemplatesUtils.IS_DECIMAL_NUMBER;
-    } else {
-      return MyJavaPostfixTemplatesUtils.isCustomClass(clazz);
-    }
-  }
+	@NotNull
+	private static Condition<PsiElement> getCondition(String clazz) {
+		if (clazz.equals(SpecialType.ARRAY.name())) {
+			return IS_ARRAY;
+		}
+		if (clazz.equals(SpecialType.BOOLEAN.name())) {
+			return IS_BOOLEAN;
+		}
+		if (clazz.equals(SpecialType.ITERABLE_OR_ARRAY.name())) {
+			return IS_ITERABLE_OR_ARRAY;
+		}
+		if (clazz.equals(SpecialType.NON_VOID.name())) {
+			return IS_NON_VOID;
+		}
+		if (clazz.equals(SpecialType.NOT_PRIMITIVE.name())) {
+			return IS_NOT_PRIMITIVE;
+		}
+		if (clazz.equals(SpecialType.NUMBER.name())) {
+			return MyJavaPostfixTemplatesUtils.IS_DECIMAL_NUMBER;
+		} else {
+			return MyJavaPostfixTemplatesUtils.isCustomClass(clazz);
+		}
+	}
 
-  @Nullable
-  @Override
-  public String getTemplateString(@NotNull PsiElement element) {
-    return template;
-  }
+	@Nullable
+	@Override
+	public String getTemplateString(@NotNull PsiElement element) {
+		return template;
+	}
 }

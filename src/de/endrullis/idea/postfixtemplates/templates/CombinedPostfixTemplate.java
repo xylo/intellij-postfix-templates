@@ -26,26 +26,26 @@ import java.util.Optional;
 
 public class CombinedPostfixTemplate extends PostfixTemplate {
 
-  private List<PostfixTemplate> myTemplates;
-  @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-  private Optional<PostfixTemplate> myApplicableTemplate;
+	private List<PostfixTemplate> myTemplates;
+	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+	private Optional<PostfixTemplate> myApplicableTemplate;
 
-  public CombinedPostfixTemplate(@NotNull String name,
-                                 @NotNull String example,
-                                 List<PostfixTemplate> templates) {
-    super(name, name, example);
-    this.myTemplates = templates;
-  }
+	public CombinedPostfixTemplate(@NotNull String name,
+	                               @NotNull String example,
+	                               List<PostfixTemplate> templates) {
+		super(name, name, example);
+		this.myTemplates = templates;
+	}
 
-  @Override
-  public boolean isApplicable(@NotNull PsiElement context, @NotNull Document copyDocument, int newOffset) {
-    myApplicableTemplate = myTemplates.stream().filter(t -> t.isApplicable(context, copyDocument, newOffset)).findFirst();
+	@Override
+	public boolean isApplicable(@NotNull PsiElement context, @NotNull Document copyDocument, int newOffset) {
+		myApplicableTemplate = myTemplates.stream().filter(t -> t.isApplicable(context, copyDocument, newOffset)).findFirst();
 
-    return myApplicableTemplate.isPresent();
-  }
+		return myApplicableTemplate.isPresent();
+	}
 
-  @Override
-  public void expand(@NotNull PsiElement context, @NotNull Editor editor) {
-    myApplicableTemplate.ifPresent(t -> t.expand(context, editor));
-  }
+	@Override
+	public void expand(@NotNull PsiElement context, @NotNull Editor editor) {
+		myApplicableTemplate.ifPresent(t -> t.expand(context, editor));
+	}
 }

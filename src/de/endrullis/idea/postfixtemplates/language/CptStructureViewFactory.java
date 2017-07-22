@@ -7,15 +7,15 @@ import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.*;
 
 public class CptStructureViewFactory implements PsiStructureViewFactory {
-  @Nullable
-  @Override
-  public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile) {
-    return new TreeBasedStructureViewBuilder() {
-      @NotNull
-      @Override
-      public StructureViewModel createStructureViewModel(@Nullable Editor editor) {
-        return new CptStructureViewModel(psiFile);
-      }
-    };
-  }
+	@Nullable
+	@Override
+	public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile) {
+		return new TreeBasedStructureViewBuilder() {
+			@NotNull
+			@Override
+			public StructureViewModel createStructureViewModel(@Nullable Editor editor) {
+				return new CptStructureViewModel(psiFile);
+			}
+		};
+	}
 }

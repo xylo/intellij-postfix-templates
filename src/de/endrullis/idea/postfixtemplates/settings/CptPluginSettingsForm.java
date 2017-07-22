@@ -49,7 +49,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			}
 		};
 		pluginEnabledField.addActionListener(actionListener);
-	}                   
+	}
 
 	public JComponent getComponent() {
 		return mainPanel;

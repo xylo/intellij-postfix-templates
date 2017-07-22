@@ -47,7 +47,9 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 	private Set<PostfixTemplate> templates;
 	private boolean activated = false;
 
-	/** Template file change listener. */
+	/**
+	 * Template file change listener.
+	 */
 	private FileDocumentManagerListener templateFileChangeListener = new FileDocumentManagerAdapter() {
 		@Override
 		public void beforeDocumentSaving(@NotNull Document d) {
@@ -77,8 +79,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		if (settings.getPluginSettings().isPluginEnabled() && !activated) {
 			activated = true;
 			reloadTemplates();
-		}
-		else if (!settings.getPluginSettings().isPluginEnabled() && activated) {
+		} else if (!settings.getPluginSettings().isPluginEnabled() && activated) {
 			activated = false;
 			templates = new OrderedSet<>();
 		}
@@ -138,7 +139,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 				}
 			}
 		}
-		
+
 		return combineTemplatesWithSameName(templates);
 	}
 

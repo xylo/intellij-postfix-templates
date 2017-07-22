@@ -61,20 +61,20 @@ public class CptCompletionUtil {
 			PsiPackage[] subPackages = basePackage.getSubPackages(scope);
 			//System.out.println("subPackages = " + Arrays.toString(subPackages));
 			for (PsiPackage pkg : subPackages) {
-					// For some reason, we see some invalid packages here - eg. META-INF. Filter them out.
-					String name = pkg.getName();
-					boolean invalidPkg = false;
-					assert name != null;  // can only be null for default package, which this is not, as it's a subpackage.
-					for (int i = 0; i < name.length(); i++) {
-						if (!Character.isJavaIdentifierPart(name.charAt(i))) {
-							invalidPkg = true;
-							break;
-						}
+				// For some reason, we see some invalid packages here - eg. META-INF. Filter them out.
+				String name = pkg.getName();
+				boolean invalidPkg = false;
+				assert name != null;  // can only be null for default package, which this is not, as it's a subpackage.
+				for (int i = 0; i < name.length(); i++) {
+					if (!Character.isJavaIdentifierPart(name.charAt(i))) {
+						invalidPkg = true;
+						break;
 					}
-					if (invalidPkg) {
-						continue;  // skip adding this package.
-					}
-					LookupElementBuilder element = LookupElementBuilder.create(pkg.getQualifiedName()).withIcon(pkg.getIcon(0));
+				}
+				if (invalidPkg) {
+					continue;  // skip adding this package.
+				}
+				LookupElementBuilder element = LookupElementBuilder.create(pkg.getQualifiedName()).withIcon(pkg.getIcon(0));
 					/*
 					LookupElement element = new TailTypeDecorator<LookupElement>(LookupElementBuilder.createWithIcon(pkg)) {
 						@Nullable
@@ -92,7 +92,7 @@ public class CptCompletionUtil {
 					};
 					//System.out.println("element = " + element);
 					*/
-					resultSet.addElement(element);
+				resultSet.addElement(element);
 			}
 
 			for (PsiClass psiClass : basePackage.getClasses(scope)) {

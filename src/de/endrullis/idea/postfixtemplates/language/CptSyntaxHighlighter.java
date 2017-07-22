@@ -13,60 +13,60 @@ import org.jetbrains.annotations.NotNull;
 import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
 
 public class CptSyntaxHighlighter extends SyntaxHighlighterBase {
-  public static final TextAttributesKey SEPARATOR =
-      createTextAttributesKey("CPT_SEPARATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN);
-  public static final TextAttributesKey TEMPLATE_NAME =
-      createTextAttributesKey("CPT_TEMPLATE_NAME", DefaultLanguageHighlighterColors.KEYWORD);
-  public static final TextAttributesKey CLASS_NAME =
-      createTextAttributesKey("CPT_CLASS_NAME", DefaultLanguageHighlighterColors.CLASS_NAME);
-  public static final TextAttributesKey TEMPLATE_DESCRIPTION =
-      createTextAttributesKey("CPT_TEMPLATE_DESCRIPTION", DefaultLanguageHighlighterColors.STRING);
-  public static final TextAttributesKey TEMPLATE_CODE =
-      createTextAttributesKey("CPT_TEMPLATE_CODE", DefaultLanguageHighlighterColors.TEMPLATE_LANGUAGE_COLOR);
-  public static final TextAttributesKey TEMPLATE_VARIABLE_HOLDER =
-      createTextAttributesKey("CPT_PLACE_HOLDER", TemplateColors.TEMPLATE_VARIABLE_ATTRIBUTES);
-  public static final TextAttributesKey COMMENT =
-      createTextAttributesKey("CPT_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
-  public static final TextAttributesKey BAD_CHARACTER =
-      createTextAttributesKey("CPT_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
+	public static final TextAttributesKey SEPARATOR =
+		createTextAttributesKey("CPT_SEPARATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN);
+	public static final TextAttributesKey TEMPLATE_NAME =
+		createTextAttributesKey("CPT_TEMPLATE_NAME", DefaultLanguageHighlighterColors.KEYWORD);
+	public static final TextAttributesKey CLASS_NAME =
+		createTextAttributesKey("CPT_CLASS_NAME", DefaultLanguageHighlighterColors.CLASS_NAME);
+	public static final TextAttributesKey TEMPLATE_DESCRIPTION =
+		createTextAttributesKey("CPT_TEMPLATE_DESCRIPTION", DefaultLanguageHighlighterColors.STRING);
+	public static final TextAttributesKey TEMPLATE_CODE =
+		createTextAttributesKey("CPT_TEMPLATE_CODE", DefaultLanguageHighlighterColors.TEMPLATE_LANGUAGE_COLOR);
+	public static final TextAttributesKey TEMPLATE_VARIABLE_HOLDER =
+		createTextAttributesKey("CPT_PLACE_HOLDER", TemplateColors.TEMPLATE_VARIABLE_ATTRIBUTES);
+	public static final TextAttributesKey COMMENT =
+		createTextAttributesKey("CPT_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
+	public static final TextAttributesKey BAD_CHARACTER =
+		createTextAttributesKey("CPT_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
 
-  private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
-  private static final TextAttributesKey[] SEPARATOR_KEYS = new TextAttributesKey[]{SEPARATOR};
-  private static final TextAttributesKey[] TEMPLATE_NAME_KEYS = new TextAttributesKey[]{TEMPLATE_NAME};
-  private static final TextAttributesKey[] CLASS_NAME_KEYS = new TextAttributesKey[]{CLASS_NAME};
-  private static final TextAttributesKey[] TEMPLATE_DESCRIPTION_KEYS = new TextAttributesKey[]{TEMPLATE_DESCRIPTION};
-  private static final TextAttributesKey[] TEMPLATE_CODE_KEYS = new TextAttributesKey[]{TEMPLATE_CODE};
-  private static final TextAttributesKey[] TEMPLATE_VARIABLE_KEYS = new TextAttributesKey[]{TEMPLATE_CODE, TEMPLATE_VARIABLE_HOLDER};
-  private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
-  private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
+	private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
+	private static final TextAttributesKey[] SEPARATOR_KEYS = new TextAttributesKey[]{SEPARATOR};
+	private static final TextAttributesKey[] TEMPLATE_NAME_KEYS = new TextAttributesKey[]{TEMPLATE_NAME};
+	private static final TextAttributesKey[] CLASS_NAME_KEYS = new TextAttributesKey[]{CLASS_NAME};
+	private static final TextAttributesKey[] TEMPLATE_DESCRIPTION_KEYS = new TextAttributesKey[]{TEMPLATE_DESCRIPTION};
+	private static final TextAttributesKey[] TEMPLATE_CODE_KEYS = new TextAttributesKey[]{TEMPLATE_CODE};
+	private static final TextAttributesKey[] TEMPLATE_VARIABLE_KEYS = new TextAttributesKey[]{TEMPLATE_CODE, TEMPLATE_VARIABLE_HOLDER};
+	private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
+	private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
-  @NotNull
-  @Override
-  public Lexer getHighlightingLexer() {
-    return new CptLexerAdapter();
-  }
+	@NotNull
+	@Override
+	public Lexer getHighlightingLexer() {
+		return new CptLexerAdapter();
+	}
 
-  @NotNull
-  @Override
-  public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
-    if (tokenType.equals(CptTypes.SEPARATOR) || tokenType.equals(CptTypes.MAP)) {
-      return SEPARATOR_KEYS;
-    } else if (tokenType.equals(CptTypes.TEMPLATE_NAME)) {
-      return TEMPLATE_NAME_KEYS;
-    } else if (tokenType.equals(CptTypes.CLASS_NAME)) {
-      return CLASS_NAME_KEYS;
-    } else if (tokenType.equals(CptTypes.TEMPLATE_DESCRIPTION)) {
-      return TEMPLATE_DESCRIPTION_KEYS;
-    } else if (tokenType.equals(CptTypes.TEMPLATE_CODE)) {
-      return TEMPLATE_CODE_KEYS;
-    } else if (tokenType.equals(CptTypes.TEMPLATE_VARIABLE)) {
-      return TEMPLATE_VARIABLE_KEYS;
-    } else if (tokenType.equals(CptTypes.COMMENT)) {
-      return COMMENT_KEYS;
-    } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
-      return BAD_CHAR_KEYS;
-    } else {
-      return EMPTY_KEYS;
-    }
-  }
+	@NotNull
+	@Override
+	public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
+		if (tokenType.equals(CptTypes.SEPARATOR) || tokenType.equals(CptTypes.MAP)) {
+			return SEPARATOR_KEYS;
+		} else if (tokenType.equals(CptTypes.TEMPLATE_NAME)) {
+			return TEMPLATE_NAME_KEYS;
+		} else if (tokenType.equals(CptTypes.CLASS_NAME)) {
+			return CLASS_NAME_KEYS;
+		} else if (tokenType.equals(CptTypes.TEMPLATE_DESCRIPTION)) {
+			return TEMPLATE_DESCRIPTION_KEYS;
+		} else if (tokenType.equals(CptTypes.TEMPLATE_CODE)) {
+			return TEMPLATE_CODE_KEYS;
+		} else if (tokenType.equals(CptTypes.TEMPLATE_VARIABLE)) {
+			return TEMPLATE_VARIABLE_KEYS;
+		} else if (tokenType.equals(CptTypes.COMMENT)) {
+			return COMMENT_KEYS;
+		} else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
+			return BAD_CHAR_KEYS;
+		} else {
+			return EMPTY_KEYS;
+		}
+	}
 }

@@ -5,14 +5,14 @@ import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import org.jetbrains.annotations.NotNull;
 
 public final class CptPluginSettings {
-  public static final CptPluginSettings DEFAULT = new CptPluginSettings();
+	public static final CptPluginSettings DEFAULT = new CptPluginSettings();
 
-  @Attribute("PluginEnabled")
-  private boolean pluginEnabled;
+	@Attribute("PluginEnabled")
+	private boolean pluginEnabled;
 
-  private CptPluginSettings() {
-    this(true, CptUtil.getDefaultJavaTemplates());
-  }
+	private CptPluginSettings() {
+		this(true, CptUtil.getDefaultJavaTemplates());
+	}
 
 	public CptPluginSettings(boolean pluginEnabled, @NotNull String templatesText) {
 		this.pluginEnabled = pluginEnabled;
@@ -38,9 +38,9 @@ public final class CptPluginSettings {
 	}
 
 	public interface Holder {
-    void setPluginSettings(@NotNull CptPluginSettings settings);
+		void setPluginSettings(@NotNull CptPluginSettings settings);
 
-    @NotNull
-    CptPluginSettings getPluginSettings();
-  }
+		@NotNull
+		CptPluginSettings getPluginSettings();
+	}
 }

@@ -9,23 +9,23 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 
 public class CptFile extends PsiFileBase {
-  public CptFile(@NotNull FileViewProvider viewProvider) {
-    super(viewProvider, CptLanguage.INSTANCE);
-  }
+	public CptFile(@NotNull FileViewProvider viewProvider) {
+		super(viewProvider, CptLanguage.INSTANCE);
+	}
 
-  @NotNull
-  @Override
-  public FileType getFileType() {
-    return CptFileType.INSTANCE;
-  }
+	@NotNull
+	@Override
+	public FileType getFileType() {
+		return CptFileType.INSTANCE;
+	}
 
-  @Override
-  public String toString() {
-    return "Custom Postfix Templates File";
-  }
+	@Override
+	public String toString() {
+		return "Custom Postfix Templates File";
+	}
 
-  @Override
-  public Icon getIcon(int flags) {
-    return super.getIcon(flags);
-  }
+	@Override
+	public Icon getIcon(int flags) {
+		return super.getIcon(flags);
+	}
 }

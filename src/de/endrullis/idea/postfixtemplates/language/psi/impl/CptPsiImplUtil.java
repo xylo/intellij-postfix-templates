@@ -53,7 +53,7 @@ public class CptPsiImplUtil {
 	public static String getName(CptTemplate element) {
 		return getTemplateName(element);
 	}
-	
+
 	public static String getName(CptMapping element) {
 		return getClassName(element);
 	}
