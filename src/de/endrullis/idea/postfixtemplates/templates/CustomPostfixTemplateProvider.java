@@ -57,7 +57,6 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 			if (vFile != null && vFile.getPath().startsWith(CptUtil.getTemplatesPath().getAbsolutePath())) {
 				if (CptApplicationSettings.getInstance().getPluginSettings().isPluginEnabled()) {
 					reloadTemplates();
-					System.out.println("OpenJavaTemplatesAction.beforeDocumentSaving");
 				}
 			}
 		}
