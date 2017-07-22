@@ -1,0 +1,97 @@
+
+## number conversions ##
+
+.toBoolean : convert to boolean
+    java.lang.String         →  Boolean.parse($expr$)$END$
+
+.toByte : convert to byte
+    java.lang.String         →  Byte.parse($expr$)$END$
+    NUMBER                   →  ((byte) ($expr$))$END$
+
+.toChar : convert to char
+    java.lang.String         →  Character.parse($expr$)$END$
+    NUMBER                   →  ((char) ($expr$))$END$
+
+.toInt : convert to int
+    java.lang.String         →  Integer.parse($expr$)$END$
+    NUMBER                   →  ((int) ($expr$))$END$
+
+.toLong : convert to long
+    java.lang.String         →  Long.parse($expr$)$END$
+    NUMBER                   →  ((long) ($expr$))$END$
+
+.toFloat : convert to float
+    java.lang.String         →  Float.parse($expr$)$END$
+    NUMBER                   →  ((float) ($expr$))$END$
+
+.toDouble : convert to double
+    java.lang.String         →  Double.parse($expr$)$END$
+    NUMBER                   →  ((double) ($expr$))$END$
+
+
+
+## collection conversions ##
+
+.toList : convert to List
+    java.util.Collection     →  new ArrayList<>($expr$)$END$
+    ARRAY                    →  Arrays.asList($expr$)$END$
+
+.toSet : convert to Set
+    java.util.Collection     →  new HashSet<>($expr$)$END$
+    ARRAY                    →  new HashSet<>(Arrays.asList($expr$))$END$
+
+.toMap : convert to Map
+    java.util.Collection     →  $expr$.stream().collect(Collectors.toMap($END$))
+    ARRAY                    →  Arrays.stream($expr$).collect(Collectors.toMap($END$))
+    java.util.stream.Stream  →  $expr$.collect(Collectors.toMap($END$))
+
+
+
+## collection operations ##
+
+.sort : sort naturally
+    ARRAY                    →  Arrays.sort($expr$)$END$
+
+.sortBy :  sort by attribute
+    ARRAY                    →  Arrays.sort($expr$, Comparator.comparing($END$))
+    java.util.List           →  $expr$.sort(Comparator.comparing($END$))
+    java.util.stream.Stream  →  $expr$.sorted(Comparator.comparing($END$))
+
+.minBy : minimum by attribute
+    ARRAY                    →  Arrays.stream($expr$).min(Comparator.comparing($END$))
+    java.util.Collection     →  $expr$.stream().min(Comparator.comparing($END$))
+    java.util.stream.Stream  →  $expr$.min(Comparator.comparing($END$))
+
+.mayBy : maximu by attribute
+    ARRAY                    →  Arrays.stream($expr$).max(Comparator.comparing($END$))
+    java.util.Collection     →  $expr$.stream().max(Comparator.comparing($END$))
+    java.util.stream.Stream  →  $expr$.max(Comparator.comparing($END$))
+
+.groupBy : group by attribute
+    java.util.Collection     →  $expr$.stream().collect(Collectors.groupingBy($END$))
+    java.util.stream.Stream  →  $expr$.collect(Collectors.groupingBy($END$))
+
+.exists : any match
+    java.util.Collection     →  $expr$.stream().anyMatch($END$)
+    java.util.stream.Stream  →  $expr$.anyMatch($END$)
+
+.forall : all match
+    java.util.Collection     →  $expr$.stream().allMatch($END$)
+    java.util.stream.Stream  →  $expr$.allMatch($END$)
+
+.reverse : reverse collection
+    java.util.List           →  Collections.reverse($expr$)$END$
+
+.concat : concat
+    ARRAY                    →  Stream.concat(Arrays.stream($expr$), $END$)
+    java.util.stream.Stream  →  Stream.concat($expr$, $END$)
+
+.forEach : for each
+    java.util.Optional       →  $expr$.ifPresent($END$)
+
+
+
+## others ##
+
+.r : compile pattern
+    java.lang.String         →  Pattern.compile($expr$)$END$

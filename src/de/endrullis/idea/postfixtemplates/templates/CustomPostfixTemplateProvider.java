@@ -1,5 +1,6 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
+import com.intellij.AppTopics;
 import com.intellij.codeInsight.completion.CompletionInitializationContext;
 import com.intellij.codeInsight.completion.JavaCompletionContributor;
 import com.intellij.codeInsight.template.postfix.templates.PostfixLiveTemplate;
@@ -10,14 +11,29 @@ import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
+import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.fileEditor.FileDocumentManagerAdapter;
+import com.intellij.openapi.fileEditor.FileDocumentManagerListener;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.project.ProjectManager;
+import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiManager;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.containers.OrderedSet;
 import com.intellij.util.messages.MessageBusConnection;
+import de.endrullis.idea.postfixtemplates.language.CptUtil;
+import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
+import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
+import de.endrullis.idea.postfixtemplates.language.psi.CptMappings;
+import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
@@ -29,20 +45,54 @@ import static java.util.stream.Collectors.toList;
 
 public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, CptApplicationSettings.SettingsChangedListener {
 	private Set<PostfixTemplate> templates;
+	private boolean activated = false;
+
+	/** Template file change listener. */
+	private FileDocumentManagerListener templateFileChangeListener = new FileDocumentManagerAdapter() {
+		@Override
+		public void beforeDocumentSaving(@NotNull Document d) {
+			VirtualFile vFile = FileDocumentManager.getInstance().getFile(d);
+			if (vFile != null && vFile.getPath().startsWith(CptUtil.getTemplatesPath().getAbsolutePath())) {
+				if (CptApplicationSettings.getInstance().getPluginSettings().isPluginEnabled()) {
+					reloadTemplates();
+					System.out.println("OpenJavaTemplatesAction.beforeDocumentSaving");
+				}
+			}
+		}
+	};
 
 	public CustomPostfixTemplateProvider() {
-		MessageBusConnection settingsConnection = ApplicationManager.getApplication().getMessageBus().connect();
-		settingsConnection.subscribe(CptApplicationSettings.SettingsChangedListener.TOPIC, this);
+		MessageBusConnection messageBus = ApplicationManager.getApplication().getMessageBus().connect();
 
-		reloadTemplates();
+		// listen to settings changes
+		messageBus.subscribe(CptApplicationSettings.SettingsChangedListener.TOPIC, this);
+
+		// listen to file changes of template file
+		messageBus.subscribe(AppTopics.FILE_DOCUMENT_SYNC, templateFileChangeListener);
+
+		reload(CptApplicationSettings.getInstance());
 	}
 
-	private void reloadTemplates() {
-		String templatesText = CptApplicationSettings.getInstance().getPluginSettings().getTemplatesText();
-		templates = loadTemplatesFrom(templatesText);
+	private void reload(CptApplicationSettings settings) {
+		if (settings.getPluginSettings().isPluginEnabled() && !activated) {
+			activated = true;
+			reloadTemplates();
+		}
+		else if (!settings.getPluginSettings().isPluginEnabled() && activated) {
+			activated = false;
+			templates = new OrderedSet<>();
+		}
 	}
 
-	private Set<PostfixTemplate> loadTemplatesFrom(String templatesText) {
+	public void reloadTemplates() {
+		CptUtil.getTemplateFile("java").ifPresent(file -> {
+			if (file.exists()) {
+				templates = loadTemplatesFrom(file);
+			}
+		});
+	}
+
+	private Set<PostfixTemplate> loadTemplatesFromOldFormat(String templatesText) {
 		Set<PostfixTemplate> templates = new OrderedSet<>();
 
 		try (BufferedReader reader = new BufferedReader(new StringReader(templatesText))) {
@@ -58,6 +108,37 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		} catch (IOException ignored) {
 		}
 
+		return combineTemplatesWithSameName(templates);
+	}
+
+	public Set<PostfixTemplate> loadTemplatesFrom(File file) {
+		return loadTemplatesFrom(LocalFileSystem.getInstance().findFileByIoFile(file));
+	}
+
+	public Set<PostfixTemplate> loadTemplatesFrom(VirtualFile vFile) {
+		Set<PostfixTemplate> templates = new OrderedSet<>();
+
+		Project project = ProjectManager.getInstance().getOpenProjects()[0];
+
+		CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(vFile);
+		if (cptFile != null) {
+			CptTemplate[] cptTemplates = PsiTreeUtil.getChildrenOfType(cptFile, CptTemplate.class);
+			if (cptTemplates != null) {
+				for (CptTemplate cptTemplate : cptTemplates) {
+					CptMappings[] cptMappings = PsiTreeUtil.getChildrenOfType(cptTemplate, CptMappings.class);
+					if (cptMappings != null && cptMappings.length > 0) {
+						CptMapping[] mappings = PsiTreeUtil.getChildrenOfType(cptMappings[0], CptMapping.class);
+						if (mappings != null) {
+							for (CptMapping mapping : mappings) {
+								templates.add(new CustomStringPostfixTemplate(mapping.getClassName(), cptTemplate.getTemplateName(),
+									cptTemplate.getTemplateDescription(), mapping.getReplacementString()));
+							}
+						}
+					}
+				}
+			}
+		}
+		
 		return combineTemplatesWithSameName(templates);
 	}
 
@@ -132,6 +213,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 
 	@Override
 	public void onSettingsChange(@NotNull CptApplicationSettings settings) {
-		reloadTemplates();
+		reload(settings);
 	}
+
 }

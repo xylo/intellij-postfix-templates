@@ -34,9 +34,4 @@ public class CptCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
     };
   }
 
-  private static class CptCodeStyleMainPanel extends TabbedLanguageCodeStylePanel {
-    public CptCodeStyleMainPanel(CodeStyleSettings currentSettings, CodeStyleSettings settings) {
-      super(CptLanguage.INSTANCE, currentSettings, settings);
-    }
-  }
 }

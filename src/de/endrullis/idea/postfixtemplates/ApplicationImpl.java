@@ -6,7 +6,6 @@ package de.endrullis.idea.postfixtemplates;
 public class ApplicationImpl implements ApplicationInterface {
 
 	public ApplicationImpl() {
-		System.err.println("ApplicationImpl");
 	}
 
 }

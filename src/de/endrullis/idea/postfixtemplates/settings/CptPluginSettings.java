@@ -9,9 +9,6 @@ public final class CptPluginSettings {
 
   @Attribute("PluginEnabled")
   private boolean pluginEnabled;
-  @Attribute("TemplatesText")
-  @NotNull
-  private String templatesText;
 
   private CptPluginSettings() {
     this(true, CptUtil.getDefaultJavaTemplates());
@@ -19,16 +16,10 @@ public final class CptPluginSettings {
 
 	public CptPluginSettings(boolean pluginEnabled, @NotNull String templatesText) {
 		this.pluginEnabled = pluginEnabled;
-		this.templatesText = templatesText;
 	}
 
 	public boolean isPluginEnabled() {
 		return pluginEnabled;
-	}
-
-	@NotNull
-	public String getTemplatesText() {
-		return templatesText;
 	}
 
 	@Override
@@ -38,15 +29,12 @@ public final class CptPluginSettings {
 
 		CptPluginSettings that = (CptPluginSettings) o;
 
-		if (pluginEnabled != that.pluginEnabled) return false;
-		return templatesText.equals(that.templatesText);
+		return pluginEnabled == that.pluginEnabled;
 	}
 
 	@Override
 	public int hashCode() {
-		int result = (pluginEnabled ? 1 : 0);
-		result = 31 * result + templatesText.hashCode();
-		return result;
+		return pluginEnabled ? 1 : 0;
 	}
 
 	public interface Holder {

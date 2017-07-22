@@ -72,7 +72,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	@Override
 	public void setPluginSettings(@NotNull CptPluginSettings settings) {
 		pluginEnabledField.setSelected(settings.isPluginEnabled());
-		templatesText = settings.getTemplatesText();
+		//templatesText = settings.getTemplatesText();
 		if (templatesEditor != null && !templatesEditor.isDisposed()) {
 			ApplicationManager.getApplication().runWriteAction(() -> templatesEditor.getDocument().setText(templatesText));
 		}
