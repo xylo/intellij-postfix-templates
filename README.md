@@ -63,4 +63,4 @@ Moreover it should provide you with a code completion for Java class names and t
 Any contributions are welcome.  Just fork the project, make your changes and create a pull request.
 
 # See also
-* [feature request for custom postfix completion at jetbrains.com](https://youtrack.jetbrains.com/issue/IDEA-122443).
+* [Feature request for custom postfix completion at jetbrains.com](https://youtrack.jetbrains.com/issue/IDEA-122443)
