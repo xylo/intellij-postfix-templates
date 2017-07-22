@@ -1,7 +1,6 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
 import com.intellij.util.xmlb.annotations.Attribute;
-import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import org.jetbrains.annotations.NotNull;
 
 public final class CptPluginSettings {
@@ -11,10 +10,10 @@ public final class CptPluginSettings {
 	private boolean pluginEnabled;
 
 	private CptPluginSettings() {
-		this(true, CptUtil.getDefaultJavaTemplates());
+		this(true);
 	}
 
-	public CptPluginSettings(boolean pluginEnabled, @NotNull String templatesText) {
+	public CptPluginSettings(boolean pluginEnabled) {
 		this.pluginEnabled = pluginEnabled;
 	}
 

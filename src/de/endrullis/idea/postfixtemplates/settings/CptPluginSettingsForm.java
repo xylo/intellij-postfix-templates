@@ -7,20 +7,25 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.editor.ex.EditorEx;
+import com.intellij.openapi.project.Project;
 import com.intellij.ui.ColorUtil;
 import com.intellij.ui.components.JBCheckBox;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
+import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposable {
 	private JPanel mainPanel;
 	private JBCheckBox pluginEnabledField;
 	private JPanel templatesEditorPanel;
+	private JButton editButton;
 
 	@NotNull
 	private String templatesText = "";
@@ -52,6 +57,8 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	}
 
 	public JComponent getComponent() {
+		editButton.addActionListener(event -> openTemplatesInEditor());
+
 		return mainPanel;
 	}
 
@@ -62,17 +69,40 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		templatesEditorPanel.add(templatesEditor.getComponent(), BorderLayout.CENTER);
 	}
 
+	private void openTemplatesInEditor() {
+		File file = CptUtil.getTemplateFile("java").get();
+
+		Project project = CptUtil.getActiveProject();
+
+		CptUtil.openFileInEditor(project, file);
+
+		// close settings dialog
+		JDialog frame = (JDialog) SwingUtilities.getRoot(mainPanel);
+		frame.setVisible(false);
+	}
+
 	@NotNull
 	private static Editor createEditor() {
 		EditorFactory editorFactory = EditorFactory.getInstance();
 		Document editorDocument = editorFactory.createDocument("");
-		return editorFactory.createEditor(editorDocument, null, CptFileType.INSTANCE, false);
+		return editorFactory.createEditor(editorDocument, null, CptFileType.INSTANCE, true);
 	}
 
 	@Override
 	public void setPluginSettings(@NotNull CptPluginSettings settings) {
 		pluginEnabledField.setSelected(settings.isPluginEnabled());
-		//templatesText = settings.getTemplatesText();
+
+		// load template file content to display
+		CptUtil.getTemplateFile("java").ifPresent(file -> {
+			if (file.exists()) {
+				try {
+					templatesText = CptUtil.getContent(file);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
 		if (templatesEditor != null && !templatesEditor.isDisposed()) {
 			ApplicationManager.getApplication().runWriteAction(() -> templatesEditor.getDocument().setText(templatesText));
 		}
@@ -87,7 +117,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		if (templatesEditor != null && !templatesEditor.isDisposed()) {
 			templatesText = ReadAction.compute(() -> templatesEditor.getDocument().getText());
 		}
-		return new CptPluginSettings(pluginEnabledField.isSelected(), templatesText);
+		return new CptPluginSettings(pluginEnabledField.isSelected());
 	}
 
 	@Override

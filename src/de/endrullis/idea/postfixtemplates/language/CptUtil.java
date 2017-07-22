@@ -1,6 +1,9 @@
 package de.endrullis.idea.postfixtemplates.language;
 
+import com.intellij.ide.DataManager;
 import com.intellij.ide.plugins.PluginManager;
+import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.actionSystem.DataKeys;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
@@ -15,10 +18,9 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.indexing.FileBasedIndex;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
+import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.*;
 
 public class CptUtil {
@@ -83,8 +85,16 @@ public class CptUtil {
 	}
 
 	public static String getDefaultJavaTemplates() {
-		return new Scanner(CptUtil.class.getResourceAsStream("defaulttemplates/java.postfixTemplates"), "UTF-8")
-			.useDelimiter("\\A").next();
+		InputStream stream = CptUtil.class.getResourceAsStream("defaulttemplates/java.postfixTemplates");
+		return getContent(stream);
+	}
+
+	public static String getContent(@NotNull File file) throws FileNotFoundException {
+		return getContent(new FileInputStream(file));
+	}
+
+	private static String getContent(@NotNull InputStream stream) {
+		return new Scanner(stream, "UTF-8").useDelimiter("\\A").next();
 	}
 
 	public static File getPluginPath() {
@@ -95,7 +105,7 @@ public class CptUtil {
 		return new File(getPluginPath(), "templates");
 	}
 
-	public static Optional<File> getTemplateFile(String language) {
+	public static Optional<File> getTemplateFile(@NotNull String language) {
 		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
 			File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
 
@@ -122,5 +132,10 @@ public class CptUtil {
 
 		// open templates file in an editor
 		new OpenFileDescriptor(project, vFile).navigate(true);
+	}
+
+	public static Project getActiveProject() {
+		DataContext dataContext = DataManager.getInstance().getDataContextFromFocus().getResult();
+		return DataKeys.PROJECT.getData(dataContext);
 	}
 }
