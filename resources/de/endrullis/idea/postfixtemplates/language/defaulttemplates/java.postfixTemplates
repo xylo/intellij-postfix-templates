@@ -2,30 +2,30 @@
 ## number conversions ##
 
 .toBoolean : convert to boolean
-    java.lang.String         →  Boolean.parse($expr$)$END$
+    java.lang.String         →  Boolean.parseBoolean($expr$)$END$
 
 .toByte : convert to byte
-    java.lang.String         →  Byte.parse($expr$)$END$
+    java.lang.String         →  Byte.parseByte($expr$)$END$
     NUMBER                   →  ((byte) ($expr$))$END$
 
 .toChar : convert to char
-    java.lang.String         →  Character.parse($expr$)$END$
+    java.lang.String         →  $expr$.charAt(0)$END$
     NUMBER                   →  ((char) ($expr$))$END$
 
 .toInt : convert to int
-    java.lang.String         →  Integer.parse($expr$)$END$
+    java.lang.String         →  Integer.parseInt($expr$)$END$
     NUMBER                   →  ((int) ($expr$))$END$
 
 .toLong : convert to long
-    java.lang.String         →  Long.parse($expr$)$END$
+    java.lang.String         →  Long.parseLong($expr$)$END$
     NUMBER                   →  ((long) ($expr$))$END$
 
 .toFloat : convert to float
-    java.lang.String         →  Float.parse($expr$)$END$
+    java.lang.String         →  Float.parseFloat($expr$)$END$
     NUMBER                   →  ((float) ($expr$))$END$
 
 .toDouble : convert to double
-    java.lang.String         →  Double.parse($expr$)$END$
+    java.lang.String         →  Double.parseDouble($expr$)$END$
     NUMBER                   →  ((double) ($expr$))$END$
 
 
@@ -95,3 +95,4 @@
 
 .r : compile pattern
     java.lang.String         →  Pattern.compile($expr$)$END$
+
