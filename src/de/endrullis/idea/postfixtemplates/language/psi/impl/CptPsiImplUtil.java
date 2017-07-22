@@ -15,7 +15,7 @@ public class CptPsiImplUtil {
 	public static String getTemplateName(CptTemplate element) {
 		ASTNode keyNode = element.getNode().findChildByType(CptTypes.TEMPLATE_NAME);
 		if (keyNode != null) {
-			// IMPORTANT: Convert embedded escaped spaces to Cpt spaces
+			// IMPORTANT: Convert embedded escaped spaces to simple spaces
 			return keyNode.getText().replaceAll("\\\\ ", " ");
 		} else {
 			return null;
@@ -34,7 +34,7 @@ public class CptPsiImplUtil {
 	public static String getClassName(CptMapping element) {
 		ASTNode keyNode = element.getNode().findChildByType(CptTypes.CLASS_NAME);
 		if (keyNode != null) {
-			// IMPORTANT: Convert embedded escaped spaces to Cpt spaces
+			// IMPORTANT: Convert embedded escaped spaces to simple spaces
 			return keyNode.getText().replaceAll("\\\\ ", " ");
 		} else {
 			return null;
