@@ -19,6 +19,8 @@ public class CptLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSetti
 		if (settingsType == SettingsType.SPACING_SETTINGS) {
 			consumer.showStandardOptions("SPACE_AROUND_ASSIGNMENT_OPERATORS");
 			consumer.renameStandardOption("SPACE_AROUND_ASSIGNMENT_OPERATORS", "Separator");
+			consumer.showStandardOptions("SPACE_AROUND_LAMBDA_ARROW");
+			consumer.renameStandardOption("SPACE_AROUND_LAMBDA_ARROW", "Mapping arrow");
 		} else if (settingsType == SettingsType.BLANK_LINES_SETTINGS) {
 			consumer.showStandardOptions("KEEP_BLANK_LINES_IN_CODE");
 		}

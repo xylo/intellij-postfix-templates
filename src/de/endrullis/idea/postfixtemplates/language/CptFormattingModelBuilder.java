@@ -26,7 +26,7 @@ public class CptFormattingModelBuilder implements FormattingModelBuilder {
 			.around(CptTypes.SEPARATOR)
 			.spaceIf(settings.SPACE_AROUND_ASSIGNMENT_OPERATORS)
 			.around(CptTypes.MAP)
-			.spaceIf(settings.SPACE_AROUND_ASSIGNMENT_OPERATORS)
+			.spaceIf(settings.SPACE_AROUND_LAMBDA_ARROW)
 			.before(CptTypes.MAPPING)
 			.spaces(2);
 	}
