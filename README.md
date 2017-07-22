@@ -19,13 +19,13 @@ A popup should appear showing you different conversion options (`toInt`, `toDoub
 ## Preconfigured Java templates for Scala users and those who want to simplify their life
 
 These templates provide some common Scala functions, such as:
-* toByte, toChar, toInt, toLong, toFloat, toDouble
-* toList, toSet, toMap
-* sort, sortBy, minBy, maxBy, groupBy
-* exists, forall
-* reverse, concat
-* Optional.forEach
-* String.r to convert the string into a regular expression
+* `toByte`, `toChar`, `toInt`, `toLong`, `toFloat`, `toDouble`
+* `toList`, `toSet`, `toMap`
+* `sort`, `sortBy`, `minBy`, `maxBy`, `groupBy`
+* `exists`, `forall`
+* `reverse`, `concat`
+* Optional.`forEach`
+* String.`r` to convert the string into a regular expression
 
 I assume that most of the templates are also useful for Non-Scala users, since they provide a cleaner interface to convert values
 or help further when certain expected methods are not available.
@@ -40,15 +40,15 @@ The format of the file is very simple:
 * In the subsequent *mapping* lines you define in which cases the template is applicable and how it shall be replaced.
 * Each *mapping* line consists of a type, followed by `→` and the template code used as replacement.
   * The type can be either a Java class name or one of the following special types:
-    * ARRAY - denotes any Java array
-    * BOOLEAN - denotes boxed or unboxed boolean expressions
-    * ITERABLE_OR_ARRAY - denotes any iterable or array
-    * NON_VOID - denotes any non-void expression
-    * NOT_PRIMITIVE - denotes any non-primitive value
-    * NUMBER - denotes any boxed or unboxed number
+    * `ARRAY` - denotes any Java array
+    * `BOOLEAN` - denotes boxed or unboxed boolean expressions
+    * `ITERABLE_OR_ARRAY` - denotes any iterable or array
+    * `NON_VOID` - denotes any non-void expression
+    * `NOT_PRIMITIVE` - denotes any non-primitive value
+    * `NUMBER` - denotes any boxed or unboxed number
   * The template code can be any text that might contain the following template variables:
-    * $expr$ - denotes the expression the template shall be applied to
-    * $END$ - denotes the final cursor position after the template application
+    * `$expr$` - denotes the expression the template shall be applied to
+    * `$END$` - denotes the final cursor position after the template application
 
 Ideally the editor should give you via syntax and error highlighting some hints if you make some syntax mistakes.
 Moreover it should provide you with a code completion for Java class names and the given special types.
