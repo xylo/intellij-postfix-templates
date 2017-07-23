@@ -10,7 +10,7 @@
 			It comes with a set of predefined templates which can be edited and extended, e.g.:
 			<!--
 			<ul>
-				<li>string.toInt → Integer.parse(string)</li>
+				<li>string.toInt → Integer.parseInt(string)</li>
 				<li>longValue.toInt → ((int) longValue)</li>
 				<li>array.toList → Arrays.asList(array)</li>
 			</ul>
