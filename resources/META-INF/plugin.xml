@@ -73,6 +73,8 @@
 		<langCodeStyleSettingsProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLanguageCodeStyleSettingsProvider"/>
 		<lang.commenter language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptCommenter"/>
 		<todoIndexer filetype="CPT file" implementationClass="de.endrullis.idea.postfixtemplates.language.CptTodoIndexer"/>
+		<defaultLiveTemplatesProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLiveTemplatesProvider"/>
+		<liveTemplateContext implementation="de.endrullis.idea.postfixtemplates.language.CptContext"/>
 	</extensions>
 
 	<actions>

@@ -1,0 +1,7 @@
+<templateSet group="Custom Postfix Templates">
+  <template name="-&gt;" value="→" description="→" toReformat="false" toShortenFQNames="true">
+	  <context>
+	 	  <option name="CPT" value="true" />
+	 	</context>
+  </template>
+</templateSet>
