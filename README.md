@@ -8,17 +8,17 @@ You can download the plugin **Custom Postfix Templates** via *Settings → Plugi
 
 ## Usage
 
-The plugin comes with a predefined set of templates (details below) which you can immediatly apply in a Java files.
-For instance, type 
+The plugin comes with a predefined set of templates (see below) which can be immediatly applied in a Java files.
+For instance, write 
 
-    "1".to
+    "1".toInt
     
-in a new line of a Java file and press *Ctrl+SPACE*.
-A completion popup should appear showing you different postfix templates (`toInt`, `toDouble`, ...) to convert the string `"1"` into a number.
+in a Java file.  If the completion popup does not automatically show up, press *Ctrl+SPACE*.
+Select the `.toInt` template and see how it is expanded.
 
 ## Preconfigured Java templates for Scala users and those who want to simplify their life
 
-These templates provide some common Scala functions, such as:
+The following templates are shipped with the plugin and shall provide you with a template basis and with some useful examples:
 * `toByte`, `toChar`, `toInt`, `toLong`, `toFloat`, `toDouble`
 * `toList`, `toSet`, `toMap`
 * `sort`, `sortBy`, `minBy`, `maxBy`, `groupBy`
@@ -27,13 +27,13 @@ These templates provide some common Scala functions, such as:
 * Optional.`forEach`
 * String.`r` to convert the string into a regular expression
 
-I assume that most of the templates are also useful for Non-Scala users, since they provide a cleaner interface to convert values
-or help further when certain expected methods are not available.
+The idea behind these templates is to bring a tiny bit of Scala feeling back to Java.
 
 ## Edit the templates
 
 Go to *Tools → Custom Postfix Templates → Edit Java Templates* to open an editor tab with the java templates.
 Here you can easily change, remove, or add new templates matching your needs.
+Note that you have to save the template file in order to update the postfix templates in the IDE.
 
 The format of the file is very simple:
 * Each postfix template definition starts with a `.` followed by the template name, the separator `:` and a template description.
