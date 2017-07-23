@@ -15,6 +15,7 @@ class CptCodeStyleMainPanel extends TabbedLanguageCodeStylePanel {
 	protected void initTabs(CodeStyleSettings settings) {
 		addIndentOptionsTab(settings);
 		addSpacesTab(settings);
+		addWrappingAndBracesTab(settings);
 		addBlankLinesTab(settings);
 	}
 }

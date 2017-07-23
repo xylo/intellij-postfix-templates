@@ -25,7 +25,7 @@ template ::= (TEMPLATE_NAME SEPARATOR TEMPLATE_DESCRIPTION) mappings {
     methods=[getTemplateName getTemplateDescription getName setName getNameIdentifier getPresentation]
 }
 
-mappings ::= mapping+
+mappings ::= mapping*
 
 mapping ::= (CLASS_NAME MAP replacement) {
     //pin=3

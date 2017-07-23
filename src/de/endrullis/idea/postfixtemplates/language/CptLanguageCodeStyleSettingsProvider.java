@@ -7,6 +7,11 @@ import com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable;
 import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider;
 import org.jetbrains.annotations.NotNull;
 
+import static com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable.BlankLinesOption.KEEP_BLANK_LINES_IN_CODE;
+import static com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable.SpacingOption.SPACE_AROUND_ASSIGNMENT_OPERATORS;
+import static com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable.SpacingOption.SPACE_AROUND_LAMBDA_ARROW;
+import static com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable.WrappingOrBraceOption.ALIGN_GROUP_FIELD_DECLARATIONS;
+
 public class CptLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSettingsProvider {
 	@NotNull
 	@Override
@@ -17,12 +22,14 @@ public class CptLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSetti
 	@Override
 	public void customizeSettings(@NotNull CodeStyleSettingsCustomizable consumer, @NotNull SettingsType settingsType) {
 		if (settingsType == SettingsType.SPACING_SETTINGS) {
-			consumer.showStandardOptions("SPACE_AROUND_ASSIGNMENT_OPERATORS");
-			consumer.renameStandardOption("SPACE_AROUND_ASSIGNMENT_OPERATORS", "Separator");
-			consumer.showStandardOptions("SPACE_AROUND_LAMBDA_ARROW");
-			consumer.renameStandardOption("SPACE_AROUND_LAMBDA_ARROW", "Mapping arrow");
+			consumer.showStandardOptions(SPACE_AROUND_ASSIGNMENT_OPERATORS.name());
+			consumer.renameStandardOption(SPACE_AROUND_ASSIGNMENT_OPERATORS.name(), "Separator");
+			consumer.showStandardOptions(SPACE_AROUND_LAMBDA_ARROW.name());
+			consumer.renameStandardOption(SPACE_AROUND_LAMBDA_ARROW.name(), "Mapping arrow");
+		} else if (settingsType == SettingsType.WRAPPING_AND_BRACES_SETTINGS) {
+			consumer.showStandardOptions(ALIGN_GROUP_FIELD_DECLARATIONS.name());
 		} else if (settingsType == SettingsType.BLANK_LINES_SETTINGS) {
-			consumer.showStandardOptions("KEEP_BLANK_LINES_IN_CODE");
+			consumer.showStandardOptions(KEEP_BLANK_LINES_IN_CODE.name());
 		}
 	}
 

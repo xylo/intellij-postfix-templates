@@ -4,6 +4,7 @@ import com.intellij.formatting.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.formatter.common.AbstractBlock;
+import com.intellij.psi.tree.IElementType;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,11 +16,15 @@ public class CptBlock extends AbstractBlock {
 	private SpacingBuilder spacingBuilder;
 
 	private Indent indent;
+	private Indent childIndent;
 
-	protected CptBlock(@NotNull ASTNode node, @Nullable Wrap wrap, Indent indent, @Nullable Alignment alignment,
+	private Alignment mapAlignment = Alignment.createAlignment(false, Alignment.Anchor.LEFT);
+
+	protected CptBlock(@NotNull ASTNode node, @Nullable Wrap wrap, Indent indent, Indent childIndent, @Nullable Alignment alignment,
 	                   SpacingBuilder spacingBuilder) {
 		super(node, wrap, alignment);
 		this.indent = indent;
+		this.childIndent = childIndent;
 		this.spacingBuilder = spacingBuilder;
 	}
 
@@ -28,18 +33,38 @@ public class CptBlock extends AbstractBlock {
 		List<Block> blocks = new ArrayList<Block>();
 		ASTNode child = myNode.getFirstChildNode();
 		while (child != null) {
-			Indent indent = child.getElementType() == CptTypes.MAPPINGS
-				? Indent.getIndent(Indent.Type.NORMAL, true, true)
+			IElementType elementType = child.getElementType();
+
+			Indent indent = elementType == CptTypes.MAPPINGS
+				? Indent.getNormalIndent()
 				: Indent.getNoneIndent();
 
-			if (child.getElementType() != TokenType.WHITE_SPACE) {
-				Block block = new CptBlock(child, Wrap.createWrap(WrapType.NONE, false), indent, Alignment.createAlignment(),
-					spacingBuilder);
+			Indent childIndent = elementType == CptTypes.TEMPLATE
+				? Indent.getNormalIndent()
+				: Indent.getNoneIndent();
+
+			if (elementType != TokenType.WHITE_SPACE) {
+				Alignment alignment = null; //Alignment.createAlignment();
+
+				/*
+				if (elementType == CptTypes.MAP) {
+					alignment = mapAlignment;
+				}
+				*/
+
+				Block block = new CptBlock(child, Wrap.createWrap(WrapType.NONE, false), indent, childIndent, alignment, spacingBuilder);
 				blocks.add(block);
 			}
+
 			child = child.getTreeNext();
 		}
 		return blocks;
+	}
+
+	@Nullable
+	@Override
+	protected Indent getChildIndent() {
+		return childIndent;
 	}
 
 	@Override

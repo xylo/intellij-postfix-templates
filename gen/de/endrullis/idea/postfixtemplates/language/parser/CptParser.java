@@ -82,21 +82,18 @@ public class CptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // mapping+
+  // mapping*
   public static boolean mappings(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mappings")) return false;
-    if (!nextTokenIs(b, CLASS_NAME)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = mapping(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, MAPPINGS, "<mappings>");
     int c = current_position_(b);
-    while (r) {
+    while (true) {
       if (!mapping(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "mappings", c)) break;
       c = current_position_(b);
     }
-    exit_section_(b, m, MAPPINGS, r);
-    return r;
+    exit_section_(b, l, m, true, false, null);
+    return true;
   }
 
   /* ********************************************************** */

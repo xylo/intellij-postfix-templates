@@ -16,6 +16,7 @@ public class CptFormattingModelBuilder implements FormattingModelBuilder {
 			new CptBlock(element.getNode(),
 				Wrap.createWrap(WrapType.NONE, false),
 				Indent.getNoneIndent(),
+				Indent.getNoneIndent(),
 				Alignment.createAlignment(),
 				createSpaceBuilder(settings)),
 			settings);
@@ -25,8 +26,8 @@ public class CptFormattingModelBuilder implements FormattingModelBuilder {
 		return new SpacingBuilder(settings, CptLanguage.INSTANCE)
 			.around(CptTypes.SEPARATOR)
 			.spaceIf(settings.SPACE_AROUND_ASSIGNMENT_OPERATORS)
-			.around(CptTypes.MAP)
-			.spaceIf(settings.SPACE_AROUND_LAMBDA_ARROW)
+			//.around(CptTypes.MAP)
+			//.spaceIf(settings.SPACE_AROUND_LAMBDA_ARROW)
 			.before(CptTypes.MAPPING)
 			.spaces(2);
 	}
