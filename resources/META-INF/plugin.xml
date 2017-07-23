@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>0.8</version>
+	<version>0.9</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>editor</category>
 
@@ -24,6 +24,12 @@
     ]]></description>
 
 	<change-notes><![CDATA[
+			<h4>Version 0.9</h4>
+			<ul>
+				<li>Automatically indent first mapping line</li>
+				<li>Added live template to map "<code>-&gt;</code>" to "<code>→</code>"</li>
+			</ul>
+
 			<h4>Version 0.8</h4>
 			First alpha release.
     ]]>
