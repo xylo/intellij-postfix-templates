@@ -32,10 +32,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

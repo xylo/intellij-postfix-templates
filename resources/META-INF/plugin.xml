@@ -10,16 +10,16 @@
 			It comes with a set of predefined templates which can be edited and extended, e.g.:
 			<!--
 			<ul>
-				<li>string.toInt → Integer.parseInt(string)</li>
+				<li>string.toInt    → Integer.parseInt(string)</li>
 				<li>longValue.toInt → ((int) longValue)</li>
-				<li>array.toList → Arrays.asList(array)</li>
+				<li>array.toList    → Arrays.asList(array)</li>
 			</ul>
 			-->
 
 			<table>
-				<tr><td>●</td><td>string.toInt</td><td>→</td><td>Integer.parse(string)</td></tr>
+				<tr><td>●</td><td>string.toInt</td>   <td>→</td><td>Integer.parse(string)</td></tr>
 				<tr><td>●</td><td>longValue.toInt</td><td>→</td><td>((int) longValue)</td></tr>
-				<tr><td>●</td><td>array.toList</td><td>→</td><td>Arrays.asList(array)</td></tr>
+				<tr><td>●</td><td>array.toList</td>   <td>→</td><td>Arrays.asList(array)</td></tr>
 			</table>
     ]]></description>
 

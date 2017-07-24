@@ -98,7 +98,13 @@ public class CptUtil {
 	}
 
 	public static File getPluginPath() {
-		return PluginManager.getPlugin(PluginId.getId(CptUtil.PLUGIN_ID)).getPath();
+		File path = PluginManager.getPlugin(PluginId.getId(CptUtil.PLUGIN_ID)).getPath();
+
+		if (path.getName().endsWith(".jar")) {
+			path = new File(path.getParentFile(), path.getName().substring(0, path.getName().length() - 4));
+		}
+
+		return path;
 	}
 
 	public static File getTemplatesPath() {
@@ -115,9 +121,9 @@ public class CptUtil {
 			if (!file.exists()) {
 				try (PrintStream out = new PrintStream(file)) {
 					out.println(CptUtil.getDefaultJavaTemplates());
+					out.close();
 				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-					return Optional.empty();
+					throw new RuntimeException(language + " template file could not copied to " + file.getAbsolutePath(), e);
 				}
 			}
 
@@ -129,6 +135,10 @@ public class CptUtil {
 
 	public static void openFileInEditor(Project project, File file) {
 		VirtualFile vFile = LocalFileSystem.getInstance().findFileByIoFile(file);
+
+		if (vFile == null) {
+			vFile = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(file);
+		}
 
 		// open templates file in an editor
 		new OpenFileDescriptor(project, vFile).navigate(true);
