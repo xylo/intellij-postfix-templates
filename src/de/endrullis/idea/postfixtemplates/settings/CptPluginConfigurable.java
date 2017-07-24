@@ -26,10 +26,22 @@ public class CptPluginConfigurable implements SearchableConfigurable {
 		return "Settings.CustomPostfixTemplates";
 	}
 
+	@Nullable
+	@Override
+	public Runnable enableSearch(String s) {
+		return null;
+	}
+
 	@Nls
 	@Override
 	public String getDisplayName() {
 		return PostfixTemplatesBundle.message("settings.plugin.name");
+	}
+
+	@Nullable
+	@Override
+	public String getHelpTopic() {
+		return null;
 	}
 
 	@NotNull

@@ -1,9 +1,9 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>0.9</version>
+	<version>0.9.1</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
-	<category>editor</category>
+	<category>code editing</category>
 
 	<description><![CDATA[
 			This plugin allows you to define your own postfix templates for Java code.
@@ -21,22 +21,19 @@
 				<tr><td>●</td><td>longValue.toInt</td><td>→</td><td>((int) longValue)</td></tr>
 				<tr><td>●</td><td>array.toList</td>   <td>→</td><td>Arrays.asList(array)</td></tr>
 			</table>
-    ]]></description>
+    ]]>
+	</description>
 
 	<change-notes><![CDATA[
-			<h4>Version 0.9</h4>
+			<h4>Version 0.9.1</h4>
 			<ul>
-				<li>Automatically indent first mapping line</li>
-				<li>Added live template to map "<code>-&gt;</code>" to "<code>→</code>"</li>
+				<li>added support for Android Studio</li>
 			</ul>
-
-			<h4>Version 0.8</h4>
-			First alpha release.
     ]]>
 	</change-notes>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-	<idea-version since-build="171.0"/>
+	<idea-version since-build="162.0"/>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
 			 on how to target different products -->
