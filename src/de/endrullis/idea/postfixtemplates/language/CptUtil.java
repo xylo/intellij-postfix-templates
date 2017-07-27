@@ -94,21 +94,7 @@ public class CptUtil {
 	}
 
 	private static String getContent(@NotNull InputStream stream) {
-		StringBuilder sb = new StringBuilder();
-
-		// convert system newlines into UNIX newlines, because IDEA works only with UNIX newlines
-		try (BufferedReader in = new BufferedReader(new InputStreamReader(stream, "UTF-8"))) {
-			String line;
-			while ((line = in.readLine()) != null) {
-				sb.append(line).append("\n");
-			}
-
-			return sb.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return "";
+		return new Scanner(stream, "UTF-8").useDelimiter("\\A").next();
 	}
 
 	public static File getPluginPath() {
@@ -131,15 +117,13 @@ public class CptUtil {
 
 			//noinspection ResultOfMethodCallIgnored
 			file.getParentFile().mkdirs();
-
+			
 			if (!file.exists()) {
-				try (PrintStream out = new PrintStream(file, "UTF-8")) {
-					out.println(CptUtil.getDefaultJavaTemplates());
-					out.close();
-				} catch (FileNotFoundException e) {
+				try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(file), "UTF-8")) {
+					writer.write(CptUtil.getDefaultJavaTemplates());
+					writer.close();
+				} catch (IOException e) {
 					throw new RuntimeException(language + " template file could not copied to " + file.getAbsolutePath(), e);
-				} catch (UnsupportedEncodingException e) {
-					throw new RuntimeException("UTF-8 not supported", e);
 				}
 			}
 
