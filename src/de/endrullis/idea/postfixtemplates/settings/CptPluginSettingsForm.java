@@ -6,10 +6,7 @@ import com.intellij.openapi.application.ReadAction;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
-import com.intellij.openapi.editor.ex.EditorEx;
 import com.intellij.openapi.project.Project;
-import com.intellij.ui.ColorUtil;
-import com.intellij.ui.components.JBCheckBox;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import org.jetbrains.annotations.NotNull;
@@ -17,13 +14,11 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposable {
 	private JPanel mainPanel;
-	private JBCheckBox pluginEnabledField;
 	private JPanel templatesEditorPanel;
 	private JButton editButton;
 
@@ -31,29 +26,9 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private String templatesText = "";
 	@Nullable
 	private Editor templatesEditor;
-	@NotNull
-	private final ActionListener actionListener;
 
 
 	public CptPluginSettingsForm() {
-		actionListener = e -> {
-			templatesEditorPanel.setEnabled(pluginEnabledField.isSelected());
-			if (templatesEditor != null && !templatesEditor.isDisposed()) {
-				final boolean canEdit = pluginEnabledField.isSelected();
-
-				templatesEditor.getDocument().setReadOnly(!canEdit);
-				templatesEditor.getSettings().setCaretRowShown(canEdit);
-
-				Color baseColor = templatesEditor.getColorsScheme().getDefaultBackground();
-				if (canEdit) {
-					((EditorEx) templatesEditor).setBackgroundColor(baseColor);
-				} else {
-					((EditorEx) templatesEditor).setBackgroundColor(ColorUtil.isDark(baseColor) ?
-						ColorUtil.brighter(baseColor, 1) : ColorUtil.darker(baseColor, 1));
-				}
-			}
-		};
-		pluginEnabledField.addActionListener(actionListener);
 	}
 
 	public JComponent getComponent() {
@@ -90,8 +65,6 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 	@Override
 	public void setPluginSettings(@NotNull CptPluginSettings settings) {
-		pluginEnabledField.setSelected(settings.isPluginEnabled());
-
 		// load template file content to display
 		CptUtil.getTemplateFile("java").ifPresent(file -> {
 			if (file.exists()) {
@@ -106,9 +79,6 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		if (templatesEditor != null && !templatesEditor.isDisposed()) {
 			ApplicationManager.getApplication().runWriteAction(() -> templatesEditor.getDocument().setText(templatesText));
 		}
-
-		//noinspection ConstantConditions
-		actionListener.actionPerformed(null);
 	}
 
 	@NotNull
@@ -117,7 +87,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		if (templatesEditor != null && !templatesEditor.isDisposed()) {
 			templatesText = ReadAction.compute(() -> templatesEditor.getDocument().getText());
 		}
-		return new CptPluginSettings(pluginEnabledField.isSelected());
+		return new CptPluginSettings();
 	}
 
 	@Override

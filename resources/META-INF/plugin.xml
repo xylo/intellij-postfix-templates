@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>0.9.2</version>
+	<version>0.9.3</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -25,9 +25,8 @@
 	</description>
 
 	<change-notes><![CDATA[
-			<h4>Version 0.9.2</h4>
 			<ul>
-				<li>added support for Windows</li>
+				<li>Removed unnecessary option "Enable Plugin" from the plugin settings</li>
 			</ul>
     ]]>
 	</change-notes>

@@ -42,7 +42,6 @@ import static java.util.stream.Collectors.toList;
 
 public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, CptApplicationSettings.SettingsChangedListener {
 	private Set<PostfixTemplate> templates;
-	private boolean activated = false;
 
 	/**
 	 * Template file change listener.
@@ -52,9 +51,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		public void beforeDocumentSaving(@NotNull Document d) {
 			VirtualFile vFile = FileDocumentManager.getInstance().getFile(d);
 			if (vFile != null && vFile.getPath().startsWith(CptUtil.getTemplatesPath().getAbsolutePath())) {
-				if (CptApplicationSettings.getInstance().getPluginSettings().isPluginEnabled()) {
-					reloadTemplates();
-				}
+				reloadTemplates();
 			}
 		}
 	};
@@ -72,13 +69,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 	}
 
 	private void reload(CptApplicationSettings settings) {
-		if (settings.getPluginSettings().isPluginEnabled() && !activated) {
-			activated = true;
-			reloadTemplates();
-		} else if (!settings.getPluginSettings().isPluginEnabled() && activated) {
-			activated = false;
-			templates = new OrderedSet<>();
-		}
+		reloadTemplates();
 	}
 
 	public void reloadTemplates() {
