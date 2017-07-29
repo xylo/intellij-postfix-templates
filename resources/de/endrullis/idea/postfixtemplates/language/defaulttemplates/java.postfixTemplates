@@ -62,7 +62,7 @@
     java.util.Collection     →  $expr$.stream().min(Comparator.comparing($END$))
     java.util.stream.Stream  →  $expr$.min(Comparator.comparing($END$))
 
-.mayBy : maximu by attribute
+.maxBy : maximum by attribute
     ARRAY                    →  Arrays.stream($expr$).max(Comparator.comparing($END$))
     java.util.Collection     →  $expr$.stream().max(Comparator.comparing($END$))
     java.util.stream.Stream  →  $expr$.max(Comparator.comparing($END$))
