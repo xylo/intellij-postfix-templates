@@ -27,6 +27,7 @@
 	<change-notes><![CDATA[
 			<ul>
 				<li>Removed unnecessary option "Enable Plugin" from the plugin settings</li>
+				<li>Fixed a typo in one template description</li>
 			</ul>
     ]]>
 	</change-notes>
