@@ -31,7 +31,7 @@ The idea behind these templates is to bring a tiny bit of Scala feeling back to 
 
 ## Edit the templates
 
-Go to *Tools → Custom Postfix Templates → Edit Java Templates* to open an editor tab with the java templates.
+Go to the menu *Tools → Custom Postfix Templates → Edit Java Templates* to open an editor tab with the java templates.
 Here you can easily change, remove, or add new templates matching your needs.
 Note that you have to save the template file in order to update the postfix templates in the IDE.
 
