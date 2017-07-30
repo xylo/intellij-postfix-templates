@@ -26,8 +26,9 @@
 
 	<change-notes><![CDATA[
 			<ul>
-				<li>Removed unnecessary option "Enable Plugin" from the plugin settings</li>
-				<li>Fixed a typo in one template description</li>
+				<li>Removed unnecessary option "Enable Plugin" from the plugin settings.</li>
+				<li>Fixed a typo in one template description.</li>
+				<li>Fixed that ITERABLE_OR_ARRAY, NON_VOID, and NOT_PRIMITIVE could not be parsed.</li>
 			</ul>
     ]]>
 	</change-notes>
