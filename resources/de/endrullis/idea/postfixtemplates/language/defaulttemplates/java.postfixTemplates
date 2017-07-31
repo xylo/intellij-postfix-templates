@@ -33,43 +33,43 @@
 ## collection conversions ##
 
 .toList : convert to List
-    java.util.Collection     →  new ArrayList<>($expr$)$END$
-    ARRAY                    →  Arrays.asList($expr$)$END$
+    java.util.Collection     →  new java.util.ArrayList<>($expr$)$END$
+    ARRAY                    →  java.util.Arrays.asList($expr$)$END$
 
 .toSet : convert to Set
-    java.util.Collection     →  new HashSet<>($expr$)$END$
-    ARRAY                    →  new HashSet<>(Arrays.asList($expr$))$END$
+    java.util.Collection     →  new java.util.HashSet<>($expr$)$END$
+    ARRAY                    →  new java.util.HashSet<>(java.util.Arrays.asList($expr$))$END$
 
 .toMap : convert to Map
-    java.util.Collection     →  $expr$.stream().collect(Collectors.toMap($END$))
-    ARRAY                    →  Arrays.stream($expr$).collect(Collectors.toMap($END$))
-    java.util.stream.Stream  →  $expr$.collect(Collectors.toMap($END$))
+    java.util.Collection     →  $expr$.stream().collect(java.util.stream.Collectors.toMap($END$))
+    ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.toMap($END$))
+    java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toMap($END$))
 
 
 
 ## collection operations ##
 
 .sort : sort naturally
-    ARRAY                    →  Arrays.sort($expr$)$END$
+    ARRAY                    →  java.util.Arrays.sort($expr$)$END$
 
 .sortBy :  sort by attribute
-    ARRAY                    →  Arrays.sort($expr$, Comparator.comparing($END$))
-    java.util.List           →  $expr$.sort(Comparator.comparing($END$))
-    java.util.stream.Stream  →  $expr$.sorted(Comparator.comparing($END$))
+    ARRAY                    →  java.util.Arrays.sort($expr$, java.util.Comparator.comparing($END$))
+    java.util.List           →  $expr$.sort(java.util.Comparator.comparing($END$))
+    java.util.stream.Stream  →  $expr$.sorted(java.util.Comparator.comparing($END$))
 
 .minBy : minimum by attribute
-    ARRAY                    →  Arrays.stream($expr$).min(Comparator.comparing($END$))
-    java.util.Collection     →  $expr$.stream().min(Comparator.comparing($END$))
-    java.util.stream.Stream  →  $expr$.min(Comparator.comparing($END$))
+    ARRAY                    →  java.util.Arrays.stream($expr$).min(java.util.Comparator.comparing($END$))
+    java.util.Collection     →  $expr$.stream().min(java.util.Comparator.comparing($END$))
+    java.util.stream.Stream  →  $expr$.min(java.util.Comparator.comparing($END$))
 
 .maxBy : maximum by attribute
-    ARRAY                    →  Arrays.stream($expr$).max(Comparator.comparing($END$))
-    java.util.Collection     →  $expr$.stream().max(Comparator.comparing($END$))
-    java.util.stream.Stream  →  $expr$.max(Comparator.comparing($END$))
+    ARRAY                    →  java.util.Arrays.stream($expr$).max(java.util.Comparator.comparing($END$))
+    java.util.Collection     →  $expr$.stream().max(java.util.Comparator.comparing($END$))
+    java.util.stream.Stream  →  $expr$.max(java.util.Comparator.comparing($END$))
 
 .groupBy : group by attribute
-    java.util.Collection     →  $expr$.stream().collect(Collectors.groupingBy($END$))
-    java.util.stream.Stream  →  $expr$.collect(Collectors.groupingBy($END$))
+    java.util.Collection     →  $expr$.stream().collect(java.util.stream.Collectors.groupingBy($END$))
+    java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.groupingBy($END$))
 
 .exists : any match
     java.util.Collection     →  $expr$.stream().anyMatch($END$)
@@ -80,11 +80,11 @@
     java.util.stream.Stream  →  $expr$.allMatch($END$)
 
 .reverse : reverse collection
-    java.util.List           →  Collections.reverse($expr$)$END$
+    java.util.List           →  java.util.Collections.reverse($expr$)$END$
 
 .concat : concat
-    ARRAY                    →  Stream.concat(Arrays.stream($expr$), $END$)
-    java.util.stream.Stream  →  Stream.concat($expr$, $END$)
+    ARRAY                    →  java.util.stream.Stream.concat(java.util.Arrays.stream($expr$), $END$)
+    java.util.stream.Stream  →  java.util.stream.Stream.concat($expr$, $END$)
 
 .forEach : for each
     java.util.Optional       →  $expr$.ifPresent($END$)
@@ -94,5 +94,5 @@
 ## others ##
 
 .r : compile pattern
-    java.lang.String         →  Pattern.compile($expr$)$END$
+    java.lang.String         →  java.util.regex.Pattern.compile($expr$)$END$
 
