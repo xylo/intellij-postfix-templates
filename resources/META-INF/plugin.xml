@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>0.9.3</version>
+	<version>0.9.4</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -26,9 +26,7 @@
 
 	<change-notes><![CDATA[
 			<ul>
-				<li>Removed unnecessary option "Enable Plugin" from the plugin settings.</li>
-				<li>Fixed a typo in one template description.</li>
-				<li>Fixed that ITERABLE_OR_ARRAY, NON_VOID, and NOT_PRIMITIVE could not be parsed.</li>
+				<li>Fixed that templates could not be reloaded with Control+S on Windows systems.</li>
 			</ul>
     ]]>
 	</change-notes>
