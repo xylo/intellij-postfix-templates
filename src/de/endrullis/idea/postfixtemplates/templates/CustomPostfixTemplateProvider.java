@@ -50,7 +50,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		@Override
 		public void beforeDocumentSaving(@NotNull Document d) {
 			VirtualFile vFile = FileDocumentManager.getInstance().getFile(d);
-			if (vFile != null && vFile.getPath().startsWith(CptUtil.getTemplatesPath().getAbsolutePath())) {
+			if (vFile != null && vFile.getCanonicalPath().replace('\\', '/').startsWith(CptUtil.getTemplatesPath().getAbsolutePath().replace('\\', '/'))) {
 				reloadTemplates();
 			}
 		}
