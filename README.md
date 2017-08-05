@@ -26,6 +26,7 @@ The following templates are shipped with the plugin and shall provide you with a
 * `sort`, `sortBy`, `minBy`, `maxBy`, `groupBy`
 * `exists`, `forall`
 * `reverse`, `concat`
+* `mkString`
 * Optional.`forEach`
 * String.`r` to convert the string into a regular expression
 
