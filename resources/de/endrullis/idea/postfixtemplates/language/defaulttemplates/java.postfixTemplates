@@ -89,6 +89,11 @@
 .forEach : for each
     java.util.Optional       →  $expr$.ifPresent($END$)
 
+.mkString : make a string
+	ARRAY                    →  Arrays.stream($expr$).collect(Collectors.joining($END$))
+	java.util.Collection     →  $expr$.stream().collect(Collectors.joining($END$))
+	java.util.stream.Stream  →  $expr$.collect(Collectors.joining($END$))
+
 
 
 ## others ##
