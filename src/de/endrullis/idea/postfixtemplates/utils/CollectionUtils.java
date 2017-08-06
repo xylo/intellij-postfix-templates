@@ -1,9 +1,6 @@
 package de.endrullis.idea.postfixtemplates.utils;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Collection utilities.
@@ -18,6 +15,10 @@ public class CollectionUtils {
 
 	public static <T> Set<T> _Set(T... values) {
 		return _Set(Arrays.asList(values));
+	}
+
+	public static <T> List<T> _List(T... values) {
+		return Arrays.asList(values);
 	}
 
 }
