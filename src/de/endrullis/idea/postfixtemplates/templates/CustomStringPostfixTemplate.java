@@ -214,6 +214,7 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 		public int hashCode() {
 			int result = super.hashCode();
 			result = 29 * result + (skipOnStart ? 1 : 0);
+			result = 29 * result + no;
 			return result;
 		}
 
