@@ -34,7 +34,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 
-	private static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
+	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
 	private final String template;
 	private final Set<MyVariable> variables;

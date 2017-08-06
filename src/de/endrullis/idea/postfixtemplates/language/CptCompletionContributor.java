@@ -10,7 +10,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 
-import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
+import static de.endrullis.idea.postfixtemplates.templates.CustomStringPostfixTemplate.PREDEFINED_VARIABLES;
 
 public class CptCompletionContributor extends CompletionContributor {
 	public CptCompletionContributor() {
@@ -35,7 +35,7 @@ public class CptCompletionContributor extends CompletionContributor {
 				public void addCompletions(@NotNull CompletionParameters parameters,
 				                           ProcessingContext context,
 				                           @NotNull CompletionResultSet resultSet) {
-					for (String name : _Set("expr", "END")) {
+					for (String name : PREDEFINED_VARIABLES) {
 						resultSet.addElement(LookupElementBuilder.create(name));
 					}
 				}
