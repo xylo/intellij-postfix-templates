@@ -35,7 +35,7 @@ public class CustomStringPostfixTemplateTest {
 
 		assertEquals(_Set(
 			new Variable("b", "", "", true),
-			new Variable("d", "", "v", true),
+			new Variable("d", "v", "", true),
 			new Variable("e", "exp", "value", true)
 		), variables);
 	}

@@ -54,10 +54,7 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 		super.setVariables(template, psiElement);
 
 		for (Variable variable : variables) {
-			System.out.println("variable.getDefaultValueString() = " + variable.getDefaultValueString());
-
 			template.addVariable(variable.getName(), variable.getExpressionString(), variable.getDefaultValueString(), variable.isAlwaysStopAt());
-
 			/*
 			List<Macro> macros = MacroFactory.getMacros(variable.getDefaultValueString());
 
@@ -146,11 +143,11 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 		return varNames.stream().map(varName -> {
 			String[] parts = varName.split(":", 3);
 
-			if (parts.length == 2) {
-				return new MyVariable(parts[0], "", parts[1], true, varName);
-			} else
 			if (parts.length == 3) {
 				return new MyVariable(parts[0], parts[1], parts[2], true, varName);
+			} else
+			if (parts.length == 2) {
+				return new MyVariable(parts[0], parts[1], "", true, varName);
 			} else {
 				return new MyVariable(varName, "", "", true, varName);
 			}
@@ -167,7 +164,7 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 	static String removeVariableValues(@NotNull String templateText, Set<MyVariable> variables) {
 		final String[] newTemplateText = {templateText};
 
-		variables.stream().filter(v -> !v.getDefaultValueString().isEmpty()).forEach(variable -> {
+		variables.stream().filter(v -> !v.getExpressionString().isEmpty()).forEach(variable -> {
 			String varPattern = "$" + variable.getVarCode() + "$";
 			String replacement = "$" + variable.getName() + "$";
 			newTemplateText[0] = newTemplateText[0].replaceAll(Pattern.quote(varPattern), Matcher.quoteReplacement(replacement));

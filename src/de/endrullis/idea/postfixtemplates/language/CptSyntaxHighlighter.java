@@ -11,6 +11,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
 import org.jetbrains.annotations.NotNull;
 
 import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 public class CptSyntaxHighlighter extends SyntaxHighlighterBase {
 	public static final TextAttributesKey SEPARATOR =
@@ -39,6 +40,9 @@ public class CptSyntaxHighlighter extends SyntaxHighlighterBase {
 	private static final TextAttributesKey[] TEMPLATE_VARIABLE_KEYS = new TextAttributesKey[]{TEMPLATE_CODE, TEMPLATE_VARIABLE_HOLDER};
 	private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
 	private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
+	private static final java.util.Set<IElementType> TEMPLATE_VARIABLE_PARTS = _Set(CptTypes.TEMPLATE_VARIABLE_START,
+		CptTypes.TEMPLATE_VARIABLE_END, CptTypes.TEMPLATE_VARIABLE_NAME, CptTypes.TEMPLATE_VARIABLE_EXPRESSION,
+		CptTypes.TEMPLATE_VARIABLE_VALUE, CptTypes.TEMPLATE_VARIABLE_SEPARATOR);
 
 	@NotNull
 	@Override
@@ -59,7 +63,7 @@ public class CptSyntaxHighlighter extends SyntaxHighlighterBase {
 			return TEMPLATE_DESCRIPTION_KEYS;
 		} else if (tokenType.equals(CptTypes.TEMPLATE_CODE)) {
 			return TEMPLATE_CODE_KEYS;
-		} else if (tokenType.equals(CptTypes.TEMPLATE_VARIABLE)) {
+		} else if (TEMPLATE_VARIABLE_PARTS.contains(tokenType)) {
 			return TEMPLATE_VARIABLE_KEYS;
 		} else if (tokenType.equals(CptTypes.COMMENT)) {
 			return COMMENT_KEYS;

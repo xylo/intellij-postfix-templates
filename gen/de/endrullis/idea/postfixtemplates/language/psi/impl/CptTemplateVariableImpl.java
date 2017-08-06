@@ -11,25 +11,19 @@ import static de.endrullis.idea.postfixtemplates.language.psi.CptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.endrullis.idea.postfixtemplates.language.psi.*;
 
-public class CptReplacementImpl extends ASTWrapperPsiElement implements CptReplacement {
+public class CptTemplateVariableImpl extends ASTWrapperPsiElement implements CptTemplateVariable {
 
-  public CptReplacementImpl(ASTNode node) {
+  public CptTemplateVariableImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CptVisitor visitor) {
-    visitor.visitReplacement(this);
+    visitor.visitTemplateVariable(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof CptVisitor) accept((CptVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<CptTemplateVariable> getTemplateVariableList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, CptTemplateVariable.class);
   }
 
 }
