@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>0.9.4</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -26,7 +26,11 @@
 
 	<change-notes><![CDATA[
 			<ul>
-				<li>Fixed that templates could not be reloaded with Control+S on Windows systems.</li>
+				<li>Added support for additional template variables.</li>
+				<li>Added support for live template macros.</li>
+				<li>Added completion for template variables and macro names.</li>
+				<li>Added more postfix templates: ...</li>
+				<li>Added the live template macro <code>suggestShortVariableName()</code></li>
 			</ul>
     ]]>
 	</change-notes>
@@ -76,6 +80,7 @@
 		<todoIndexer filetype="CPT file" implementationClass="de.endrullis.idea.postfixtemplates.language.CptTodoIndexer"/>
 		<defaultLiveTemplatesProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLiveTemplatesProvider"/>
 		<liveTemplateContext implementation="de.endrullis.idea.postfixtemplates.language.CptContext"/>
+		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.SuggestShortVariableNameMacro"/>
 	</extensions>
 
 	<actions>

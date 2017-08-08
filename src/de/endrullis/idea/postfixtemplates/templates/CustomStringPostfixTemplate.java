@@ -24,9 +24,7 @@ import com.intellij.util.containers.OrderedSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -39,16 +37,25 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
 	private final String          template;
-	private final Set<MyVariable> variables;
+	private final Set<MyVariable> variables = new OrderedSet<>();
 
 	public CustomStringPostfixTemplate(String clazz, String name, String example, String template) {
 		super(name, example, selectorTopmost(getCondition(clazz)));
 
-		variables = parseVariables(template).stream().filter(v -> {
+		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
-		}).collect(Collectors.toSet());
+		}).collect(Collectors.toList());
 
-		this.template = removeVariableValues(template, variables);
+		this.template = removeVariableValues(template, allVariables);
+
+		// filter out variable duplicates
+		Set<String> foundVarNames = new HashSet<>();
+		for (MyVariable variable : allVariables) {
+			if (!foundVarNames.contains(variable.getName())) {
+				variables.add(variable);
+				foundVarNames.add(variable.getName());
+			}
+		}
 	}
 
 	@Override
@@ -166,7 +173,7 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 	 * @param variables    variables that may have default values
 	 * @return the template text without the variable default values
 	 */
-	static String removeVariableValues(@NotNull String templateText, Set<MyVariable> variables) {
+	static String removeVariableValues(@NotNull String templateText, Collection<MyVariable> variables) {
 		final String[] newTemplateText = {templateText};
 
 		variables.forEach(variable -> {
