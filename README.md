@@ -30,6 +30,7 @@ The following templates are shipped with the plugin and shall provide you with a
 * `.reverse` - reverse arrays and lists
 * `.concat` - concatenate arrays, collections, and streams
 * `.mkString` - join the elements (strings) of an array, a collection, an iterable, or a stream into one string by using a given separator
+* `.stream` - convert iterable to stream
 * `.map` - map the entries of lists, sets, and maps
 * `.mapKeys` - map the keys of a map
 * `.mapValues` - map the values of a map
