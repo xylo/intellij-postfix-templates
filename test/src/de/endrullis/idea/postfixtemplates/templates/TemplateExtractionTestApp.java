@@ -14,6 +14,8 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * Application that tests all templates by automatically applying them to the Java file "TemplatesTestTemplate".
+ *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public class TemplateExtractionTestApp {

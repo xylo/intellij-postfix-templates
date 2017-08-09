@@ -16,6 +16,8 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
+ * Template file for testing all postfix templates.
+ *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public class TemplatesTestTemplate {
