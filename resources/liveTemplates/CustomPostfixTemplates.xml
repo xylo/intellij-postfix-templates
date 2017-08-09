@@ -1,7 +1,13 @@
 <templateSet group="Custom Postfix Templates">
-  <template name="-&gt;" value="→" description="→" toReformat="false" toShortenFQNames="true">
-	  <context>
-	 	  <option name="CPT" value="true" />
-	 	</context>
-  </template>
+	<template name="-&gt;" value="→" description="→" toReformat="false" toShortenFQNames="true">
+		<context>
+			<option name="CPT" value="true"/>
+		</context>
+	</template>
+	<template name="_" value="$var$ -&gt; $var$" description="lambda" toReformat="false" toShortenFQNames="true">
+		<variable name="var" expression="suggestShortVariableName()" defaultValue="v" alwaysStopAt="false"/>
+		<context>
+			<option name="JAVA_CODE" value="true"/>
+		</context>
+	</template>
 </templateSet>
