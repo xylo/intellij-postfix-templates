@@ -121,11 +121,11 @@
 	java.util.Set            →  $expr$.stream().map($f$).collect(Collectors.toSet())
 	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap($keyF$, $valueF$))
 
-.mapValues : map values
-	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), $valueF$))
-
 .mapKeys : map keys
 	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap($keyF$, e -> e.getValue()))
+
+.mapValues : map values
+	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), $valueF$))
 
 .getOrElseUpdate : get or else update
 	java.util.Map            →  $expr$.computeIfAbsent($key$, $valueF$)
