@@ -154,6 +154,12 @@
 	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).filter($condition$).findFirst()
 	java.util.stream.Stream  →  $expr$.filter($condition$).findFirst()
 
+.take : take a certain number of elements
+	java.util.stream.Stream  →  $expr$.limit($intValue$)
+
+.drop : drop a certain number of elements
+	java.util.stream.Stream  →  $expr$.skip($intValue$)
+
 .size : size of collection
 	ARRAY                    →  $expr$.length
 

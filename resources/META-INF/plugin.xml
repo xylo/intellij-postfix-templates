@@ -38,6 +38,8 @@
 					<code>.reduce</code>,
 					<code>.fold</code>,
 					<code>.find</code>,
+					<code>.take</code>,
+					<code>.drop</code>,
 					<code>.size</code>,
 					<code>.get</code>,
 					<code>.apply</code>,
