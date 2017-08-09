@@ -21,14 +21,32 @@ Select the `.toInt` template and see how it is expanded.
 ## Preconfigured Java templates for Scala users and those who want to simplify their life
 
 The following templates are shipped with the plugin and shall provide you with a template basis and with some useful examples:
-* `toByte`, `toChar`, `toInt`, `toLong`, `toFloat`, `toDouble`
-* `toList`, `toSet`, `toMap`
-* `sort`, `sortBy`, `minBy`, `maxBy`, `groupBy`
-* `exists`, `forall`
-* `reverse`, `concat`
-* `mkString`
-* Optional.`forEach`
-* String.`r` to convert the string into a regular expression
+* `.toByte`, `.toChar`, `.toInt`, `.toLong`, `.toFloat`, `.toDouble` - convert strings and numbers to other numbers
+* `.toList`, `.toSet`, `.toMap` - convert arrays, collections, iterables, and streams to lists, sets, or maps
+* `.sort`, `.sortBy` - sort arrays, lists, and streams (by attribute)
+* `.minBy`, `.maxBy` - find the minimum/maximum in arrays, collections, iterables, and streams 
+* `.groupBy` - group arrays, collections, iterables, and streams by attribute
+* `.exists`, `.forall` - test if one/all element(s) of an array, a collection, an iterable, or a stream hold(s) a given condition
+* `.reverse` - reverse arrays and lists
+* `.concat` - concatenate arrays, collections, and streams
+* `.mkString` - join the elements (strings) of an array, a collection, an iterable, or a stream into one string by using a given separator
+* `.map` - map the entries of lists, sets, and maps
+* `.mapKeys` - map the keys of a map
+* `.mapValues` - map the values of a map
+* `.getOrElseUpdate` - return the map value of a given key or compute it and return it
+* `.filter` - filter the elements of lists, sets, maps, and iterables
+* `.reduce` - reduce the elements of arrays, collections, and iterables
+* `.fold` - reduce the elements of arrays, collections, and iterables by using a neutral element (similar to Scala fold)
+* `.find` - find an element in arrays, collections, iterables, and streams
+* `.size` - get the length or an array
+* `.get` - get an element of an array by index
+* `.forEach` - iterate over arrays, and optionals
+* `.apply` - apply a runnable, supplier, consumer, or predicate
+* `.lines` - get the lines of text files, paths, input streams, and strings
+* `.content` - get the text content of files, paths, input streams, and URLs
+* `.bufferedReader` - create a buffered reader for an input steam
+* `.r` - convert a string into a regular expression
+* `.val` - extract the expression as Lombok value (similar to the `.var` template)
 
 The idea behind these templates is to bring a tiny bit of Scala feeling back to Java.
 
