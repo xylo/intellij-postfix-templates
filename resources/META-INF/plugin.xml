@@ -8,19 +8,19 @@
 	<description><![CDATA[
 			This plugin allows you to define your own postfix templates for Java code.
 			It comes with a set of predefined templates which can be edited and extended, e.g.:
-			<!--
-			<ul>
-				<li>string.toInt    → Integer.parseInt(string)</li>
-				<li>longValue.toInt → ((int) longValue)</li>
-				<li>array.toList    → Arrays.asList(array)</li>
-			</ul>
-			-->
 
 			<table>
 				<tr><td>●</td><td>string.toInt</td>   <td>→</td><td>Integer.parse(string)</td></tr>
 				<tr><td>●</td><td>longValue.toInt</td><td>→</td><td>((int) longValue)</td></tr>
 				<tr><td>●</td><td>array.toList</td>   <td>→</td><td>Arrays.asList(array)</td></tr>
 			</table>
+
+			<p>
+				Links:
+				<ul>
+					<li><a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">All predefined templates</a></li>
+				</ul>
+			</p>
     ]]>
 	</description>
 
