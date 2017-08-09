@@ -47,10 +47,10 @@
 	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.toSet())
 
 .toMap : convert to Map
-	ARRAY                    →  Arrays.stream($expr$).collect(Collectors.toMap($key$, $value$))
-	java.util.Collection     →  $expr$.stream().collect(Collectors.toMap($key$, $value$))
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.toMap($key$, $value$))
-	java.util.stream.Stream  →  $expr$.collect(Collectors.toMap($key$, $value$))
+	ARRAY                    →  Arrays.stream($expr$).collect(Collectors.toMap($keyF$, $valueF$))
+	java.util.Collection     →  $expr$.stream().collect(Collectors.toMap($keyF$, $valueF$))
+	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.toMap($keyF$, $valueF$))
+	java.util.stream.Stream  →  $expr$.collect(Collectors.toMap($keyF$, $valueF$))
 
 .stream : convert to Stream
 	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false)
@@ -64,27 +64,27 @@
 	java.util.List           →  Collections.sort($expr$)
 
 .sortBy : sort by attribute
-	ARRAY                    →  Arrays.sort($expr$, Comparator.comparing($attribute$))
-	java.util.List           →  $expr$.sort(Comparator.comparing($attribute$))
-	java.util.stream.Stream  →  $expr$.sorted(Comparator.comparing($attribute$))
+	ARRAY                    →  Arrays.sort($expr$, Comparator.comparing($attributeF$))
+	java.util.List           →  $expr$.sort(Comparator.comparing($attributeF$))
+	java.util.stream.Stream  →  $expr$.sorted(Comparator.comparing($attributeF$))
 
 .minBy : minimum by attribute
-	ARRAY                    →  Arrays.stream($expr$).min(Comparator.comparing($attribute$))
-	java.util.Collection     →  $expr$.stream().min(Comparator.comparing($attribute$))
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).min(Comparator.comparing($attribute$))
-	java.util.stream.Stream  →  $expr$.min(Comparator.comparing($attribute$))
+	ARRAY                    →  Arrays.stream($expr$).min(Comparator.comparing($attributeF$))
+	java.util.Collection     →  $expr$.stream().min(Comparator.comparing($attributeF$))
+	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).min(Comparator.comparing($attributeF$))
+	java.util.stream.Stream  →  $expr$.min(Comparator.comparing($attributeF$))
 
 .maxBy : maximum by attribute
-	ARRAY                    →  Arrays.stream($expr$).max(Comparator.comparing($attribute$))
-	java.util.Collection     →  $expr$.stream().max(Comparator.comparing($attribute$))
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).max(Comparator.comparing($attribute$))
-	java.util.stream.Stream  →  $expr$.max(Comparator.comparing($attribute$))
+	ARRAY                    →  Arrays.stream($expr$).max(Comparator.comparing($attributeF$))
+	java.util.Collection     →  $expr$.stream().max(Comparator.comparing($attributeF$))
+	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).max(Comparator.comparing($attributeF$))
+	java.util.stream.Stream  →  $expr$.max(Comparator.comparing($attributeF$))
 
 .groupBy : group by attribute
-	ARRAY                    →  Arrays.stream($expr$).collect(Collectors.groupingBy($attribute$))
-	java.util.Collection     →  $expr$.stream().collect(Collectors.groupingBy($attribute$))
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.groupingBy($attribute$))
-	java.util.stream.Stream  →  $expr$.collect(Collectors.groupingBy($attribute$))
+	ARRAY                    →  Arrays.stream($expr$).collect(Collectors.groupingBy($attributeF$))
+	java.util.Collection     →  $expr$.stream().collect(Collectors.groupingBy($attributeF$))
+	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.groupingBy($attributeF$))
+	java.util.stream.Stream  →  $expr$.collect(Collectors.groupingBy($attributeF$))
 
 .exists : any match
 	ARRAY                    →  Arrays.stream($expr$).anyMatch($condition$)
@@ -119,21 +119,21 @@
 .map : map entries
 	java.util.List           →  $expr$.stream().map($f$).collect(Collectors.toList())
 	java.util.Set            →  $expr$.stream().map($f$).collect(Collectors.toSet())
-	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap($key$, $value$))
+	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap($keyF$, $valueF$))
 
 .mapValues : map values
-	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), $value$))
+	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), $valueF$))
 
 .mapKeys : map keys
-	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap($key$, e -> e.getValue()))
+	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap($keyF$, e -> e.getValue()))
 
 .getOrElseUpdate : get or else update
-	java.util.Map            →  $expr$.computeIfAbsent($key$, $value$)
+	java.util.Map            →  $expr$.computeIfAbsent($key$, $valueF$)
 
 .filter : filter map entries
 	java.util.List           →  $expr$.stream().filter($condition$).collect(Collectors.toList())
 	java.util.Set            →  $expr$.stream().filter($condition$).collect(Collectors.toSet())
-	java.util.Map            →  $expr$.entrySet().stream().filter($condition"$).collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()))
+	java.util.Map            →  $expr$.entrySet().stream().filter($condition$).collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()))
 	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.toList())
 
 .reduce : reduce
@@ -166,38 +166,42 @@
 .apply : apply the function
 	java.lang.Runnable                    →  $expr$.run()
 	java.util.function.Supplier           →  $expr$.get()
-	java.util.function.BooleanSupplier    →  $expr$.get()
-	java.util.function.DoubleSupplier     →  $expr$.get()
-	java.util.function.IntSupplier        →  $expr$.get()
-	java.util.function.LongSupplier       →  $expr$.get()
-	java.util.function.Consumer           →  $expr$.accept($action$)
-	java.util.function.BiConsumer         →  $expr$.accept($action$)
-	java.util.function.DoubleConsumer     →  $expr$.accept($action$)
-	java.util.function.IntConsumer        →  $expr$.accept($action$)
-	java.util.function.LongConsumer       →  $expr$.accept($action$)
-	java.util.function.ObjDoubleConsumer  →  $expr$.accept($action$)
-	java.util.function.ObjIntConsumer     →  $expr$.accept($action$)
-	java.util.function.ObjLongConsumer    →  $expr$.accept($action$)
-	java.util.function.Predicate          →  $expr$.test($condition$)
-	java.util.function.BiPredicate        →  $expr$.test($condition$)
-	java.util.function.DoublePredicate    →  $expr$.test($condition$)
-	java.util.function.IntPredicate       →  $expr$.test($condition$)
-	java.util.function.LongPredicate      →  $expr$.test($condition$)
+	java.util.function.BooleanSupplier    →  $expr$.getAsBoolean()
+	java.util.function.DoubleSupplier     →  $expr$.getAsDouble()
+	java.util.function.IntSupplier        →  $expr$.getAsInt()
+	java.util.function.LongSupplier       →  $expr$.getAsLong()
+	java.util.function.Consumer           →  $expr$.accept($object$)
+	java.util.function.BiConsumer         →  $expr$.accept($object$, $object$)
+	java.util.function.DoubleConsumer     →  $expr$.accept($doubleValue$)
+	java.util.function.IntConsumer        →  $expr$.accept($intValue$)
+	java.util.function.LongConsumer       →  $expr$.accept($longValue$)
+	java.util.function.ObjDoubleConsumer  →  $expr$.accept($object$, $doubleValue$)
+	java.util.function.ObjIntConsumer     →  $expr$.accept($object$, $intValue$)
+	java.util.function.ObjLongConsumer    →  $expr$.accept($object$, $longValue$)
+	java.util.function.Predicate          →  $expr$.test($object$)
+	java.util.function.BiPredicate        →  $expr$.test($object$, $object$)
+	java.util.function.DoublePredicate    →  $expr$.test($doubleValue$)
+	java.util.function.IntPredicate       →  $expr$.test($intValue$)
+	java.util.function.LongPredicate      →  $expr$.test($longValue$)
 
 
 
 ## others ##
 
 .lines : lines
-	java.io.File             →  Files.readAllLines($expr$.toPath(), $encoding::"\"UTF-8\""$)
-	java.nio.file.Path       →  Files.readAllLines($expr$, $encoding::"\"UTF-8\""$)
+	java.io.File             →  Files.readAllLines($expr$.toPath(), Charset.forName($encoding::"\"UTF-8\""$))
+	java.nio.file.Path       →  Files.readAllLines($expr$, Charset.forName($encoding::"\"UTF-8\""$))
 	java.lang.String         →  $expr$.split("\\r?\\n")
+	java.io.InputStream      →  new BufferedReader(new InputStreamReader($expr$)).lines()
 
 .content : content
 	java.io.File             →  new String(Files.readAllBytes($expr$.toPath()), $encoding::"\"UTF-8\""$)
 	java.nio.file.Path       →  new String(Files.readAllBytes($expr$), $encoding::"\"UTF-8\""$)
 	java.io.InputStream      →  new Scanner($expr$, $encoding::"\"UTF-8\""$).useDelimiter("\\A").next()
 	java.net.URL             →  new Scanner($expr$.openStream(), $encoding::"\"UTF-8\""$).useDelimiter("\\A").next()
+
+.bufferedReader : wrap with BufferedReader
+	java.io.InputStream      →  new BufferedReader(new InputStreamReader($expr$))
 
 .r : compile pattern
 	java.lang.String         →  Pattern.compile($expr$)
