@@ -29,8 +29,25 @@
 				<li>Added support for additional template variables.</li>
 				<li>Added support for live template macros.</li>
 				<li>Added completion for template variables and macro names.</li>
-				<li>Added more postfix templates: ...</li>
-				<li>Added the live template macro <code>suggestShortVariableName()</code></li>
+				<li>Added more postfix templates:
+					<code>.stream</code>,
+					<code>.map</code>,
+					<code>.mapKeys</code>,
+					<code>.mapValues</code>,
+					<code>.filter</code>,
+					<code>.reduce</code>,
+					<code>.fold</code>,
+					<code>.find</code>,
+					<code>.size</code>,
+					<code>.get</code>,
+					<code>.apply</code>,
+					<code>.lines</code>,
+					<code>.content</code>,
+					<code>.bufferedReader</code>,
+					<code>.val</code>,
+				</li>
+				<li>Added live template macro <code>suggestShortVariableName()</code>.</li>
+				<li>Added live template <code>_</code> as shortcut for <code>x -> x</code>.</li>
 			</ul>
     ]]>
 	</change-notes>
