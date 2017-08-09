@@ -50,6 +50,8 @@ The following templates are shipped with the plugin and shall provide you with a
 
 The idea behind these templates is to bring a tiny bit of Scala feeling back to Java.
 
+For Scala users there is the live template `_` which expands to `v -> v` to accelerate the creating of lambda expressions.
+
 ## Edit the templates
 
 Go to the menu *Tools → Custom Postfix Templates → Edit Java Templates* to open an editor tab with the java templates.
