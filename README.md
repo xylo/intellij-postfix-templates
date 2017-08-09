@@ -38,6 +38,8 @@ The following templates are shipped with the plugin and shall provide you with a
 * `.reduce` - reduce the elements of arrays, collections, and iterables
 * `.fold` - reduce the elements of arrays, collections, and iterables by using a neutral element (similar to Scala fold)
 * `.find` - find an element in arrays, collections, iterables, and streams
+* `.take` - take a certain number of elements from a stream
+* `.drop` - skip a certain number of elements from a stream
 * `.size` - get the length or an array
 * `.get` - get an element of an array by index
 * `.forEach` - iterate over arrays, and optionals
