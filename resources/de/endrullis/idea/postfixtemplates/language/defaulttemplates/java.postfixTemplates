@@ -104,6 +104,7 @@
 
 .concat : concat
 	ARRAY                    →  Stream.concat(Arrays.stream($expr$), $stream$)
+	java.util.Collection     →  Stream.concat($expr$.stream(), $stream$)
 	java.util.stream.Stream  →  Stream.concat($expr$, $stream$)
 
 .forEach : for each
