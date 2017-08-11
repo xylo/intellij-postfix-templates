@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
+import static de.endrullis.idea.postfixtemplates.utils.StringUtils.replace;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -37,10 +38,6 @@ public class TemplateExtractionTestApp {
 		}
 	}
 
-	private static String replace(String input, String from, String to) {
-		return input.replaceAll(Pattern.quote(from), Matcher.quoteReplacement(to));
-	}
-
 	private static void printTemplates(PrintStream out) {
 		InputStream templatesIn = TemplateExtractionTestApp.class.getResourceAsStream("/de/endrullis/idea/postfixtemplates/language/defaulttemplates/java.postfixTemplates");
 		Stream<String> templateLines = new BufferedReader(new InputStreamReader(templatesIn)).lines().filter(s -> s.contains("→"));
@@ -64,12 +61,12 @@ public class TemplateExtractionTestApp {
 				s = replace(s, from, "x -> x");
 			}
 			s = replace(s, "$key$", "\"key\"");
-			s = replace(s, "$condition$", "x -> true");
+			s = replace(s, "$conditionF$", "x -> true");
 			s = replace(s, "$stream$", "stream");
-			s = replace(s, "$endAction$", "x -> {}");
-			s = replace(s, "$action$", "x -> {}");
+			s = replace(s, "$endActionF$", "x -> {}");
+			//s = replace(s, "$actionF$", "x -> {}");
 			s = replace(s, "$separator$", "\", \"");
-			s = replace(s, "$accumulator$", "(a, b) -> b");
+			s = replace(s, "$accumulatorF$", "(a, b) -> b");
 			s = replace(s, "$neutralElement$", "\"\"");
 			s = replace(s, "$i$", "0");
 			s = replace(s, "$encoding::\"\\\"UTF-8\\\"\"$", "\"UTF-8\"");

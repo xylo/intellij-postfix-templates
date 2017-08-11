@@ -10,6 +10,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileEditor.FileDocumentManagerAdapter;
@@ -18,12 +19,14 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileContentsChangedAdapter;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.containers.OrderedSet;
 import com.intellij.util.messages.MessageBusConnection;
+import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
@@ -56,7 +59,26 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		}
 	};
 
+	@NotNull
+	private static Editor createEditor() {
+		EditorFactory editorFactory = EditorFactory.getInstance();
+		Document editorDocument = editorFactory.createDocument("");
+		return editorFactory.createEditor(editorDocument, null, CptFileType.INSTANCE, true);
+	}
+
 	public CustomPostfixTemplateProvider() {
+		LocalFileSystem.getInstance().addRootToWatch(CptUtil.getTemplatesPath().getAbsolutePath(), true);
+		LocalFileSystem.getInstance().addVirtualFileListener(new VirtualFileContentsChangedAdapter() {
+			@Override
+			protected void onFileChange(@NotNull VirtualFile virtualFile) {
+				reloadTemplates();
+			}
+
+			@Override
+			protected void onBeforeFileChange(@NotNull VirtualFile virtualFile) {
+			}
+		});
+
 		MessageBusConnection messageBus = ApplicationManager.getApplication().getMessageBus().connect();
 
 		// listen to settings changes
@@ -72,31 +94,13 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		reloadTemplates();
 	}
 
+	@Override
 	public void reloadTemplates() {
 		CptUtil.getTemplateFile("java").ifPresent(file -> {
 			if (file.exists()) {
 				templates = loadTemplatesFrom(file);
 			}
 		});
-	}
-
-	private Set<PostfixTemplate> loadTemplatesFromOldFormat(String templatesText) {
-		Set<PostfixTemplate> templates = new OrderedSet<>();
-
-		try (BufferedReader reader = new BufferedReader(new StringReader(templatesText))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				if (!line.trim().isEmpty() && !line.startsWith("//")) {
-					String[] split = line.split("→");
-					if (split.length == 4) {
-						templates.add(new CustomStringPostfixTemplate(split[0].trim(), split[1].trim(), split[2].trim(), split[3].trim()));
-					}
-				}
-			}
-		} catch (IOException ignored) {
-		}
-
-		return combineTemplatesWithSameName(templates);
 	}
 
 	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull File file) {

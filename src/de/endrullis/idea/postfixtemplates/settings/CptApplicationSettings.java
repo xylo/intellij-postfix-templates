@@ -61,6 +61,8 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 	public interface SettingsChangedListener {
 		Topic<SettingsChangedListener> TOPIC = Topic.create("CustomPostfixTemplatesApplicationSettingsChanged", SettingsChangedListener.class);
 
+		void reloadTemplates();
+
 		void onSettingsChange(@NotNull CptApplicationSettings settings);
 	}
 }

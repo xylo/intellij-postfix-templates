@@ -23,9 +23,11 @@ import org.jetbrains.annotations.NotNull;
 import java.io.*;
 import java.util.*;
 
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
+
 public class CptUtil {
 	public static final String PLUGIN_ID = "de.endrullis.idea.postfixtemplates";
-	public static final Set<String> SUPPORTED_LANGUAGES = new HashSet<>(Arrays.asList("java"));
+	public static final Set<String> SUPPORTED_LANGUAGES = new HashSet<>(_List("java"));
 
 	public static Project findProject(PsiElement element) {
 		PsiFile containingFile = element.getContainingFile();
@@ -125,22 +127,28 @@ public class CptUtil {
 		return new File(getPluginPath(), "templates");
 	}
 
+	public static void createTemplateFile(@NotNull String language, String content) {
+		File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
+
+		//noinspection ResultOfMethodCallIgnored
+		file.getParentFile().mkdirs();
+
+		try (PrintStream out = new PrintStream(file, "UTF-8")) {
+			out.println(content);
+			out.close();
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(language + " template file could not copied to " + file.getAbsolutePath(), e);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException("UTF-8 not supported", e);
+		}
+	}
+
 	public static Optional<File> getTemplateFile(@NotNull String language) {
 		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
 			File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
 
-			//noinspection ResultOfMethodCallIgnored
-			file.getParentFile().mkdirs();
-
 			if (!file.exists()) {
-				try (PrintStream out = new PrintStream(file, "UTF-8")) {
-					out.println(CptUtil.getDefaultJavaTemplates());
-					out.close();
-				} catch (FileNotFoundException e) {
-					throw new RuntimeException(language + " template file could not copied to " + file.getAbsolutePath(), e);
-				} catch (UnsupportedEncodingException e) {
-					throw new RuntimeException("UTF-8 not supported", e);
-				}
+				createTemplateFile(language, CptUtil.getDefaultJavaTemplates());
 			}
 
 			return Optional.of(file);
@@ -149,13 +157,17 @@ public class CptUtil {
 		}
 	}
 
-	public static void openFileInEditor(Project project, File file) {
+	public static void openFileInEditor(@NotNull Project project, @NotNull File file) {
 		VirtualFile vFile = LocalFileSystem.getInstance().findFileByIoFile(file);
 
 		if (vFile == null) {
 			vFile = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(file);
 		}
 
+		openFileInEditor(project, vFile);
+	}
+
+	public static void openFileInEditor(@NotNull Project project, @NotNull VirtualFile vFile) {
 		// open templates file in an editor
 		new OpenFileDescriptor(project, vFile).navigate(true);
 	}

@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -48,8 +48,9 @@
 					<code>.bufferedReader</code>,
 					<code>.val</code>,
 				</li>
-				<li>Added live template macro <code>suggestShortVariableName()</code>.</li>
+				<li>Added function to reset the templates to the predefined ones.</li>
 				<li>Added live template <code>_</code> as shortcut for <code>x -> x</code>.</li>
+				<li>Added live template macro <code>suggestShortVariableName()</code>.</li>
 			</ul>
     ]]>
 	</change-notes>
