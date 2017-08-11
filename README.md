@@ -61,23 +61,35 @@ Go to the menu *Tools → Custom Postfix Templates → Edit Java Templates* to o
 Here you can easily change, remove, or add new templates matching your needs.
 Note that you have to save the template file explicitly (via *Ctrl+S*) in order to update the postfix templates in the IDE.
 
-The format of the file is very simple:
-* Each postfix template definition starts with a `.` followed by the template name, the separator `:` and a template description.
-* In the subsequent *mapping* lines you define in which cases the template is applicable and how it shall be replaced.
-* Each *mapping* line consists of a type, followed by `→` and the template code used as replacement.
-  * The type can be either a Java class name or one of the following special types:
-    * `ARRAY` - denotes any Java array
-    * `BOOLEAN` - denotes boxed or unboxed boolean expressions
-    * `ITERABLE_OR_ARRAY` - denotes any iterable or array
-    * `NON_VOID` - denotes any non-void expression
-    * `NOT_PRIMITIVE` - denotes any non-primitive value
-    * `NUMBER` - denotes any boxed or unboxed number
-  * The template code can be any text that might contain the following template variables:
+The file may contain multiple template definitions of the form:
+```
+.TEMPLATE_NAME : TEMPLATE_DESCRIPTION
+    MATCHING_TYPE1  →  TEMPLATE_CODE1
+    MATCHING_TYPE2  →  TEMPLATE_CODE2
+    ...
+```
+* The *MATCHING_TYPE* can be either a Java class name or one of the following special types:
+  * `ARRAY` - denotes any Java array
+  * `BOOLEAN` - denotes boxed or unboxed boolean expressions
+  * `ITERABLE_OR_ARRAY` - denotes any iterable or array
+  * `NON_VOID` - denotes any non-void expression
+  * `NOT_PRIMITIVE` - denotes any non-primitive value
+  * `NUMBER` - denotes any boxed or unboxed number
+* The *TEMPLATE_CODE* can be any text which may also contain template variables used as placeholder.
+  * The following template variables have a special meaning:
     * `$expr$` - denotes the expression the template shall be applied to
     * `$END$` - denotes the final cursor position after the template application
+  * All other variables will be replaced interactively during the template expansion.
+    The use the following format:
+    ```
+    $NAME#NO:EXPRESSION:DEFAULT_VALUE$
+    ```
+    * *NAME* - name of the variable; use a `*` at the end of the name to skip user interaction
+    * *NO* (optional) - number of the variable (defining in which order the variables are expanded)
+    * *EXPRESSION* (optional) - a live template macro used to generate a replacement (e.g. `suggestVariableName()`)
+    * *DEFAULT_VALUE* - a default value that may be used by the macro
 
-Ideally the editor should give you via syntax and error highlighting some hints if you make some syntax mistakes.
-Moreover it should provide you with a code completion for Java class names and the given special types.
+While writing the templates you can use the code completion to get support when writing class names, variable names, template macros, or arrows (→).
 
 ## Roadmap
 
