@@ -80,7 +80,7 @@ The file may contain multiple template definitions of the form:
     * `$expr$` - denotes the expression the template shall be applied to
     * `$END$` - denotes the final cursor position after the template application
   * All other variables will be replaced interactively during the template expansion.
-    The use the following format:
+    The variables have the following format:
     ```
     $NAME#NO:EXPRESSION:DEFAULT_VALUE$
     ```
