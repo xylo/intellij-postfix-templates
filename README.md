@@ -91,10 +91,19 @@ The file may contain multiple template definitions of the form:
 
 While writing the templates you can use the code completion to get support when writing class names, variable names, template macros, or arrows (→).
 
+## Upgrade / reset templates and configure the plugin
+
+Go to *Settings → Editor → Custom Postfix Templates*.  Here you can chose between two different lambda styles and reset your templates to the predefined ones of the plugin.  Alternatively you can also upgrade your templates file by building a diff between the predefined ones and yours.
+
 ## Roadmap
 
-* At the moment only Java templates are supported, but the goal is to extend the plugin to support more languages.
-* Reformatting should result in a nice and clean document with aligned `→` characters.
+### Version 1.1
+
+* Multi-line support
+
+### Version X
+
+* Support for other languages
 
 ## Contribute
 
