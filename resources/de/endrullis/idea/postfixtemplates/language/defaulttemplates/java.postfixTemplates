@@ -8,6 +8,11 @@
 	java.lang.Number         →  $expr$.byteValue()
 	NUMBER                   →  ((byte) ($expr$))
 
+.toShort : convert to short
+	java.lang.String         →  Short.parseShort($expr$)
+	java.lang.Number         →  $expr$.shortValue()
+	NUMBER                   →  ((short) ($expr$))
+
 .toChar : convert to char
 	java.lang.String         →  $expr$.charAt(0)
 	NUMBER                   →  ((char) ($expr$))

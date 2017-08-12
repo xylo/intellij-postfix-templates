@@ -30,6 +30,7 @@
 				<li>Added support for live template macros.</li>
 				<li>Added completion for template variables and macro names.</li>
 				<li>Added more postfix templates:
+					<code>.toShort</code>,
 					<code>.stream</code>,
 					<code>.map</code>,
 					<code>.mapKeys</code>,

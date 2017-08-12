@@ -32,10 +32,10 @@ public abstract class MyJavaPostfixTemplatesUtils {
 		element -> element instanceof PsiExpression && isDecimalNumber(((PsiExpression) element).getType());
 
 	/**
-	 * Contains byte, char, int, long, float, and double.
+	 * Contains byte, short, char, int, long, float, and double.
 	 */
 	public static final Set<PsiType> NUMERIC_TYPES = new HashSet<>(Arrays.asList(
-		PsiType.BYTE, PsiType.CHAR, PsiType.INT, PsiType.LONG, PsiType.FLOAT, PsiType.DOUBLE)
+		PsiType.BYTE, PsiType.SHORT, PsiType.CHAR, PsiType.INT, PsiType.LONG, PsiType.FLOAT, PsiType.DOUBLE)
 	);
 
 	@Contract("null,_ -> false")
