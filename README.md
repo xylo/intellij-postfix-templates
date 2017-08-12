@@ -89,7 +89,7 @@ The file may contain multiple template definitions of the form:
     * *EXPRESSION* (optional) - a live template macro used to generate a replacement (e.g. `suggestVariableName()`)
     * *DEFAULT_VALUE* - a default value that may be used by the macro
 
-While writing the templates you can use the code completion to get support when writing class names, variable names, template macros, or arrows (→).
+While writing the templates you can use the code completion for class names, variable names, template macros and arrows (→).
 
 ## Upgrade / reset templates and configure the plugin
 
