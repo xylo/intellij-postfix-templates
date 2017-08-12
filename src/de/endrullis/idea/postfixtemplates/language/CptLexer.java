@@ -25,9 +25,11 @@ class CptLexer implements FlexLexer {
   public static final int YYINITIAL = 0;
   public static final int WAITING_DESCRIPTION = 2;
   public static final int WAITING_TEMPLATE_CODE = 4;
-  public static final int WAITING_TEMPLATE_VAR_NAME = 6;
-  public static final int WAITING_TEMPLATE_VAR_EXPRESSION = 8;
-  public static final int WAITING_TEMPLATE_VAR_VALUE = 10;
+  public static final int WAITING_TEMPLATE_CODE_CON = 6;
+  public static final int WAITING_TEMPLATE_ESC = 8;
+  public static final int WAITING_TEMPLATE_VAR_NAME = 10;
+  public static final int WAITING_TEMPLATE_VAR_EXPRESSION = 12;
+  public static final int WAITING_TEMPLATE_VAR_VALUE = 14;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -36,7 +38,7 @@ class CptLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5, 5
+     0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7, 7
   };
 
   /** 
@@ -58,9 +60,9 @@ class CptLexer implements FlexLexer {
 
   /* The ZZ_CMAP_A table has 384 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\4\1\2\1\1\1\6\1\3\22\0\1\7\2\0\1\10\1\20\10\0\1\13\1\12\1\0\12\16"+
-    "\1\21\2\0\1\11\1\14\2\0\32\16\1\0\1\5\2\0\1\17\1\0\32\16\12\0\1\1\242\0\2"+
-    "\1\50\0\1\15\55\0");
+    "\11\0\1\4\1\2\1\1\1\5\1\3\22\0\1\6\2\0\1\7\1\17\10\0\1\12\1\11\1\0\12\15\1"+
+    "\20\2\0\1\10\1\13\2\0\32\15\1\0\1\21\2\0\1\16\1\0\32\15\12\0\1\1\242\0\2\1"+
+    "\50\0\1\14\55\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -68,13 +70,13 @@ class CptLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\6\0\1\1\1\2\1\3\1\4\1\5\1\1\1\6"+
-    "\1\5\1\7\2\10\1\11\1\1\1\11\2\12\2\13"+
-    "\2\14\1\15\1\16\2\17\1\20\2\21\1\22\1\0"+
-    "\1\2\2\10\1\2\1\12";
+    "\3\0\1\1\4\0\1\2\1\3\1\4\1\5\1\6"+
+    "\1\2\1\7\1\6\1\10\2\11\2\12\2\1\2\13"+
+    "\1\14\4\1\2\15\1\16\1\17\2\20\1\21\2\22"+
+    "\1\23\1\3\1\11\1\3";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[40];
+    int [] result = new int[43];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -100,13 +102,14 @@ class CptLexer implements FlexLexer {
 
   private static final String ZZ_ROWMAP_PACKED_0 =
     "\0\0\0\22\0\44\0\66\0\110\0\132\0\154\0\176"+
-    "\0\220\0\154\0\242\0\264\0\154\0\306\0\154\0\330"+
-    "\0\352\0\374\0\u010e\0\u0120\0\u0132\0\u0144\0\u0156\0\u0168"+
-    "\0\u017a\0\u018c\0\154\0\154\0\u019e\0\u01b0\0\154\0\u01c2"+
-    "\0\u01d4\0\242\0\u010e\0\352\0\u01e6\0\u01f8\0\u0144\0\u020a";
+    "\0\220\0\242\0\264\0\220\0\306\0\330\0\220\0\352"+
+    "\0\220\0\374\0\u010e\0\u0120\0\u0132\0\u0144\0\u0156\0\u0168"+
+    "\0\u017a\0\220\0\u018c\0\u019e\0\u01b0\0\u01c2\0\u01d4\0\u01e6"+
+    "\0\220\0\220\0\u01f8\0\u020a\0\220\0\u021c\0\u022e\0\306"+
+    "\0\u010e\0\u0240\0\u0156";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[40];
+    int [] result = new int[43];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -129,34 +132,36 @@ class CptLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\7\4\10\1\7\2\10\1\11\1\12\1\13\1\14"+
-    "\1\7\1\15\2\16\1\17\1\12\1\20\1\21\1\10"+
-    "\1\21\1\22\1\23\1\10\1\24\12\20\1\25\1\26"+
-    "\2\10\1\27\1\25\1\26\1\30\10\25\1\17\1\25"+
-    "\1\31\1\32\3\10\1\31\1\10\1\32\10\31\1\33"+
-    "\1\34\1\35\1\36\3\10\1\35\1\10\1\36\10\35"+
-    "\1\33\1\37\1\40\1\41\3\10\1\40\1\10\1\41"+
-    "\10\40\1\33\1\37\23\0\4\10\1\0\2\10\12\0"+
-    "\2\11\2\0\16\11\12\0\1\16\3\0\1\42\1\16"+
-    "\16\0\1\15\17\0\1\16\3\0\2\16\2\0\2\20"+
-    "\1\0\2\20\1\43\1\0\14\20\1\44\1\10\2\44"+
-    "\1\43\1\10\1\44\13\20\1\45\1\10\1\45\1\22"+
-    "\1\43\1\10\1\22\15\20\1\46\16\20\1\0\3\10"+
-    "\1\24\1\0\1\10\1\24\12\0\2\25\2\0\14\25"+
-    "\1\0\2\25\1\47\2\10\1\47\1\25\2\47\10\25"+
-    "\1\0\2\25\1\50\2\10\1\27\1\25\1\50\1\27"+
-    "\10\25\1\0\1\25\1\0\3\10\1\30\1\0\1\10"+
-    "\1\30\12\0\2\31\3\0\1\31\1\0\11\31\2\0"+
-    "\1\31\1\32\3\10\1\31\1\10\1\32\10\31\2\0"+
-    "\2\35\3\0\1\35\1\0\11\35\2\0\1\35\1\36"+
-    "\3\10\1\35\1\10\1\36\10\35\2\0\2\40\3\0"+
-    "\1\40\1\0\11\40\2\0\1\40\1\41\3\10\1\40"+
-    "\1\10\1\41\10\40\2\0\1\20\1\45\1\10\2\45"+
-    "\1\43\1\10\1\45\17\20\1\43\1\0\13\20\1\25"+
-    "\1\50\2\10\1\50\1\25\2\50\10\25\1\0\1\25";
+    "\1\11\6\12\1\13\1\14\1\15\1\16\1\11\1\17"+
+    "\2\20\1\21\1\14\1\11\1\22\1\23\1\12\1\23"+
+    "\1\24\1\12\1\25\13\22\1\26\1\27\1\12\1\27"+
+    "\1\30\1\12\1\31\10\26\1\21\1\26\1\32\1\26"+
+    "\1\27\1\12\1\27\1\33\1\12\1\33\10\26\1\21"+
+    "\1\26\1\32\1\34\2\35\1\36\3\35\13\34\1\37"+
+    "\1\40\4\12\1\40\10\37\1\41\1\42\1\37\1\43"+
+    "\1\44\4\12\1\44\10\43\1\41\1\45\1\43\1\46"+
+    "\1\47\4\12\1\47\10\46\1\41\1\45\1\46\23\0"+
+    "\6\12\13\0\2\13\2\0\16\13\11\0\1\20\3\0"+
+    "\1\50\1\20\16\0\1\17\17\0\1\20\3\0\2\20"+
+    "\3\0\2\22\1\0\2\22\1\0\15\22\1\51\1\12"+
+    "\2\51\1\12\1\51\14\22\1\52\1\12\1\52\1\24"+
+    "\1\12\1\24\13\22\1\0\3\12\1\25\1\12\1\25"+
+    "\13\0\2\26\1\0\2\26\1\0\11\26\1\0\1\26"+
+    "\1\0\1\26\1\53\1\12\2\53\1\12\1\53\10\26"+
+    "\1\0\1\26\1\0\1\26\1\33\1\12\1\33\1\30"+
+    "\1\12\1\30\10\26\1\0\1\26\2\0\3\12\1\31"+
+    "\1\12\1\31\13\0\1\26\1\33\1\12\2\33\1\12"+
+    "\1\33\10\26\1\0\1\26\5\0\1\34\1\0\1\34"+
+    "\14\0\3\12\1\35\1\12\1\35\14\0\1\12\1\35"+
+    "\1\12\1\35\1\12\1\35\13\0\2\37\4\0\11\37"+
+    "\2\0\2\37\1\40\4\12\1\40\10\37\2\0\1\37"+
+    "\2\43\4\0\11\43\2\0\2\43\1\44\4\12\1\44"+
+    "\10\43\2\0\1\43\2\46\4\0\11\46\2\0\2\46"+
+    "\1\47\4\12\1\47\10\46\2\0\1\46\1\22\1\52"+
+    "\1\12\2\52\1\12\1\52\13\22";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[540];
+    int [] result = new int[594];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -194,11 +199,12 @@ class CptLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\6\0\1\11\2\1\1\11\2\1\1\11\1\1\1\11"+
-    "\13\1\2\11\2\1\1\11\3\1\1\0\5\1";
+    "\3\0\1\1\4\0\1\11\2\1\1\11\2\1\1\11"+
+    "\1\1\1\11\10\1\1\11\6\1\2\11\2\1\1\11"+
+    "\6\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[40];
+    int [] result = new int[43];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -512,77 +518,81 @@ class CptLexer implements FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { return TokenType.BAD_CHARACTER;
-            }
-          case 19: break;
-          case 2: 
-            { yybegin(YYINITIAL); return TokenType.WHITE_SPACE;
+            { yybegin(WAITING_TEMPLATE_CODE_CON); return CptTypes.TEMPLATE_CODE;
             }
           case 20: break;
-          case 3: 
-            { yybegin(YYINITIAL); return CptTypes.COMMENT;
+          case 2: 
+            { return TokenType.BAD_CHARACTER;
             }
           case 21: break;
-          case 4: 
-            { yybegin(WAITING_DESCRIPTION); return CptTypes.SEPARATOR;
+          case 3: 
+            { yybegin(YYINITIAL); return TokenType.WHITE_SPACE;
             }
           case 22: break;
-          case 5: 
-            { yybegin(YYINITIAL); return CptTypes.CLASS_NAME;
+          case 4: 
+            { yybegin(YYINITIAL); return CptTypes.COMMENT;
             }
           case 23: break;
-          case 6: 
-            { yybegin(WAITING_TEMPLATE_CODE); return CptTypes.MAP;
+          case 5: 
+            { yybegin(WAITING_DESCRIPTION); return CptTypes.SEPARATOR;
             }
           case 24: break;
-          case 7: 
-            { yybegin(WAITING_TEMPLATE_VAR_NAME); return CptTypes.TEMPLATE_VARIABLE_START;
+          case 6: 
+            { yybegin(YYINITIAL); return CptTypes.CLASS_NAME;
             }
           case 25: break;
-          case 8: 
-            { yybegin(YYINITIAL); return CptTypes.TEMPLATE_DESCRIPTION;
+          case 7: 
+            { yybegin(WAITING_TEMPLATE_CODE); return CptTypes.MAP;
             }
           case 26: break;
-          case 9: 
-            { yybegin(WAITING_DESCRIPTION); return TokenType.WHITE_SPACE;
+          case 8: 
+            { yybegin(WAITING_TEMPLATE_VAR_NAME); return CptTypes.TEMPLATE_VARIABLE_START;
             }
           case 27: break;
-          case 10: 
-            { yybegin(WAITING_TEMPLATE_CODE); return CptTypes.TEMPLATE_CODE;
+          case 9: 
+            { yybegin(YYINITIAL); return CptTypes.TEMPLATE_DESCRIPTION;
             }
           case 28: break;
-          case 11: 
-            { yybegin(WAITING_TEMPLATE_CODE); return TokenType.WHITE_SPACE;
+          case 10: 
+            { yybegin(WAITING_DESCRIPTION); return TokenType.WHITE_SPACE;
             }
           case 29: break;
-          case 12: 
-            { yybegin(WAITING_TEMPLATE_VAR_NAME); return CptTypes.TEMPLATE_VARIABLE_NAME;
+          case 11: 
+            { yybegin(WAITING_TEMPLATE_CODE_CON); return TokenType.WHITE_SPACE;
             }
           case 30: break;
-          case 13: 
-            { yybegin(WAITING_TEMPLATE_CODE); return CptTypes.TEMPLATE_VARIABLE_END;
+          case 12: 
+            { yybegin(WAITING_TEMPLATE_ESC); return CptTypes.TEMPLATE_ESCAPE;
             }
           case 31: break;
-          case 14: 
-            { yybegin(WAITING_TEMPLATE_VAR_EXPRESSION); return CptTypes.TEMPLATE_VARIABLE_SEPARATOR;
+          case 13: 
+            { yybegin(WAITING_TEMPLATE_VAR_NAME); return CptTypes.TEMPLATE_VARIABLE_NAME;
             }
           case 32: break;
-          case 15: 
-            { yybegin(WAITING_TEMPLATE_VAR_EXPRESSION); return CptTypes.TEMPLATE_VARIABLE_EXPRESSION;
+          case 14: 
+            { yybegin(WAITING_TEMPLATE_CODE_CON); return CptTypes.TEMPLATE_VARIABLE_END;
             }
           case 33: break;
-          case 16: 
-            { yybegin(WAITING_TEMPLATE_VAR_VALUE); return CptTypes.TEMPLATE_VARIABLE_SEPARATOR;
+          case 15: 
+            { yybegin(WAITING_TEMPLATE_VAR_EXPRESSION); return CptTypes.TEMPLATE_VARIABLE_SEPARATOR;
             }
           case 34: break;
-          case 17: 
-            { yybegin(WAITING_TEMPLATE_VAR_VALUE); return CptTypes.TEMPLATE_VARIABLE_VALUE;
+          case 16: 
+            { yybegin(WAITING_TEMPLATE_VAR_EXPRESSION); return CptTypes.TEMPLATE_VARIABLE_EXPRESSION;
             }
           case 35: break;
-          case 18: 
-            { yybegin(YYINITIAL); return CptTypes.TEMPLATE_NAME;
+          case 17: 
+            { yybegin(WAITING_TEMPLATE_VAR_VALUE); return CptTypes.TEMPLATE_VARIABLE_SEPARATOR;
             }
           case 36: break;
+          case 18: 
+            { yybegin(WAITING_TEMPLATE_VAR_VALUE); return CptTypes.TEMPLATE_VARIABLE_VALUE;
+            }
+          case 37: break;
+          case 19: 
+            { yybegin(YYINITIAL); return CptTypes.TEMPLATE_NAME;
+            }
+          case 38: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

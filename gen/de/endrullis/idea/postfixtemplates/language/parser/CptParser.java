@@ -1,15 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package de.endrullis.idea.postfixtemplates.language.parser;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import com.intellij.lang.PsiParser;
-import com.intellij.psi.tree.IElementType;
-
-import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
 import static de.endrullis.idea.postfixtemplates.language.psi.CptTypes.*;
+import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.tree.TokenSet;
+import com.intellij.lang.PsiParser;
+import com.intellij.lang.LightPsiParser;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class CptParser implements PsiParser, LightPsiParser {
@@ -34,6 +34,9 @@ public class CptParser implements PsiParser, LightPsiParser {
     }
     else if (t == TEMPLATE) {
       r = template(b, 0);
+    }
+    else if (t == TEMPLATE_CODE) {
+      r = templateCode(b, 0);
     }
     else if (t == TEMPLATE_VARIABLE) {
       r = templateVariable(b, 0);
@@ -123,10 +126,9 @@ public class CptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (TEMPLATE_CODE|templateVariable)+
+  // (templateCode|TEMPLATE_ESCAPE|templateVariable)+
   public static boolean replacement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "replacement")) return false;
-    if (!nextTokenIs(b, "<replacement>", TEMPLATE_CODE, TEMPLATE_VARIABLE_START)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, REPLACEMENT, "<replacement>");
     r = replacement_0(b, l + 1);
@@ -140,12 +142,13 @@ public class CptParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // TEMPLATE_CODE|templateVariable
+  // templateCode|TEMPLATE_ESCAPE|templateVariable
   private static boolean replacement_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "replacement_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, TEMPLATE_CODE);
+    r = templateCode(b, l + 1);
+    if (!r) r = consumeToken(b, TEMPLATE_ESCAPE);
     if (!r) r = templateVariable(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -170,6 +173,18 @@ public class CptParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, TEMPLATE_NAME, SEPARATOR, TEMPLATE_DESCRIPTION);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // TEMPLATE_CODE
+  public static boolean templateCode(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "templateCode")) return false;
+    if (!nextTokenIs(b, TEMPLATE_CODE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TEMPLATE_CODE);
+    exit_section_(b, m, TEMPLATE_CODE, r);
     return r;
   }
 

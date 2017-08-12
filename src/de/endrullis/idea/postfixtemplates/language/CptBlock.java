@@ -12,6 +12,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
+
 public class CptBlock extends AbstractBlock {
 	private SpacingBuilder spacingBuilder;
 
@@ -30,16 +32,17 @@ public class CptBlock extends AbstractBlock {
 
 	@Override
 	protected List<Block> buildChildren() {
-		List<Block> blocks = new ArrayList<Block>();
+		List<Block> blocks = new ArrayList<>();
 		ASTNode child = myNode.getFirstChildNode();
 		while (child != null) {
-			IElementType elementType = child.getElementType();
+			final IElementType elementType = child.getElementType();
 
-			Indent indent = elementType == CptTypes.MAPPINGS
+			final Indent indent = elementType == CptTypes.MAPPINGS
 				? Indent.getNormalIndent()
 				: Indent.getNoneIndent();
 
-			Indent childIndent = elementType == CptTypes.TEMPLATE
+			final Indent childIndent = _Set(CptTypes.TEMPLATE,CptTypes.MAPPINGS, CptTypes.MAPPING, CptTypes.REPLACEMENT,
+				CptTypes.TEMPLATE_ESCAPE, CptTypes.TEMPLATE_CODE, CptTypes.TEMPLATE_VARIABLE).contains(elementType)
 				? Indent.getNormalIndent()
 				: Indent.getNoneIndent();
 

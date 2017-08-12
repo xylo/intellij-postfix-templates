@@ -12,14 +12,15 @@ public interface CptTypes {
   IElementType MAPPINGS = new CptElementType("MAPPINGS");
   IElementType REPLACEMENT = new CptElementType("REPLACEMENT");
   IElementType TEMPLATE = new CptElementType("TEMPLATE");
+  IElementType TEMPLATE_CODE = new CptElementType("TEMPLATE_CODE");
   IElementType TEMPLATE_VARIABLE = new CptElementType("TEMPLATE_VARIABLE");
 
   IElementType CLASS_NAME = new CptTokenType("CLASS_NAME");
   IElementType COMMENT = new CptTokenType("COMMENT");
   IElementType MAP = new CptTokenType("MAP");
   IElementType SEPARATOR = new CptTokenType("SEPARATOR");
-  IElementType TEMPLATE_CODE = new CptTokenType("TEMPLATE_CODE");
   IElementType TEMPLATE_DESCRIPTION = new CptTokenType("TEMPLATE_DESCRIPTION");
+  IElementType TEMPLATE_ESCAPE = new CptTokenType("TEMPLATE_ESCAPE");
   IElementType TEMPLATE_NAME = new CptTokenType("TEMPLATE_NAME");
   IElementType TEMPLATE_VARIABLE_END = new CptTokenType("TEMPLATE_VARIABLE_END");
   IElementType TEMPLATE_VARIABLE_EXPRESSION = new CptTokenType("TEMPLATE_VARIABLE_EXPRESSION");
@@ -42,6 +43,9 @@ public interface CptTypes {
       }
       else if (type == TEMPLATE) {
         return new CptTemplateImpl(node);
+      }
+      else if (type == TEMPLATE_CODE) {
+        return new CptTemplateCodeImpl(node);
       }
       else if (type == TEMPLATE_VARIABLE) {
         return new CptTemplateVariableImpl(node);

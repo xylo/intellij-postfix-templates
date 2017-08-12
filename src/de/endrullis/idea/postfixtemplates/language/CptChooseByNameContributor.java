@@ -12,7 +12,7 @@ public class CptChooseByNameContributor implements ChooseByNameContributor {
 	@Override
 	public String[] getNames(Project project, boolean includeNonProjectItems) {
 		List<CptMapping> mappings = CptUtil.findMappings(project);
-		List<String> names = new ArrayList<String>(mappings.size());
+		List<String> names = new ArrayList<>(mappings.size());
 		for (CptMapping mapping : mappings) {
 			if (mapping.getClassName() != null && mapping.getClassName().length() > 0) {
 				names.add(mapping.getClassName());

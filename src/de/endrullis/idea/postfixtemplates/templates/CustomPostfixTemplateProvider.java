@@ -21,6 +21,7 @@ import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileContentsChangedAdapter;
 import com.intellij.psi.PsiDocumentManager;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -127,8 +128,13 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 						CptMapping[] mappings = PsiTreeUtil.getChildrenOfType(cptMappings[0], CptMapping.class);
 						if (mappings != null) {
 							for (CptMapping mapping : mappings) {
+								StringBuilder sb = new StringBuilder();
+								for (PsiElement element : mapping.getReplacement().getChildren()) {
+									sb.append(element.getText());
+								}
+
 								templates.add(new CustomStringPostfixTemplate(mapping.getClassName(), cptTemplate.getTemplateName(),
-									cptTemplate.getTemplateDescription(), mapping.getReplacementString()));
+									cptTemplate.getTemplateDescription(), sb.toString()));
 							}
 						}
 					}

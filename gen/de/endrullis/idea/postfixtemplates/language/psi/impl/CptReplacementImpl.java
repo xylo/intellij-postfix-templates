@@ -28,6 +28,12 @@ public class CptReplacementImpl extends ASTWrapperPsiElement implements CptRepla
 
   @Override
   @NotNull
+  public List<CptTemplateCode> getTemplateCodeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, CptTemplateCode.class);
+  }
+
+  @Override
+  @NotNull
   public List<CptTemplateVariable> getTemplateVariableList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, CptTemplateVariable.class);
   }

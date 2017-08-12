@@ -35,7 +35,9 @@ mapping ::= (CLASS_NAME MAP replacement) {
     methods=[getClassName getReplacementString getName setName getNameIdentifier getPresentation]
 }
 
-replacement ::= (TEMPLATE_CODE|templateVariable)+
+replacement ::= (templateCode|TEMPLATE_ESCAPE|templateVariable)+
+
+templateCode ::= TEMPLATE_CODE
 
 templateVariable ::= TEMPLATE_VARIABLE_START TEMPLATE_VARIABLE_NAME
 										(TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_EXPRESSION?

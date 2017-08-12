@@ -24,6 +24,8 @@ public class CptSyntaxHighlighter extends SyntaxHighlighterBase {
 		createTextAttributesKey("CPT_TEMPLATE_DESCRIPTION", DefaultLanguageHighlighterColors.STRING);
 	public static final TextAttributesKey TEMPLATE_CODE =
 		createTextAttributesKey("CPT_TEMPLATE_CODE", DefaultLanguageHighlighterColors.TEMPLATE_LANGUAGE_COLOR);
+	public static final TextAttributesKey TEMPLATE_ESCAPE =
+		createTextAttributesKey("CPT_TEMPLATE_ESCAPE", DefaultLanguageHighlighterColors.METADATA);
 	public static final TextAttributesKey TEMPLATE_VARIABLE_HOLDER =
 		createTextAttributesKey("CPT_PLACE_HOLDER", TemplateColors.TEMPLATE_VARIABLE_ATTRIBUTES);
 	public static final TextAttributesKey COMMENT =
@@ -37,6 +39,7 @@ public class CptSyntaxHighlighter extends SyntaxHighlighterBase {
 	private static final TextAttributesKey[] CLASS_NAME_KEYS = new TextAttributesKey[]{CLASS_NAME};
 	private static final TextAttributesKey[] TEMPLATE_DESCRIPTION_KEYS = new TextAttributesKey[]{TEMPLATE_DESCRIPTION};
 	private static final TextAttributesKey[] TEMPLATE_CODE_KEYS = new TextAttributesKey[]{TEMPLATE_CODE};
+	private static final TextAttributesKey[] TEMPLATE_ESCAPE_KEYS = new TextAttributesKey[]{TEMPLATE_ESCAPE};
 	private static final TextAttributesKey[] TEMPLATE_VARIABLE_KEYS = new TextAttributesKey[]{TEMPLATE_CODE, TEMPLATE_VARIABLE_HOLDER};
 	private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
 	private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
@@ -65,6 +68,8 @@ public class CptSyntaxHighlighter extends SyntaxHighlighterBase {
 			return TEMPLATE_CODE_KEYS;
 		} else if (TEMPLATE_VARIABLE_PARTS.contains(tokenType)) {
 			return TEMPLATE_VARIABLE_KEYS;
+		} else if (tokenType.equals(CptTypes.TEMPLATE_ESCAPE)) {
+			return TEMPLATE_ESCAPE_KEYS;
 		} else if (tokenType.equals(CptTypes.COMMENT)) {
 			return COMMENT_KEYS;
 		} else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
