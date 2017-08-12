@@ -30,11 +30,21 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.*;
+import static de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils.IS_DECIMAL_NUMBER;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
+
+	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+		put(SpecialType.ARRAY.name(), IS_ARRAY);
+		put(SpecialType.BOOLEAN.name(), IS_BOOLEAN);
+		put(SpecialType.ITERABLE_OR_ARRAY.name(), IS_ITERABLE_OR_ARRAY);
+		put(SpecialType.NON_VOID.name(), IS_NON_VOID);
+		put(SpecialType.NOT_PRIMITIVE.name(), IS_NOT_PRIMITIVE);
+		put(SpecialType.NUMBER.name(), IS_DECIMAL_NUMBER);
+	}};
 
 	private final String          template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
@@ -72,23 +82,10 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 
 	@NotNull
 	private static Condition<PsiElement> getCondition(String clazz) {
-		if (clazz.equals(SpecialType.ARRAY.name())) {
-			return IS_ARRAY;
-		}
-		if (clazz.equals(SpecialType.BOOLEAN.name())) {
-			return IS_BOOLEAN;
-		}
-		if (clazz.equals(SpecialType.ITERABLE_OR_ARRAY.name())) {
-			return IS_ITERABLE_OR_ARRAY;
-		}
-		if (clazz.equals(SpecialType.NON_VOID.name())) {
-			return IS_NON_VOID;
-		}
-		if (clazz.equals(SpecialType.NOT_PRIMITIVE.name())) {
-			return IS_NOT_PRIMITIVE;
-		}
-		if (clazz.equals(SpecialType.NUMBER.name())) {
-			return MyJavaPostfixTemplatesUtils.IS_DECIMAL_NUMBER;
+		Condition<PsiElement> psiElementCondition = type2psiCondition.get(clazz);
+
+		if (psiElementCondition != null) {
+			return psiElementCondition;
 		} else {
 			return MyJavaPostfixTemplatesUtils.isCustomClass(clazz);
 		}
