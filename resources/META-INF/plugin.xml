@@ -48,6 +48,7 @@
 					<code>.bufferedReader</code>,
 					<code>.val</code>,
 				</li>
+				<li>Added support for multi-line templates.</li>
 				<li>Added function to reset the templates to the predefined ones.</li>
 				<li>Added live template <code>_</code> as shortcut for <code>x -> x</code>.</li>
 				<li>Added live template macro <code>suggestShortVariableName()</code>.</li>
