@@ -60,13 +60,6 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		}
 	};
 
-	@NotNull
-	private static Editor createEditor() {
-		EditorFactory editorFactory = EditorFactory.getInstance();
-		Document editorDocument = editorFactory.createDocument("");
-		return editorFactory.createEditor(editorDocument, null, CptFileType.INSTANCE, true);
-	}
-
 	public CustomPostfixTemplateProvider() {
 		LocalFileSystem.getInstance().addRootToWatch(CptUtil.getTemplatesPath().getAbsolutePath(), true);
 		LocalFileSystem.getInstance().addVirtualFileListener(new VirtualFileContentsChangedAdapter() {
