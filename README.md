@@ -97,10 +97,6 @@ Go to *Settings → Editor → Custom Postfix Templates*.  Here you can chose be
 
 ## Roadmap
 
-### Version 1.1
-
-* Multi-line support
-
 ### Version X
 
 * Support for other languages
