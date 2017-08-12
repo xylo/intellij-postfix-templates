@@ -21,7 +21,7 @@ Select the `.toInt` template and see how it is expanded.
 ## Preconfigured Java templates for Scala users and those who want to simplify their life
 
 The following templates are shipped with the plugin and shall provide you with a template basis and with some useful examples:
-* `.toByte`, `.toChar`, `.toInt`, `.toLong`, `.toFloat`, `.toDouble` - convert strings and numbers to other numbers
+* `.toByte`, `.toShort`, `.toChar`, `.toInt`, `.toLong`, `.toFloat`, `.toDouble` - convert strings and numbers to other numbers
 * `.toList`, `.toSet`, `.toMap` - convert arrays, collections, iterables, and streams to lists, sets, or maps
 * `.sort`, `.sortBy` - sort arrays, lists, and streams (by attribute)
 * `.minBy`, `.maxBy` - find the minimum/maximum in arrays, collections, iterables, and streams 
