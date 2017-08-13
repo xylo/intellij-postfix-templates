@@ -71,9 +71,11 @@ public class CptUtil {
 
 	public static List<CptMapping> findMappings(Project project) {
 		List<CptMapping> result = new ArrayList<>();
+
 		Collection<VirtualFile> virtualFiles =
 			FileBasedIndex.getInstance().getContainingFiles(FileTypeIndex.NAME, CptFileType.INSTANCE,
 				GlobalSearchScope.allScope(project));
+
 		for (VirtualFile virtualFile : virtualFiles) {
 			CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(virtualFile);
 			if (cptFile != null) {
@@ -164,6 +166,8 @@ public class CptUtil {
 			vFile = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(file);
 		}
 
+		assert vFile != null;
+		
 		openFileInEditor(project, vFile);
 	}
 

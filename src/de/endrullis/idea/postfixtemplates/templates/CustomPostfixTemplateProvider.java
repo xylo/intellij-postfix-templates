@@ -1,6 +1,5 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
-import com.intellij.AppTopics;
 import com.intellij.codeInsight.completion.CompletionInitializationContext;
 import com.intellij.codeInsight.completion.JavaCompletionContributor;
 import com.intellij.codeInsight.template.postfix.templates.PostfixLiveTemplate;
@@ -137,20 +136,14 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 			CptTemplate[] cptTemplates = PsiTreeUtil.getChildrenOfType(cptFile, CptTemplate.class);
 			if (cptTemplates != null) {
 				for (CptTemplate cptTemplate : cptTemplates) {
-					CptMappings[] cptMappings = PsiTreeUtil.getChildrenOfType(cptTemplate, CptMappings.class);
-					if (cptMappings != null && cptMappings.length > 0) {
-						CptMapping[] mappings = PsiTreeUtil.getChildrenOfType(cptMappings[0], CptMapping.class);
-						if (mappings != null) {
-							for (CptMapping mapping : mappings) {
-								StringBuilder sb = new StringBuilder();
-								for (PsiElement element : mapping.getReplacement().getChildren()) {
-									sb.append(element.getText());
-								}
-
-								templates.add(new CustomStringPostfixTemplate(mapping.getClassName(), cptTemplate.getTemplateName(),
-									cptTemplate.getTemplateDescription(), sb.toString()));
-							}
+					for (CptMapping mapping : cptTemplate.getMappings().getMappingList()) {
+						StringBuilder sb = new StringBuilder();
+						for (PsiElement element : mapping.getReplacement().getChildren()) {
+							sb.append(element.getText());
 						}
+
+						templates.add(new CustomStringPostfixTemplate(mapping.getClassName(), cptTemplate.getTemplateName(),
+							cptTemplate.getTemplateDescription(), sb.toString()));
 					}
 				}
 			}
