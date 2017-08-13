@@ -1,6 +1,8 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
 /**
+ * Special types representing groups of Java types/classes.
+ *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public enum SpecialType {
