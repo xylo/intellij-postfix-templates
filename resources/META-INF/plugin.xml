@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -26,35 +26,8 @@
 
 	<change-notes><![CDATA[
 			<ul>
-				<li>Added support for additional template variables.</li>
-				<li>Added support for live template macros.</li>
-				<li>Added completion for template variables and macro names.</li>
-				<li>Added more postfix templates:
-					<code>.toShort</code>,
-					<code>.format</code>,
-					<code>.stream</code>,
-					<code>.map</code>,
-					<code>.mapKeys</code>,
-					<code>.mapValues</code>,
-					<code>.filter</code>,
-					<code>.reduce</code>,
-					<code>.fold</code>,
-					<code>.find</code>,
-					<code>.take</code>,
-					<code>.drop</code>,
-					<code>.size</code>,
-					<code>.get</code>,
-					<code>.apply</code>,
-					<code>.lines</code>,
-					<code>.content</code>,
-					<code>.bufferedReader</code>,
-					<code>.val</code>,
-				</li>
-				<li>Added support for multi-line templates.</li>
-				<li>Extended the supported types by all primitive one.</li>
-				<li>Added function to reset the templates to the predefined ones.</li>
-				<li>Added live template <code>_</code> as shortcut for <code>x -> x</code>.</li>
-				<li>Added live template macro <code>suggestShortVariableName()</code>.</li>
+				<li>Performance improvements.</li>
+				<li>Type matching: fixed recognition of project classes.</li>
 			</ul>
     ]]>
 	</change-notes>
