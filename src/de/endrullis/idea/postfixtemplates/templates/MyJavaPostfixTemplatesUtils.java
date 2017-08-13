@@ -31,6 +31,12 @@ public abstract class MyJavaPostfixTemplatesUtils {
 	public static final Condition<PsiElement> IS_DECIMAL_NUMBER =
 		element -> element instanceof PsiExpression && isDecimalNumber(((PsiExpression) element).getType());
 
+	public static final Condition<PsiElement> IS_VOID =
+		element -> element instanceof PsiExpression && isVoid(((PsiExpression) element).getType());
+
+	public static final Condition<PsiElement> IS_ANY =
+		element -> element instanceof PsiExpression;
+
 	public static Condition<PsiElement> isCertainNumberType(@NotNull PsiType expectedType) {
 		return element -> element instanceof PsiExpression && isCertainDecimalNumberType(((PsiExpression) element).getType(), expectedType);
 	}
@@ -63,6 +69,11 @@ public abstract class MyJavaPostfixTemplatesUtils {
 		}
 
 		return expectedType.equals(type) || expectedType.equals(PsiPrimitiveType.getUnboxedType(type));
+	}
+
+	@Contract("null -> false")
+	public static boolean isVoid(@Nullable PsiType type) {
+		return type != null && PsiType.VOID.equals(type);
 	}
 
 }

@@ -26,7 +26,8 @@
 
 	<change-notes><![CDATA[
 			<ul>
-				<li>Performance improvements.</li>
+				<li>Added special types <code>ANY</code> and <code>VOID</code>.</li>
+				<li>Improved performance.</li>
 				<li>Type matching: fixed recognition of project classes.</li>
 			</ul>
     ]]>

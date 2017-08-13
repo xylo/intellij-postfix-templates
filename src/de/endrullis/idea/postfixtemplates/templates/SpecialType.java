@@ -5,7 +5,7 @@ package de.endrullis.idea.postfixtemplates.templates;
  */
 public enum SpecialType {
 
-	ARRAY, BOOLEAN, ITERABLE_OR_ARRAY, NON_VOID, NOT_PRIMITIVE, NUMBER,
+	ANY, VOID, NON_VOID, ARRAY, BOOLEAN, ITERABLE_OR_ARRAY, NOT_PRIMITIVE, NUMBER,
 
 	BYTE, SHORT, CHAR, INT, LONG, FLOAT, DOUBLE
 

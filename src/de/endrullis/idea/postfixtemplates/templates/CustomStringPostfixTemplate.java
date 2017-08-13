@@ -31,8 +31,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.*;
-import static de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils.IS_DECIMAL_NUMBER;
-import static de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils.isCertainNumberType;
+import static de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
@@ -40,10 +39,12 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+		put(SpecialType.ANY.name(), IS_ANY);
+		put(SpecialType.VOID.name(), IS_VOID);
+		put(SpecialType.NON_VOID.name(), IS_NON_VOID);
 		put(SpecialType.ARRAY.name(), IS_ARRAY);
 		put(SpecialType.BOOLEAN.name(), IS_BOOLEAN);
 		put(SpecialType.ITERABLE_OR_ARRAY.name(), IS_ITERABLE_OR_ARRAY);
-		put(SpecialType.NON_VOID.name(), IS_NON_VOID);
 		put(SpecialType.NOT_PRIMITIVE.name(), IS_NOT_PRIMITIVE);
 		put(SpecialType.NUMBER.name(), IS_DECIMAL_NUMBER);
 		put(SpecialType.BYTE.name(), isCertainNumberType(PsiType.BYTE));
