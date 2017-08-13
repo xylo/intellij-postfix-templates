@@ -14,14 +14,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Action to open the java templates.
+ *
+ * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
+ */
 public class CptAnnotator implements Annotator {
-	private Map<String, Boolean> classCache = new HashMap<>();
-
-	{
+	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
 		for (SpecialType specialType : SpecialType.values()) {
-			classCache.put(specialType.name(), true);
+			put(specialType.name(), true);
 		}
-	}
+	}};
 
 	@Override
 	public void annotate(@NotNull final PsiElement element, @NotNull AnnotationHolder holder) {
@@ -31,7 +34,7 @@ public class CptAnnotator implements Annotator {
 			if (psiElement.getElementType().equals(CptTypes.CLASS_NAME)) {
 				String className = psiElement.getText();
 
-				boolean isClass = classCache.computeIfAbsent(className, name -> {
+				boolean isClass = className2exists.computeIfAbsent(className, name -> {
 					Project project = element.getProject();
 					return JavaPsiFacade.getInstance(project).findClass(className, GlobalSearchScope.allScope(project)) != null;
 				});

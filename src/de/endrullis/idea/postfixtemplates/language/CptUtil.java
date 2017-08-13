@@ -176,4 +176,9 @@ public class CptUtil {
 		DataContext dataContext = DataManager.getInstance().getDataContextFromFocus().getResult();
 		return DataKeys.PROJECT.getData(dataContext);
 	}
+
+	public static boolean isTemplatesFile(VirtualFile vFile) {
+		return vFile != null && vFile.getCanonicalPath() != null &&
+			vFile.getCanonicalPath().replace('\\', '/').startsWith(CptUtil.getTemplatesPath().getAbsolutePath().replace('\\', '/'));
+	}
 }

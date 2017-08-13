@@ -5,13 +5,17 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 
 /**
+ * Action to open the java templates.
+ *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public class OpenJavaTemplatesAction extends AnAction {
 	@Override
 	public void actionPerformed(AnActionEvent anActionEvent) {
-		CptUtil.getTemplateFile("java").ifPresent(file -> {
-			CptUtil.openFileInEditor(anActionEvent.getProject(), file);
-		});
+		if (anActionEvent.getProject() != null) {
+			CptUtil.getTemplateFile("java").ifPresent(file -> {
+				CptUtil.openFileInEditor(anActionEvent.getProject(), file);
+			});
+		}
 	}
 }

@@ -10,11 +10,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.editor.EditorModificationUtil;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.fileEditor.FileDocumentManagerAdapter;
-import com.intellij.openapi.fileEditor.FileDocumentManagerListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.vfs.LocalFileSystem;
@@ -27,7 +23,6 @@ import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.containers.OrderedSet;
 import com.intellij.util.messages.MessageBusConnection;
-import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
@@ -36,7 +31,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,6 +45,8 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 	/**
 	 * Template file change listener.
 	 */
+	// TODO remove this code if VirtualFileListener is able to replace this code on all platforms
+	/*
 	private FileDocumentManagerListener templateFileChangeListener = new FileDocumentManagerAdapter() {
 		@Override
 		public void beforeDocumentSaving(@NotNull Document d) {
@@ -59,13 +56,17 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 			}
 		}
 	};
+	*/
 
 	public CustomPostfixTemplateProvider() {
+		// listen to file changes of template files
 		LocalFileSystem.getInstance().addRootToWatch(CptUtil.getTemplatesPath().getAbsolutePath(), true);
 		LocalFileSystem.getInstance().addVirtualFileListener(new VirtualFileContentsChangedAdapter() {
 			@Override
-			protected void onFileChange(@NotNull VirtualFile virtualFile) {
-				reloadTemplates();
+			protected void onFileChange(@NotNull VirtualFile vFile) {
+				if (CptUtil.isTemplatesFile(vFile)) {
+					reloadTemplates();
+				}
 			}
 
 			@Override
@@ -73,21 +74,29 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 			}
 		});
 
-		MessageBusConnection messageBus = ApplicationManager.getApplication().getMessageBus().connect();
-
 		// listen to settings changes
+		MessageBusConnection messageBus = ApplicationManager.getApplication().getMessageBus().connect();
 		messageBus.subscribe(CptApplicationSettings.SettingsChangedListener.TOPIC, this);
 
 		// listen to file changes of template file
-		messageBus.subscribe(AppTopics.FILE_DOCUMENT_SYNC, templateFileChangeListener);
+		//messageBus.subscribe(AppTopics.FILE_DOCUMENT_SYNC, templateFileChangeListener);
 
+		// load templates
 		reload(CptApplicationSettings.getInstance());
 	}
 
+	/**
+	 * Reloads the templates.
+	 *
+	 * @param settings current application settings
+	 */
 	private void reload(CptApplicationSettings settings) {
 		reloadTemplates();
 	}
 
+	/**
+	 * Reloads templates from file system.
+	 */
 	@Override
 	public void reloadTemplates() {
 		CptUtil.getTemplateFile("java").ifPresent(file -> {
@@ -97,6 +106,12 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		});
 	}
 
+	/**
+	 * Loads the postfix templates from the given file and returns them.
+	 *
+	 * @param file templates file
+	 * @return set of postfix templates
+	 */
 	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull File file) {
 		VirtualFile vFile = LocalFileSystem.getInstance().findFileByIoFile(file);
 		if (vFile != null) {
@@ -106,6 +121,12 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		}
 	}
 
+	/**
+	 * Loads the postfix templates from the given virtual file and returns them.
+	 *
+	 * @param vFile virtual templates file
+	 * @return set of postfix templates
+	 */
 	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull VirtualFile vFile) {
 		Set<PostfixTemplate> templates = new OrderedSet<>();
 
@@ -138,6 +159,12 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		return combineTemplatesWithSameName(templates);
 	}
 
+	/**
+	 * Combines templates with the same name into a {@link CombinedPostfixTemplate} and returns the result.
+	 *
+	 * @param templates templates that may have name duplicates
+	 * @return (combined) templates
+	 */
 	private Set<PostfixTemplate> combineTemplatesWithSameName(Set<PostfixTemplate> templates) {
 		// group templates by name
 		Map<String, List<PostfixTemplate>> key2templates = templates.stream().collect(
@@ -207,6 +234,11 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 		return JavaCompletionContributor.semicolonNeeded(editor, file, CompletionInitializationContext.calcStartOffset(editor.getCaretModel().getCurrentCaret()));
 	}
 
+	/**
+	 * Called when settings changed.
+	 *
+	 * @param settings application settings
+	 */
 	@Override
 	public void onSettingsChange(@NotNull CptApplicationSettings settings) {
 		reload(settings);
