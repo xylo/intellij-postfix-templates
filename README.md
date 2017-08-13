@@ -21,7 +21,7 @@ Select the `.toInt` template and see how it is expanded.
 ## Preconfigured Java templates for Scala users and those who want to simplify their life
 
 The following templates are shipped with the plugin and shall provide you with a template basis and with some useful examples:
-* `.toByte`, `.toShort`, `.toChar`, `.toInt`, `.toLong`, `.toFloat`, `.toDouble` - convert strings and numbers to other numbers
+* `.toByte`, `.toShort`, `.toChar`, `.toInt`, `.toLong`, `.toFloat`, `.toDouble`, `.format` - convert strings and numbers
 * `.toList`, `.toSet`, `.toMap` - convert arrays, collections, iterables, and streams to lists, sets, or maps
 * `.sort`, `.sortBy` - sort arrays, lists, and streams (by attribute)
 * `.minBy`, `.maxBy` - find the minimum/maximum in arrays, collections, iterables, and streams 
@@ -69,16 +69,23 @@ The file may contain multiple template definitions of the form:
     ...
 ```
 * The *MATCHING_TYPE* can be either a Java class name or one of the following special types:
-  * `ARRAY` - denotes any Java array
-  * `BOOLEAN` - denotes boxed or unboxed boolean expressions
-  * `ITERABLE_OR_ARRAY` - denotes any iterable or array
-  * `NON_VOID` - denotes any non-void expression
-  * `NOT_PRIMITIVE` - denotes any non-primitive value
-  * `NUMBER` - denotes any boxed or unboxed number
+  * `ARRAY` - any Java array
+  * `BOOLEAN` - boxed or unboxed boolean expressions
+  * `ITERABLE_OR_ARRAY` - any iterable or array
+  * `NON_VOID` - any non-void expression
+  * `NOT_PRIMITIVE` - any non-primitive value
+  * `NUMBER` - any boxed or unboxed number
+  * `BYTE` - a boxed or unboxed byte value
+  * `SHORT` - a boxed or unboxed short value
+  * `CHAR` - a boxed or unboxed char value
+  * `INT` - a boxed or unboxed int value
+  * `LONG` - a boxed or unboxed long value
+  * `FLOAT` - a boxed or unboxed float value
+  * `DOUBLE` - a boxed or unboxed double value
 * The *TEMPLATE_CODE* can be any text which may also contain template variables used as placeholder.
   * The following template variables have a special meaning:
-    * `$expr$` - denotes the expression the template shall be applied to
-    * `$END$` - denotes the final cursor position after the template application
+    * `$expr$` - the expression the template shall be applied to
+    * `$END$` - the final cursor position after the template application
   * All other variables will be replaced interactively during the template expansion.
     The variables have the following format:
     ```
