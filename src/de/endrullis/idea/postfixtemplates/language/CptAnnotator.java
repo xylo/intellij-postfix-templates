@@ -2,8 +2,11 @@ package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
+import com.intellij.openapi.project.Project;
+import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import com.intellij.psi.search.GlobalSearchScope;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
@@ -29,12 +32,8 @@ public class CptAnnotator implements Annotator {
 				String className = psiElement.getText();
 
 				boolean isClass = classCache.computeIfAbsent(className, name -> {
-					try {
-						Class.forName(className);
-						return true;
-					} catch (ClassNotFoundException e) {
-						return false;
-					}
+					Project project = element.getProject();
+					return JavaPsiFacade.getInstance(project).findClass(className, GlobalSearchScope.allScope(project)) != null;
 				});
 
 				if (!isClass) {
