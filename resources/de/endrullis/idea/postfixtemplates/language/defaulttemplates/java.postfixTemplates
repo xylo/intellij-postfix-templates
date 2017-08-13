@@ -37,6 +37,15 @@
 	java.lang.Number         →  $expr$.doubleValue()
 	NUMBER                   →  ((double) ($expr$))
 
+.format : format number
+	BYTE                     →  String.format("$format::"%d"$", $expr$)
+	SHORT                    →  String.format("$format::"%d"$", $expr$)
+	CHAR                     →  String.format("$format::"%c"$", $expr$)
+	INT                      →  String.format("$format::"%d"$", $expr$)
+	LONG                     →  String.format("$format::"%d"$", $expr$)
+	FLOAT                    →  String.format("$format::"%f"$", $expr$)
+	DOUBLE                   →  String.format("$format::"%f"$", $expr$)
+
 
 
 ## collection conversions ##

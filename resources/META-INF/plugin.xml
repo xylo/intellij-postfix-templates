@@ -31,6 +31,7 @@
 				<li>Added completion for template variables and macro names.</li>
 				<li>Added more postfix templates:
 					<code>.toShort</code>,
+					<code>.format</code>,
 					<code>.stream</code>,
 					<code>.map</code>,
 					<code>.mapKeys</code>,
@@ -50,6 +51,7 @@
 					<code>.val</code>,
 				</li>
 				<li>Added support for multi-line templates.</li>
+				<li>Extended the supported types by all primitive one.</li>
 				<li>Added function to reset the templates to the predefined ones.</li>
 				<li>Added live template <code>_</code> as shortcut for <code>x -> x</code>.</li>
 				<li>Added live template macro <code>suggestShortVariableName()</code>.</li>

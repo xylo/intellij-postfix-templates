@@ -20,6 +20,7 @@ import com.intellij.codeInsight.template.impl.Variable;
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiType;
 import com.intellij.util.containers.OrderedSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
 
 import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils.IS_DECIMAL_NUMBER;
+import static de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils.isCertainNumberType;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
@@ -44,6 +46,13 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 		put(SpecialType.NON_VOID.name(), IS_NON_VOID);
 		put(SpecialType.NOT_PRIMITIVE.name(), IS_NOT_PRIMITIVE);
 		put(SpecialType.NUMBER.name(), IS_DECIMAL_NUMBER);
+		put(SpecialType.BYTE.name(), isCertainNumberType(PsiType.BYTE));
+		put(SpecialType.SHORT.name(), isCertainNumberType(PsiType.SHORT));
+		put(SpecialType.CHAR.name(), isCertainNumberType(PsiType.CHAR));
+		put(SpecialType.INT.name(), isCertainNumberType(PsiType.INT));
+		put(SpecialType.LONG.name(), isCertainNumberType(PsiType.LONG));
+		put(SpecialType.FLOAT.name(), isCertainNumberType(PsiType.FLOAT));
+		put(SpecialType.DOUBLE.name(), isCertainNumberType(PsiType.DOUBLE));
 	}};
 
 	private final String          template;

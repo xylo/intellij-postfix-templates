@@ -31,6 +31,10 @@ public abstract class MyJavaPostfixTemplatesUtils {
 	public static final Condition<PsiElement> IS_DECIMAL_NUMBER =
 		element -> element instanceof PsiExpression && isDecimalNumber(((PsiExpression) element).getType());
 
+	public static Condition<PsiElement> isCertainNumberType(@NotNull PsiType expectedType) {
+		return element -> element instanceof PsiExpression && isCertainDecimalNumberType(((PsiExpression) element).getType(), expectedType);
+	}
+
 	/**
 	 * Contains byte, short, char, int, long, float, and double.
 	 */
@@ -50,6 +54,15 @@ public abstract class MyJavaPostfixTemplatesUtils {
 		}
 
 		return NUMERIC_TYPES.contains(type) || NUMERIC_TYPES.contains(PsiPrimitiveType.getUnboxedType(type));
+	}
+
+	@Contract("null,_ -> false")
+	public static boolean isCertainDecimalNumberType(@Nullable PsiType type, @NotNull PsiType expectedType) {
+		if (type == null) {
+			return false;
+		}
+
+		return expectedType.equals(type) || expectedType.equals(PsiPrimitiveType.getUnboxedType(type));
 	}
 
 }
