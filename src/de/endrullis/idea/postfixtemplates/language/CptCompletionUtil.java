@@ -92,11 +92,8 @@ public class CptCompletionUtil {
 	private static JavaPsiClassReferenceElement getClassReferenceElement(String alias, PsiClass referenceClass) {
 		JavaPsiClassReferenceElement element = new JavaPsiClassReferenceElement(referenceClass);
 		element.setForcedPresentableName(alias);
-		element.setInsertHandler(new InsertHandler<LookupElement>() {
-			@Override
-			public void handleInsert(InsertionContext context, LookupElement item) {
-				// Override the default InsertHandler to prevent adding the FQCN.
-			}
+		element.setInsertHandler((context, item) -> {
+			// Override the default InsertHandler to prevent adding the FQCN.
 		});
 		return element;
 	}
