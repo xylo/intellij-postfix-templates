@@ -25,7 +25,6 @@ import com.intellij.util.messages.MessageBusConnection;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
-import de.endrullis.idea.postfixtemplates.language.psi.CptMappings;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import org.jetbrains.annotations.NotNull;
@@ -129,25 +128,27 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull VirtualFile vFile) {
 		Set<PostfixTemplate> templates = new OrderedSet<>();
 
-		Project project = ProjectManager.getInstance().getOpenProjects()[0];
+		ApplicationManager.getApplication().runReadAction(() -> {
+			Project project = ProjectManager.getInstance().getOpenProjects()[0];
 
-		CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(vFile);
-		if (cptFile != null) {
-			CptTemplate[] cptTemplates = PsiTreeUtil.getChildrenOfType(cptFile, CptTemplate.class);
-			if (cptTemplates != null) {
-				for (CptTemplate cptTemplate : cptTemplates) {
-					for (CptMapping mapping : cptTemplate.getMappings().getMappingList()) {
-						StringBuilder sb = new StringBuilder();
-						for (PsiElement element : mapping.getReplacement().getChildren()) {
-							sb.append(element.getText());
+			CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(vFile);
+			if (cptFile != null) {
+				CptTemplate[] cptTemplates = PsiTreeUtil.getChildrenOfType(cptFile, CptTemplate.class);
+				if (cptTemplates != null) {
+					for (CptTemplate cptTemplate : cptTemplates) {
+						for (CptMapping mapping : cptTemplate.getMappings().getMappingList()) {
+							StringBuilder sb = new StringBuilder();
+							for (PsiElement element : mapping.getReplacement().getChildren()) {
+								sb.append(element.getText());
+							}
+
+							templates.add(new CustomStringPostfixTemplate(mapping.getClassName(), cptTemplate.getTemplateName(),
+								cptTemplate.getTemplateDescription(), sb.toString()));
 						}
-
-						templates.add(new CustomStringPostfixTemplate(mapping.getClassName(), cptTemplate.getTemplateName(),
-							cptTemplate.getTemplateDescription(), sb.toString()));
 					}
 				}
 			}
-		}
+		});
 
 		return combineTemplatesWithSameName(templates);
 	}
