@@ -1,10 +1,7 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
 import com.intellij.openapi.util.Condition;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiExpression;
-import com.intellij.psi.PsiPrimitiveType;
-import com.intellij.psi.PsiType;
+import com.intellij.psi.*;
 import com.intellij.psi.util.InheritanceUtil;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -36,6 +33,18 @@ public abstract class MyJavaPostfixTemplatesUtils {
 
 	public static final Condition<PsiElement> IS_ANY =
 		element -> element instanceof PsiExpression;
+
+	public static final Condition<PsiElement> IS_FIELD =
+		element -> element instanceof PsiField;
+
+	public static final Condition<PsiElement> IS_LOCAL_VARIABLE =
+		element -> element instanceof PsiLocalVariable;
+
+	public static final Condition<PsiElement> IS_VARIABLE =
+		element -> element instanceof PsiField || element instanceof PsiLocalVariable;
+
+	public static final Condition<PsiElement> IS_ASSIGNMENT =
+		element -> element instanceof PsiField || element instanceof PsiAssignmentExpression;
 
 	public static Condition<PsiElement> isCertainNumberType(@NotNull PsiType expectedType) {
 		return element -> element instanceof PsiExpression && isCertainDecimalNumberType(((PsiExpression) element).getType(), expectedType);

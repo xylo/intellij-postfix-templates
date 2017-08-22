@@ -54,13 +54,19 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 		put(SpecialType.LONG.name(), isCertainNumberType(PsiType.LONG));
 		put(SpecialType.FLOAT.name(), isCertainNumberType(PsiType.FLOAT));
 		put(SpecialType.DOUBLE.name(), isCertainNumberType(PsiType.DOUBLE));
+		/*
+		put(SpecialType.FIELD.name(), IS_FIELD);
+		put(SpecialType.LOCAL_VARIABLE.name(), IS_LOCAL_VARIABLE);
+		put(SpecialType.VARIABLE.name(), IS_VARIABLE);
+		put(SpecialType.ASSIGNMENT.name(), IS_ASSIGNMENT);
+		*/
 	}};
 
 	private final String          template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
 
 	public CustomStringPostfixTemplate(String clazz, String name, String example, String template) {
-		super(name, example, selectorTopmost(getCondition(clazz)));
+		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)));
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
@@ -76,6 +82,11 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 				foundVarNames.add(variable.getName());
 			}
 		}
+	}
+
+	@Override
+	protected boolean shouldRemoveParent() {
+		return false;
 	}
 
 	@Override

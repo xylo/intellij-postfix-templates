@@ -1,34 +1,32 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
 	<description><![CDATA[
+			<a href="https://github.com/xylo/intellij-postfix-templates#custom-postfix-templates-for-intellij-idea">Documentation</a> |
+			<a href="https://github.com/xylo/intellij-postfix-templates#custom-postfix-templates-for-intellij-idea">Screencast</a> |
+			<a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">Predefined templates</a>
+			<br/><br/>
+
 			This plugin allows you to define your own postfix templates for Java code.
 			It comes with a set of predefined templates which can be edited and extended, e.g.:
 
-			<table>
-				<tr><td>●</td><td>string.toInt</td>   <td>→</td><td>Integer.parse(string)</td></tr>
-				<tr><td>●</td><td>longValue.toInt</td><td>→</td><td>((int) longValue)</td></tr>
-				<tr><td>●</td><td>array.toList</td>   <td>→</td><td>Arrays.asList(array)</td></tr>
-			</table>
-
-			<p>
-				Links:
-				<ul>
-					<li><a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">All predefined templates</a></li>
-				</ul>
-			</p>
+			<ul>
+				<li>string.toInt    → Integer.parse(string)</li>
+				<li>longValue.toInt → ((int) longValue)</li>
+				<li>array.toList    → Arrays.asList(array)</li>
+			</ul>
     ]]>
 	</description>
 
 	<change-notes><![CDATA[
 			<ul>
-				<li>Added special types <code>ANY</code> and <code>VOID</code>.</li>
-				<li>Improved performance.</li>
-				<li>Type matching: fixed recognition of project classes.</li>
+				<li>Fixed that templates could not be applied to partial expressions or method parameters.</li>
+				<li>Fixed that each template started with a dot in the completion dialog</li>
+				<li>Fixed bug #33: Read access is allowed from event dispatch thread or inside read-action only</li>
 			</ul>
     ]]>
 	</change-notes>
