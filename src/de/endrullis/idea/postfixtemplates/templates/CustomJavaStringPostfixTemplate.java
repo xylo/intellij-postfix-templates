@@ -1,18 +1,3 @@
-/*
- * Copyright 2000-2017 JetBrains s.r.o.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package de.endrullis.idea.postfixtemplates.templates;
 
 import com.intellij.codeInsight.template.Template;
@@ -34,7 +19,11 @@ import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplate
 import static de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
-public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
+/**
+ * Custom postfix template for Java.
+ */
+@SuppressWarnings("WeakerAccess")
+public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
@@ -65,7 +54,7 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 	private final String          template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
 
-	public CustomStringPostfixTemplate(String clazz, String name, String example, String template) {
+	public CustomJavaStringPostfixTemplate(String clazz, String name, String example, String template) {
 		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)));
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
@@ -85,8 +74,8 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 	}
 
 	@Override
-	protected boolean shouldRemoveParent() {
-		return false;
+	protected PsiElement getElementToRemove(PsiElement expr) {
+		return expr;
 	}
 
 	@Override
@@ -102,7 +91,7 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 	}
 
 	@NotNull
-	private static Condition<PsiElement> getCondition(String clazz) {
+	public static Condition<PsiElement> getCondition(String clazz) {
 		Condition<PsiElement> psiElementCondition = type2psiCondition.get(clazz);
 
 		if (psiElementCondition != null) {
@@ -251,10 +240,9 @@ public class CustomStringPostfixTemplate extends StringBasedPostfixTemplate {
 
 			MyVariable that = (MyVariable) o;
 
-			if (this.skipOnStart != that.skipOnStart) return false;
-			if (this.no != that.no) return false;
-
-			return true;
+			return
+				this.skipOnStart == that.skipOnStart &&
+				this.no == that.no;
 		}
 	}
 

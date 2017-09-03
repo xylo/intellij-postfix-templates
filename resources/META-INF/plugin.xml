@@ -38,6 +38,7 @@
 			 on how to target different products -->
 	<depends>com.intellij.modules.lang</depends>
 	<depends>com.intellij.modules.java</depends>
+	<depends optional="true">org.intellij.scala</depends>
 
 	<application-components>
 		<component>
@@ -47,9 +48,12 @@
 	</application-components>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<!-- Add your extensions here -->
 		<codeInsight.template.postfixTemplateProvider language="JAVA"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateProvider"/>
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.JavaPostfixTemplateProvider"/>
+		<!--
+		<codeInsight.template.postfixTemplateProvider language="Scala"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.ScalaPostfixTemplateProvider"/>
+		-->
 
 		<applicationConfigurable id="Settings.CustomPostfixTemplates"
 		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"
@@ -88,6 +92,11 @@
 		<action text="Edit _Java Templates" id="Cpt.OpenJavaTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenJavaTemplatesAction">
 			<add-to-group group-id="Cpt.Menu"/>
 		</action>
+		<!--
+		<action text="Edit _Scala Templates" id="Cpt.OpenScalaTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenScalaTemplatesAction">
+			<add-to-group group-id="Cpt.Menu"/>
+		</action>
+		-->
 	</actions>
 
 </idea-plugin>

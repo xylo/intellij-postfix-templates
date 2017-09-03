@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static de.endrullis.idea.postfixtemplates.templates.CustomStringPostfixTemplate.*;
+import static de.endrullis.idea.postfixtemplates.templates.CustomJavaStringPostfixTemplate.*;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for {@link CustomStringPostfixTemplate}.
+ * Tests for {@link CustomJavaStringPostfixTemplate}.
  *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */

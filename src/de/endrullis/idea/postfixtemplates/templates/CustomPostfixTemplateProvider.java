@@ -5,6 +5,7 @@ import com.intellij.codeInsight.completion.JavaCompletionContributor;
 import com.intellij.codeInsight.template.postfix.templates.PostfixLiveTemplate;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplate;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
+import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Document;
@@ -37,7 +38,7 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
-public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, CptApplicationSettings.SettingsChangedListener {
+public abstract class CustomPostfixTemplateProvider implements PostfixTemplateProvider, CptApplicationSettings.SettingsChangedListener {
 	private Set<PostfixTemplate> templates;
 
 	/**
@@ -56,7 +57,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 	};
 	*/
 
-	public CustomPostfixTemplateProvider() {
+	CustomPostfixTemplateProvider() {
 		// listen to file changes of template files
 		LocalFileSystem.getInstance().addRootToWatch(CptUtil.getTemplatesPath().getAbsolutePath(), true);
 		LocalFileSystem.getInstance().addVirtualFileListener(new VirtualFileContentsChangedAdapter() {
@@ -97,12 +98,15 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 	 */
 	@Override
 	public void reloadTemplates() {
-		CptUtil.getTemplateFile("java").ifPresent(file -> {
+		CptUtil.getTemplateFile(getLanguage()).ifPresent(file -> {
 			if (file.exists()) {
 				templates = loadTemplatesFrom(file);
 			}
 		});
 	}
+
+	@NotNull
+	protected abstract String getLanguage();
 
 	/**
 	 * Loads the postfix templates from the given file and returns them.
@@ -110,6 +114,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 	 * @param file templates file
 	 * @return set of postfix templates
 	 */
+	@SuppressWarnings("WeakerAccess")
 	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull File file) {
 		VirtualFile vFile = LocalFileSystem.getInstance().findFileByIoFile(file);
 		if (vFile != null) {
@@ -125,6 +130,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 	 * @param vFile virtual templates file
 	 * @return set of postfix templates
 	 */
+	@SuppressWarnings("WeakerAccess")
 	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull VirtualFile vFile) {
 		Set<PostfixTemplate> templates = new OrderedSet<>();
 
@@ -142,8 +148,7 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 								sb.append(element.getText());
 							}
 
-							templates.add(new CustomStringPostfixTemplate(mapping.getClassName(), cptTemplate.getTemplateName(),
-								cptTemplate.getTemplateDescription(), sb.toString()));
+							templates.add(createTemplate(mapping.getClassName(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), sb.toString()));
 						}
 					}
 				}
@@ -152,6 +157,9 @@ public class CustomPostfixTemplateProvider implements PostfixTemplateProvider, C
 
 		return combineTemplatesWithSameName(templates);
 	}
+
+	@NotNull
+	protected abstract StringBasedPostfixTemplate createTemplate(String className, String templateName, String description, String template);
 
 	/**
 	 * Combines templates with the same name into a {@link CombinedPostfixTemplate} and returns the result.

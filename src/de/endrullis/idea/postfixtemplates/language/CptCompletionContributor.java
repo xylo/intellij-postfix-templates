@@ -10,7 +10,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 
-import static de.endrullis.idea.postfixtemplates.templates.CustomStringPostfixTemplate.PREDEFINED_VARIABLES;
+import static de.endrullis.idea.postfixtemplates.templates.CustomJavaStringPostfixTemplate.PREDEFINED_VARIABLES;
 
 public class CptCompletionContributor extends CompletionContributor {
 	public CptCompletionContributor() {
