@@ -94,7 +94,7 @@ The file may contain multiple template definitions of the form:
     * *NAME* - name of the variable; use a `*` at the end of the name to skip user interaction
     * *NO* (optional) - number of the variable (defining in which order the variables are expanded)
     * *EXPRESSION* (optional) - a live template macro used to generate a replacement (e.g. `suggestVariableName()`)
-    * *DEFAULT_VALUE* - a default value that may be used by the macro
+    * *DEFAULT_VALUE* (optional) - a default value that may be used by the macro
 
 While writing the templates you can use the code completion for class names, variable names, template macros and arrows (→).
 
