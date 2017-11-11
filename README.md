@@ -50,6 +50,7 @@ The following templates are shipped with the plugin and shall provide you with a
 * `.bufferedReader` - create a buffered reader for an input steam
 * `.r` - convert a string into a regular expression
 * `.val` - extract the expression as Lombok value (similar to the `.var` template)
+* `.new` - create a new instance of a class
 
 The idea behind these templates is to bring a tiny bit of Scala feeling back to Java.
 
@@ -82,6 +83,7 @@ The file may contain multiple template definitions of the form:
   * `LONG` - a boxed or unboxed long value
   * `FLOAT` - a boxed or unboxed float value
   * `DOUBLE` - a boxed or unboxed double value
+  * `CLASS` - any class reference
 * The *TEMPLATE_CODE* can be any text which may also contain template variables used as placeholder.
   * The following template variables have a special meaning:
     * `$expr$` - the expression the template shall be applied to

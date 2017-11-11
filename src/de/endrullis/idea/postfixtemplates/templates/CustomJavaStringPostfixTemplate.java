@@ -50,6 +50,7 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		put(SpecialType.LONG.name(), isCertainNumberType(PsiType.LONG));
 		put(SpecialType.FLOAT.name(), isCertainNumberType(PsiType.FLOAT));
 		put(SpecialType.DOUBLE.name(), isCertainNumberType(PsiType.DOUBLE));
+		put(SpecialType.CLASS.name(), IS_CLASS);
 		/*
 		put(SpecialType.FIELD.name(), IS_FIELD);
 		put(SpecialType.LOCAL_VARIABLE.name(), IS_LOCAL_VARIABLE);

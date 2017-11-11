@@ -209,6 +209,9 @@
 
 ## others ##
 
+.new : new instance
+	CLASS                    →  new $expr$($END$)
+
 .lines : lines
 	java.io.File             →  Files.readAllLines($expr$.toPath(), Charset.forName($encoding::"\"UTF-8\""$))
 	java.nio.file.Path       →  Files.readAllLines($expr$, Charset.forName($encoding::"\"UTF-8\""$))

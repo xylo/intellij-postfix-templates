@@ -37,6 +37,10 @@ public abstract class MyJavaPostfixTemplatesUtils {
 	public static final Condition<PsiElement> IS_FIELD =
 		element -> element instanceof PsiField;
 
+	public static final Condition<PsiElement> IS_CLASS =
+		element -> element instanceof PsiReferenceExpression &&
+			((PsiReferenceExpression) element).advancedResolve(true).getElement() instanceof PsiClass;
+
 	public static final Condition<PsiElement> IS_LOCAL_VARIABLE =
 		element -> element instanceof PsiLocalVariable;
 
