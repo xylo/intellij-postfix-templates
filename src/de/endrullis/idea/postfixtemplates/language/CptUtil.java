@@ -28,7 +28,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 @SuppressWarnings("WeakerAccess")
 public class CptUtil {
 	public static final String PLUGIN_ID = "de.endrullis.idea.postfixtemplates";
-	public static final Set<String> SUPPORTED_LANGUAGES = new HashSet<>(_List("java", "scala"));
+	public static final Set<String> SUPPORTED_LANGUAGES = new HashSet<>(_List("java", "scala", "kotlin"));
 
 	public static Project findProject(PsiElement element) {
 		PsiFile containingFile = element.getContainingFile();

@@ -30,12 +30,12 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
  * Custom postfix template for Java.
  */
 @SuppressWarnings("WeakerAccess")
-public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate {
+public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
-		put(SpecialType.ANY.name(), IS_ANY);
+		put(SpecialType.ANY.name(), e -> true);
 		put(SpecialType.VOID.name(), IS_VOID);
 		put(SpecialType.NON_VOID.name(), IS_NON_VOID);
 		put(SpecialType.ARRAY.name(), IS_ARRAY);
@@ -62,30 +62,32 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 	private final Set<MyVariable> variables = new OrderedSet<>();
 
 	public static List<PsiExpression> collectExpressions(final PsiFile file,
-		                                                   final Document document,
-		                                                   final int offset,
-		                                                   boolean acceptVoid) {
-		CharSequence text = document.getCharsSequence();
-		int correctedOffset = offset;
-		int textLength = document.getTextLength();
-		if (offset >= textLength) {
-			correctedOffset = textLength - 1;
-		} else if (!Character.isJavaIdentifierPart(text.charAt(offset))) {
-			correctedOffset--;
-		}
-		if (correctedOffset < 0) {
-			correctedOffset = offset;
-		} else if (!Character.isJavaIdentifierPart(text.charAt(correctedOffset))) {
-			if (text.charAt(correctedOffset) == ';') {//initially caret on the end of line
-				correctedOffset--;
-			}
-			if (correctedOffset < 0 || text.charAt(correctedOffset) != ')') {
-				correctedOffset = offset;
-			}
-		}
-		final PsiElement elementAtCaret = file.findElementAt(correctedOffset);
-		final List<PsiExpression> expressions = new ArrayList<>();
-	 /*for (PsiElement element : statementsInRange) {
+                                                       final Document document,
+                                                       final int offset,
+                                                       boolean acceptVoid) {
+   CharSequence text = document.getCharsSequence();
+   int correctedOffset = offset;
+   int textLength = document.getTextLength();
+   if (offset >= textLength) {
+     correctedOffset = textLength - 1;
+   }
+   else if (!Character.isJavaIdentifierPart(text.charAt(offset))) {
+     correctedOffset--;
+   }
+   if (correctedOffset < 0) {
+     correctedOffset = offset;
+   }
+   else if (!Character.isJavaIdentifierPart(text.charAt(correctedOffset))) {
+     if (text.charAt(correctedOffset) == ';') {//initially caret on the end of line
+       correctedOffset--;
+     }
+     if (correctedOffset < 0 || text.charAt(correctedOffset) != ')') {
+       correctedOffset = offset;
+     }
+   }
+   final PsiElement elementAtCaret = file.findElementAt(correctedOffset);
+   final List<PsiExpression> expressions = new ArrayList<>();
+   /*for (PsiElement element : statementsInRange) {
      if (element instanceof PsiExpressionStatement) {
        final PsiExpression expression = ((PsiExpressionStatement)element).getExpression();
        if (expression.getType() != PsiType.VOID) {
@@ -93,58 +95,65 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
        }
      }
    }*/
-		PsiExpression expression = PsiTreeUtil.getParentOfType(elementAtCaret, PsiExpression.class);
-		while (expression != null) {
-			if (!expressions.contains(expression) && !(expression instanceof PsiParenthesizedExpression) && !(expression instanceof PsiSuperExpression) &&
-				(acceptVoid || !PsiType.VOID.equals(expression.getType()))) {
-				if (expression instanceof PsiMethodReferenceExpression) {
-					expressions.add(expression);
-				} else if (!(expression instanceof PsiAssignmentExpression)) {
-					if (!(expression instanceof PsiReferenceExpression)) {
-						expressions.add(expression);
-					} else {
-						if (!(expression.getParent() instanceof PsiMethodCallExpression)) {
-							final PsiElement resolve = ((PsiReferenceExpression) expression).resolve();
-							if (!(resolve instanceof PsiClass) && !(resolve instanceof PsiPackage)) {
-								expressions.add(expression);
-							}
-						}
-					}
-				}
-			}
-			expression = PsiTreeUtil.getParentOfType(expression, PsiExpression.class);
-		}
-		return expressions;
-	}
+   PsiExpression expression = PsiTreeUtil.getParentOfType(elementAtCaret, PsiExpression.class);
+   while (expression != null) {
+     if (!expressions.contains(expression) && !(expression instanceof PsiParenthesizedExpression) && !(expression instanceof PsiSuperExpression) &&
+         (acceptVoid || !PsiType.VOID.equals(expression.getType()))) {
+       if (expression instanceof PsiMethodReferenceExpression) {
+         expressions.add(expression);
+       }
+       else if (!(expression instanceof PsiAssignmentExpression)) {
+         if (!(expression instanceof PsiReferenceExpression)) {
+           expressions.add(expression);
+         }
+         else {
+           if (!(expression.getParent() instanceof PsiMethodCallExpression)) {
+             final PsiElement resolve = ((PsiReferenceExpression)expression).resolve();
+             if (!(resolve instanceof PsiClass) && !(resolve instanceof PsiPackage)) {
+               expressions.add(expression);
+             }
+           }
+         }
+       }
+     }
+     expression = PsiTreeUtil.getParentOfType(expression, PsiExpression.class);
+   }
+   return expressions;
+ }
 
 	public static PostfixTemplateExpressionSelector selectorAllExpressionsWithCurrentOffset(final Condition<PsiElement> additionalFilter) {
-		return new PostfixTemplateExpressionSelectorBase(additionalFilter) {
-			@Override
-			protected List<PsiElement> getNonFilteredExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
-				return ContainerUtil.newArrayList(collectExpressions(context.getContainingFile(), document,
-					Math.max(offset - 1, 0), false));
-			}
+   return new PostfixTemplateExpressionSelectorBase(additionalFilter) {
+     @Override
+     protected List<PsiElement> getNonFilteredExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
+       return ContainerUtil.newArrayList(collectExpressions(context.getContainingFile(), document,
+                                                                                  Math.max(offset - 1, 0), false));
+     }
 
-			@NotNull
-			@Override
-			public List<PsiElement> getExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
-				if (DumbService.getInstance(context.getProject()).isDumb()) return Collections.emptyList();
+     @NotNull
+     @Override
+     public List<PsiElement> getExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
+       if (DumbService.getInstance(context.getProject()).isDumb()) return Collections.emptyList();
 
-				List<PsiElement> expressions = super.getExpressions(context, document, offset);
-				if (!expressions.isEmpty()) return expressions;
+       List<PsiElement> expressions = super.getExpressions(context, document, offset);
 
-				return ContainerUtil.filter(ContainerUtil.<PsiElement>createMaybeSingletonList(getTopmostExpression(context)), getFilters(offset));
-			}
+	     for (PsiElement expression : expressions) {
+		     System.out.println(expression);
+	     }
 
-			@NotNull
-			@Override
-			public Function<PsiElement, String> getRenderer() {
-				return JavaPostfixTemplatesUtils.getRenderer();
-			}
-		};
-	}
+       if (!expressions.isEmpty()) return expressions;
 
-	public CustomJavaStringPostfixTemplate(String clazz, String name, String example, String template) {
+       return ContainerUtil.filter(ContainerUtil.<PsiElement>createMaybeSingletonList(getTopmostExpression(context)), getFilters(offset));
+     }
+
+     @NotNull
+     @Override
+     public Function<PsiElement, String> getRenderer() {
+       return JavaPostfixTemplatesUtils.getRenderer();
+     }
+   };
+ }
+
+	public CustomKotlinStringPostfixTemplate(String clazz, String name, String example, String template) {
 		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)));
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {

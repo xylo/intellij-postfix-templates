@@ -39,6 +39,7 @@
 	<depends>com.intellij.modules.lang</depends>
 	<depends>com.intellij.modules.java</depends>
 	<depends optional="true">org.intellij.scala</depends>
+	<depends optional="true">org.jetbrains.kotlin</depends>
 
 	<application-components>
 		<component>
@@ -53,6 +54,10 @@
 		<!--
 		<codeInsight.template.postfixTemplateProvider language="Scala"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.ScalaPostfixTemplateProvider"/>
+		-->
+		<!--
+		<codeInsight.template.postfixTemplateProvider language="kotlin"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.KotlinPostfixTemplateProvider"/>
 		-->
 
 		<applicationConfigurable id="Settings.CustomPostfixTemplates"
@@ -94,6 +99,11 @@
 		</action>
 		<!--
 		<action text="Edit _Scala Templates" id="Cpt.OpenScalaTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenScalaTemplatesAction">
+			<add-to-group group-id="Cpt.Menu"/>
+		</action>
+		-->
+		<!--
+		<action text="Edit _Kotlin Templates" id="Cpt.OpenKotlinTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenKotlinTemplatesAction">
 			<add-to-group group-id="Cpt.Menu"/>
 		</action>
 		-->
