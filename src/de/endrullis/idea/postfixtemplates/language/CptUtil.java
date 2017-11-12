@@ -182,7 +182,7 @@ public class CptUtil {
 		return DataKeys.PROJECT.getData(dataContext);
 	}
 
-	public static boolean isTemplatesFile(VirtualFile vFile) {
+	public static boolean isTemplateFile(VirtualFile vFile) {
 		return vFile != null && vFile.getCanonicalPath() != null &&
 			vFile.getCanonicalPath().replace('\\', '/').startsWith(CptUtil.getTemplatesPath().getAbsolutePath().replace('\\', '/'));
 	}

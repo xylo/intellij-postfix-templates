@@ -63,7 +63,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 		LocalFileSystem.getInstance().addVirtualFileListener(new VirtualFileContentsChangedAdapter() {
 			@Override
 			protected void onFileChange(@NotNull VirtualFile vFile) {
-				if (CptUtil.isTemplatesFile(vFile)) {
+				if (CptUtil.isTemplateFile(vFile)) {
 					reloadTemplates();
 				}
 			}

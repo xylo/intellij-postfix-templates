@@ -6,6 +6,6 @@ import javax.swing.*;
 
 public class CptIcons {
 
-	public static final Icon FILE = IconLoader.getIcon("/de/endrullis/idea/postfixtemplates/language/icons/jar-gray.png");
+	public static final Icon FILE = IconLoader.getIcon("/de/endrullis/idea/postfixtemplates/icons/cpt-icon.png");
 
 }

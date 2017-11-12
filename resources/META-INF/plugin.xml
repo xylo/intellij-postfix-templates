@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -23,6 +23,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 1.1.1</h3>
+			<ul>
+				<li>Changed plugin icon.</li>
+			</ul>
+
 			<h3>Version 1.1.0</h3>
 			<ul>
 				<li>Added matching type <code>CLASS</code> to detect class references.</li>
@@ -97,7 +102,7 @@
 
 	<actions>
 		<!-- Add your actions here -->
-		<group text="Custom _Postfix Templates" popup="true" id="Cpt.Menu"> <!-- class="de.endrullis.idea.postfixtemplates.actions.MenuAction">-->
+		<group text="Custom _Postfix Templates" popup="true" id="Cpt.Menu" icon="/de/endrullis/idea/postfixtemplates/icons/cpt-icon.png"> <!-- class="de.endrullis.idea.postfixtemplates.actions.MenuAction">-->
 			<add-to-group group-id="ToolsMenu" anchor="last"/>
 		</group>
 
