@@ -95,6 +95,7 @@ public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplat
        }
      }
    }*/
+   // TODO: find a way to get the expression below the caret; this code does not work for kotlin
    PsiExpression expression = PsiTreeUtil.getParentOfType(elementAtCaret, PsiExpression.class);
    while (expression != null) {
      if (!expressions.contains(expression) && !(expression instanceof PsiParenthesizedExpression) && !(expression instanceof PsiSuperExpression) &&
@@ -125,8 +126,7 @@ public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplat
    return new PostfixTemplateExpressionSelectorBase(additionalFilter) {
      @Override
      protected List<PsiElement> getNonFilteredExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
-       return ContainerUtil.newArrayList(collectExpressions(context.getContainingFile(), document,
-                                                                                  Math.max(offset - 1, 0), false));
+       return ContainerUtil.newArrayList(collectExpressions(context.getContainingFile(), document, Math.max(offset - 1, 0), false));
      }
 
      @NotNull
