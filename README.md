@@ -1,6 +1,7 @@
 # Custom Postfix Templates for Intellij IDEA
 
 **Custom Postfix Templates** is an Intellij IDEA plugin that allows you to define your own custom [postfix templates](https://blog.jetbrains.com/idea/2014/03/postfix-completion/).
+At the moment it supports the following programming languages: Java, JavaScript.
 
 ![Screen Cast](https://github.com/xylo/intellij-postfix-templates/blob/master/videos/vid1/vid1.png)
 
@@ -10,7 +11,7 @@ You can download the plugin **Custom Postfix Templates** via *Settings → Plugi
 
 ## Usage
 
-The plugin comes with a predefined set of templates (see below) which can be immediatly applied in a Java files.
+The plugin comes with a predefined set of templates for Java (see below) which can be immediatly applied in a Java files.
 For instance, write 
 
     "1".toInt
