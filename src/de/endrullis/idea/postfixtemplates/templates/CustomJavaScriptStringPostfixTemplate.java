@@ -120,6 +120,9 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 
 		// TODO: For an unknown reason this code completion works only with a single expression and not with multiple ones.
 		// TODO: Therefore we have to cut our list to a singleton list.
+		if (expressions.isEmpty()) {
+			return expressions;
+		}
 		ArrayList<PsiElement> es = new ArrayList<>();
 		es.add(expressions.get(expressions.size()-1));
 		return es;
