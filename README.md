@@ -69,21 +69,25 @@ The file may contain multiple template definitions of the form:
     MATCHING_TYPE2  →  TEMPLATE_CODE2
     ...
 ```
-* The *MATCHING_TYPE* can be either a Java class name or one of the following special types:
-  * `ARRAY` - any Java array
-  * `BOOLEAN` - boxed or unboxed boolean expressions
-  * `ITERABLE_OR_ARRAY` - any iterable or array
-  * `NON_VOID` - any non-void expression
-  * `NOT_PRIMITIVE` - any non-primitive value
-  * `NUMBER` - any boxed or unboxed number
-  * `BYTE` - a boxed or unboxed byte value
-  * `SHORT` - a boxed or unboxed short value
-  * `CHAR` - a boxed or unboxed char value
-  * `INT` - a boxed or unboxed int value
-  * `LONG` - a boxed or unboxed long value
-  * `FLOAT` - a boxed or unboxed float value
-  * `DOUBLE` - a boxed or unboxed double value
-  * `CLASS` - any class reference
+* The options for *MATCHING_TYPE* differ from language to language:
+  * Java: The *MATCHING_TYPE* can be either a Java class name or one of the following special types:
+    * `ANY` - any expression
+    * `VOID` - any void expression
+    * `NON_VOID` - any non-void expression
+    * `ARRAY` - any Java array
+    * `BOOLEAN` - boxed or unboxed boolean expressions
+    * `ITERABLE_OR_ARRAY` - any iterable or array
+    * `NOT_PRIMITIVE` - any non-primitive value
+    * `NUMBER` - any boxed or unboxed number
+    * `BYTE` - a boxed or unboxed byte value
+    * `SHORT` - a boxed or unboxed short value
+    * `CHAR` - a boxed or unboxed char value
+    * `INT` - a boxed or unboxed int value
+    * `LONG` - a boxed or unboxed long value
+    * `FLOAT` - a boxed or unboxed float value
+    * `DOUBLE` - a boxed or unboxed double value
+    * `CLASS` - any class reference
+  * JavaScript: The *MATCHING_TYPE* has to be `ANY`.
 * The *TEMPLATE_CODE* can be any text which may also contain template variables used as placeholder.
   * The following template variables have a special meaning:
     * `$expr$` - the expression the template shall be applied to
