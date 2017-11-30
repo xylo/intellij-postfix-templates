@@ -89,8 +89,8 @@ public class CptUtil {
 		return result;
 	}
 
-	public static String getDefaultJavaTemplates() {
-		InputStream stream = CptUtil.class.getResourceAsStream("defaulttemplates/java.postfixTemplates");
+	public static String getDefaultTemplates(String language) {
+		InputStream stream = CptUtil.class.getResourceAsStream("defaulttemplates/" + language + ".postfixTemplates");
 		return getContent(stream);
 	}
 
@@ -151,7 +151,7 @@ public class CptUtil {
 			File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
 
 			if (!file.exists()) {
-				createTemplateFile(language, CptUtil.getDefaultJavaTemplates());
+				createTemplateFile(language, CptUtil.getDefaultTemplates(language));
 			}
 
 			return Optional.of(file);

@@ -71,7 +71,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			emptyLambdaRadioButton.setSelected(true);
 		}
 
-		final String[] templatesText = {CptUtil.getDefaultJavaTemplates()};
+		final String[] templatesText = {CptUtil.getDefaultTemplates("java")};
 
 		new BufferedReader(new InputStreamReader(
 			CptUtil.class.getResourceAsStream("templatemapping/" + (preFilled ? "var" : "empty") + "Lambda.txt")

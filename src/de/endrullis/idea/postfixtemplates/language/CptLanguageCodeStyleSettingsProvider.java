@@ -35,7 +35,7 @@ public class CptLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSetti
 
 	@Override
 	public String getCodeSample(@NotNull SettingsType settingsType) {
-		return CptUtil.getDefaultJavaTemplates();
+		return CptUtil.getDefaultTemplates("java");
 	}
 
 	@Override

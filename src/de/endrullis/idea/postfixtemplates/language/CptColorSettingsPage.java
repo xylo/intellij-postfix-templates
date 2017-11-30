@@ -35,7 +35,7 @@ public class CptColorSettingsPage implements ColorSettingsPage {
 	@NotNull
 	@Override
 	public String getDemoText() {
-		return CptUtil.getDefaultJavaTemplates();
+		return CptUtil.getDefaultTemplates("java");
 	}
 
 	@Nullable
