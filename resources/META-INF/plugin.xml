@@ -63,6 +63,8 @@
 	<extensions defaultExtensionNs="com.intellij">
 		<codeInsight.template.postfixTemplateProvider language="JAVA"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.JavaPostfixTemplateProvider"/>
+		<codeInsight.template.postfixTemplateProvider language="JavaScript"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.JavaScriptPostfixTemplateProvider"/>
 		<!--
 		<codeInsight.template.postfixTemplateProvider language="Scala"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.ScalaPostfixTemplateProvider"/>
@@ -107,6 +109,9 @@
 		</group>
 
 		<action text="Edit _Java Templates" id="Cpt.OpenJavaTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenJavaTemplatesAction">
+			<add-to-group group-id="Cpt.Menu"/>
+		</action>
+		<action text="Edit J_avaScript Templates" id="Cpt.OpenJavaScriptTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenJavaScriptTemplatesAction">
 			<add-to-group group-id="Cpt.Menu"/>
 		</action>
 		<!--

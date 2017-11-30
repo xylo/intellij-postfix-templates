@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static de.endrullis.idea.postfixtemplates.templates.CustomJavaStringPostfixTemplate.*;
+import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariableNames;
+import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
+import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 import static org.junit.Assert.assertEquals;
 
