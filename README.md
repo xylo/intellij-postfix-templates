@@ -99,10 +99,10 @@ The file may contain multiple template definitions of the form:
     * *DEFAULT_VALUE* (optional) - a default value that may be used by the macro
 
 * Template examples:
-  * Artificial example showing variable reordering, interaction skipping, macros, and default values:
+  * Artificial example showing variable reordering, variable reusage, interaction skipping, macros, and default values:
     ```
     .test : test
-	    NON_VOID → "$user*#1:user()$: $second#3:className()$ + $first::"1st"#2$" + $expr$
+	    NON_VOID → "$user*#1:user()$: $second#3:className()$ + $first#2::"1st"$ + $first$" + $expr$
     ```
   * Real world example: Write a variable to the debug log, including the developer name, the class name, and method name:
     ```
