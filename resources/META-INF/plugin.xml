@@ -11,8 +11,8 @@
 			<a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">Predefined templates</a>
 			<br/><br/>
 
-			This plugin allows you to define your own postfix templates for Java code.
-			It comes with a set of predefined templates which can be edited and extended, e.g.:
+			This plugin allows you to define your own postfix templates for Java and JavaScript code.
+			It comes with a set of predefined templates for Java which can be edited and extended, e.g.:
 
 			<ul>
 				<li>string.toInt    → Integer.parse(string)</li>
