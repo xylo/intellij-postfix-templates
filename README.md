@@ -98,6 +98,18 @@ The file may contain multiple template definitions of the form:
     * *EXPRESSION* (optional) - a live template macro used to generate a replacement (e.g. `suggestVariableName()`)
     * *DEFAULT_VALUE* (optional) - a default value that may be used by the macro
 
+* Template examples:
+  * Artificial example showing variable reordering, interaction skipping, macros, and default values:
+    ```
+    .test : test
+	    NON_VOID → "$user*#1:user()$: $second#3:className()$ + $first::"1st"#2$" + $expr$
+    ```
+  * Real world example: Write a variable to the debug log, including the developer name, the class name, and method name:
+    ```
+    .logd : log a variable
+        NON_VOID → Log.d("$user*:user():"MyTag"$", "$className*:className()$ :: $methodName*:methodName()$): $expr$="+$expr$);
+    ```
+
 While writing the templates you can use the code completion for class names, variable names, template macros and arrows (→).
 
 ## Upgrade / reset templates and configure the plugin
