@@ -28,6 +28,7 @@
 			<h3>Version 1.2.2</h3>
 			<ul>
 				<li>Improved code completion and error highlighting for JavaScript and Kotlin templates.</li>
+				<li>Added shortcut <i>Shift+Alt+P</i> to open the postfix templates of the current language.</li>
 			</ul>
 
 			<h3>Version 1.2.1</h3>
@@ -123,6 +124,10 @@
 			<add-to-group group-id="ToolsMenu" anchor="last"/>
 		</group>
 
+		<action text="Edit Templates of Current Language" id="Cpt.OpenTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenTemplatesAction">
+			<add-to-group group-id="Cpt.Menu"/>
+			<keyboard-shortcut first-keystroke="shift alt P" keymap="$default"/>
+		</action>
 		<action text="Edit _Java Templates" id="Cpt.OpenJavaTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenJavaTemplatesAction">
 			<add-to-group group-id="Cpt.Menu"/>
 		</action>

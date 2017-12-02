@@ -1,10 +1,6 @@
 package de.endrullis.idea.postfixtemplates.languages;
 
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiCompiledElement;
-import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
@@ -15,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
@@ -43,6 +38,11 @@ public class SupportedLanguages {
 
 	public static Optional<CptLang> getCptLang(@NotNull final PsiElement element) {
 		final VirtualFile vFile = element.getContainingFile().getViewProvider().getVirtualFile().getCanonicalFile();
+
+		return getCptLang(vFile);
+	}
+
+	public static Optional<CptLang> getCptLang(VirtualFile vFile) {
 		if (vFile == null) {
 			return Optional.empty();
 		}
