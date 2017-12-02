@@ -11,6 +11,7 @@ import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.TokenType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
@@ -70,12 +71,33 @@ public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplat
 		final PsiElement elementAtCaret = file.findElementAt(correctedOffset);
 		final List<PsiElement> expressions = new ArrayList<>();
 
-		KtExpression expression = PsiTreeUtil.getParentOfType(elementAtCaret, KtExpression.class);
+		PsiElement expression = PsiTreeUtil.getParentOfType(elementAtCaret, PsiElement.class);
 
-		expressions.add(expression);
-		// TODO find more relevant parent expressions
+		while (expression != null && expression.getTextRange().getEndOffset() == elementAtCaret.getTextRange().getEndOffset()) {
+			//System.out.println(expression + " - " + expression.getText() + " - " + expression.getTextRange());
+			final PsiElement finalExpression = expression;
 
-		return expressions;
+			if (expression.getPrevSibling() == null || expression.getPrevSibling().getNode().getElementType() == TokenType.WHITE_SPACE) {
+				if (expressions.stream().noneMatch(pe -> finalExpression.getTextRange().equals(pe.getTextRange()))) {
+					expressions.add(expression);
+				}
+			} else {
+				System.out.println("prevSilbing: " + expression.getPrevSibling().getNode().getElementType());
+			}
+
+			//expression = PsiTreeUtil.getParentOfType(expression, KtExpression.class);
+			expression = expression.getParent();
+		}
+
+		// TODO: For an unknown reason this code completion works only with a single expression and not with multiple ones.
+		// TODO: Therefore we have to cut our list to a singleton list.
+		if (expressions.isEmpty()) {
+			return expressions;
+		}
+		ArrayList<PsiElement> es = new ArrayList<>();
+		es.add(expressions.get(0));
+		//es.add(expressions.get(expressions.size()-1));
+		return es;
 	}
 
 	public static PostfixTemplateExpressionSelector selectorAllExpressionsWithCurrentOffset(final Condition<PsiElement> additionalFilter) {

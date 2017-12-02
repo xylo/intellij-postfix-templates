@@ -12,6 +12,7 @@ import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.TokenType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
@@ -79,7 +80,7 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
      }
     }*/
 
-		PsiElement expression = PsiTreeUtil.getParentOfType(elementAtCaret, JSExpression.class);
+		PsiElement expression = PsiTreeUtil.getParentOfType(elementAtCaret, PsiElement.class);
 
 		/*
 		while (expression != null) {
@@ -105,8 +106,25 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 		*/
 
 		while (expression != null && expression.getTextRange().getEndOffset() == elementAtCaret.getTextRange().getEndOffset()) {
+			//System.out.println(expression + " - " + expression.getText() + " - " + expression.getTextRange());
+			final PsiElement finalExpression = expression;
+
+			if (expression.getPrevSibling() == null || expression.getPrevSibling().getNode().getElementType() == TokenType.WHITE_SPACE) {
+				if (expressions.stream().noneMatch(pe -> finalExpression.getTextRange().equals(pe.getTextRange()))) {
+					expressions.add(expression);
+				}
+			} else {
+				System.out.println("prevSilbing: " + expression.getPrevSibling().getNode().getElementType());
+			}
+
+			//expression = PsiTreeUtil.getParentOfType(expression, KtExpression.class);
+			expression = expression.getParent();
+		}
+
+		/*
+		while (expression != null && expression.getTextRange().getEndOffset() == elementAtCaret.getTextRange().getEndOffset()) {
 			if (expression instanceof JSExpression) {
-				PsiElement finalExpression = expression;
+				final PsiElement finalExpression = expression;
 				
 				if (expressions.stream().noneMatch(pe -> finalExpression.getTextRange().equals(pe.getTextRange()))) {
 					expressions.add(expression);
@@ -114,6 +132,7 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 			}
 			expression = expression.getParent();
 		}
+		*/
 
 		/*
 		for (PsiElement psiElement : expressions) {
@@ -127,7 +146,8 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 			return expressions;
 		}
 		ArrayList<PsiElement> es = new ArrayList<>();
-		es.add(expressions.get(expressions.size()-1));
+		es.add(expressions.get(0));
+		//es.add(expressions.get(expressions.size()-1));
 		return es;
 	}
 
