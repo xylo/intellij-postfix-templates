@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -11,8 +11,10 @@
 			<a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">Predefined templates</a>
 			<br/><br/>
 
-			This plugin allows you to define your own postfix templates for Java and JavaScript code.
-			It comes with a set of predefined templates for Java which can be edited and extended, e.g.:
+			This plugin allows you to define your own postfix templates for Java, JavaScript, and Kotlin.
+			It comes with a set of
+			<a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">predefined templates</a>
+			which can be edited and extended, e.g.:
 
 			<ul>
 				<li>string.toInt    → Integer.parse(string)</li>
@@ -23,6 +25,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 1.2.1</h3>
+			<ul>
+				<li>Added basic support for Kotlin (untyped templates only).</li>
+			</ul>
+
 			<h3>Version 1.2.0</h3>
 			<ul>
 				<li>Added JavaScript support.</li>
@@ -74,10 +81,8 @@
 		<codeInsight.template.postfixTemplateProvider language="Scala"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.ScalaPostfixTemplateProvider"/>
 		-->
-		<!--
 		<codeInsight.template.postfixTemplateProvider language="kotlin"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.KotlinPostfixTemplateProvider"/>
-		-->
 
 		<applicationConfigurable id="Settings.CustomPostfixTemplates"
 		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"
@@ -124,11 +129,9 @@
 			<add-to-group group-id="Cpt.Menu"/>
 		</action>
 		-->
-		<!--
 		<action text="Edit _Kotlin Templates" id="Cpt.OpenKotlinTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenKotlinTemplatesAction">
 			<add-to-group group-id="Cpt.Menu"/>
 		</action>
-		-->
 	</actions>
 
 </idea-plugin>
