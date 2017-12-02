@@ -29,6 +29,7 @@
 			<ul>
 				<li>Improved code completion and error highlighting for JavaScript and Kotlin templates.</li>
 				<li>Added shortcut <i>Shift+Alt+P</i> to open the postfix templates of the current language.</li>
+				<li>Fixed #42: JavaScript and Kotlin postfix templates did not detect complete dot expressions.</li>
 			</ul>
 
 			<h3>Version 1.2.1</h3>
