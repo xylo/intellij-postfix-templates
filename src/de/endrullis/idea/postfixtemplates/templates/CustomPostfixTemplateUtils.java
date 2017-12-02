@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
-class CustomPostfixTemplateUtils {
+public class CustomPostfixTemplateUtils {
 
 	/**
 	 * Returns the variable names used in the template.
@@ -57,7 +57,7 @@ class CustomPostfixTemplateUtils {
 	 * @param templateText template text
 	 * @return the variables used in the template
 	 */
-	static List<MyVariable> parseVariables(@NotNull String templateText) {
+	public static List<MyVariable> parseVariables(@NotNull String templateText) {
 		Set<String> varNames = parseVariableNames(templateText);
 
 		final int[] autoNo = {0};
@@ -96,7 +96,7 @@ class CustomPostfixTemplateUtils {
 	 * @param variables    variables that may have default values
 	 * @return the template text without the variable default values
 	 */
-	static String removeVariableValues(@NotNull String templateText, Collection<MyVariable> variables) {
+	public static String removeVariableValues(@NotNull String templateText, Collection<MyVariable> variables) {
 		final String[] newTemplateText = {templateText};
 
 		variables.forEach(variable -> {

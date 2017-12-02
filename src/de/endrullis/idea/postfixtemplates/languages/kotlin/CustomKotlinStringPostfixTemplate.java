@@ -1,4 +1,4 @@
-package de.endrullis.idea.postfixtemplates.templates;
+package de.endrullis.idea.postfixtemplates.languages.kotlin;
 
 import com.intellij.codeInsight.template.Template;
 import com.intellij.codeInsight.template.impl.Variable;
@@ -6,7 +6,6 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpres
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelectorBase;
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils;
-import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.util.Condition;
@@ -16,8 +15,12 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
+import de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils;
+import de.endrullis.idea.postfixtemplates.templates.MyVariable;
+import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.kotlin.psi.KtExpression;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,10 +31,10 @@ import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplate
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**
- * Custom postfix template for JavaScript.
+ * Custom postfix template for Kotlin.
  */
 @SuppressWarnings("WeakerAccess")
-public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTemplate {
+public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
@@ -66,74 +69,20 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 		}
 		final PsiElement elementAtCaret = file.findElementAt(correctedOffset);
 		final List<PsiElement> expressions = new ArrayList<>();
-	  /*
-	  for (PsiElement element : statementsInRange) {
-     if (element instanceof PsiExpressionStatement) {
-       final PsiExpression expression = ((PsiExpressionStatement)element).getExpression();
-       if (expression.getType() != PsiType.VOID) {
-         expressions.add(expression);
-       }
-     }
-    }*/
 
-		PsiElement expression = PsiTreeUtil.getParentOfType(elementAtCaret, JSExpression.class);
+		KtExpression expression = PsiTreeUtil.getParentOfType(elementAtCaret, KtExpression.class);
 
-		/*
-		while (expression != null) {
-			if (!expressions.contains(expression) && !(expression instanceof PsiParenthesizedExpression) && !(expression instanceof PsiSuperExpression) &&
-				(acceptVoid || !PsiType.VOID.equals(expression.getType()))) {
-				if (expression instanceof PsiMethodReferenceExpression) {
-					expressions.add(expression);
-				} else if (!(expression instanceof PsiAssignmentExpression)) {
-					if (!(expression instanceof PsiReferenceExpression)) {
-						expressions.add(expression);
-					} else {
-						if (!(expression.getParent() instanceof PsiMethodCallExpression)) {
-							final PsiElement resolve = ((PsiReferenceExpression) expression).resolve();
-							if (!(resolve instanceof PsiClass) && !(resolve instanceof PsiPackage)) {
-								expressions.add(expression);
-							}
-						}
-					}
-				}
-			}
-			expression = PsiTreeUtil.getParentOfType(expression, PsiExpression.class);
-		}
-		*/
+		expressions.add(expression);
+		// TODO find more relevant parent expressions
 
-		while (expression != null && expression.getTextRange().getEndOffset() == elementAtCaret.getTextRange().getEndOffset()) {
-			if (expression instanceof JSExpression) {
-				PsiElement finalExpression = expression;
-				
-				if (expressions.stream().noneMatch(pe -> finalExpression.getTextRange().equals(pe.getTextRange()))) {
-					expressions.add(expression);
-				}
-			}
-			expression = expression.getParent();
-		}
-
-		/*
-		for (PsiElement psiElement : expressions) {
-			System.out.println("parent: " + psiElement + " at " + psiElement.getTextRange());
-		}
-		*/
-
-		// TODO: For an unknown reason this code completion works only with a single expression and not with multiple ones.
-		// TODO: Therefore we have to cut our list to a singleton list.
-		if (expressions.isEmpty()) {
-			return expressions;
-		}
-		ArrayList<PsiElement> es = new ArrayList<>();
-		es.add(expressions.get(expressions.size()-1));
-		return es;
+		return expressions;
 	}
 
 	public static PostfixTemplateExpressionSelector selectorAllExpressionsWithCurrentOffset(final Condition<PsiElement> additionalFilter) {
 		return new PostfixTemplateExpressionSelectorBase(additionalFilter) {
 			@Override
 			protected List<PsiElement> getNonFilteredExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
-				return ContainerUtil.newArrayList(collectExpressions(context.getContainingFile(), document,
-					Math.max(offset - 1, 0), false));
+				return ContainerUtil.newArrayList(collectExpressions(context.getContainingFile(), document, Math.max(offset - 1, 0), false));
 			}
 
 			@NotNull
@@ -142,6 +91,11 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 				if (DumbService.getInstance(context.getProject()).isDumb()) return Collections.emptyList();
 
 				List<PsiElement> expressions = super.getExpressions(context, document, offset);
+
+				for (PsiElement expression : expressions) {
+					System.out.println(expression);
+				}
+
 				if (!expressions.isEmpty()) return expressions;
 
 				return ContainerUtil.filter(ContainerUtil.<PsiElement>createMaybeSingletonList(getTopmostExpression(context)), getFilters(offset));
@@ -155,7 +109,7 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 		};
 	}
 
-	public CustomJavaScriptStringPostfixTemplate(String clazz, String name, String example, String template) {
+	public CustomKotlinStringPostfixTemplate(String clazz, String name, String example, String template) {
 		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)));
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {

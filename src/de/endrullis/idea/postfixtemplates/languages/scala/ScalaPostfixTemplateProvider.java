@@ -1,9 +1,9 @@
-package de.endrullis.idea.postfixtemplates.templates;
+package de.endrullis.idea.postfixtemplates.languages.scala;
 
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiFile;
+import de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateProvider;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
 
 public class ScalaPostfixTemplateProvider extends CustomPostfixTemplateProvider {
 

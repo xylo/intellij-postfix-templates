@@ -11,7 +11,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import org.jetbrains.annotations.NotNull;
 
-import static de.endrullis.idea.postfixtemplates.templates.CustomJavaStringPostfixTemplate.PREDEFINED_VARIABLES;
+import static de.endrullis.idea.postfixtemplates.languages.java.CustomJavaStringPostfixTemplate.PREDEFINED_VARIABLES;
 
 public class CptCompletionContributor extends CompletionContributor {
 	public CptCompletionContributor() {

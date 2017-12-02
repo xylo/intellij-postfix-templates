@@ -1,5 +1,6 @@
-package de.endrullis.idea.postfixtemplates.templates;
+package de.endrullis.idea.postfixtemplates.languages.java;
 
+import de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateProvider;
 import org.jetbrains.annotations.NotNull;
 
 public class JavaPostfixTemplateProvider extends CustomPostfixTemplateProvider {

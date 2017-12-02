@@ -1,4 +1,4 @@
-package de.endrullis.idea.postfixtemplates.templates;
+package de.endrullis.idea.postfixtemplates.languages.scala;
 
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.ScalaStringBasedPostfixTemplate;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
-import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.SelectorConditions$;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.SelectorType;
 
 /**

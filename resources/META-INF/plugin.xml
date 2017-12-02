@@ -79,15 +79,15 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 		<codeInsight.template.postfixTemplateProvider language="JAVA"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.JavaPostfixTemplateProvider"/>
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.java.JavaPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="JavaScript"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.JavaScriptPostfixTemplateProvider"/>
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptPostfixTemplateProvider"/>
 		<!--
 		<codeInsight.template.postfixTemplateProvider language="Scala"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.ScalaPostfixTemplateProvider"/>
 		-->
 		<codeInsight.template.postfixTemplateProvider language="kotlin"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.templates.KotlinPostfixTemplateProvider"/>
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinPostfixTemplateProvider"/>
 
 		<applicationConfigurable id="Settings.CustomPostfixTemplates"
 		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"

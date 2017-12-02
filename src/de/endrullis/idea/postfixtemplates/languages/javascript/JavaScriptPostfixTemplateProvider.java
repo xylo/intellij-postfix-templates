@@ -1,5 +1,6 @@
-package de.endrullis.idea.postfixtemplates.templates;
+package de.endrullis.idea.postfixtemplates.languages.javascript;
 
+import de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateProvider;
 import org.jetbrains.annotations.NotNull;
 
 public class JavaScriptPostfixTemplateProvider extends CustomPostfixTemplateProvider {

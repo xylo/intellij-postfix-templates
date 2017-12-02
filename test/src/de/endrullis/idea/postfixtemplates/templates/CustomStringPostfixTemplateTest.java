@@ -1,5 +1,6 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
+import de.endrullis.idea.postfixtemplates.languages.java.CustomJavaStringPostfixTemplate;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -57,7 +57,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	};
 	*/
 
-	CustomPostfixTemplateProvider() {
+	protected CustomPostfixTemplateProvider() {
 		// listen to file changes of template files
 		LocalFileSystem.getInstance().addRootToWatch(CptUtil.getTemplatesPath().getAbsolutePath(), true);
 		LocalFileSystem.getInstance().addVirtualFileListener(new VirtualFileContentsChangedAdapter() {
