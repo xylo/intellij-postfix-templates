@@ -2,17 +2,17 @@ package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.JavaPsiFacade;
+import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
-import com.intellij.psi.search.GlobalSearchScope;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
-import de.endrullis.idea.postfixtemplates.templates.SpecialType;
+import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 /**
  * Action to open the java templates.
@@ -20,29 +20,28 @@ import java.util.Map;
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public class CptAnnotator implements Annotator {
-	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
-		for (SpecialType specialType : SpecialType.values()) {
-			put(specialType.name(), true);
-		}
-	}};
 
 	@Override
 	public void annotate(@NotNull final PsiElement element, @NotNull AnnotationHolder holder) {
 		if (element instanceof LeafPsiElement) {
-			LeafPsiElement psiElement = (LeafPsiElement) element;
+			final LeafPsiElement psiElement = (LeafPsiElement) element;
 
 			if (psiElement.getElementType().equals(CptTypes.CLASS_NAME)) {
-				String className = psiElement.getText();
+				final String className = element.getText();
 
-				boolean isClass = className2exists.computeIfAbsent(className, name -> {
-					Project project = element.getProject();
-					return JavaPsiFacade.getInstance(project).findClass(className, GlobalSearchScope.allScope(project)) != null;
-				});
+				final Document document = PsiDocumentManager.getInstance(element.getProject()).getDocument(element.getContainingFile());
+				if (document == null) return;
+				final VirtualFile vFile = Objects.requireNonNull(FileDocumentManager.getInstance().getFile(document)).getCanonicalFile();
+				if (vFile == null) return;
+				final String language = CptUtil.getLanguageOfTemplateFile(vFile);
 
-				if (!isClass) {
-					holder.createErrorAnnotation(psiElement.getTextRange(), "Class not found");
+				final CptLangAnnotator annotator = SupportedLanguages.getCptLang(language).getAnnotator();
+
+				if (!annotator.isMatchingType(psiElement, className)) {
+					holder.createErrorAnnotation(element.getTextRange(), "Class not found");
 				}
 			}
 		}
 	}
+
 }

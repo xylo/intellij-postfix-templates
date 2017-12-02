@@ -160,6 +160,10 @@ public class CptUtil {
 		}
 	}
 
+	public static String getLanguageOfTemplateFile(@NotNull VirtualFile vFile) {
+		return vFile.getName().replaceAll("\\.postfixTemplates", "");
+	}
+
 	public static void openFileInEditor(@NotNull Project project, @NotNull File file) {
 		VirtualFile vFile = LocalFileSystem.getInstance().findFileByIoFile(file);
 
@@ -186,4 +190,5 @@ public class CptUtil {
 		return vFile != null && vFile.getCanonicalPath() != null &&
 			vFile.getCanonicalPath().replace('\\', '/').startsWith(CptUtil.getTemplatesPath().getAbsolutePath().replace('\\', '/'));
 	}
+
 }
