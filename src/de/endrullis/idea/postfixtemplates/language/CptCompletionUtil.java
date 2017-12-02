@@ -8,6 +8,8 @@ import com.intellij.psi.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * Completion utils for Java class names.
+ *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public class CptCompletionUtil {

@@ -29,17 +29,13 @@ public class CptAnnotator implements Annotator {
 			if (psiElement.getElementType().equals(CptTypes.CLASS_NAME)) {
 				final String className = element.getText();
 
-				final Document document = PsiDocumentManager.getInstance(element.getProject()).getDocument(element.getContainingFile());
-				if (document == null) return;
-				final VirtualFile vFile = Objects.requireNonNull(FileDocumentManager.getInstance().getFile(document)).getCanonicalFile();
-				if (vFile == null) return;
-				final String language = CptUtil.getLanguageOfTemplateFile(vFile);
+				SupportedLanguages.getCptLang(element).ifPresent(lang -> {
+					final CptLangAnnotator annotator = lang.getAnnotator();
 
-				final CptLangAnnotator annotator = SupportedLanguages.getCptLang(language).getAnnotator();
-
-				if (!annotator.isMatchingType(psiElement, className)) {
-					holder.createErrorAnnotation(element.getTextRange(), "Class not found");
-				}
+					if (!annotator.isMatchingType(psiElement, className)) {
+						holder.createErrorAnnotation(element.getTextRange(), "Class not found");
+					}
+				});
 			}
 		}
 	}

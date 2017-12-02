@@ -5,9 +5,10 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.codeInsight.template.Macro;
 import com.intellij.codeInsight.template.macro.MacroFactory;
 import com.intellij.patterns.PlatformPatterns;
+import com.intellij.psi.PsiElement;
 import com.intellij.util.ProcessingContext;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
-import de.endrullis.idea.postfixtemplates.templates.SpecialType;
+import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import org.jetbrains.annotations.NotNull;
 
 import static de.endrullis.idea.postfixtemplates.templates.CustomJavaStringPostfixTemplate.PREDEFINED_VARIABLES;
@@ -20,11 +21,13 @@ public class CptCompletionContributor extends CompletionContributor {
 				public void addCompletions(@NotNull CompletionParameters parameters,
 				                           ProcessingContext context,
 				                           @NotNull CompletionResultSet resultSet) {
-					for (SpecialType specialType : SpecialType.values()) {
-						resultSet.addElement(LookupElementBuilder.create(specialType.name()));
-					}
+					PsiElement psiElement = parameters.getPosition();
 
-					CptCompletionUtil.addCompletions(parameters, resultSet);
+					SupportedLanguages.getCptLang(psiElement).ifPresent(lang -> {
+						final CptLangAnnotator annotator = lang.getAnnotator();
+
+						annotator.completeMatchingType(parameters, resultSet);
+					});
 				}
 			}
 		);
