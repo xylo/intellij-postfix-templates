@@ -39,11 +39,12 @@ replacement ::= (templateCode|TEMPLATE_ESCAPE|templateVariable)+
 
 templateCode ::= TEMPLATE_CODE
 
-templateVariable ::= TEMPLATE_VARIABLE_START TEMPLATE_VARIABLE_NAME
-										(TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_EXPRESSION?
-										(TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_VALUE)?)? TEMPLATE_VARIABLE_END
-//templateVariableName ::= TEMPLATE_VARIABLE_NAME
-//templateVariableExpression ::= TEMPLATE_VARIABLE_EXPRESSION
-//templateVariableValue ::= TEMPLATE_VARIABLE_VALUE
+templateVariable ::= TEMPLATE_VARIABLE_START templateVariableName
+										(TEMPLATE_VARIABLE_SEPARATOR templateVariableExpression
+										(TEMPLATE_VARIABLE_SEPARATOR templateVariableValue)?)? TEMPLATE_VARIABLE_END
+
+templateVariableName ::= TEMPLATE_VARIABLE_NAME
+templateVariableExpression ::= TEMPLATE_VARIABLE_EXPRESSION*
+templateVariableValue ::= TEMPLATE_VARIABLE_VALUE+
 
 private recover_parser ::= !(TEMPLATE_NAME|CLASS_NAME|COMMENT)

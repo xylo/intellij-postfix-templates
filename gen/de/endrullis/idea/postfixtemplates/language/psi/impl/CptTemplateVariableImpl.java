@@ -26,4 +26,22 @@ public class CptTemplateVariableImpl extends ASTWrapperPsiElement implements Cpt
     else super.accept(visitor);
   }
 
+  @Override
+  @Nullable
+  public CptTemplateVariableExpression getTemplateVariableExpression() {
+    return findChildByClass(CptTemplateVariableExpression.class);
+  }
+
+  @Override
+  @NotNull
+  public CptTemplateVariableName getTemplateVariableName() {
+    return findNotNullChildByClass(CptTemplateVariableName.class);
+  }
+
+  @Override
+  @Nullable
+  public CptTemplateVariableValue getTemplateVariableValue() {
+    return findChildByClass(CptTemplateVariableValue.class);
+  }
+
 }

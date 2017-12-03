@@ -31,6 +31,18 @@ public class CptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTemplateVariableExpression(@NotNull CptTemplateVariableExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTemplateVariableName(@NotNull CptTemplateVariableName o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTemplateVariableValue(@NotNull CptTemplateVariableValue o) {
+    visitPsiElement(o);
+  }
+
   public void visitNamedElement(@NotNull CptNamedElement o) {
     visitPsiElement(o);
   }

@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.2.2</version>
+	<version>1.2.3</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -25,6 +25,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 1.2.3</h3>
+			<ul>
+				<li>Fixed #43: Could not use $ in default values of template variables.</li>
+			</ul>
+
 			<h3>Version 1.2.2</h3>
 			<ul>
 				<li>Improved code completion and error highlighting for JavaScript and Kotlin templates.</li>

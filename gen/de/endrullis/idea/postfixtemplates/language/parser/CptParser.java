@@ -41,6 +41,15 @@ public class CptParser implements PsiParser, LightPsiParser {
     else if (t == TEMPLATE_VARIABLE) {
       r = templateVariable(b, 0);
     }
+    else if (t == TEMPLATE_VARIABLE_EXPRESSION) {
+      r = templateVariableExpression(b, 0);
+    }
+    else if (t == TEMPLATE_VARIABLE_NAME) {
+      r = templateVariableName(b, 0);
+    }
+    else if (t == TEMPLATE_VARIABLE_VALUE) {
+      r = templateVariableValue(b, 0);
+    }
     else {
       r = parse_root_(t, b, 0);
     }
@@ -189,63 +198,103 @@ public class CptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // TEMPLATE_VARIABLE_START TEMPLATE_VARIABLE_NAME
-  // 										(TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_EXPRESSION?
-  // 										(TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_VALUE)?)? TEMPLATE_VARIABLE_END
+  // TEMPLATE_VARIABLE_START templateVariableName
+  // 										(TEMPLATE_VARIABLE_SEPARATOR templateVariableExpression
+  // 										(TEMPLATE_VARIABLE_SEPARATOR templateVariableValue)?)? TEMPLATE_VARIABLE_END
   public static boolean templateVariable(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "templateVariable")) return false;
     if (!nextTokenIs(b, TEMPLATE_VARIABLE_START)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, TEMPLATE_VARIABLE_START, TEMPLATE_VARIABLE_NAME);
+    r = consumeToken(b, TEMPLATE_VARIABLE_START);
+    r = r && templateVariableName(b, l + 1);
     r = r && templateVariable_2(b, l + 1);
     r = r && consumeToken(b, TEMPLATE_VARIABLE_END);
     exit_section_(b, m, TEMPLATE_VARIABLE, r);
     return r;
   }
 
-  // (TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_EXPRESSION?
-  // 										(TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_VALUE)?)?
+  // (TEMPLATE_VARIABLE_SEPARATOR templateVariableExpression
+  // 										(TEMPLATE_VARIABLE_SEPARATOR templateVariableValue)?)?
   private static boolean templateVariable_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "templateVariable_2")) return false;
     templateVariable_2_0(b, l + 1);
     return true;
   }
 
-  // TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_EXPRESSION?
-  // 										(TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_VALUE)?
+  // TEMPLATE_VARIABLE_SEPARATOR templateVariableExpression
+  // 										(TEMPLATE_VARIABLE_SEPARATOR templateVariableValue)?
   private static boolean templateVariable_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "templateVariable_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, TEMPLATE_VARIABLE_SEPARATOR);
-    r = r && templateVariable_2_0_1(b, l + 1);
+    r = r && templateVariableExpression(b, l + 1);
     r = r && templateVariable_2_0_2(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // TEMPLATE_VARIABLE_EXPRESSION?
-  private static boolean templateVariable_2_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "templateVariable_2_0_1")) return false;
-    consumeToken(b, TEMPLATE_VARIABLE_EXPRESSION);
-    return true;
-  }
-
-  // (TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_VALUE)?
+  // (TEMPLATE_VARIABLE_SEPARATOR templateVariableValue)?
   private static boolean templateVariable_2_0_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "templateVariable_2_0_2")) return false;
     templateVariable_2_0_2_0(b, l + 1);
     return true;
   }
 
-  // TEMPLATE_VARIABLE_SEPARATOR TEMPLATE_VARIABLE_VALUE
+  // TEMPLATE_VARIABLE_SEPARATOR templateVariableValue
   private static boolean templateVariable_2_0_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "templateVariable_2_0_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, TEMPLATE_VARIABLE_SEPARATOR, TEMPLATE_VARIABLE_VALUE);
+    r = consumeToken(b, TEMPLATE_VARIABLE_SEPARATOR);
+    r = r && templateVariableValue(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // TEMPLATE_VARIABLE_EXPRESSION*
+  public static boolean templateVariableExpression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "templateVariableExpression")) return false;
+    Marker m = enter_section_(b, l, _NONE_, TEMPLATE_VARIABLE_EXPRESSION, "<template variable expression>");
+    int c = current_position_(b);
+    while (true) {
+      if (!consumeToken(b, TEMPLATE_VARIABLE_EXPRESSION)) break;
+      if (!empty_element_parsed_guard_(b, "templateVariableExpression", c)) break;
+      c = current_position_(b);
+    }
+    exit_section_(b, l, m, true, false, null);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // TEMPLATE_VARIABLE_NAME
+  public static boolean templateVariableName(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "templateVariableName")) return false;
+    if (!nextTokenIs(b, TEMPLATE_VARIABLE_NAME)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TEMPLATE_VARIABLE_NAME);
+    exit_section_(b, m, TEMPLATE_VARIABLE_NAME, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // TEMPLATE_VARIABLE_VALUE+
+  public static boolean templateVariableValue(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "templateVariableValue")) return false;
+    if (!nextTokenIs(b, TEMPLATE_VARIABLE_VALUE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TEMPLATE_VARIABLE_VALUE);
+    int c = current_position_(b);
+    while (r) {
+      if (!consumeToken(b, TEMPLATE_VARIABLE_VALUE)) break;
+      if (!empty_element_parsed_guard_(b, "templateVariableValue", c)) break;
+      c = current_position_(b);
+    }
+    exit_section_(b, m, TEMPLATE_VARIABLE_VALUE, r);
     return r;
   }
 

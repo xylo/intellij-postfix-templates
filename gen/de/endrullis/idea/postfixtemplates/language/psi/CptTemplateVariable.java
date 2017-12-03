@@ -7,4 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface CptTemplateVariable extends PsiElement {
 
+  @Nullable
+  CptTemplateVariableExpression getTemplateVariableExpression();
+
+  @NotNull
+  CptTemplateVariableName getTemplateVariableName();
+
+  @Nullable
+  CptTemplateVariableValue getTemplateVariableValue();
+
 }
