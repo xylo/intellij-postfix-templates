@@ -11,37 +11,19 @@ import static de.endrullis.idea.postfixtemplates.language.psi.CptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.endrullis.idea.postfixtemplates.language.psi.*;
 
-public class CptTemplateVariableImpl extends ASTWrapperPsiElement implements CptTemplateVariable {
+public class CptTemplateVariableExpressionGImpl extends ASTWrapperPsiElement implements CptTemplateVariableExpressionG {
 
-  public CptTemplateVariableImpl(ASTNode node) {
+  public CptTemplateVariableExpressionGImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CptVisitor visitor) {
-    visitor.visitTemplateVariable(this);
+    visitor.visitTemplateVariableExpressionG(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof CptVisitor) accept((CptVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public CptTemplateVariableExpressionG getTemplateVariableExpressionG() {
-    return findChildByClass(CptTemplateVariableExpressionG.class);
-  }
-
-  @Override
-  @NotNull
-  public CptTemplateVariableNameG getTemplateVariableNameG() {
-    return findNotNullChildByClass(CptTemplateVariableNameG.class);
-  }
-
-  @Override
-  @Nullable
-  public CptTemplateVariableValueG getTemplateVariableValueG() {
-    return findChildByClass(CptTemplateVariableValueG.class);
   }
 
 }

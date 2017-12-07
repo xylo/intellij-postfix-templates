@@ -27,24 +27,24 @@ template ::= (TEMPLATE_NAME SEPARATOR TEMPLATE_DESCRIPTION) mappings {
 
 mappings ::= mapping*
 
-mapping ::= (CLASS_NAME MAP replacement) {
+mapping ::= (CLASS_NAME (BRACKET_OPEN CLASS_NAME BRACKET_CLOSE)? MAP replacement) {
     //pin=3
     recoverWhile="recover_parser"
     mixin="de.endrullis.idea.postfixtemplates.language.psi.impl.CptNamedElementImpl"
     implements="de.endrullis.idea.postfixtemplates.language.psi.CptNamedElement"
-    methods=[getClassName getReplacementString getName setName getNameIdentifier getPresentation]
+    methods=[getMatchingClassName getConditionClassName getReplacementString getName setName getNameIdentifier getPresentation]
 }
 
-replacement ::= (templateCode|TEMPLATE_ESCAPE|templateVariable)+
+replacement ::= (templateCodeG|TEMPLATE_ESCAPE|templateVariable)+
 
-templateCode ::= TEMPLATE_CODE
+templateCodeG ::= TEMPLATE_CODE
 
-templateVariable ::= TEMPLATE_VARIABLE_START templateVariableName
-										(TEMPLATE_VARIABLE_SEPARATOR templateVariableExpression
-										(TEMPLATE_VARIABLE_SEPARATOR templateVariableValue)?)? TEMPLATE_VARIABLE_END
+templateVariable ::= TEMPLATE_VARIABLE_START templateVariableNameG
+										(TEMPLATE_VARIABLE_SEPARATOR templateVariableExpressionG
+										(TEMPLATE_VARIABLE_SEPARATOR templateVariableValueG)?)? TEMPLATE_VARIABLE_END
 
-templateVariableName ::= TEMPLATE_VARIABLE_NAME
-templateVariableExpression ::= TEMPLATE_VARIABLE_EXPRESSION*
-templateVariableValue ::= TEMPLATE_VARIABLE_VALUE+
+templateVariableNameG ::= TEMPLATE_VARIABLE_NAME
+templateVariableExpressionG ::= TEMPLATE_VARIABLE_EXPRESSION*
+templateVariableValueG ::= TEMPLATE_VARIABLE_VALUE+
 
 private recover_parser ::= !(TEMPLATE_NAME|CLASS_NAME|COMMENT)

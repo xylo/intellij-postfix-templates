@@ -13,8 +13,8 @@ public class JavaPostfixTemplateProvider extends CustomPostfixTemplateProvider {
 
 	@NotNull
 	@Override
-	protected CustomJavaStringPostfixTemplate createTemplate(String className, String templateName, String description, String template) {
-		return new CustomJavaStringPostfixTemplate(className, templateName, description, template);
+	protected CustomJavaStringPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template) {
+		return new CustomJavaStringPostfixTemplate(matchingClass, conditionClass, templateName, description, template);
 	}
 
 }

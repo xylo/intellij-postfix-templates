@@ -7,9 +7,15 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpres
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils;
 import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.DumbService;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.project.ProjectManager;
+import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.util.Condition;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
@@ -155,8 +161,8 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		};
 	}
 
-	public CustomJavaStringPostfixTemplate(String clazz, String name, String example, String template) {
-		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)));
+	public CustomJavaStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template) {
+		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)));
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
@@ -191,14 +197,42 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		}
 	}
 
+	/**
+	 * Returns a function that returns true if
+	 * <ul>
+	 *   <li>the PSI element satisfies the type condition regarding {@code matchingClass} and</li>
+	 *   <li>{@code moduleClass} is either {@code null} or available in the current module.</li>
+	 * </ul>
+	 *
+	 * @param matchingClass required type of the psi element to satisfy this condition
+	 * @param moduleClass   required class in the current module to satisfy this condition, or {@code null}
+	 * @return PSI element condition
+	 */
 	@NotNull
-	public static Condition<PsiElement> getCondition(String clazz) {
-		Condition<PsiElement> psiElementCondition = type2psiCondition.get(clazz);
+	public static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String moduleClass) {
+		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
 
-		if (psiElementCondition != null) {
+		if (psiElementCondition == null) {
+			psiElementCondition = MyJavaPostfixTemplatesUtils.isCustomClass(matchingClass);
+		}
+
+		if (moduleClass == null) {
 			return psiElementCondition;
 		} else {
-			return MyJavaPostfixTemplatesUtils.isCustomClass(clazz);
+			final Condition<PsiElement> finalPsiElementCondition = psiElementCondition;
+
+			return psiElement -> {
+				if (finalPsiElementCondition.value(psiElement)) {
+					final Project project = psiElement.getProject();
+					PsiFile psiFile = psiElement.getContainingFile().getOriginalFile();
+					VirtualFile virtualFile = psiFile.getVirtualFile();
+					Module module = ProjectRootManager.getInstance(project).getFileIndex().getModuleForFile(virtualFile);
+					assert module != null;
+					return JavaPsiFacade.getInstance(project).findClass(moduleClass, GlobalSearchScope.moduleScope(module)) != null;
+				} else {
+					return false;
+				}
+			};
 		}
 	}
 

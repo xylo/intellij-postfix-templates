@@ -148,7 +148,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 								sb.append(element.getText());
 							}
 
-							templates.add(createTemplate(mapping.getClassName(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), sb.toString()));
+							templates.add(createTemplate(mapping.getMatchingClass(), mapping.getConditionClass(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), sb.toString()));
 						}
 					}
 				}
@@ -159,7 +159,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	}
 
 	@NotNull
-	protected abstract StringBasedPostfixTemplate createTemplate(String className, String templateName, String description, String template);
+	protected abstract StringBasedPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template);
 
 	/**
 	 * Combines templates with the same name into a {@link CombinedPostfixTemplate} and returns the result.

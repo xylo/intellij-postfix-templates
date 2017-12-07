@@ -11,14 +11,14 @@ import static de.endrullis.idea.postfixtemplates.language.psi.CptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.endrullis.idea.postfixtemplates.language.psi.*;
 
-public class CptTemplateCodeImpl extends ASTWrapperPsiElement implements CptTemplateCode {
+public class CptTemplateVariableNameGImpl extends ASTWrapperPsiElement implements CptTemplateVariableNameG {
 
-  public CptTemplateCodeImpl(ASTNode node) {
+  public CptTemplateVariableNameGImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CptVisitor visitor) {
-    visitor.visitTemplateCode(this);
+    visitor.visitTemplateVariableNameG(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {

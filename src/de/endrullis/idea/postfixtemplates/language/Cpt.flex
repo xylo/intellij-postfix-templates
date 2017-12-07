@@ -22,6 +22,8 @@ TEMPLATE_DESCRIPTION_CHAR=[^\n\f]
 END_OF_LINE_COMMENT=("#")[^\r\n]*
 SEPARATOR=[:=]
 DOT=[.]
+BRACKET_OPEN=\[
+BRACKET_CLOSE=\]
 MAP=("->"|"→")
 NAME_CHAR=[a-zA-Z0-9]
 CLASS_NAME_CHAR=[a-zA-Z0-9._]
@@ -48,6 +50,8 @@ ANY_CHAR=[^\n\f]
 <YYINITIAL> {END_OF_LINE_COMMENT}                            { yybegin(YYINITIAL); return CptTypes.COMMENT; }
 <YYINITIAL> {DOT}{NAME_CHAR}+                                { yybegin(YYINITIAL); return CptTypes.TEMPLATE_NAME; }
 <YYINITIAL> {CLASS_NAME_CHAR}+                               { yybegin(YYINITIAL); return CptTypes.CLASS_NAME; }
+<YYINITIAL> {BRACKET_OPEN}                                   { yybegin(YYINITIAL); return CptTypes.BRACKET_OPEN; }
+<YYINITIAL> {BRACKET_CLOSE}                                  { yybegin(YYINITIAL); return CptTypes.BRACKET_CLOSE; }
 <YYINITIAL> {MAP}                                            { yybegin(WAITING_TEMPLATE_CODE); return CptTypes.MAP; }
 <YYINITIAL> {SEPARATOR}                                      { yybegin(WAITING_DESCRIPTION); return CptTypes.SEPARATOR; }
 <YYINITIAL> {TEMPLATE_VARIABLE_START_CHAR}                   { yybegin(WAITING_TEMPLATE_VAR_NAME); return CptTypes.TEMPLATE_VARIABLE_START; }

@@ -31,7 +31,7 @@ public class CptPsiImplUtil {
 		}
 	}
 
-	public static String getClassName(CptMapping element) {
+	public static String getMatchingClassName(CptMapping element) {
 		ASTNode keyNode = element.getNode().findChildByType(CptTypes.CLASS_NAME);
 		if (keyNode != null) {
 			// IMPORTANT: Convert embedded escaped spaces to simple spaces
@@ -39,6 +39,18 @@ public class CptPsiImplUtil {
 		} else {
 			return null;
 		}
+	}
+
+	public static String getConditionClassName(CptMapping element) {
+		ASTNode firstClassNode = element.getNode().findChildByType(CptTypes.CLASS_NAME);
+		if (firstClassNode != null) {
+			ASTNode secondClassNode = element.getNode().findChildByType(CptTypes.CLASS_NAME, firstClassNode.getTreeNext());
+			if (secondClassNode != null) {
+				// IMPORTANT: Convert embedded escaped spaces to simple spaces
+				return secondClassNode.getText().replaceAll("\\\\ ", " ");
+			}
+		}
+		return null;
 	}
 
 	public static String getReplacementString(CptMapping element) {
@@ -55,7 +67,7 @@ public class CptPsiImplUtil {
 	}
 
 	public static String getName(CptMapping element) {
-		return getClassName(element);
+		return getMatchingClassName(element);
 	}
 
 	public static PsiElement setName(CptTemplate element, String newName) {
@@ -115,7 +127,7 @@ public class CptPsiImplUtil {
 			@Nullable
 			@Override
 			public String getPresentableText() {
-				return element.getClassName();
+				return element.getMatchingClass();
 			}
 
 			@Nullable

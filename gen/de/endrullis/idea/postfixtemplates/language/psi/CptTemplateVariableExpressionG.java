@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CptReplacement extends PsiElement {
-
-  @NotNull
-  List<CptTemplateCodeG> getTemplateCodeGList();
-
-  @NotNull
-  List<CptTemplateVariable> getTemplateVariableList();
+public interface CptTemplateVariableExpressionG extends PsiElement {
 
 }

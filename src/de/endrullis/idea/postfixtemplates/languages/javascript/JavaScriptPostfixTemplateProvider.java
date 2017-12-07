@@ -13,8 +13,8 @@ public class JavaScriptPostfixTemplateProvider extends CustomPostfixTemplateProv
 
 	@NotNull
 	@Override
-	protected CustomJavaScriptStringPostfixTemplate createTemplate(String className, String templateName, String description, String template) {
-		return new CustomJavaScriptStringPostfixTemplate(className, templateName, description, template);
+	protected CustomJavaScriptStringPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template) {
+		return new CustomJavaScriptStringPostfixTemplate(matchingClass, templateName, description, template);
 	}
 
 }

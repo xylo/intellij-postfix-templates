@@ -11,7 +11,9 @@ public interface CptMapping extends CptNamedElement {
   @NotNull
   CptReplacement getReplacement();
 
-  String getClassName();
+  String getMatchingClass();
+
+  String getConditionClass();
 
   String getReplacementString();
 

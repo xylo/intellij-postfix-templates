@@ -21,6 +21,7 @@ public abstract class MyJavaPostfixTemplatesUtils {
 	private MyJavaPostfixTemplatesUtils() {
 	}
 
+	@NotNull
 	public static Condition<PsiElement> isCustomClass(String clazz) {
 		return element -> element instanceof PsiExpression && isCustomClass(((PsiExpression) element).getType(), clazz);
 	}

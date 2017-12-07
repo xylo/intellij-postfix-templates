@@ -57,7 +57,7 @@ public class CptUtil {
 				CptMapping[] mappings = PsiTreeUtil.getChildrenOfType(cptFile, CptMapping.class);
 				if (mappings != null) {
 					for (CptMapping mapping : mappings) {
-						if (key.equals(mapping.getClassName())) {
+						if (key.equals(mapping.getMatchingClass())) {
 							if (result == null) {
 								result = new ArrayList<>();
 							}

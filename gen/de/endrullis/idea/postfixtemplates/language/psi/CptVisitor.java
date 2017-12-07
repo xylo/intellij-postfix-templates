@@ -23,7 +23,7 @@ public class CptVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
-  public void visitTemplateCode(@NotNull CptTemplateCode o) {
+  public void visitTemplateCodeG(@NotNull CptTemplateCodeG o) {
     visitPsiElement(o);
   }
 
@@ -31,15 +31,15 @@ public class CptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitTemplateVariableExpression(@NotNull CptTemplateVariableExpression o) {
+  public void visitTemplateVariableExpressionG(@NotNull CptTemplateVariableExpressionG o) {
     visitPsiElement(o);
   }
 
-  public void visitTemplateVariableName(@NotNull CptTemplateVariableName o) {
+  public void visitTemplateVariableNameG(@NotNull CptTemplateVariableNameG o) {
     visitPsiElement(o);
   }
 
-  public void visitTemplateVariableValue(@NotNull CptTemplateVariableValue o) {
+  public void visitTemplateVariableValueG(@NotNull CptTemplateVariableValueG o) {
     visitPsiElement(o);
   }
 

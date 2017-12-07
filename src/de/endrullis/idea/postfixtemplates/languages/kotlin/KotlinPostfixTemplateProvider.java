@@ -13,8 +13,8 @@ public class KotlinPostfixTemplateProvider extends CustomPostfixTemplateProvider
 
 	@NotNull
 	@Override
-	protected CustomKotlinStringPostfixTemplate createTemplate(String className, String templateName, String description, String template) {
-		return new CustomKotlinStringPostfixTemplate(className, templateName, description, template);
+	protected CustomKotlinStringPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template) {
+		return new CustomKotlinStringPostfixTemplate(matchingClass, templateName, description, template);
 	}
 
 }
