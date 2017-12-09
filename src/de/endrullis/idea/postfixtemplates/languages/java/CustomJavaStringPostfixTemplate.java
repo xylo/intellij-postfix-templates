@@ -10,7 +10,6 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -68,13 +67,13 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		*/
 	}};
 
-	private final String          template;
+	private final String template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
 
 	public static List<PsiExpression> collectExpressions(final PsiFile file,
-		                                                   final Document document,
-		                                                   final int offset,
-		                                                   boolean acceptVoid) {
+	                                                     final Document document,
+	                                                     final int offset,
+	                                                     boolean acceptVoid) {
 		CharSequence text = document.getCharsSequence();
 		int correctedOffset = offset;
 		int textLength = document.getTextLength();
@@ -201,22 +200,22 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 	 * Returns a function that returns true if
 	 * <ul>
 	 *   <li>the PSI element satisfies the type condition regarding {@code matchingClass} and</li>
-	 *   <li>{@code moduleClass} is either {@code null} or available in the current module.</li>
+	 *   <li>{@code conditionClass} is either {@code null} or available in the current module.</li>
 	 * </ul>
 	 *
-	 * @param matchingClass required type of the psi element to satisfy this condition
-	 * @param moduleClass   required class in the current module to satisfy this condition, or {@code null}
+	 * @param matchingClass  required type of the psi element to satisfy this condition
+	 * @param conditionClass required class in the current module to satisfy this condition, or {@code null}
 	 * @return PSI element condition
 	 */
 	@NotNull
-	public static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String moduleClass) {
+	public static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String conditionClass) {
 		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
 
 		if (psiElementCondition == null) {
 			psiElementCondition = MyJavaPostfixTemplatesUtils.isCustomClass(matchingClass);
 		}
 
-		if (moduleClass == null) {
+		if (conditionClass == null) {
 			return psiElementCondition;
 		} else {
 			final Condition<PsiElement> finalPsiElementCondition = psiElementCondition;
@@ -228,7 +227,7 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 					VirtualFile virtualFile = psiFile.getVirtualFile();
 					Module module = ProjectRootManager.getInstance(project).getFileIndex().getModuleForFile(virtualFile);
 					assert module != null;
-					return JavaPsiFacade.getInstance(project).findClass(moduleClass, GlobalSearchScope.moduleScope(module)) != null;
+					return JavaPsiFacade.getInstance(project).findClass(conditionClass, GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, true)) != null;
 				} else {
 					return false;
 				}
