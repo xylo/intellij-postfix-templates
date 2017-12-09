@@ -230,6 +230,6 @@
 .r : compile pattern
 	java.lang.String         →  Pattern.compile($expr$)
 
-# use this together with Lombok
 .val : extract as value
-	NON_VOID                 →  val $var:suggestVariableName()$ = $expr$;
+	NON_VOID [lombok.val]    →  val $var:suggestVariableName()$ = $expr$;
+	NON_VOID                 →  final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;
