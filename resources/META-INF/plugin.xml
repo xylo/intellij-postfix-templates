@@ -34,6 +34,7 @@
 				      <li><code>final String s = "";</code> if Lombok is not available.</li>
 			      </ul>
 				</li>
+				<li>Added 16 templates for IDEA developers to the predefined templates.</li>
 				<li>Fixed #43: Could not use $ in default values of template variables.</li>
 			</ul>
 
