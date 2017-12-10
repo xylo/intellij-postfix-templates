@@ -33,7 +33,7 @@ public abstract class MyJavaPostfixTemplatesUtils {
 		element -> element instanceof PsiExpression && isVoid(((PsiExpression) element).getType());
 
 	public static final Condition<PsiElement> IS_ANY =
-		element -> element instanceof PsiExpression;
+		element -> true;
 
 	public static final Condition<PsiElement> IS_FIELD =
 		element -> element instanceof PsiField;
