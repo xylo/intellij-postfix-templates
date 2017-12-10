@@ -243,7 +243,7 @@
 .toFile : as file
 	com.intellij.openapi.vfs.VirtualFile  →  new File($expr$.getPath())
 
-.getAttributes : get file attribute
+.getAttributes : get file attributes
 	com.intellij.openapi.vfs.VirtualFile  →  LocalFileSystem.getInstance().getAttributes($expr$)
 
 .openInEditor : open file in editor
