@@ -235,6 +235,7 @@
 	NON_VOID                 →  final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;
 
 
+
 ## IDEA development templates ##
 
 .toVirtualFile : as virtual file
