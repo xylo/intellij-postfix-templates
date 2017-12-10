@@ -35,6 +35,10 @@
 			      </ul>
 				</li>
 				<li>Added 16 templates for IDEA developers to the predefined templates.</li>
+			</ul>
+
+			<h3>Version 1.2.3</h3>
+			<ul>
 				<li>Fixed #43: Could not use $ in default values of template variables.</li>
 			</ul>
 
