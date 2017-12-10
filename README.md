@@ -19,7 +19,7 @@ For instance, write
 in a Java file.  If the completion popup does not automatically show up, press *Ctrl+SPACE*.
 Select the `.toInt` template and see how it is expanded.
 
-## Preconfigured Java templates for Scala users and those who want to simplify their life
+## Preconfigured Java templates which bring a tiny bit of the Scala/Kotlin feeling to Java
 
 The following templates are shipped with the plugin and shall provide you with a template basis and with some useful examples:
 * `.toByte`, `.toShort`, `.toChar`, `.toInt`, `.toLong`, `.toFloat`, `.toDouble`, `.format` - convert strings and numbers
@@ -50,12 +50,31 @@ The following templates are shipped with the plugin and shall provide you with a
 * `.content` - get the text content of files, paths, input streams, and URLs
 * `.bufferedReader` - create a buffered reader for an input steam
 * `.r` - convert a string into a regular expression
-* `.val` - extract the expression as Lombok value (similar to the `.var` template)
+* `.val` - extract the expression as value (similar to the `.var` template)
 * `.new` - create a new instance of a class
 
 The idea behind these templates is to bring a tiny bit of Scala feeling back to Java.
 
 For Scala users there is the live template `_` which expands to `v -> v` to accelerate the creating of lambda expressions.
+
+### Special templates for IDEA (plugin) developers
+
+* `.toVirtualFile` - convert to virtual file
+* `.toFile` - convert to file
+* `.getAttributes` - get file attributes
+* `.openInEditor` - open file in editor
+* `.getVirtualFile` - get virtual file
+* `.getDocument` - get IDEA document
+* `.getPsiFile` - get PSI file
+* `.getPsiJavaFile` - get PSI Java file
+* `.getPsiPackage` - get PSI package
+* `.getChildrenOfType` - get children of an PsiElement and of a certain type
+* `.getModule` - get IDEA module
+* `.getProject` - get IDEA project
+* `.runReadAction` - wrap in an runWriteAction(...) block
+* `.runWriteAction` - wrap in an runWriteAction(...) block
+* `.invokeLater` - wrap in an invokeLater(...) block
+* `.showDiff` - open a diff view
 
 ## Edit the templates
 
