@@ -7,11 +7,17 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpres
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils;
 import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.DumbService;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.util.Condition;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.TokenType;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
@@ -131,8 +137,8 @@ public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplat
 		};
 	}
 
-	public CustomKotlinStringPostfixTemplate(String clazz, String name, String example, String template) {
-		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)));
+	public CustomKotlinStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template) {
+		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)));
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
@@ -168,13 +174,30 @@ public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplat
 	}
 
 	@NotNull
-	public static Condition<PsiElement> getCondition(String clazz) {
-		Condition<PsiElement> psiElementCondition = type2psiCondition.get(clazz);
+	public static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String conditionClass) {
+		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
 
-		if (psiElementCondition != null) {
+		if (psiElementCondition == null) {
+			psiElementCondition = MyJavaPostfixTemplatesUtils.isCustomClass(matchingClass);
+		}
+
+		if (conditionClass == null) {
 			return psiElementCondition;
 		} else {
-			return MyJavaPostfixTemplatesUtils.isCustomClass(clazz);
+			final Condition<PsiElement> finalPsiElementCondition = psiElementCondition;
+
+			return psiElement -> {
+				if (finalPsiElementCondition.value(psiElement)) {
+					final Project project = psiElement.getProject();
+					PsiFile psiFile = psiElement.getContainingFile().getOriginalFile();
+					VirtualFile virtualFile = psiFile.getVirtualFile();
+					Module module = ProjectRootManager.getInstance(project).getFileIndex().getModuleForFile(virtualFile);
+					assert module != null;
+					return JavaPsiFacade.getInstance(project).findClass(conditionClass, GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, true)) != null;
+				} else {
+					return false;
+				}
+			};
 		}
 	}
 
