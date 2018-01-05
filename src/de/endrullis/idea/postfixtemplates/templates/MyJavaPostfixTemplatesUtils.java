@@ -29,6 +29,9 @@ public abstract class MyJavaPostfixTemplatesUtils {
 	public static final Condition<PsiElement> IS_DECIMAL_NUMBER =
 		element -> element instanceof PsiExpression && isDecimalNumber(((PsiExpression) element).getType());
 
+	public static final Condition<PsiElement> IS_DECIMAL_NUMBER_LITERAL =
+		element -> element instanceof PsiLiteralExpression && isDecimalNumber(((PsiLiteralExpression) element).getType());
+
 	public static final Condition<PsiElement> IS_VOID =
 		element -> element instanceof PsiExpression && isVoid(((PsiExpression) element).getType());
 
@@ -55,6 +58,14 @@ public abstract class MyJavaPostfixTemplatesUtils {
 		return element -> element instanceof PsiExpression && isCertainDecimalNumberType(((PsiExpression) element).getType(), expectedType);
 	}
 
+	public static Condition<PsiElement> isCertainNumberLiteral(@NotNull PsiType expectedType) {
+		return element -> element instanceof PsiLiteralExpression && isCertainDecimalNumberType(((PsiExpression) element).getType(), expectedType);
+	}
+
+	public static Condition<PsiElement> STRING_LITERAL = element -> {
+		return element instanceof PsiLiteralExpression && InheritanceUtil.isInheritor(((PsiLiteralExpression) element).getType(), "java.lang.String");
+	};
+	
 	/**
 	 * Contains byte, short, char, int, long, float, and double.
 	 */

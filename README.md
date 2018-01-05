@@ -106,6 +106,15 @@ The file may contain multiple template definitions of the form:
     * `LONG` - a boxed or unboxed long value
     * `FLOAT` - a boxed or unboxed float value
     * `DOUBLE` - a boxed or unboxed double value
+    * `NUMBER_LITERAL` - any number literal
+    * `BYTE_LITERAL` - a byte literal
+    * `SHORT_LITERAL` - a short literal
+    * `CHAR_LITERAL` - a char literal
+    * `INT_LITERAL` - an int literal
+    * `LONG_LITERAL` - a long literal
+    * `FLOAT_LITERAL` - a float literal
+    * `DOUBLE_LITERAL` - a double literal
+    * `STRING_LITERAL` - a String literal
     * `CLASS` - any class reference
   * JavaScript: The *MATCHING_TYPE* has to be `ANY`.
   * Kotlin: The *MATCHING_TYPE* has to be `ANY`.
