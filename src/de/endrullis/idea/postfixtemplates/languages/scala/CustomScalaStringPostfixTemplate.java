@@ -6,20 +6,22 @@ import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.OrderedSet;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
+import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.ScalaStringBasedPostfixTemplate;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
+import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.SelectorConditions;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.SelectorType;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import static de.endrullis.idea.postfixtemplates.languages.java.CustomJavaStringPostfixTemplate.withProjectClassCondition;
+import static de.endrullis.idea.postfixtemplates.languages.scala.ScalaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
+import static de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils.IS_ANY;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**
@@ -32,11 +34,45 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
+	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+		put(SpecialType.ANY.name(), IS_ANY);
+		put(SpecialType.VOID.name(), VOID);
+		put(SpecialType.NON_VOID.name(), NON_VOID);
+		//put(SpecialType.ARRAY.name(), IS_ARRAY);
+		put(SpecialType.BOOLEAN.name(), BOOLEAN);
+		//put(SpecialType.ITERABLE_OR_ARRAY.name(), IS_ITERABLE_OR_ARRAY);
+		put(SpecialType.NUMBER.name(), DECIMAL_NUMBER);
+		put(SpecialType.BYTE.name(), BYTE);
+		put(SpecialType.SHORT.name(), SHORT);
+		put(SpecialType.CHAR.name(), CHAR);
+		put(SpecialType.INT.name(), INT);
+		put(SpecialType.LONG.name(), LONG);
+		put(SpecialType.FLOAT.name(), FLOAT);
+		put(SpecialType.DOUBLE.name(), DOUBLE);
+		/*
+		put(SpecialType.BYTE_LITERAL.name(), isCertainNumberLiteral(PsiType.BYTE));
+		put(SpecialType.SHORT_LITERAL.name(), isCertainNumberLiteral(PsiType.SHORT));
+		put(SpecialType.CHAR_LITERAL.name(), isCertainNumberLiteral(PsiType.CHAR));
+		put(SpecialType.INT_LITERAL.name(), isCertainNumberLiteral(PsiType.INT));
+		put(SpecialType.LONG_LITERAL.name(), isCertainNumberLiteral(PsiType.LONG));
+		put(SpecialType.FLOAT_LITERAL.name(), isCertainNumberLiteral(PsiType.FLOAT));
+		put(SpecialType.DOUBLE_LITERAL.name(), isCertainNumberLiteral(PsiType.DOUBLE));
+		put(SpecialType.NUMBER_LITERAL.name(), IS_DECIMAL_NUMBER_LITERAL);
+		put(SpecialType.STRING_LITERAL.name(), STRING_LITERAL);
+		put(SpecialType.CLASS.name(), IS_CLASS);
+		/*
+		put(SpecialType.FIELD.name(), IS_FIELD);
+		put(SpecialType.LOCAL_VARIABLE.name(), IS_LOCAL_VARIABLE);
+		put(SpecialType.VARIABLE.name(), IS_VARIABLE);
+		put(SpecialType.ASSIGNMENT.name(), IS_ASSIGNMENT);
+		*/
+	}};
+
 	private final String template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
 
-	public CustomScalaStringPostfixTemplate(String className, String templateName, String description, String template) {
-		super(templateName, description, new AncestorSelector(getCondition(className), SelectorType.All()));
+	public CustomScalaStringPostfixTemplate(String matchingClass, String conditionClass, String templateName, String example, String template) {
+		super(templateName.substring(1), example, new AncestorSelector(getCondition(matchingClass, conditionClass), SelectorType.All()));
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
@@ -66,9 +102,26 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 		}
 	}
 
-	private static Condition<PsiElement> getCondition(String className) {
-		// TODO: return real class name condition based on ScExpressions
-		return expr -> true; // (Condition<PsiElement>) SelectorConditions$.MODULE$.ANY_EXPR();
+	/**
+	 * Returns a function that returns true if
+	 * <ul>
+	 *   <li>the PSI element satisfies the type condition regarding {@code matchingClass} and</li>
+	 *   <li>{@code conditionClass} is either {@code null} or available in the current module.</li>
+	 * </ul>
+	 *
+	 * @param matchingClass  required type of the psi element to satisfy this condition
+	 * @param conditionClass required class in the current module to satisfy this condition, or {@code null}
+	 * @return PSI element condition
+	 */
+	@NotNull
+	private static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String conditionClass) {
+		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
+
+		if (psiElementCondition == null) {
+			psiElementCondition = SelectorConditions.isDescendantCondition(matchingClass);
+		}
+
+		return withProjectClassCondition(conditionClass, psiElementCondition);
 	}
 
 

@@ -224,6 +224,10 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 			psiElementCondition = MyJavaPostfixTemplatesUtils.isCustomClass(matchingClass);
 		}
 
+		return withProjectClassCondition(conditionClass, psiElementCondition);
+	}
+
+	public static Condition<PsiElement> withProjectClassCondition(@Nullable String conditionClass, Condition<PsiElement> psiElementCondition) {
 		if (conditionClass == null) {
 			return psiElementCondition;
 		} else {

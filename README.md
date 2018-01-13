@@ -1,7 +1,7 @@
 # Custom Postfix Templates for Intellij IDEA
 
 **Custom Postfix Templates** is an Intellij IDEA plugin that allows you to define your own custom [postfix templates](https://blog.jetbrains.com/idea/2014/03/postfix-completion/).
-At the moment it supports the following programming languages: Java, JavaScript, Kotlin (untyped templates only).
+At the moment it supports the following programming languages with : Java, Scala, Kotlin (untyped templates), and JavaScript (untyped templates).
 
 ![Screen Cast](https://github.com/xylo/intellij-postfix-templates/blob/master/videos/vid1/vid1.png)
 
@@ -116,6 +116,19 @@ The file may contain multiple template definitions of the form:
     * `DOUBLE_LITERAL` - a double literal
     * `STRING_LITERAL` - a String literal
     * `CLASS` - any class reference
+  * Scala: The *MATCHING_TYPE* can be either a Java class name or one of the following special types:
+    * `ANY` - any expression
+    * `VOID` - any void (Unit) expression
+    * `NON_VOID` - any non-void (non-Unit) expression
+    * `BOOLEAN` - scala.Boolean or java.lang.Boolean
+    * `NUMBER` - any Scala or Java number value
+    * `BYTE` - scala.Byte or java.lang.Byte
+    * `SHORT` - scala.Short or java.lang.Short
+    * `CHAR` - scala.Char or java.lang.Char
+    * `INT` - scala.Int or java.lang.Integer
+    * `LONG` - scala.Long or java.lang.Long
+    * `FLOAT` - scala.Float or java.lang.Float
+    * `DOUBLE` - scala.Double or java.lang.Double
   * JavaScript: The *MATCHING_TYPE* has to be `ANY`.
   * Kotlin: The *MATCHING_TYPE* has to be `ANY`.
 * *REQUIRED_CLASS* (optional) is a name of a class that needs to be available in the module to activate the template rule

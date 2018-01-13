@@ -7,6 +7,7 @@ import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.languages.java.JavaLang;
 import de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptLang;
 import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinLang;
+import de.endrullis.idea.postfixtemplates.languages.scala.ScalaLang;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -25,7 +26,8 @@ public class SupportedLanguages {
 	private static final List<CptLang> supportedLanguages = _List(
 		new JavaLang(),
 		new JavaScriptLang(),
-		new KotlinLang()
+		new KotlinLang(),
+		new ScalaLang()
 	);
 
 	private static final HashMap<String, CptLang> languageToCptLang = new HashMap<String, CptLang>() {{

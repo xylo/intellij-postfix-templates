@@ -16,7 +16,7 @@ public class ScalaPostfixTemplateProvider extends CustomPostfixTemplateProvider 
 	@NotNull
 	@Override
 	protected CustomScalaStringPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template) {
-		return new CustomScalaStringPostfixTemplate(matchingClass, templateName, description, template);
+		return new CustomScalaStringPostfixTemplate(matchingClass, conditionClass, templateName, description, template);
 	}
 
 	@Override
