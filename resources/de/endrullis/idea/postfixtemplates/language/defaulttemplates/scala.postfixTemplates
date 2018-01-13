@@ -1,0 +1,40 @@
+## function applications ##
+
+.apply : apply the function
+	java.lang.Runnable                    →  $expr$.run()
+	java.util.function.Supplier           →  $expr$.get()
+	java.util.function.BooleanSupplier    →  $expr$.getAsBoolean()
+	java.util.function.DoubleSupplier     →  $expr$.getAsDouble()
+	java.util.function.IntSupplier        →  $expr$.getAsInt()
+	java.util.function.LongSupplier       →  $expr$.getAsLong()
+	java.util.function.Consumer           →  $expr$.accept($object$)
+	java.util.function.BiConsumer         →  $expr$.accept($object$, $object$)
+	java.util.function.DoubleConsumer     →  $expr$.accept($doubleValue$)
+	java.util.function.IntConsumer        →  $expr$.accept($intValue$)
+	java.util.function.LongConsumer       →  $expr$.accept($longValue$)
+	java.util.function.ObjDoubleConsumer  →  $expr$.accept($object$, $doubleValue$)
+	java.util.function.ObjIntConsumer     →  $expr$.accept($object$, $intValue$)
+	java.util.function.ObjLongConsumer    →  $expr$.accept($object$, $longValue$)
+	java.util.function.Predicate          →  $expr$.test($object$)
+	java.util.function.BiPredicate        →  $expr$.test($object$, $object$)
+	java.util.function.DoublePredicate    →  $expr$.test($doubleValue$)
+	java.util.function.IntPredicate       →  $expr$.test($intValue$)
+	java.util.function.LongPredicate      →  $expr$.test($longValue$)
+
+
+## others ##
+
+.lines : lines
+	java.io.File             →  Source.fromFile($expr$, $enc::"\"UTF-8\""$).getLines()
+	java.nio.file.Path       →  Files.readAllLines($expr$, Charset.forName($encoding::"\"UTF-8\""$))
+	java.io.InputStream      →  Source.fromInputStream($expr$, $enc::"\"UTF-8\""$).getLines()
+	java.net.URL             →  Source.fromURL($expr$, $enc::"\"UTF-8\""$).getLines()
+
+.content : content
+	java.io.File             →  new String(Files.readAllBytes($expr$.toPath()), $encoding::"\"UTF-8\""$)
+	java.nio.file.Path       →  new String(Files.readAllBytes($expr$), $encoding::"\"UTF-8\""$)
+	java.io.InputStream      →  new Scanner($expr$, $encoding::"\"UTF-8\""$).useDelimiter("\\A").next()
+	java.net.URL             →  new Scanner($expr$.openStream(), $encoding::"\"UTF-8\""$).useDelimiter("\\A").next()
+
+.bufferedReader : wrap with BufferedReader
+	java.io.InputStream      →  new BufferedReader(new InputStreamReader($expr$))
