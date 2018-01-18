@@ -51,122 +51,122 @@
 ## collection conversions ##
 
 .toList : convert to List
-	ARRAY                    →  Arrays.asList($expr$)
-	java.util.Collection     →  new ArrayList<>($expr$)
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.toList())
+	ARRAY                    →  java.util.Arrays.asList($expr$)
+	java.util.Collection     →  new java.util.ArrayList<>($expr$)
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toList())
 
 .toSet : convert to Set
-	ARRAY                    →  Stream.of($expr$).collect(Collectors.toSet())
-	java.util.Collection     →  new HashSet<>($expr$)
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.toSet())
+	ARRAY                    →  java.util.stream.Stream.of($expr$).collect(java.util.stream.Collectors.toSet())
+	java.util.Collection     →  new java.util.HashSet<>($expr$)
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toSet())
 
 .toMap : convert to Map
-	ARRAY                    →  Arrays.stream($expr$).collect(Collectors.toMap($keyF$, $valueF$))
-	java.util.Collection     →  $expr$.stream().collect(Collectors.toMap($keyF$, $valueF$))
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.toMap($keyF$, $valueF$))
-	java.util.stream.Stream  →  $expr$.collect(Collectors.toMap($keyF$, $valueF$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
+	java.util.Collection     →  $expr$.stream().collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
+	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
 
 #.stream : convert to Stream
-#	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false)
+#	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false)
 
 
 
 ## collection operations ##
 
 .sort : sort naturally
-	ARRAY                    →  Arrays.sort($expr$)
-	java.util.List           →  Collections.sort($expr$)
+	ARRAY                    →  java.util.Arrays.sort($expr$)
+	java.util.List           →  java.util.Collections.sort($expr$)
 
 .sortBy : sort by attribute
-	ARRAY                    →  Arrays.sort($expr$, Comparator.comparing($attributeF$))
-	java.util.List           →  $expr$.sort(Comparator.comparing($attributeF$))
-	java.util.stream.Stream  →  $expr$.sorted(Comparator.comparing($attributeF$))
+	ARRAY                    →  java.util.Arrays.sort($expr$, Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.List           →  $expr$.sort(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.stream.Stream  →  $expr$.sorted(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
 
 .minBy : minimum by attribute
-	ARRAY                    →  Arrays.stream($expr$).min(Comparator.comparing($attributeF$))
-	java.util.Collection     →  $expr$.stream().min(Comparator.comparing($attributeF$))
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).min(Comparator.comparing($attributeF$))
-	java.util.stream.Stream  →  $expr$.min(Comparator.comparing($attributeF$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).min(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.Collection     →  $expr$.stream().min(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).min(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.stream.Stream  →  $expr$.min(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
 
 .maxBy : maximum by attribute
-	ARRAY                    →  Arrays.stream($expr$).max(Comparator.comparing($attributeF$))
-	java.util.Collection     →  $expr$.stream().max(Comparator.comparing($attributeF$))
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).max(Comparator.comparing($attributeF$))
-	java.util.stream.Stream  →  $expr$.max(Comparator.comparing($attributeF$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).max(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.Collection     →  $expr$.stream().max(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).max(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.stream.Stream  →  $expr$.max(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
 
 .groupBy : group by attribute
-	ARRAY                    →  Arrays.stream($expr$).collect(Collectors.groupingBy($attributeF$))
-	java.util.Collection     →  $expr$.stream().collect(Collectors.groupingBy($attributeF$))
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.groupingBy($attributeF$))
-	java.util.stream.Stream  →  $expr$.collect(Collectors.groupingBy($attributeF$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.groupingBy($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.Collection     →  $expr$.stream().collect(java.util.stream.Collectors.groupingBy($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.groupingBy($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.groupingBy($attributeVar*:suggestShortVariableName()$ -> $attribute$))
 
 .exists : any match
-	ARRAY                    →  Arrays.stream($expr$).anyMatch($conditionF$)
-	java.util.Collection     →  $expr$.stream().anyMatch($conditionF$)
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).anyMatch($conditionF$)
-	java.util.stream.Stream  →  $expr$.anyMatch($conditionF$)
+	ARRAY                    →  java.util.Arrays.stream($expr$).anyMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
+	java.util.Collection     →  $expr$.stream().anyMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).anyMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
+	java.util.stream.Stream  →  $expr$.anyMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
 
 .forall : all match
-	ARRAY                    →  Arrays.stream($expr$).allMatch($conditionF$)
-	java.util.Collection     →  $expr$.stream().allMatch($conditionF$)
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).allMatch($conditionF$)
-	java.util.stream.Stream  →  $expr$.allMatch($conditionF$)
+	ARRAY                    →  java.util.Arrays.stream($expr$).allMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
+	java.util.Collection     →  $expr$.stream().allMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).allMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
+	java.util.stream.Stream  →  $expr$.allMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
 
 .reverse : reverse collection
-	ARRAY                    →  ArrayUtils.reverse($expr$)
-	java.util.List           →  Collections.reverse($expr$)
+	ARRAY [org.apache.commons.lang.ArrayUtils] →  org.apache.commons.lang.ArrayUtils.reverse($expr$)
+	java.util.List           →  java.util.Collections.reverse($expr$)
 
 .concat : concat
-	ARRAY                    →  Stream.concat(Arrays.stream($expr$), $stream$)
-	java.util.Collection     →  Stream.concat($expr$.stream(), $stream$)
-	java.util.stream.Stream  →  Stream.concat($expr$, $stream$)
+	ARRAY                    →  java.util.stream.Stream.concat(java.util.Arrays.stream($expr$), $stream$)
+	java.util.Collection     →  java.util.stream.Stream.concat($expr$.stream(), $stream$)
+	java.util.stream.Stream  →  java.util.stream.Stream.concat($expr$, $stream$)
 
 .forEach : for each
-	ARRAY                    →  Arrays.stream($expr$).forEach($endActionF$)
-	java.util.Optional       →  $expr$.ifPresent($endActionF$)
+	ARRAY                    →  java.util.Arrays.stream($expr$).forEach($actionVar*:suggestShortVariableName()$ -> $END$)
+	java.util.Optional       →  $expr$.ifPresent($actionVar*:suggestShortVariableName()$ -> $END$)
 
 .mkString : make a string
-	ARRAY                    →  Arrays.stream($expr$).collect(Collectors.joining($separator$))
-	java.util.Collection     →  $expr$.stream().collect(Collectors.joining($separator$))
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.joining($separator$))
-	java.util.stream.Stream  →  $expr$.collect(Collectors.joining($separator$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.joining($separator$))
+	java.util.Collection     →  $expr$.stream().collect(java.util.stream.Collectors.joining($separator$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.joining($separator$))
+	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.joining($separator$))
 
 .map : map entries
-	java.util.List           →  $expr$.stream().map($f$).collect(Collectors.toList())
-	java.util.Set            →  $expr$.stream().map($f$).collect(Collectors.toSet())
-	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap($keyF$, $valueF$))
+	java.util.List           →  $expr$.stream().map($fVar*:suggestShortVariableName()$ -> $f$).collect(java.util.stream.Collectors.toList())
+	java.util.Set            →  $expr$.stream().map($fVar*:suggestShortVariableName()$ -> $f$).collect(java.util.stream.Collectors.toSet())
+	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
 
 .mapKeys : map keys
-	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap($keyF$, e -> e.getValue()))
+	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> $key$, e -> e.getValue()))
 
 .mapValues : map values
-	java.util.Map            →  $expr$.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), $valueF$))
+	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> e.getKey(), e -> $value$))
 
 .getOrElseUpdate : get or else update
-	java.util.Map            →  $expr$.computeIfAbsent($key$, $valueF$)
+	java.util.Map            →  $expr$.computeIfAbsent($key$, e -> $value$)
 
 .filter : filter map entries
-	java.util.List           →  $expr$.stream().filter($conditionF$).collect(Collectors.toList())
-	java.util.Set            →  $expr$.stream().filter($conditionF$).collect(Collectors.toSet())
-	java.util.Map            →  $expr$.entrySet().stream().filter($conditionF$).collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()))
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).collect(Collectors.toList())
+	java.util.List           →  $expr$.stream().filter($conditionVar*:suggestShortVariableName()$ -> $condition$).collect(java.util.stream.Collectors.toList())
+	java.util.Set            →  $expr$.stream().filter($conditionVar*:suggestShortVariableName()$ -> $condition$).collect(java.util.stream.Collectors.toSet())
+	java.util.Map            →  $expr$.entrySet().stream().filter($conditionVar*:suggestShortVariableName()$ -> $condition$).collect(java.util.stream.Collectors.toMap(e -> e.getKey(), e -> e.getValue()))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toList())
 
 .reduce : reduce
-	ARRAY                    →  Arrays.stream($expr$).reduce($accumulatorF$)
-	java.util.Collection     →  $expr$.stream().reduce($accumulatorF$)
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).reduce($accumulatorF$)
+	ARRAY                    →  java.util.Arrays.stream($expr$).reduce((a, b) -> $accumulator$)
+	java.util.Collection     →  $expr$.stream().reduce((a, b) -> $accumulator$)
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).reduce((a, b) -> $accumulator$)
 
 .fold : fold
-	ARRAY                    →  Arrays.stream($expr$).reduce($neutralElement$, $accumulatorF$)
-	java.util.Collection     →  $expr$.stream().reduce($neutralElement$, $accumulatorF$)
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).reduce($neutralElement$, $accumulatorF$)
-	java.util.stream.Stream  →  $expr$.reduce($neutralElement$, $accumulatorF$)
+	ARRAY                    →  java.util.Arrays.stream($expr$).reduce($neutralElement$, (a, b) -> $accumulator$)
+	java.util.Collection     →  $expr$.stream().reduce($neutralElement$, (a, b) -> $accumulator$)
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).reduce($neutralElement$, (a, b) -> $accumulator$)
+	java.util.stream.Stream  →  $expr$.reduce($neutralElement$, (a, b) -> $accumulator$)
 
 .find : find element
-	ARRAY                    →  Arrays.stream($expr$).filter($conditionF$).findFirst()
-	java.util.Collection     →  $expr$.stream().filter($conditionF$).findFirst()
-	java.lang.Iterable       →  StreamSupport.stream($expr$.spliterator(), false).filter($conditionF$).findFirst()
-	java.util.stream.Stream  →  $expr$.filter($conditionF$).findFirst()
+	ARRAY                    →  java.util.Arrays.stream($expr$).filter($conditionVar*:suggestShortVariableName()$ -> $condition$).findFirst()
+	java.util.Collection     →  $expr$.stream().filter($conditionVar*:suggestShortVariableName()$ -> $condition$).findFirst()
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).filter($conditionVar*:suggestShortVariableName()$ -> $condition$).findFirst()
+	java.util.stream.Stream  →  $expr$.filter($conditionVar*:suggestShortVariableName()$ -> $condition$).findFirst()
 
 .take : take a certain number of elements
 	java.util.stream.Stream  →  $expr$.limit($intValue$)
@@ -213,22 +213,27 @@
 	CLASS                    →  new $expr$($END$)
 
 .lines : lines
-	java.io.File             →  Files.readAllLines($expr$.toPath(), Charset.forName($encoding::"\"UTF-8\""$))
-	java.nio.file.Path       →  Files.readAllLines($expr$, Charset.forName($encoding::"\"UTF-8\""$))
+	java.io.File             →  java.nio.file.Files.readAllLines($expr$.toPath(), java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
+	java.nio.file.Path       →  java.nio.file.Files.readAllLines($expr$, java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
 	java.lang.String         →  $expr$.split("\\r?\\n")
-	java.io.InputStream      →  new BufferedReader(new InputStreamReader($expr$)).lines()
+	java.io.InputStream      →  new java.io.BufferedReader(new java.io.InputStreamReader($expr$)).lines()
 
 .content : content
-	java.io.File             →  new String(Files.readAllBytes($expr$.toPath()), $encoding::"\"UTF-8\""$)
-	java.nio.file.Path       →  new String(Files.readAllBytes($expr$), $encoding::"\"UTF-8\""$)
-	java.io.InputStream      →  new Scanner($expr$, $encoding::"\"UTF-8\""$).useDelimiter("\\A").next()
-	java.net.URL             →  new Scanner($expr$.openStream(), $encoding::"\"UTF-8\""$).useDelimiter("\\A").next()
+	java.io.File             →  new String(java.nio.file.Files.readAllBytes($expr$.toPath()), $encoding::"\"UTF-8\""$)
+	java.nio.file.Path       →  new String(java.nio.file.Files.readAllBytes($expr$), $encoding::"\"UTF-8\""$)
+	java.io.InputStream      →  new java.util.Scanner($expr$, $encoding::"\"UTF-8\""$).useDelimiter("\\\\A").next()
+	java.net.URL             →  new java.util.Scanner($expr$.openStream(), $encoding::"\"UTF-8\""$).useDelimiter("\\\\A").next()
+
+.inputStream : get input stream
+	java.io.File             →  new java.io.FileInputStream($expr$)
+	java.net.URL             →  $expr$.openStream()
 
 .bufferedReader : wrap with BufferedReader
-	java.io.InputStream      →  new BufferedReader(new InputStreamReader($expr$))
+	java.io.File             →  new java.io.BufferedReader(new java.io.FileReader($expr$))
+	java.io.InputStream      →  new java.io.BufferedReader(new java.io.InputStreamReader($expr$))
 
 .r : compile pattern
-	java.lang.String         →  Pattern.compile($expr$)
+	java.lang.String         →  java.util.regex.Pattern.compile($expr$)
 
 .val : extract as value
 	NON_VOID [lombok.val]    →  val $var:suggestVariableName()$ = $expr$;
@@ -239,63 +244,63 @@
 ## IDEA development templates ##
 
 .toVirtualFile : as virtual file
-	java.io.File [com.intellij.openapi.vfs.VirtualFile]  →  LocalFileSystem.getInstance().findFileByIoFile($expr$)
+	java.io.File [com.intellij.openapi.vfs.VirtualFile]  →  com.intellij.openapi.vfs.LocalFileSystem.getInstance().findFileByIoFile($expr$)
 
 .toFile : as file
-	com.intellij.openapi.vfs.VirtualFile  →  new File($expr$.getPath())
+	com.intellij.openapi.vfs.VirtualFile  →  new java.io.File($expr$.getPath())
 
 .getAttributes : get file attributes
-	com.intellij.openapi.vfs.VirtualFile  →  LocalFileSystem.getInstance().getAttributes($expr$)
+	com.intellij.openapi.vfs.VirtualFile  →  com.intellij.openapi.vfs.LocalFileSystem.getInstance().getAttributes($expr$)
 
 .openInEditor : open file in editor
-	com.intellij.openapi.vfs.VirtualFile  →  new OpenFileDescriptor($project:variableOfType("com.intellij.openapi.project.Project")$, $expr$).navigate(true)
+	com.intellij.openapi.vfs.VirtualFile  →  new com.intellij.openapi.fileEditor.OpenFileDescriptor($project:variableOfType("com.intellij.openapi.project.Project")$, $expr$).navigate(true)
 
 .getVirtualFile : get virtual file
-	com.intellij.openapi.editor.Document  →  FileDocumentManager.getInstance().getFile($expr$)
+	com.intellij.openapi.editor.Document  →  com.intellij.openapi.fileEditor.FileDocumentManager.getInstance().getFile($expr$)
 
 .getDocument : get document
-	com.intellij.psi.PsiFile              →  PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getDocument($expr$)
-	com.intellij.psi.PsiElement           →  PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getDocument($expr$.getContainingFile())
-	com.intellij.openapi.fileEditor.FileEditor  →  PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).getDocument(PsiManager.getInstance($project*$).findFile($expr$.getFile()))
+	com.intellij.psi.PsiFile              →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getDocument($expr$)
+	com.intellij.psi.PsiElement           →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getDocument($expr$.getContainingFile())
+	com.intellij.openapi.fileEditor.FileEditor  →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).getDocument(com.intellij.psi.PsiManager.getInstance($project*$).findFile($expr$.getFile()))
 
 .getPsiFile : get PSI file
-	com.intellij.openapi.vfs.VirtualFile  →  PsiManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findFile($expr$)
-	com.intellij.openapi.editor.Document  →  PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).getPsiFile($expr$)
-	com.intellij.openapi.fileEditor.FileEditor  →  PsiManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findFile($expr$.getFile())
+	com.intellij.openapi.vfs.VirtualFile  →  com.intellij.psi.PsiManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findFile($expr$)
+	com.intellij.openapi.editor.Document  →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).getPsiFile($expr$)
+	com.intellij.openapi.fileEditor.FileEditor  →  com.intellij.psi.PsiManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findFile($expr$.getFile())
 
 .getPsiJavaFile : get PSI Java file
-	com.intellij.psi.PsiClass             →  ((PsiJavaFile) $expr$.getContaningFile())
+	com.intellij.psi.PsiClass             →  ((com.intellij.psi.PsiJavaFile) $expr$.getContaningFile())
 
 .getPsiPackage : get PSI package
-	com.intellij.psi.PsiClass             →  JavaPsiFacade.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findPackage(((PsiJavaFile) $expr$.getContaningFile()).getPackageName())
-	com.intellij.psi.PsiJavaFile          →  JavaPsiFacade.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findPackage($expr$.getPackageName())
+	com.intellij.psi.PsiClass             →  com.intellij.psi.JavaPsiFacade.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findPackage(((com.intellij.psi.PsiJavaFile) $expr$.getContaningFile()).getPackageName())
+	com.intellij.psi.PsiJavaFile          →  com.intellij.psi.JavaPsiFacade.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findPackage($expr$.getPackageName())
 
 .getChildrenOfType : get children of certain type
-	com.intellij.psi.PsiElement           →  PsiTreeUtil.getChildrenOfType($expr$, $class$)
+	com.intellij.psi.PsiElement           →  com.intellij.psi.util.PsiTreeUtil.getChildrenOfType($expr$, $class$)
 
 .getModule : get module
-	com.intellij.openapi.vfs.VirtualFile  →  ProjectRootManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getFileIndex().getModuleForFile($expr$)
+	com.intellij.openapi.vfs.VirtualFile  →  com.intellij.openapi.roots.ProjectRootManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getFileIndex().getModuleForFile($expr$)
 
 .getProject : get project
-	com.intellij.openapi.actionSystem.DataContext  →  DataKeys.PROJECT.getData($expr$)
+	com.intellij.openapi.actionSystem.DataContext  →  com.intellij.openapi.actionSystem.DataKeys.PROJECT.getData($expr$)
 
 .runReadAction : runWriteAction(...)
-	ANY [com.intellij.openapi.application.Application]  →  ApplicationManager.getApplication().runReadAction(() -> {\
+	ANY [com.intellij.openapi.application.Application]  →  com.intellij.openapi.application.ApplicationManager.getApplication().runReadAction(() -> {\
 	                                                         $expr$$END$\
 	                                                       });
 
 .runWriteAction : runWriteAction(...)
-	ANY [com.intellij.openapi.application.Application]  →  ApplicationManager.getApplication().runWriteAction(() -> {\
+	ANY [com.intellij.openapi.application.Application]  →  com.intellij.openapi.application.ApplicationManager.getApplication().runWriteAction(() -> {\
 	                                                         $expr$$END$\
 	                                                       });
 
 .invokeLater : invokeLater(...)
-	ANY [com.intellij.openapi.application.Application]  →  ApplicationManager.getApplication().invokeLater(() -> {\
+	ANY [com.intellij.openapi.application.Application]  →  com.intellij.openapi.application.ApplicationManager.getApplication().invokeLater(() -> {\
 	                                                         $expr$$END$\
 	                                                       });
 
 .showDiff : show diff
-	java.lang.String [com.intellij.diff.DiffManager]  →  DiffManager.getInstance().showDiff($project:variableOfType("com.intellij.openapi.project.Project")$, new SimpleDiffRequest("$title::"Diff Title"$",\
-	                                                       DiffContentFactory.getInstance().create($expr$),\
-	                                                       DiffContentFactory.getInstance().create($content2::"content2"$),\
+	java.lang.String [com.intellij.diff.DiffManager]  →  com.intellij.diff.DiffManager.getInstance().showDiff($project:variableOfType("com.intellij.openapi.project.Project")$, new SimpleDiffRequest("$title::"Diff Title"$",\
+	                                                       com.intellij.diff.DiffContentFactory.getInstance().create($expr$),\
+	                                                       com.intellij.diff.DiffContentFactory.getInstance().create($content2::"content2"$),\
 	                                                       "$leftTitle::"Left side"$", "$rightTitle::"Right side"$", "$title::"Diff Title"$");
