@@ -1,7 +1,6 @@
 package de.endrullis.idea.postfixtemplates.languages.javascript;
 
 import de.endrullis.idea.postfixtemplates.language.CptLang;
-import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinAnnotator;
 
 /**
  * Language definition for Java.
@@ -11,7 +10,7 @@ import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinAnnotator;
 public class JavaScriptLang extends CptLang {
 
 	public JavaScriptLang() {
-		super("javascript", JavaScriptAnnotator.class);
+		super("JavaScript", JavaScriptAnnotator.class);
 	}
 
 }

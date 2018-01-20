@@ -7,14 +7,20 @@ package de.endrullis.idea.postfixtemplates.language;
  */
 public abstract class CptLang {
 
+	private final String                            niceName;
 	private final String                            language;
 	private final Class<? extends CptLangAnnotator> annotatorClass;
 	/** Lazily instantiated CptLangAnnotator. */
 	private CptLangAnnotator annotator;
 
-	public CptLang(String language, Class<? extends CptLangAnnotator> annotatorClass) {
-		this.language = language;
+	public CptLang(String niceName, Class<? extends CptLangAnnotator> annotatorClass) {
+		this.niceName = niceName;
+		this.language = niceName.toLowerCase();
 		this.annotatorClass = annotatorClass;
+	}
+
+	public String getNiceName() {
+		return niceName;
 	}
 
 	public String getLanguage() {
@@ -33,6 +39,11 @@ public abstract class CptLang {
 		}
 
 		return annotator;
+	}
+
+	@Override
+	public String toString() {
+		return niceName;
 	}
 
 }

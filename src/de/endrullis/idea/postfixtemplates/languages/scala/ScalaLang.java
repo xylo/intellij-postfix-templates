@@ -10,7 +10,7 @@ import de.endrullis.idea.postfixtemplates.language.CptLang;
 public class ScalaLang extends CptLang {
 
 	public ScalaLang() {
-		super("scala", ScalaAnnotator.class);
+		super("Scala", ScalaAnnotator.class);
 	}
 
 }

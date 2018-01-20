@@ -10,7 +10,7 @@ import de.endrullis.idea.postfixtemplates.language.CptLang;
 public class JavaLang extends CptLang {
 
 	public JavaLang() {
-		super("java", JavaAnnotator.class);
+		super("Java", JavaAnnotator.class);
 	}
 
 }

@@ -23,10 +23,10 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
  */
 public class SupportedLanguages {
 
-	private static final List<CptLang> supportedLanguages = _List(
+	public static final List<CptLang> supportedLanguages = _List(
+		new KotlinLang(),
 		new JavaLang(),
 		new JavaScriptLang(),
-		new KotlinLang(),
 		new ScalaLang()
 	);
 

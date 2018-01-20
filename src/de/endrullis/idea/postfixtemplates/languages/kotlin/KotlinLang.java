@@ -1,7 +1,6 @@
 package de.endrullis.idea.postfixtemplates.languages.kotlin;
 
 import de.endrullis.idea.postfixtemplates.language.CptLang;
-import de.endrullis.idea.postfixtemplates.languages.java.JavaAnnotator;
 
 /**
  * Language definition for Java.
@@ -11,7 +10,7 @@ import de.endrullis.idea.postfixtemplates.languages.java.JavaAnnotator;
 public class KotlinLang extends CptLang {
 
 	public KotlinLang() {
-		super("kotlin", KotlinAnnotator.class);
+		super("Kotlin", KotlinAnnotator.class);
 	}
 
 }
