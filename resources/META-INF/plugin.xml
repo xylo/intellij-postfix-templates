@@ -28,7 +28,8 @@
 			<h3>Version 1.5.2</h3>
 			<ul>
 				<li>Improved settings dialog: Added option to select one of the supported languages
-				and to reset/merge your templates with the predefined ones.</li>
+				    and to reset/merge your templates with the predefined ones.</li>
+				<li>Added more Java templates.</li>
 			</ul>
 
 			<h3>Version 1.5.1</h3>

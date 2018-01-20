@@ -48,7 +48,11 @@ The following templates are shipped with the plugin and shall provide you with a
 * `.apply` - apply a runnable, supplier, consumer, or predicate
 * `.lines` - get the lines of text files, paths, input streams, and strings
 * `.content` - get the text content of files, paths, input streams, and URLs
-* `.bufferedReader` - create a buffered reader for an input steam
+* `.inputStream` - get input stream of files, URLs, strings
+* `.outputStream` - get output stream for files
+* `.bufferedReader` - get buffered reader for files, input streams, and URLs
+* `.bufferedWriter` - get buffered writer for files and output streams
+* `.printStream` - get PrintStream for files and output streams
 * `.r` - convert a string into a regular expression
 * `.val` - extract the expression as value (similar to the `.var` template)
 * `.new` - create a new instance of a class

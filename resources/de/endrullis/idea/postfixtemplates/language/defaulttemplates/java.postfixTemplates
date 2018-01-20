@@ -207,10 +207,7 @@
 
 
 
-## others ##
-
-.new : new instance
-	CLASS                    →  new $expr$($END$)
+## I/O ##
 
 .lines : lines
 	java.io.File             →  java.nio.file.Files.readAllLines($expr$.toPath(), java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
@@ -225,12 +222,31 @@
 	java.net.URL             →  new java.util.Scanner($expr$.openStream(), $encoding::"\"UTF-8\""$).useDelimiter("\\\\A").next()
 
 .inputStream : get input stream
+	java.lang.String         →  new java.io.ByteArrayInputStream($expr$.getBytes())
 	java.io.File             →  new java.io.FileInputStream($expr$)
 	java.net.URL             →  $expr$.openStream()
 
-.bufferedReader : wrap with BufferedReader
+.outputStream : get output stream
+	java.io.File             →  new java.io.FileOutputStream($expr$)
+
+.bufferedReader : get BufferedReader
 	java.io.File             →  new java.io.BufferedReader(new java.io.FileReader($expr$))
 	java.io.InputStream      →  new java.io.BufferedReader(new java.io.InputStreamReader($expr$))
+	java.net.URL             →  new java.io.BufferedReader(new java.io.InputStreamReader($expr$.openStream()))
+
+.bufferedWriter : get BufferedWriter
+	java.io.File             →  new java.io.BufferedWriter(new java.io.FileWriter($expr$))
+	java.io.OutputStream     →  new java.io.BufferedWriter(new java.io.OutputStreamWriter($expr$))
+
+.printStream : get PrintStream
+	java.io.File             →  new java.io.PrintStream($expr$)
+	java.io.OutputStream     →  new java.io.PrintStream($expr$)
+
+
+## others ##
+
+.new : new instance
+	CLASS                    →  new $expr$($END$)
 
 .r : compile pattern
 	java.lang.String         →  java.util.regex.Pattern.compile($expr$)
