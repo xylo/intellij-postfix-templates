@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.5.2</version>
+	<version>1.6.0</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -26,11 +26,17 @@
 	</description>
 
 	<change-notes><![CDATA[
-			<h3>Version 1.5.2</h3>
+			<h3>Version 1.6.0</h3>
 			<ul>
 				<li>Improved settings dialog: Added option to select one of the supported languages
 				    and to reset/merge your templates with the predefined ones.</li>
 				<li>Added more Java and Scala templates.</li>
+				<li>Restructured tools menu:
+					<ul>
+						<li>Removed language specific menu items like "Open Java Templates".</li>
+						<li>Added menu item "Open Settings / Upgrade Templates".</li>
+					</ul>
+				</li>
 			</ul>
 
 			<h3>Version 1.5.1</h3>
@@ -185,17 +191,9 @@
 			<add-to-group group-id="Cpt.Menu"/>
 			<keyboard-shortcut first-keystroke="shift alt P" keymap="$default"/>
 		</action>
-		<action text="Edit _Java Templates" id="Cpt.OpenJavaTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenJavaTemplatesAction">
+		<action text="Open Settings / Upgrade Templates" id="Cpt.OpenSettings" class="de.endrullis.idea.postfixtemplates.actions.OpenSettingsAction">
 			<add-to-group group-id="Cpt.Menu"/>
-		</action>
-		<action text="Edit J_avaScript Templates" id="Cpt.OpenJavaScriptTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenJavaScriptTemplatesAction">
-			<add-to-group group-id="Cpt.Menu"/>
-		</action>
-		<action text="Edit _Scala Templates" id="Cpt.OpenScalaTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenScalaTemplatesAction">
-			<add-to-group group-id="Cpt.Menu"/>
-		</action>
-		<action text="Edit _Kotlin Templates" id="Cpt.OpenKotlinTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenKotlinTemplatesAction">
-			<add-to-group group-id="Cpt.Menu"/>
+			<keyboard-shortcut first-keystroke="ctrl shift alt P" keymap="$default"/>
 		</action>
 	</actions>
 
