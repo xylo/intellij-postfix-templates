@@ -17,9 +17,10 @@
 			which can be edited and extended, e.g.:
 
 			<ul>
-				<li>string.toInt    → Integer.parse(string)</li>
-				<li>longValue.toInt → ((int) longValue)</li>
-				<li>array.toList    → Arrays.asList(array)</li>
+				<li>string.toInt        → Integer.parse(string)</li>
+				<li>array.toList        → Arrays.asList(array)</li>
+				<li>file.lines          → Files.readAllLines(file.toPath(), Charset.forName("UTF-8"))</li>
+				<li>file.getName().val  → final String name = file.getName();</li>
 			</ul>
     ]]>
 	</description>
