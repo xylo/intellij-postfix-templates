@@ -82,7 +82,8 @@ For Scala users there is the live template `_` which expands to `v -> v` to acce
 
 ## Edit the templates
 
-Press *Shift+Alt+P* to open the custom postfix templates for the programming language in your current editor or go to menu *Tools → Custom Postfix Templates → Edit ... Templates* to open an editor tab with the templates.
+Press *Shift+Alt+P* (or go to menu *Tools → Custom Postfix Templates → Edit Templates of Current Language*)
+to open the custom postfix templates for the programming language in your current editor.
 Here you can easily change, remove, or add new templates matching your needs.
 Note that you have to save the template file explicitly (via *Ctrl+S*) in order to update the postfix templates in the IDE.
 
