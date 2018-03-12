@@ -56,6 +56,7 @@ The following templates are shipped with the plugin and shall provide you with a
 * `.r` - convert a string into a regular expression
 * `.val` - extract the expression as value (similar to the `.var` template)
 * `.new` - create a new instance of a class
+* `.soutv` - print variable to System.out
 
 The idea behind these templates is to bring a tiny bit of Scala feeling back to Java.
 

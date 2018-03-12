@@ -57,3 +57,9 @@
 .printStream : get PrintStream
 	java.io.File             →  new PrintStream($expr$)
 	java.io.OutputStream     →  new PrintStream($expr$)
+
+
+## others ##
+
+.soutv : print variable to System.out
+	NON_VOID                 →  println("$expr$ = " + $expr$)
