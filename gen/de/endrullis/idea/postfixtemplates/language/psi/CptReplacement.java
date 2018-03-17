@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface CptReplacement extends PsiElement {
 
   @NotNull
+  List<CptEscape> getEscapeList();
+
+  @NotNull
   List<CptTemplateCodeG> getTemplateCodeGList();
 
   @NotNull

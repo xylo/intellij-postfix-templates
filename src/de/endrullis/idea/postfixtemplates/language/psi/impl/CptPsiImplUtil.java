@@ -127,7 +127,7 @@ public class CptPsiImplUtil {
 			@Nullable
 			@Override
 			public String getPresentableText() {
-				return element.getMatchingClass();
+				return element.getMatchingClassName();
 			}
 
 			@Nullable

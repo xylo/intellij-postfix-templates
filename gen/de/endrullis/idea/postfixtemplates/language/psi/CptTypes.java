@@ -8,6 +8,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.impl.*;
 
 public interface CptTypes {
 
+  IElementType ESCAPE = new CptElementType("ESCAPE");
   IElementType MAPPING = new CptElementType("MAPPING");
   IElementType MAPPINGS = new CptElementType("MAPPINGS");
   IElementType REPLACEMENT = new CptElementType("REPLACEMENT");
@@ -38,7 +39,10 @@ public interface CptTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-       if (type == MAPPING) {
+       if (type == ESCAPE) {
+        return new CptEscapeImpl(node);
+      }
+      else if (type == MAPPING) {
         return new CptMappingImpl(node);
       }
       else if (type == MAPPINGS) {

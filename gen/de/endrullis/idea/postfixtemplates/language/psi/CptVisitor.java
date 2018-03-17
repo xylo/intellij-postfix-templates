@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class CptVisitor extends PsiElementVisitor {
 
+  public void visitEscape(@NotNull CptEscape o) {
+    visitPsiElement(o);
+  }
+
   public void visitMapping(@NotNull CptMapping o) {
     visitNamedElement(o);
   }

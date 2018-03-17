@@ -40,7 +40,9 @@ public class CustomPostfixTemplateUtils {
 					varStart = i;
 				} else {
 					String varName = templateText.substring(varStart + 1, i);
-					variableNames.add(varName);
+					if (!varName.isEmpty()) {
+						variableNames.add(varName);
+					}
 					varStart = -1;
 				}
 			}
@@ -49,6 +51,39 @@ public class CustomPostfixTemplateUtils {
 		}
 
 		return variableNames;
+	}
+
+	/**
+	 * Replaces "\$" by "$$" which is interpreted as normal "$" character by IDEA's template engine.
+	 *
+	 * @param templateText template text
+	 * @return template code with replaced dollar escape
+	 */
+	@NotNull
+	public static String processEscapes(@NotNull String templateText) {
+		StringBuilder sb = new StringBuilder();
+
+		boolean escaped = false;
+
+		for (int i = 0; i < templateText.length(); i++) {
+			char c = templateText.charAt(i);
+
+			if (escaped) {
+				if (c == '$') {
+					sb.append("$$");
+				} else {
+					sb.append(c);
+				}
+				escaped = false;
+			} else if (c == '\\') {
+				escaped = true;
+			} else {
+				sb.append(c);
+				escaped = false;
+			}
+		}
+
+		return sb.toString();
 	}
 
 	/**

@@ -35,9 +35,11 @@ mapping ::= (CLASS_NAME (BRACKET_OPEN CLASS_NAME BRACKET_CLOSE)? MAP replacement
     methods=[getMatchingClassName getConditionClassName getReplacementString getName setName getNameIdentifier getPresentation]
 }
 
-replacement ::= (templateCodeG|TEMPLATE_ESCAPE|templateVariable)+
+replacement ::= (templateCodeG|escape|templateVariable)+
 
 templateCodeG ::= TEMPLATE_CODE
+
+escape ::= TEMPLATE_ESCAPE
 
 templateVariable ::= TEMPLATE_VARIABLE_START templateVariableNameG
 										(TEMPLATE_VARIABLE_SEPARATOR templateVariableExpressionG

@@ -1,12 +1,14 @@
 // This is a generated file. Not intended for manual editing.
 package de.endrullis.idea.postfixtemplates.language.psi.impl;
 
-import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import de.endrullis.idea.postfixtemplates.language.psi.*;
-import com.intellij.navigation.ItemPresentation;
+import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
+import de.endrullis.idea.postfixtemplates.language.psi.CptReplacement;
+import de.endrullis.idea.postfixtemplates.language.psi.CptVisitor;
+import org.jetbrains.annotations.NotNull;
 
 public class CptMappingImpl extends CptNamedElementImpl implements CptMapping {
 
@@ -29,11 +31,11 @@ public class CptMappingImpl extends CptNamedElementImpl implements CptMapping {
     return findNotNullChildByClass(CptReplacement.class);
   }
 
-  public String getMatchingClass() {
+  public String getMatchingClassName() {
     return CptPsiImplUtil.getMatchingClassName(this);
   }
 
-  public String getConditionClass() {
+  public String getConditionClassName() {
     return CptPsiImplUtil.getConditionClassName(this);
   }
 

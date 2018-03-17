@@ -23,7 +23,10 @@ public class CptParser implements PsiParser, LightPsiParser {
     boolean r;
     b = adapt_builder_(t, b, this, null);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-    if (t == MAPPING) {
+    if (t == ESCAPE) {
+      r = escape(b, 0);
+    }
+    else if (t == MAPPING) {
       r = mapping(b, 0);
     }
     else if (t == MAPPINGS) {
@@ -81,6 +84,18 @@ public class CptParser implements PsiParser, LightPsiParser {
     r = template(b, l + 1);
     if (!r) r = consumeToken(b, COMMENT);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // TEMPLATE_ESCAPE
+  public static boolean escape(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "escape")) return false;
+    if (!nextTokenIs(b, TEMPLATE_ESCAPE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TEMPLATE_ESCAPE);
+    exit_section_(b, m, ESCAPE, r);
     return r;
   }
 
@@ -154,7 +169,7 @@ public class CptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (templateCodeG|TEMPLATE_ESCAPE|templateVariable)+
+  // (templateCodeG|escape|templateVariable)+
   public static boolean replacement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "replacement")) return false;
     boolean r;
@@ -170,13 +185,13 @@ public class CptParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // templateCodeG|TEMPLATE_ESCAPE|templateVariable
+  // templateCodeG|escape|templateVariable
   private static boolean replacement_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "replacement_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = templateCodeG(b, l + 1);
-    if (!r) r = consumeToken(b, TEMPLATE_ESCAPE);
+    if (!r) r = escape(b, l + 1);
     if (!r) r = templateVariable(b, l + 1);
     exit_section_(b, m, null, r);
     return r;

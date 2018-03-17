@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.processEscapes;
 import static java.util.stream.Collectors.toList;
 
 public abstract class CustomPostfixTemplateProvider implements PostfixTemplateProvider, CptApplicationSettings.SettingsChangedListener {
@@ -132,6 +133,24 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	 */
 	@SuppressWarnings("WeakerAccess")
 	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull VirtualFile vFile) {
+		// TODO
+		//Notification notification = new Notification("CptTemplatesUpdate", "Scala Plugin Update", "message", NotificationType.INFORMATION);
+		/*
+		, new NotificationListener {
+      def hyperlinkUpdate(notification: Notification, event: HyperlinkEvent) {
+        notification.expire()
+        applicationSettings.ASK_USE_LATEST_PLUGIN_BUILDS = false
+        event.getDescription match {
+          case "EAP"     => doUpdatePluginHostsAndCheck(EAP)
+          case "Nightly" => doUpdatePluginHostsAndCheck(Nightly)
+          case "Release" => doUpdatePluginHostsAndCheck(Release)
+          case _         => applicationSettings.ASK_USE_LATEST_PLUGIN_BUILDS = true
+        }
+      }
+    })
+    */
+		//Notifications.Bus.notify(notification);
+
 		Set<PostfixTemplate> templates = new OrderedSet<>();
 
 		ApplicationManager.getApplication().runReadAction(() -> {
@@ -148,7 +167,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 								sb.append(element.getText());
 							}
 
-							templates.add(createTemplate(mapping.getMatchingClass(), mapping.getConditionClass(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), sb.toString()));
+							templates.add(createTemplate(mapping.getMatchingClassName(), mapping.getConditionClassName(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), processEscapes(sb.toString())));
 						}
 					}
 				}

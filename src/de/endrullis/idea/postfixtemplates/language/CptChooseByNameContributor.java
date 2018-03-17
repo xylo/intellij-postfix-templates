@@ -14,8 +14,8 @@ public class CptChooseByNameContributor implements ChooseByNameContributor {
 		List<CptMapping> mappings = CptUtil.findMappings(project);
 		List<String> names = new ArrayList<>(mappings.size());
 		for (CptMapping mapping : mappings) {
-			if (mapping.getMatchingClass() != null && mapping.getMatchingClass().length() > 0) {
-				names.add(mapping.getMatchingClass());
+			if (mapping.getMatchingClassName() != null && mapping.getMatchingClassName().length() > 0) {
+				names.add(mapping.getMatchingClassName());
 			}
 		}
 		return names.toArray(new String[names.size()]);
