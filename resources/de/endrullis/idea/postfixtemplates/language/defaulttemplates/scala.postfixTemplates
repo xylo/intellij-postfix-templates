@@ -24,14 +24,14 @@
 
 ## I/O ##
 
-.lines : lines
+.lines : get lines
 	java.io.File             →  Source.fromFile($expr$, $enc::"\"UTF-8\""$).getLines()
 	java.nio.file.Path       →  Files.readAllLines($expr$, Charset.forName($encoding::"\"UTF-8\""$))
 	java.io.InputStream      →  Source.fromInputStream($expr$, $enc::"\"UTF-8\""$).getLines()
 	java.net.URL             →  Source.fromURL($expr$, $enc::"\"UTF-8\""$).getLines()
 	java.lang.String         →  $expr$.split("\\r?\\n")
 
-.content : content
+.content : get content
 	java.io.File             →  new String(Files.readAllBytes($expr$.toPath()), $encoding::"\"UTF-8\""$)
 	java.nio.file.Path       →  new String(Files.readAllBytes($expr$), $encoding::"\"UTF-8\""$)
 	java.io.InputStream      →  new Scanner($expr$, $encoding::"\"UTF-8\""$).useDelimiter("\\A").next()
