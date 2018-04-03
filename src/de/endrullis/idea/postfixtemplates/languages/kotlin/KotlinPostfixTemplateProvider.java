@@ -11,10 +11,15 @@ public class KotlinPostfixTemplateProvider extends CustomPostfixTemplateProvider
 		return "kotlin";
 	}
 
+	@Override
+	public String getPluginClassName() {
+		return "org.jetbrains.kotlin.psi.KtElement";
+	}
+
 	@NotNull
 	@Override
 	protected CustomKotlinStringPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template) {
-		return new CustomKotlinStringPostfixTemplate(matchingClass, conditionClass, templateName, description, template);
+		return KotlinStringPostfixTemplateCreator.createTemplate(matchingClass, conditionClass, templateName, description, template);
 	}
 
 }

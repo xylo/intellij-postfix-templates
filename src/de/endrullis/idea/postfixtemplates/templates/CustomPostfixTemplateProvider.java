@@ -31,6 +31,7 @@ import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -125,6 +126,10 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 		}
 	}
 
+	public String getPluginClassName() {
+		return null;
+	}
+
 	/**
 	 * Loads the postfix templates from the given virtual file and returns them.
 	 *
@@ -133,6 +138,15 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	 */
 	@SuppressWarnings("WeakerAccess")
 	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull VirtualFile vFile) {
+		try {
+			// load templates only if the plugin is activated
+			if (getPluginClassName() != null) {
+				Class.forName(getPluginClassName());
+			}
+		} catch (ClassNotFoundException e) {
+			return new HashSet<>();
+		}
+
 		// TODO
 		//Notification notification = new Notification("CptTemplatesUpdate", "Scala Plugin Update", "message", NotificationType.INFORMATION);
 		/*
