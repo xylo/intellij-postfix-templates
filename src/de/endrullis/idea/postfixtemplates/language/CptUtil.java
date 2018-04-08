@@ -191,4 +191,9 @@ public class CptUtil {
 			vFile.getCanonicalPath().replace('\\', '/').startsWith(CptUtil.getTemplatesPath().getAbsolutePath().replace('\\', '/'));
 	}
 
+	public static boolean isTemplateFile(VirtualFile vFile, String language) {
+		return vFile != null && vFile.getCanonicalPath() != null &&
+			vFile.getCanonicalPath().replace('\\', '/').startsWith(CptUtil.getTemplatesPath().getAbsolutePath().replace('\\', '/') + "/" + language);
+	}
+
 }

@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.6.4</version>
+	<version>1.6.5</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -26,6 +26,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 1.6.5</h3>
+			<ul>
+				<li>Fixed that Ctrl+S did not reload the templates when the template file is a symlink.</li>
+			</ul>
+
 			<h3>Version 1.6.4</h3>
 			<ul>
 				<li>Fixed the bug that templates with escape characters (e.g. "\"UTF-8\"") did not work as expected anymore.</li>

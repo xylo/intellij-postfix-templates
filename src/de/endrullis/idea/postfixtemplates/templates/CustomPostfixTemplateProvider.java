@@ -1,5 +1,6 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
+import com.intellij.AppTopics;
 import com.intellij.codeInsight.completion.CompletionInitializationContext;
 import com.intellij.codeInsight.completion.JavaCompletionContributor;
 import com.intellij.codeInsight.template.postfix.templates.PostfixLiveTemplate;
@@ -11,6 +12,9 @@ import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
+import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.fileEditor.FileDocumentManagerAdapter;
+import com.intellij.openapi.fileEditor.FileDocumentManagerListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.vfs.LocalFileSystem;
@@ -47,17 +51,15 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	 * Template file change listener.
 	 */
 	// TODO remove this code if VirtualFileListener is able to replace this code on all platforms
-	/*
 	private FileDocumentManagerListener templateFileChangeListener = new FileDocumentManagerAdapter() {
 		@Override
 		public void beforeDocumentSaving(@NotNull Document d) {
 			VirtualFile vFile = FileDocumentManager.getInstance().getFile(d);
-			if (vFile != null && vFile.getCanonicalPath().replace('\\', '/').startsWith(CptUtil.getTemplatesPath().getAbsolutePath().replace('\\', '/'))) {
+			if (CptUtil.isTemplateFile(vFile, getLanguage())) {
 				reloadTemplates();
 			}
 		}
 	};
-	*/
 
 	protected CustomPostfixTemplateProvider() {
 		// listen to file changes of template files
@@ -65,7 +67,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 		LocalFileSystem.getInstance().addVirtualFileListener(new VirtualFileContentsChangedAdapter() {
 			@Override
 			protected void onFileChange(@NotNull VirtualFile vFile) {
-				if (CptUtil.isTemplateFile(vFile)) {
+				if (CptUtil.isTemplateFile(vFile, getLanguage())) {
 					reloadTemplates();
 				}
 			}
@@ -80,7 +82,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 		messageBus.subscribe(CptApplicationSettings.SettingsChangedListener.TOPIC, this);
 
 		// listen to file changes of template file
-		//messageBus.subscribe(AppTopics.FILE_DOCUMENT_SYNC, templateFileChangeListener);
+		messageBus.subscribe(AppTopics.FILE_DOCUMENT_SYNC, templateFileChangeListener);
 
 		// load templates
 		reload(CptApplicationSettings.getInstance());
