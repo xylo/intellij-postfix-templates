@@ -97,4 +97,15 @@ public class CustomStringPostfixTemplateTest {
 		), variables);
 	}
 
+	@Test
+	public void testQuoteEscape() {
+		String templateText = processEscapes("encode($encoding::\"\\\"UTF-8\\\"\"$");
+
+		ArrayList<MyVariable> variables = new ArrayList<>(parseVariables(templateText));
+
+		assertEquals(_List(
+			new MyVariable("encoding", "", "\"\\\"UTF-8\\\"\"", true, false, 0, null)
+		), variables);
+	}
+
 }

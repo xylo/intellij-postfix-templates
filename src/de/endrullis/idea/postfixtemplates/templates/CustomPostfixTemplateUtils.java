@@ -71,7 +71,10 @@ public class CustomPostfixTemplateUtils {
 			if (escaped) {
 				if (c == '$') {
 					sb.append("$$");
+				} else if (c == '\\') {
+					sb.append('\\');
 				} else {
+					sb.append('\\');
 					sb.append(c);
 				}
 				escaped = false;
