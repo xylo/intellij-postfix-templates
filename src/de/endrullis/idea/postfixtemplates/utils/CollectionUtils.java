@@ -13,10 +13,12 @@ public class CollectionUtils {
 		return new HashSet<>(values);
 	}
 
+	@SafeVarargs
 	public static <T> Set<T> _Set(T... values) {
 		return _Set(Arrays.asList(values));
 	}
 
+	@SafeVarargs
 	public static <T> List<T> _List(T... values) {
 		return Arrays.asList(values);
 	}

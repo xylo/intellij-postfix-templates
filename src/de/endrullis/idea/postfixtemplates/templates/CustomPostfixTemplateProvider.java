@@ -35,10 +35,7 @@ import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.processEscapes;
@@ -167,7 +164,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
     */
 		//Notifications.Bus.notify(notification);
 
-		Set<PostfixTemplate> templates = new OrderedSet<>();
+		List<PostfixTemplate> templates = new ArrayList<>();
 
 		ApplicationManager.getApplication().runReadAction(() -> {
 			Project project = ProjectManager.getInstance().getOpenProjects()[0];
@@ -183,7 +180,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 								sb.append(element.getText());
 							}
 
-							templates.add(createTemplate(mapping.getMatchingClassName(), mapping.getConditionClassName(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), processEscapes(sb.toString())));
+							templates.add(createTemplate(mapping.getMatchingClassName(), mapping.getConditionClassName(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), processEscapes(sb.toString()), this));
 						}
 					}
 				}
@@ -194,7 +191,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	}
 
 	@NotNull
-	protected abstract StringBasedPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template);
+	protected abstract StringBasedPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template, PostfixTemplateProvider provider);
 
 	/**
 	 * Combines templates with the same name into a {@link CombinedPostfixTemplate} and returns the result.
@@ -202,7 +199,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	 * @param templates templates that may have name duplicates
 	 * @return (combined) templates
 	 */
-	private Set<PostfixTemplate> combineTemplatesWithSameName(Set<PostfixTemplate> templates) {
+	private Set<PostfixTemplate> combineTemplatesWithSameName(List<PostfixTemplate> templates) {
 		// group templates by name
 		Map<String, List<PostfixTemplate>> key2templates = templates.stream().collect(
 			Collectors.groupingBy(
@@ -217,7 +214,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 				combinedTemplates.add(theseTemplates.get(0));
 			} else {
 				String example = templates.stream().distinct().count() > 1 ? theseTemplates.get(0).getExample() : "";
-				combinedTemplates.add(new CombinedPostfixTemplate(theseTemplates.get(0).getKey(), example, theseTemplates));
+				combinedTemplates.add(new CombinedPostfixTemplate(theseTemplates.get(0).getKey(), example, theseTemplates, this));
 			}
 		}
 

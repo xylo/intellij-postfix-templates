@@ -16,6 +16,7 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplate;
+import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiElement;
@@ -32,8 +33,9 @@ public class CombinedPostfixTemplate extends PostfixTemplate {
 
 	public CombinedPostfixTemplate(@NotNull String name,
 	                               @NotNull String example,
-	                               List<PostfixTemplate> templates) {
-		super(name, name, example);
+	                               @NotNull List<PostfixTemplate> templates,
+	                               @NotNull PostfixTemplateProvider provider) {
+		super(name, name, example, provider);
 		this.myTemplates = templates;
 	}
 

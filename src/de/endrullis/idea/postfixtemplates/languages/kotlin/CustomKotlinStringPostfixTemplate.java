@@ -4,6 +4,7 @@ import com.intellij.codeInsight.template.Template;
 import com.intellij.codeInsight.template.impl.Variable;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelector;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelectorBase;
+import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils;
 import com.intellij.openapi.editor.Document;
@@ -34,8 +35,6 @@ import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplate
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode;
-import org.jetbrains.kotlin.types.KotlinType;
-import org.jetbrains.kotlin.types.expressions.KotlinTypeInfo;
 
 /**
  * Custom postfix template for Kotlin.
@@ -137,8 +136,8 @@ public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplat
 		};
 	}
 
-	public CustomKotlinStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template) {
-		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)));
+	public CustomKotlinStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider) {
+		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)), provider);
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());

@@ -4,6 +4,7 @@ import com.intellij.codeInsight.template.Template;
 import com.intellij.codeInsight.template.impl.Variable;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelector;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelectorBase;
+import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils;
 import com.intellij.openapi.editor.Document;
@@ -177,8 +178,8 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 		};
 	}
 
-	public CustomJavaScriptStringPostfixTemplate(String clazz, String name, String example, String template) {
-		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)));
+	public CustomJavaScriptStringPostfixTemplate(String clazz, String name, String example, String template, PostfixTemplateProvider provider) {
+		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)), provider);
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());

@@ -1,5 +1,6 @@
 package de.endrullis.idea.postfixtemplates.languages.kotlin;
 
+import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -8,8 +9,8 @@ import org.jetbrains.annotations.NotNull;
 class KotlinStringPostfixTemplateCreator {
 
 	@NotNull
-	static CustomKotlinStringPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template) {
-		return new CustomKotlinStringPostfixTemplate(matchingClass, conditionClass, templateName, description, template);
+	static CustomKotlinStringPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template, PostfixTemplateProvider provider) {
+		return new CustomKotlinStringPostfixTemplate(matchingClass, conditionClass, templateName, description, template, provider);
 	}
 
 }

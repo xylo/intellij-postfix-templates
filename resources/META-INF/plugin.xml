@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.6.5</version>
+	<version>1.6.6</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -26,6 +26,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 1.6.6</h3>
+			<ul>
+				<li>Fixed the bug that in IDEA 2018.1 only the first rule of each template takes effect.</li>
+			</ul>
+
 			<h3>Version 1.6.5</h3>
 			<ul>
 				<li>Fixed that Ctrl+S did not reload the templates when the template file is a symlink.</li>
@@ -152,7 +157,7 @@
 	</change-notes>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-	<idea-version since-build="162.0"/>
+	<idea-version since-build="181.0"/>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
 			 on how to target different products -->

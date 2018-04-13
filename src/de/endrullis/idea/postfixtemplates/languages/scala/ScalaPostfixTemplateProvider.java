@@ -1,5 +1,6 @@
 package de.endrullis.idea.postfixtemplates.languages.scala;
 
+import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiFile;
@@ -21,7 +22,7 @@ public class ScalaPostfixTemplateProvider extends CustomPostfixTemplateProvider 
 
 	@NotNull
 	@Override
-	protected StringBasedPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template) {
+	protected StringBasedPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template, PostfixTemplateProvider provider) {
 		return ScalaStringPostfixTemplateCreator.createTemplate(matchingClass, conditionClass, templateName, description, template);
 	}
 
