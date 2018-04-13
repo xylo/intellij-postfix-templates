@@ -256,7 +256,7 @@
 	NON_VOID                 →  final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;
 
 .soutv : print variable to System.out
-	NON_VOID                 →  System.out.println("$expr$ = " + $expr$)
+	NON_VOID                 →  System.out.println("$expr$ = " + $expr$);
 
 
 
