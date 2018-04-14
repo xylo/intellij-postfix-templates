@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.isArray;
+import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.isIterable;
+
 /**
  * Some static additions to {@link com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils}.
  *
@@ -25,6 +28,24 @@ public abstract class MyJavaPostfixTemplatesUtils {
 	public static Condition<PsiElement> isCustomClass(String clazz) {
 		return element -> element instanceof PsiExpression && isCustomClass(((PsiExpression) element).getType(), clazz);
 	}
+
+	public static final Condition<PsiElement> IS_ARRAY = element -> {
+		if (!(element instanceof PsiExpression)) {
+			return false;
+		} else {
+			PsiType type = ((PsiExpression) element).getType();
+			return isArray(type);
+		}
+	};
+
+	public static final Condition<PsiElement> IS_ITERABLE_OR_ARRAY = element -> {
+		if (!(element instanceof PsiExpression)) {
+			return false;
+		} else {
+			PsiType type = ((PsiExpression) element).getType();
+			return isArray(type) || isIterable(type);
+		}
+	};
 
 	public static final Condition<PsiElement> IS_DECIMAL_NUMBER =
 		element -> element instanceof PsiExpression && isDecimalNumber(((PsiExpression) element).getType());
@@ -65,7 +86,7 @@ public abstract class MyJavaPostfixTemplatesUtils {
 	public static Condition<PsiElement> STRING_LITERAL = element -> {
 		return element instanceof PsiLiteralExpression && InheritanceUtil.isInheritor(((PsiLiteralExpression) element).getType(), "java.lang.String");
 	};
-	
+
 	/**
 	 * Contains byte, short, char, int, long, float, and double.
 	 */

@@ -25,7 +25,7 @@ public class CptFormattingModelBuilder implements FormattingModelBuilder {
 	private static SpacingBuilder createSpaceBuilder(CodeStyleSettings settings) {
 		return new SpacingBuilder(settings, CptLanguage.INSTANCE)
 			.around(CptTypes.SEPARATOR)
-			.spaceIf(settings.SPACE_AROUND_ASSIGNMENT_OPERATORS)
+			.spaceIf(settings.getCommonSettings(CptLanguage.INSTANCE).SPACE_AROUND_ASSIGNMENT_OPERATORS)
 			//.around(CptTypes.MAP)
 			//.spaceIf(settings.SPACE_AROUND_LAMBDA_ARROW)
 			.before(CptTypes.MAPPING)
