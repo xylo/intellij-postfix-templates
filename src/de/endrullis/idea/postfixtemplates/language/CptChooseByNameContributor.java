@@ -18,7 +18,7 @@ public class CptChooseByNameContributor implements ChooseByNameContributor {
 				names.add(mapping.getMatchingClassName());
 			}
 		}
-		return names.toArray(new String[names.size()]);
+		return names.toArray(new String[0]);
 	}
 
 	@NotNull
@@ -26,6 +26,6 @@ public class CptChooseByNameContributor implements ChooseByNameContributor {
 	public NavigationItem[] getItemsByName(String name, String pattern, Project project, boolean includeNonProjectItems) {
 		// todo include non project items
 		List<CptMapping> properties = CptUtil.findMappings(project, name);
-		return properties.toArray(new NavigationItem[properties.size()]);
+		return properties.toArray(new NavigationItem[0]);
 	}
 }
