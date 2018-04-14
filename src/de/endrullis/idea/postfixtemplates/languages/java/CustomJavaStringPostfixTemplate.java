@@ -20,6 +20,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
+import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
@@ -42,7 +43,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
  * Custom postfix template for Java.
  */
 @SuppressWarnings("WeakerAccess")
-public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate {
+public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate implements NavigatableTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
@@ -82,6 +83,7 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 
 	private final String template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
+	private final PsiElement psiElement;
 
 	public static List<PsiExpression> collectExpressions(final PsiFile file,
 	                                                     final Document document,
@@ -173,8 +175,9 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		};
 	}
 
-	public CustomJavaStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider) {
+	public CustomJavaStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
 		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)), provider);
+		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
@@ -256,6 +259,10 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 	@Override
 	public String getTemplateString(@NotNull PsiElement element) {
 		return template;
+	}
+
+	public PsiElement getNavigationElement() {
+		return psiElement;
 	}
 
 }

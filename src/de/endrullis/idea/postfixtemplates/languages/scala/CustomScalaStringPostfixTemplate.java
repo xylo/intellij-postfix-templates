@@ -6,6 +6,7 @@ import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.OrderedSet;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
+import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,7 +31,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 @SuppressWarnings("WeakerAccess")
-public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTemplate {
+public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTemplate implements NavigatableTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
@@ -70,9 +71,11 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 
 	private final String template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
+	private final PsiElement psiElement;
 
-	public CustomScalaStringPostfixTemplate(String matchingClass, String conditionClass, String templateName, String example, String template) {
+	public CustomScalaStringPostfixTemplate(String matchingClass, String conditionClass, String templateName, String example, String template, PsiElement psiElement) {
 		super(templateName.substring(1), example, new AncestorSelector(getCondition(matchingClass, conditionClass), SelectorType.All()));
+		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
@@ -130,4 +133,10 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	public String getTemplateString(@NotNull PsiElement psiElement) {
 		return template;
 	}
+
+	@Override
+	public PsiElement getNavigationElement() {
+		return psiElement;
+	}
+
 }

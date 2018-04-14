@@ -1,6 +1,7 @@
 package de.endrullis.idea.postfixtemplates.languages.scala;
 
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
+import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -9,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 class ScalaStringPostfixTemplateCreator {
 
 	@NotNull
-	static StringBasedPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template) {
-		return new CustomScalaStringPostfixTemplate(matchingClass, conditionClass, templateName, description, template);
+	static StringBasedPostfixTemplate createTemplate(CptMapping mapping, String matchingClass, String conditionClass, String templateName, String description, String template) {
+		return new CustomScalaStringPostfixTemplate(matchingClass, conditionClass, templateName, description, template, mapping);
 	}
 
 }

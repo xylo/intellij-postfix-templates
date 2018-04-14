@@ -17,6 +17,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
+import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
@@ -35,7 +36,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
  * Custom postfix template for JavaScript.
  */
 @SuppressWarnings("WeakerAccess")
-public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTemplate {
+public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTemplate implements NavigatableTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
@@ -45,6 +46,7 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 
 	private final String template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
+	private final PsiElement psiElement;
 
 	public static List<PsiElement> collectExpressions(final PsiFile file,
 	                                                  final Document document,
@@ -178,8 +180,9 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 		};
 	}
 
-	public CustomJavaScriptStringPostfixTemplate(String clazz, String name, String example, String template, PostfixTemplateProvider provider) {
+	public CustomJavaScriptStringPostfixTemplate(String clazz, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
 		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)), provider);
+		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
@@ -229,6 +232,11 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 	@Override
 	public String getTemplateString(@NotNull PsiElement element) {
 		return template;
+	}
+
+	@Override
+	public PsiElement getNavigationElement() {
+		return psiElement;
 	}
 
 }

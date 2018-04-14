@@ -86,6 +86,7 @@ public class CptCompletionUtil {
 			for (PsiClass psiClass : basePackage.getClasses()) {
 				LookupElementBuilder element = LookupElementBuilder.create(psiClass.getQualifiedName()).withIcon(psiClass.getIcon(0));
 				resultSet.addElement(element);
+				//resultSet.addElement(new JavaPsiClassReferenceElement(psiClass));
 			}
 		}
 	}

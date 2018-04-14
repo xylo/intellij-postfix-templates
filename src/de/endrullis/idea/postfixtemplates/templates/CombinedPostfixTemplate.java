@@ -19,13 +19,14 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplate;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.pom.Navigatable;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CombinedPostfixTemplate extends PostfixTemplate {
+public class CombinedPostfixTemplate extends PostfixTemplate implements Navigatable {
 
 	private List<PostfixTemplate> myTemplates;
 	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
@@ -50,4 +51,30 @@ public class CombinedPostfixTemplate extends PostfixTemplate {
 	public void expand(@NotNull PsiElement context, @NotNull Editor editor) {
 		myApplicableTemplate.ifPresent(t -> t.expand(context, editor));
 	}
+
+	@Override
+	public void navigate(boolean b) {
+		if (canNavigate()) {
+			Navigatable navigatable = (Navigatable) myApplicableTemplate.get();
+			navigatable.navigate(b);
+		}
+	}
+
+	@Override
+	public boolean canNavigate() {
+		return myApplicableTemplate.map(t -> {
+			if (t instanceof Navigatable) {
+				Navigatable navigatable = (Navigatable) t;
+				return navigatable.canNavigate();
+			} else {
+				return false;
+			}
+		}).orElse(false);
+	}
+
+	@Override
+	public boolean canNavigateToSource() {
+		return canNavigate();
+	}
+
 }

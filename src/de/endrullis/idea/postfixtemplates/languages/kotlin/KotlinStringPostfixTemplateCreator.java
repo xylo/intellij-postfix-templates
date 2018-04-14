@@ -1,6 +1,7 @@
 package de.endrullis.idea.postfixtemplates.languages.kotlin;
 
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
+import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -9,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 class KotlinStringPostfixTemplateCreator {
 
 	@NotNull
-	static CustomKotlinStringPostfixTemplate createTemplate(String matchingClass, String conditionClass, String templateName, String description, String template, PostfixTemplateProvider provider) {
-		return new CustomKotlinStringPostfixTemplate(matchingClass, conditionClass, templateName, description, template, provider);
+	static CustomKotlinStringPostfixTemplate createTemplate(CptMapping mapping, String matchingClass, String conditionClass, String templateName, String description, String template, PostfixTemplateProvider provider) {
+		return new CustomKotlinStringPostfixTemplate(matchingClass, conditionClass, templateName, description, template, provider, mapping);
 	}
 
 }

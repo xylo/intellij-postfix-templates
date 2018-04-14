@@ -17,6 +17,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
+import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +41,7 @@ import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode;
  * Custom postfix template for Kotlin.
  */
 @SuppressWarnings("WeakerAccess")
-public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplate {
+public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplate implements NavigatableTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
@@ -50,6 +51,7 @@ public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplat
 
 	private final String template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
+	private final PsiElement psiElement;
 
 	public static List<PsiElement> collectExpressions(final PsiFile file,
 	                                                  final Document document,
@@ -136,8 +138,9 @@ public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplat
 		};
 	}
 
-	public CustomKotlinStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider) {
+	public CustomKotlinStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
 		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)), provider);
+		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
@@ -227,6 +230,11 @@ public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplat
 	private static BindingContext analyze(KtExpression ktExpression, BodyResolveMode bodyResolveMode) {
 		final ResolutionFacade resolutionFacade = KotlinCacheService.Companion.getInstance(ktExpression.getProject()).getResolutionFacade(Collections.singletonList(ktExpression));
 		return resolutionFacade.analyze(ktExpression, bodyResolveMode);
+	}
+
+	@Override
+	public PsiElement getNavigationElement() {
+		return psiElement;
 	}
 
 }
