@@ -1,13 +1,13 @@
 package de.endrullis.idea.postfixtemplates.languages.java;
 
 import com.intellij.codeInsight.template.Template;
+import com.intellij.codeInsight.template.TemplateManager;
+import com.intellij.codeInsight.template.impl.TextExpression;
 import com.intellij.codeInsight.template.impl.Variable;
-import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelector;
-import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelectorBase;
-import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
-import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
+import com.intellij.codeInsight.template.postfix.templates.*;
 import com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils;
 import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
@@ -81,9 +81,10 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		*/
 	}};
 
-	private final String template;
+	private final String          template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
-	private final PsiElement psiElement;
+	private final PsiElement      psiElement;
+	private final boolean         useStaticImports;
 
 	public static List<PsiExpression> collectExpressions(final PsiFile file,
 	                                                     final Document document,
@@ -179,6 +180,9 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)), provider);
 		this.psiElement = psiElement;
 
+		useStaticImports = template.contains("[USE_STATIC_IMPORTS]");
+		template = template.replaceAll("\\[USE_STATIC_IMPORTS\\]", "");
+
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
 		}).collect(Collectors.toList());
@@ -215,8 +219,8 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 	/**
 	 * Returns a function that returns true if
 	 * <ul>
-	 *   <li>the PSI element satisfies the type condition regarding {@code matchingClass} and</li>
-	 *   <li>{@code conditionClass} is either {@code null} or available in the current module.</li>
+	 * <li>the PSI element satisfies the type condition regarding {@code matchingClass} and</li>
+	 * <li>{@code conditionClass} is either {@code null} or available in the current module.</li>
 	 * </ul>
 	 *
 	 * @param matchingClass  required type of the psi element to satisfy this condition
@@ -263,6 +267,31 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 
 	public PsiElement getNavigationElement() {
 		return psiElement;
+	}
+
+	@Override
+	public void expandForChooseExpression(@NotNull PsiElement expr, @NotNull Editor editor) {
+		Project project = expr.getProject();
+		Document document = editor.getDocument();
+		PsiElement elementForRemoving = getElementToRemove(expr);
+		document.deleteString(elementForRemoving.getTextRange().getStartOffset(), elementForRemoving.getTextRange().getEndOffset());
+		TemplateManager manager = TemplateManager.getInstance(project);
+
+		String templateString = getTemplateString(expr);
+		if (templateString == null) {
+			PostfixTemplatesUtils.showErrorHint(expr.getProject(), editor);
+			return;
+		}
+
+		Template template = createTemplate(manager, templateString);
+
+		if (useStaticImports) {
+			template.setValue(Template.Property.USE_STATIC_IMPORT_IF_POSSIBLE, true);
+		}
+
+		template.addVariable("expr", new TextExpression(expr.getText()), false);
+		setVariables(template, expr);
+		manager.startTemplate(editor, template);
 	}
 
 }

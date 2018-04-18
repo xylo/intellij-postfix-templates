@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.7.0</version>
+	<version>1.8.0</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -26,6 +26,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 1.8.0</h3>
+			<ul>
+				<li>New feature: Prepend or append "[USE_STATIC_IMPORTS]" to your Java template code to enable the use of static imports.</li>
+			</ul>
+
 			<h3>Version 1.7.0</h3>
 			<ul>
 				<li>New feature: Jump to template definition by pressing <i>Alt+Enter</i> and selecting <i>Edit ... template</i>.</li>
