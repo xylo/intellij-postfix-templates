@@ -1,0 +1,8 @@
+- id: endrullis.java.default
+  url: http://test.de
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: stefan.endrullis.de
+- id: external.x
+  url: http://x.de
+  

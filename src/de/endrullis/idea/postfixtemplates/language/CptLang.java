@@ -42,6 +42,20 @@ public abstract class CptLang {
 	}
 
 	@Override
+	public int hashCode() {
+		return language.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof CptLang) {
+			CptLang that = (CptLang) obj;
+			return this.language.equals(that.language);
+		}
+		return false;
+	}
+
+	@Override
 	public String toString() {
 		return niceName;
 	}

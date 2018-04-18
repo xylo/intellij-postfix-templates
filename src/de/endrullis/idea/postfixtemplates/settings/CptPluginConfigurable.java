@@ -1,5 +1,6 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
+import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.util.Disposer;
@@ -10,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class CptPluginConfigurable implements SearchableConfigurable {
+public class CptPluginConfigurable implements SearchableConfigurable, Configurable.NoScroll {
 	@Nullable
 	private CptPluginSettingsForm form = null;
 	@NotNull

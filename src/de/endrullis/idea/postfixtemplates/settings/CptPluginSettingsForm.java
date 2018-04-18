@@ -14,6 +14,8 @@ import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiManager;
+import com.intellij.ui.GuiUtils;
+import com.intellij.ui.ToolbarDecorator;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
@@ -27,7 +29,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static de.endrullis.idea.postfixtemplates.utils.StringUtils.replace;
 
@@ -41,15 +49,49 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private JButton        showDiffButton;
 	private JList<CptLang> languageList;
 	private JTextField     templateSuffixField;
+	private JPanel         treeContainer;
 
 	@Nullable
 	private Editor templatesEditor;
+
+	@Nullable
+	private CptManagementTree checkboxTree;
 
 
 	public CptPluginSettingsForm() {
 	}
 
+	private void createTree() {
+		checkboxTree = new CptManagementTree() {
+			@Override
+			protected void selectionChanged() {
+				try {
+					assert checkboxTree != null;
+					if (checkboxTree.getSelectedFile() != null) {
+						setEditorContent(CptUtil.getContent(checkboxTree.getSelectedFile().getFile()));
+					}
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(ToolbarDecorator.createDecorator(checkboxTree)
+			.setAddActionUpdater(e -> checkboxTree.canAddFile())
+			.setAddAction(button -> checkboxTree.addFile(button))
+			.setEditActionUpdater(e -> checkboxTree.canEditSelectedFile())
+			.setEditAction(button -> checkboxTree.editSelectedFile())
+			.setRemoveActionUpdater(e -> checkboxTree.canRemoveSelectedFiles())
+			.setRemoveAction(button -> checkboxTree.removeSelectedFiles()).createPanel());
+
+		treeContainer.setLayout(new BorderLayout());
+		treeContainer.add(panel);
+	}
+
 	public JComponent getComponent() {
+		GuiUtils.replaceJSplitPaneWithIDEASplitter(mainPanel);
+
 		languageList.setModel(new DefaultListModel<CptLang>() {{
 			SupportedLanguages.supportedLanguages.forEach(l -> addElement(l));
 		}});
@@ -69,6 +111,23 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			add(emptyLambdaRadioButton);
 			add(varLambdaRadioButton);
 		}};
+
+		if (checkboxTree == null) {
+			createTree();
+
+			Map<CptLang, List<CptVirtualFile>> lang2file = new HashMap<>();
+			for (CptLang lang : SupportedLanguages.supportedLanguages) {
+				final ArrayList<CptVirtualFile> files = new ArrayList<>();
+				CptUtil.getTemplateFile(lang.getLanguage()).ifPresent(file -> {
+					try {
+						files.add(new CptVirtualFile(file.toURI().toURL(), file));
+					} catch (MalformedURLException ignored) {
+					}
+				});
+				lang2file.put(lang, files);
+			}
+			checkboxTree.initTree(lang2file);
+		}
 
 		return mainPanel;
 	}
@@ -97,8 +156,12 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			templatesText[0] = replace(templatesText[0], split[0].trim(), split[1].trim());
 		});
 
+		setEditorContent(templatesText[0]);
+	}
+
+	private void setEditorContent(String templatesText) {
 		if (templatesEditor != null && !templatesEditor.isDisposed()) {
-			ApplicationManager.getApplication().runWriteAction(() -> templatesEditor.getDocument().setText(templatesText[0]));
+			ApplicationManager.getApplication().runWriteAction(() -> templatesEditor.getDocument().setText(templatesText));
 		}
 	}
 
@@ -203,6 +266,10 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 	public CptLang getSelectedLang() {
 		return languageList.getSelectedValue();
+	}
+
+	public CptVirtualFile getSelectedFile() {
+		return checkboxTree.getSelectedFile();
 	}
 
 	public String getTemplateText() {

@@ -4,6 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * String utilities.
+ *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public class StringUtils {

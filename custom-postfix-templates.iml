@@ -13,5 +13,9 @@
     <orderEntry type="jdk" jdkName="IntelliJ IDEA IU-181.4203.550" jdkType="IDEA JDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="scala-sdk-2.11.8" level="application" />
+    <orderEntry type="library" name="com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.5" level="project" />
+    <orderEntry type="library" name="com.fasterxml.jackson.core:jackson-databind:2.9.4" level="project" />
+    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.7" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="org.projectlombok:lombok:1.16.20" level="project" />
   </component>
 </module>
