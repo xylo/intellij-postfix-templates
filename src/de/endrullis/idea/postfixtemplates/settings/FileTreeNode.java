@@ -31,7 +31,7 @@ public class FileTreeNode extends CheckedTreeNode {
 
   @Override
   public String toString() {
-    return file.getName();
+    return file.getName().replaceAll("\\.postfixTemplates", "");
   }
 
 }

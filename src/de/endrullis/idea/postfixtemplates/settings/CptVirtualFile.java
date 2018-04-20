@@ -1,7 +1,9 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.net.URL;
@@ -12,11 +14,14 @@ import java.net.URL;
 public class CptVirtualFile {
 
 	@Getter
+	@Setter
+	@Nullable
 	private URL    url;
 	@Getter
+	@Setter
 	private File   file;
 
-	public CptVirtualFile(@NotNull URL url, @NotNull File file) {
+	public CptVirtualFile(@Nullable URL url, @NotNull File file) {
 		this.url = url;
 		this.file = file;
 	}
@@ -26,11 +31,11 @@ public class CptVirtualFile {
 	}
 
 	public boolean isLocal() {
-		return url.getProtocol().equals("file");
+		return url != null && url.getProtocol().equals("file");
 	}
 
 	public boolean isEditable() {
-		return false;
+		return isLocal();
 	}
 
 }
