@@ -89,7 +89,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		treeContainer.add(panel);
 	}
 
-	public JComponent getComponent() {
+	JComponent getComponent() {
 		GuiUtils.replaceJSplitPaneWithIDEASplitter(mainPanel);
 
 		languageList.setModel(new DefaultListModel<CptLang>() {{
@@ -253,6 +253,8 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	@NotNull
 	@Override
 	public CptPluginSettings getPluginSettings() {
+		// TODO
+		checkboxTree.getExport();
 		return new CptPluginSettings(varLambdaRadioButton.isSelected(), templateSuffixField.getText());
 	}
 

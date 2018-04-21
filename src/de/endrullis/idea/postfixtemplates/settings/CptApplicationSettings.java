@@ -8,6 +8,7 @@ import com.intellij.openapi.components.Storage;
 import com.intellij.util.messages.Topic;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.intellij.util.xmlb.annotations.Property;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,6 +18,8 @@ import org.jetbrains.annotations.Nullable;
 )
 public class CptApplicationSettings implements PersistentStateComponent<CptApplicationSettings.State>, CptPluginSettings.Holder {
 
+	@Nullable
+	@Getter
 	private State state = new State();
 
 	public CptApplicationSettings() {
@@ -25,12 +28,6 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 	@NotNull
 	public static CptApplicationSettings getInstance() {
 		return ServiceManager.getService(CptApplicationSettings.class);
-	}
-
-	@Nullable
-	@Override
-	public State getState() {
-		return state;
 	}
 
 	@Override

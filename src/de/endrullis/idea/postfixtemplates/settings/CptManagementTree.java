@@ -222,6 +222,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	}
 
 	public void openFileEditDialog(Project project, CptLang lang, CptVirtualFile cptVirtualFile) {
+		val addNewNode = cptVirtualFile == null;
 		val url = cptVirtualFile != null ? cptVirtualFile.getUrl() : null;
 		val dialog = new AddTemplateFileDialog(project, url);
 		dialog.show();
@@ -229,15 +230,26 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		if (dialog.isOK()) {
 			try {
 				val newUrl = dialog.getURL();
-				val file = newUrl.getProtocol().equals("file") ? new File(newUrl.getFile()) : new File(".");
-				if (cptVirtualFile == null) {
+				val isFile = newUrl.getProtocol().equals("file");
+
+				if (!isFile) {
+					new DialogBuilder(project) {{
+						setErrorText("At the moment only the \"file\" protocol is supported.");
+					}}.show();
+					return;
+				}
+
+				val file = isFile ? new File(newUrl.getFile()) : new File(".");
+
+				// are we adding a new node?
+				if (addNewNode) {
 					cptVirtualFile = new CptVirtualFile(newUrl, file);
 
 					val langNode = findOrCreateLangNode(lang);
 					val newNode = new FileTreeNode(lang, cptVirtualFile);
 					val fileNode = new FileTreeNode(newNode.getLang(), newNode.getFile());
-					langNode.add(fileNode);
 
+					langNode.add(fileNode);
 					model.nodeStructureChanged(langNode);
 					TreeUtil.selectNode(this, fileNode);
 				} else {
@@ -346,6 +358,13 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		root.add(languageNode);
 
 		return languageNode;
+	}
+
+	public void getExport() {
+		while (root.children().hasMoreElements()) {
+			Object o = root.children().nextElement();
+			
+		}
 	}
 
 	private static class LangTreeNode extends CheckedTreeNode {

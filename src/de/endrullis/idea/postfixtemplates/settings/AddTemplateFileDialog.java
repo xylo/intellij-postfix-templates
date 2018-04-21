@@ -19,7 +19,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 public class AddTemplateFileDialog extends DialogWrapper {
 	private final Project project;
 	
-	private JPanel contentPane;
+	private JPanel                 contentPane;
 	private JComboBox<CptFileType> typeField;
 	private JTextField             urlField;
 	private JButton                fileChooserButton;
@@ -28,7 +28,7 @@ public class AddTemplateFileDialog extends DialogWrapper {
 		super(project);
 		this.project = project;
 
-		setTitle("Add template file");
+		setTitle(url == null ? "Add Template File" : "Edit Template File");
 
 		//setContentPane(contentPane);
 		//setModal(true);
@@ -49,6 +49,9 @@ public class AddTemplateFileDialog extends DialogWrapper {
 
 		// call onCancel() on ESCAPE
 		//contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+		typeField.setSelectedItem(CptFileType.Local);
+		typeField.setEnabled(false);
 
 		if (project != null) {
 			init();
@@ -89,11 +92,13 @@ public class AddTemplateFileDialog extends DialogWrapper {
 
 	public static void main(String[] args) throws MalformedURLException {
 		val url = new File(".").toURI().toURL();
-		AddTemplateFileDialog dialog = new AddTemplateFileDialog(null, url);
-		final JDialog jDialog = new JDialog();
-		jDialog.getRootPane().setContentPane(dialog.createCenterPanel());
-		jDialog.setSize(500, 100);
-		jDialog.setVisible(true);
+		val dialog = new AddTemplateFileDialog(null, url);
+
+		new JDialog() {{
+			getRootPane().setContentPane(dialog.createCenterPanel());
+			setSize(500, 100);
+			setVisible(true);
+		}};
 	}
 
 }
