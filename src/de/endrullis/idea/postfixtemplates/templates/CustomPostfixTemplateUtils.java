@@ -73,6 +73,8 @@ public class CustomPostfixTemplateUtils {
 					sb.append("$$");
 				} else if (c == '\\') {
 					sb.append('\\');
+				} else if (c == '\n') {
+					sb.append('\n');
 				} else {
 					sb.append('\\');
 					sb.append(c);
