@@ -5,6 +5,7 @@ import com.intellij.codeInsight.template.impl.Variable;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.OrderedSet;
+import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
 import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
@@ -74,7 +75,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	private final PsiElement psiElement;
 
 	public CustomScalaStringPostfixTemplate(String matchingClass, String conditionClass, String templateName, String example, String template, PsiElement psiElement) {
-		super(templateName.substring(1), example, new AncestorSelector(getCondition(matchingClass, conditionClass), SelectorType.All()));
+		super(templateName.substring(1) + CptUtil.getTemplateSuffix(), example, new AncestorSelector(getCondition(matchingClass, conditionClass), SelectorType.All()));
 		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {

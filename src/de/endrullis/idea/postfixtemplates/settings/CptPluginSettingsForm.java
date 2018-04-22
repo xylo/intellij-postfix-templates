@@ -40,6 +40,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private JButton        resetYourTemplatesButton;
 	private JButton        showDiffButton;
 	private JList<CptLang> languageList;
+	private JTextField     templateSuffixField;
 
 	@Nullable
 	private Editor templatesEditor;
@@ -183,12 +184,13 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		});
 		*/
 		changeLambdaStyle(settings.isVarLambdaStyle());
+		templateSuffixField.setText(settings.getTemplateSuffix());
 	}
 
 	@NotNull
 	@Override
 	public CptPluginSettings getPluginSettings() {
-		return new CptPluginSettings(varLambdaRadioButton.isSelected());
+		return new CptPluginSettings(varLambdaRadioButton.isSelected(), templateSuffixField.getText());
 	}
 
 	@Override

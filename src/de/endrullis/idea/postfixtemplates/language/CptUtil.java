@@ -18,6 +18,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.indexing.FileBasedIndex;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
+import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -194,6 +195,11 @@ public class CptUtil {
 	public static boolean isTemplateFile(VirtualFile vFile, String language) {
 		return vFile != null && vFile.getCanonicalPath() != null &&
 			vFile.getCanonicalPath().replace('\\', '/').startsWith(CptUtil.getTemplatesPath().getAbsolutePath().replace('\\', '/') + "/" + language);
+	}
+
+	@NotNull
+	public static String getTemplateSuffix() {
+		return CptApplicationSettings.getInstance().getPluginSettings().getTemplateSuffix();
 	}
 
 }

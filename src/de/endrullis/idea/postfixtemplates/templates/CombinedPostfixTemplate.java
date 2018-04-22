@@ -36,7 +36,7 @@ public class CombinedPostfixTemplate extends PostfixTemplate implements Navigata
 	                               @NotNull String example,
 	                               @NotNull List<PostfixTemplate> templates,
 	                               @NotNull PostfixTemplateProvider provider) {
-		super(name, name, example, provider);
+		super(CombinedPostfixTemplate.class.getCanonicalName() + "#" + name.substring(1), name.substring(1), name, example, provider);
 		this.myTemplates = templates;
 	}
 

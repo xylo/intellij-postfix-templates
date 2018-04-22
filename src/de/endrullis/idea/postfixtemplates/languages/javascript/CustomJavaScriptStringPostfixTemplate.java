@@ -17,6 +17,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
+import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
@@ -181,7 +182,7 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 	}
 
 	public CustomJavaScriptStringPostfixTemplate(String clazz, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
-		super(name.substring(1), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)), provider);
+		super(name.substring(1), name + CptUtil.getTemplateSuffix(), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)), provider);
 		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
