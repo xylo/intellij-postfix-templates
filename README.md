@@ -207,7 +207,7 @@ val myVar = myExpression;
 ```
 if lombok is available, or to
 ```
-final MyType myVar = myExpression;```
+final MyType myVar = myExpression;
 ```
 if you're using Java without lombok.
 
