@@ -11,13 +11,15 @@ You can download the plugin **Custom Postfix Templates** via *Settings → Plugi
 
 ## Usage
 
-The plugin comes with a predefined set of templates for Java (see below) which can be immediatly applied in a Java files.
+The plugin comes with a predefined set of templates for Java and Scala (see below) which can be immediatly applied in Java/Scala files.
 For instance, write 
 
     "1".toInt
     
 in a Java file.  If the completion popup does not automatically show up, press *Ctrl+SPACE*.
 Select the `.toInt` template and see how it is expanded.
+
+And if you want to see the template definition, just press *Alt+ENTER* in the completiion popup and select *Edit '.toInt' template*.
 
 ## Preconfigured Java templates which bring a tiny bit of the Scala/Kotlin feeling to Java
 
@@ -88,83 +90,130 @@ to open the custom postfix templates for the programming language in your curren
 Here you can easily change, remove, or add new templates matching your needs.
 Note that you have to save the template file explicitly (via *Ctrl+S*) in order to update the postfix templates in the IDE.
 
+### Template definitions
+
 The file may contain multiple template definitions of the form:
 ```
 .TEMPLATE_NAME : TEMPLATE_DESCRIPTION
-    MATCHING_TYPE1 [REQUIRED_CLASS1]  →  TEMPLATE_CODE1
-    MATCHING_TYPE2 [REQUIRED_CLASS1]  →  TEMPLATE_CODE2
+    TEMPLATE_RULE1
+    TEMPLATE_RULE2
     ...
 ```
-* The options for *MATCHING_TYPE* differ from language to language:
-  * Java: The *MATCHING_TYPE* can be either a Java class name or one of the following special types:
-    * `ANY` - any expression
-    * `VOID` - any void expression
-    * `NON_VOID` - any non-void expression
-    * `ARRAY` - any Java array
-    * `BOOLEAN` - boxed or unboxed boolean expressions
-    * `ITERABLE_OR_ARRAY` - any iterable or array
-    * `NOT_PRIMITIVE` - any non-primitive value
-    * `NUMBER` - any boxed or unboxed number
-    * `BYTE` - a boxed or unboxed byte value
-    * `SHORT` - a boxed or unboxed short value
-    * `CHAR` - a boxed or unboxed char value
-    * `INT` - a boxed or unboxed int value
-    * `LONG` - a boxed or unboxed long value
-    * `FLOAT` - a boxed or unboxed float value
-    * `DOUBLE` - a boxed or unboxed double value
-    * `NUMBER_LITERAL` - any number literal
-    * `BYTE_LITERAL` - a byte literal
-    * `SHORT_LITERAL` - a short literal
-    * `CHAR_LITERAL` - a char literal
-    * `INT_LITERAL` - an int literal
-    * `LONG_LITERAL` - a long literal
-    * `FLOAT_LITERAL` - a float literal
-    * `DOUBLE_LITERAL` - a double literal
-    * `STRING_LITERAL` - a String literal
-    * `CLASS` - any class reference
-  * Scala: The *MATCHING_TYPE* can be either a Java class name or one of the following special types:
-    * `ANY` - any expression
-    * `VOID` - any void (Unit) expression
-    * `NON_VOID` - any non-void (non-Unit) expression
-    * `BOOLEAN` - scala.Boolean or java.lang.Boolean
-    * `NUMBER` - any Scala or Java number value
-    * `BYTE` - scala.Byte or java.lang.Byte
-    * `SHORT` - scala.Short or java.lang.Short
-    * `CHAR` - scala.Char or java.lang.Char
-    * `INT` - scala.Int or java.lang.Integer
-    * `LONG` - scala.Long or java.lang.Long
-    * `FLOAT` - scala.Float or java.lang.Float
-    * `DOUBLE` - scala.Double or java.lang.Double
-  * JavaScript: The *MATCHING_TYPE* has to be `ANY`.
-  * Kotlin: The *MATCHING_TYPE* has to be `ANY`.
-* *REQUIRED_CLASS* (optional) is a name of a class that needs to be available in the module to activate the template rule
-* The *TEMPLATE_CODE* can be any text which may also contain template variables used as placeholder.
-  * The following template variables have a special meaning:
-    * `$expr$` - the expression the template shall be applied to
-    * `$END$` - the final cursor position after the template application
-  * All other variables will be replaced interactively during the template expansion.
-    The variables have the following format:
-    ```
-    $NAME#NO:EXPRESSION:DEFAULT_VALUE$
-    ```
-    * *NAME* - name of the variable; use a `*` at the end of the name to skip user interaction
-    * *NO* (optional) - number of the variable (defining in which order the variables are expanded)
-    * *EXPRESSION* (optional) - a live template macro used to generate a replacement (e.g. `suggestVariableName()`)
-    * *DEFAULT_VALUE* (optional) - a default value that may be used by the macro
+Each template definition consists of a template name, a template description and an arbitrary number of template rules.  The template name is used as key in the code completion and the template description is shown as hint in the code completion popup.  The template rules define on which types the template can be applied and how the application is performed.
 
-* Template examples:
-  * Artificial example showing variable reordering, variable reusage, interaction skipping, macros, and default values:
-    ```
-    .test : test
-	    NON_VOID → "$user*#1:user()$: $second#3:className()$ + $first#2::"1st"$ + $first$" + $expr$
-    ```
-  * Real world example: Write a variable to the debug log, including the developer name, the class name, and method name:
-    ```
-    .logd : log a variable
-        NON_VOID → Log.d("$user*:user():"MyTag"$", "$className*:className()$ :: $methodName*:methodName()$): $expr$="+$expr$);
-    ```
+### Simple template rules
 
-While writing the templates you can use the code completion for class names, variable names, template macros and arrows (→).
+A simple template rule has the form
+```
+    MATCHING_TYPE  →  TEMPLATE_CODE
+```
+whereas
+* *MATCHING_TYPE* defines the type the template can be applied to, and
+* *TEMPLATE_CODE* defines how the template is applied (how the expression is replaced).
+
+The options for *MATCHING_TYPE* may differ from programming language to programming language:
+* In **Java** the *MATCHING_TYPE* can be either a Java class name or one of the following special types:
+  * `ANY` - any expression
+  * `VOID` - any void expression
+  * `NON_VOID` - any non-void expression
+  * `ARRAY` - any Java array
+  * `BOOLEAN` - boxed or unboxed boolean expressions
+  * `ITERABLE_OR_ARRAY` - any iterable or array
+  * `NOT_PRIMITIVE` - any non-primitive value
+  * `NUMBER` - any boxed or unboxed number
+  * `BYTE` - a boxed or unboxed byte value
+  * `SHORT` - a boxed or unboxed short value
+  * `CHAR` - a boxed or unboxed char value
+  * `INT` - a boxed or unboxed int value
+  * `LONG` - a boxed or unboxed long value
+  * `FLOAT` - a boxed or unboxed float value
+  * `DOUBLE` - a boxed or unboxed double value
+  * `NUMBER_LITERAL` - any number literal
+  * `BYTE_LITERAL` - a byte literal
+  * `SHORT_LITERAL` - a short literal
+  * `CHAR_LITERAL` - a char literal
+  * `INT_LITERAL` - an int literal
+  * `LONG_LITERAL` - a long literal
+  * `FLOAT_LITERAL` - a float literal
+  * `DOUBLE_LITERAL` - a double literal
+  * `STRING_LITERAL` - a String literal
+  * `CLASS` - any class reference
+* In **Scala** the *MATCHING_TYPE* can be either a Java class name or one of the following special types:
+  * `ANY` - any expression
+  * `VOID` - any void (Unit) expression
+  * `NON_VOID` - any non-void (non-Unit) expression
+  * `BOOLEAN` - scala.Boolean or java.lang.Boolean
+  * `NUMBER` - any Scala or Java number value
+  * `BYTE` - scala.Byte or java.lang.Byte
+  * `SHORT` - scala.Short or java.lang.Short
+  * `CHAR` - scala.Char or java.lang.Char
+  * `INT` - scala.Int or java.lang.Integer
+  * `LONG` - scala.Long or java.lang.Long
+  * `FLOAT` - scala.Float or java.lang.Float
+  * `DOUBLE` - scala.Double or java.lang.Double
+* In **JavaScript** the *MATCHING_TYPE* has to be `ANY`.
+* In **Kotlin** the *MATCHING_TYPE* has to be `ANY`.
+
+The *TEMPLATE_CODE* can be any text which may also contain template variables used as placeholder.
+* Simple template variables have the format `$NAME$`.
+* The following template variables have a special meaning:
+  * `$expr$` - the expression the template shall be applied to
+  * `$END$` - the final cursor position after the template application
+* All other variables will be replaced interactively during the template expansion.
+* If you want to change the order of variables, set default values or use live template macros for filling the variables automatically, you can use the following variable format:
+  ```
+  $NAME#NO:EXPRESSION:DEFAULT_VALUE$
+  ```
+  * *NAME* - name of the variable; use a `*` at the end of the name to skip user interaction
+  * *NO* (optional) - number of the variable (defining in which order the variables are expanded)
+  * *EXPRESSION* (optional) - a live template macro used to generate a replacement (e.g. `suggestVariableName()`)
+  * *DEFAULT_VALUE* (optional) - a default value that may be used by the macro
+
+Template examples:
+* Artificial example showing variable reordering, variable reusage, interaction skipping, macros, and default values:
+  ```
+  .test : test
+      NON_VOID → "$user*#1:user()$: $second#3:className()$ + $first#2::"1st"$ + $first$" + $expr$
+  ```
+* Real world example: Write a variable to the debug log, including the developer name, the class name, and method name:
+  ```
+  .logd : log a variable
+      NON_VOID → Log.d("$user*:user():"MyTag"$", "$className*:className()$ :: $methodName*:methodName()$): $expr$="+$expr$);
+  ```
+
+While writing the templates you can use the code completion for completing class names, variable names, template macros and arrows (→).
+
+### Advanced template rules
+
+In the chapter above some options have been omitted for simplicity.  If you need more functionality here is the full format of template rules including two optional parameters:
+```
+    MATCHING_TYPE [REQUIRED_CLASS]  →  TEMPLATE_CODE [FLAG]
+```
+* *REQUIRED_CLASS* (optional) is a name of a class that needs to be available in the module to activate the template rule (see next section for a detailed explaination)
+* *FLAG* (optional) can be one of the following flags:
+  * `USE_STATIC_IMPORTS` - adds static method imports automatically if possible
+
+#### Writing library specific template rules
+
+Sometimes you may want to write library specific template rules, i.e. rules that shall be only applied when a certain library is included in the project.  For instance, take a look at the `.val` template provided with this plugin:
+```
+.val : extract as value
+	NON_VOID [lombok.val]    →  val $var:suggestVariableName()$ = $expr$;
+	NON_VOID                 →  final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;
+```
+It can be applied to any non-void expression and expands either to
+```
+val myVar = myExpression;
+```
+if lombok is available, or to
+```
+final MyType myVar = myExpression;```
+```
+if you're using Java without lombok.
+
+In this exmaple template the `[lombok.val]` part after the matching type is used to restrict the rule appliction to those cases where the class `lombok.val` is available in the class path.
+
+In general you can use any class name between the square brackets you want to define a restriction on.
 
 ## Upgrade / reset templates and configure the plugin
 
