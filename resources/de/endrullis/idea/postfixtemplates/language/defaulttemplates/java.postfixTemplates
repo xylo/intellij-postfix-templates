@@ -255,8 +255,13 @@
 	NON_VOID [lombok.val]    →  val $var:suggestVariableName()$ = $expr$;
 	NON_VOID                 →  final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;
 
+.sout : print variable to System.out
+	ARRAY      →   System.out.println(Arrays.toString($expr$))
+	NON_VOID   →   System.out.println($expr$)
+
 .soutv : print variable to System.out
-	NON_VOID                 →  System.out.println("$expr$ = " + $expr$);
+	ARRAY      →   System.out.println("$expr$ = " + Arrays.toString($expr$))
+	NON_VOID   →   System.out.println("$expr$ = " + $expr$)
 
 
 
