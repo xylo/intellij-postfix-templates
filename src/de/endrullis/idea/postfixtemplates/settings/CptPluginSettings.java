@@ -17,7 +17,7 @@ public final class CptPluginSettings {
 	private String templateSuffix;
 
 	private CptPluginSettings() {
-		this(true, "→");
+		this(true, " →");
 	}
 
 	public CptPluginSettings(boolean varLambdaStyle, 	@NotNull String templateSuffix) {
