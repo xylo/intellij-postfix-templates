@@ -48,6 +48,7 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 	@NotNull
 	@Override
 	public CptPluginSettings getPluginSettings() {
+		state.pluginSettings.upgrade();
 		return state.pluginSettings;
 	}
 

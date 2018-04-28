@@ -16,6 +16,9 @@ public final class CptPluginSettings {
 	@NotNull
 	private String templateSuffix;
 
+	@Attribute("TemplateSuffixVersion")
+	private int templateSuffixVersion = 0;
+
 	private CptPluginSettings() {
 		this(true, " →");
 	}
@@ -23,6 +26,7 @@ public final class CptPluginSettings {
 	public CptPluginSettings(boolean varLambdaStyle, 	@NotNull String templateSuffix) {
 		this.varLambdaStyle = varLambdaStyle;
 		this.templateSuffix = templateSuffix;
+		this.templateSuffixVersion = 1;
 	}
 
 	public boolean isVarLambdaStyle() {
@@ -39,15 +43,22 @@ public final class CptPluginSettings {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		CptPluginSettings that = (CptPluginSettings) o;
-		
+
 		return varLambdaStyle == that.varLambdaStyle &&
+			templateSuffixVersion == that.templateSuffixVersion &&
 			Objects.equals(templateSuffix, that.templateSuffix);
 	}
 
 	@Override
 	public int hashCode() {
+		return Objects.hash(varLambdaStyle, templateSuffix, templateSuffixVersion);
+	}
 
-		return Objects.hash(varLambdaStyle, templateSuffix);
+	void upgrade() {
+		if (templateSuffixVersion == 0 && templateSuffix.equals("→")) {
+			templateSuffix = " →";
+		}
+		templateSuffixVersion = 1;
 	}
 
 	public interface Holder {
