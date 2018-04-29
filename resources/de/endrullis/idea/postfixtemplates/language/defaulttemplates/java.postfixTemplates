@@ -72,6 +72,36 @@
 
 
 
+## collection iterations ##
+
+.for : iterate over ...
+	ITERABLE_OR_ARRAY → for ($ELEMENT_TYPE:iterableComponentType(expr):"java.lang.Object"$ $VAR:suggestVariableName()$ : $expr$) {\
+	  $END$\
+	}
+	java.util.Enumeration → while($expr$.hasMoreElements()) {\
+	  $TYPE:rightSideType():"Object"$ $VAR:suggestVariableName()$ = $CAST*:castToLeftSideType()$ $expr$.nextElement();\
+	  $END$\
+	}
+	java.util.Iterator → while($expr$.hasNext()) {\
+	  $TYPE:rightSideType():"Object"$ $VAR:suggestVariableName()$ = $CAST*:castToLeftSideType()$ $expr$.next();\
+	  $END$\
+	}
+
+.iter : iterate over ...
+	ITERABLE_OR_ARRAY → for ($ELEMENT_TYPE:iterableComponentType(expr):"java.lang.Object"$ $VAR:suggestVariableName()$ : $expr$) {\
+	  $END$\
+	}
+	java.util.Enumeration → while($expr$.hasMoreElements()) {\
+	  $TYPE:rightSideType():"Object"$ $VAR:suggestVariableName()$ = $CAST*:castToLeftSideType()$ $expr$.nextElement();\
+	  $END$\
+	}
+	java.util.Iterator → while($expr$.hasNext()) {\
+	  $TYPE:rightSideType():"Object"$ $VAR:suggestVariableName()$ = $CAST*:castToLeftSideType()$ $expr$.next();\
+	  $END$\
+	}
+
+
+
 ## collection operations ##
 
 .sort : sort naturally
