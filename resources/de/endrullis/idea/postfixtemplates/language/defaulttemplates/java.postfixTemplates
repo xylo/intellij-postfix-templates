@@ -37,14 +37,15 @@
 	java.lang.Number         →  $expr$.doubleValue()
 	NUMBER                   →  ((double) ($expr$))
 
-#.format : format number
-#	BYTE                     →  String.format("$format::"%d"$", $expr$)
-#	SHORT                    →  String.format("$format::"%d"$", $expr$)
-#	CHAR                     →  String.format("$format::"%c"$", $expr$)
-#	INT                      →  String.format("$format::"%d"$", $expr$)
-#	LONG                     →  String.format("$format::"%d"$", $expr$)
-#	FLOAT                    →  String.format("$format::"%f"$", $expr$)
-#	DOUBLE                   →  String.format("$format::"%f"$", $expr$)
+.format : format number
+	BYTE                     →  String.format("$format::"%d"$", $expr$)
+	SHORT                    →  String.format("$format::"%d"$", $expr$)
+	CHAR                     →  String.format("$format::"%c"$", $expr$)
+	INT                      →  String.format("$format::"%d"$", $expr$)
+	LONG                     →  String.format("$format::"%d"$", $expr$)
+	FLOAT                    →  String.format("$format::"%f"$", $expr$)
+	DOUBLE                   →  String.format("$format::"%f"$", $expr$)
+	java.lang.String         →  String.format($expr$, $END$)
 
 
 
@@ -66,8 +67,8 @@
 	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
 
-#.stream : convert to Stream
-#	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false)
+.stream : convert to Stream
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false)
 
 
 
