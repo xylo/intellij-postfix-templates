@@ -1,31 +1,57 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.8.2</version>
+	<version>1.8.3</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
 	<description><![CDATA[
-			<a href="https://github.com/xylo/intellij-postfix-templates#download">Documentation</a> |
-			<a href="https://github.com/xylo/intellij-postfix-templates#custom-postfix-templates-for-intellij-idea">Screencast</a> |
-			<a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">Predefined templates</a>
-			<br/><br/>
+		<a href="https://github.com/xylo/intellij-postfix-templates#download">Documentation</a> |
+		<a href="https://github.com/xylo/intellij-postfix-templates#custom-postfix-templates-for-intellij-idea">Screencast</a> |
+		<a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">Predefined templates</a>
+		<br/><br/>
 
-			This plugin allows you to define your own postfix templates for Java, Scala, Kotlin, and JavaScript.
-			It comes with a set of
-			<a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">predefined templates</a>
-			which can be edited and extended, e.g.:
+		<p>
+			This plugin lets you define your own postfix templates for Java, Scala, Kotlin, and JavaScript.
+		</p>
 
+		<p>
+			<i>So what is the difference to IDEA's postfix templates?</i>
+		</p>
+
+		<p>
+			Since IDEA 2018 you are now able to define your own postfix templates in the settings UI (<i>Editor → General → Postfix Templates</i>).
+			However, this is a pretty new feature and it's less functional than this plugin.
+
+			Here are some of the advantages of this plugin:
 			<ul>
-				<li>string.toInt        → Integer.parse(string)</li>
-				<li>array.toList        → Arrays.asList(array)</li>
-				<li>file.lines          → Files.readAllLines(file.toPath(), Charset.forName("UTF-8"))</li>
-				<li>file.getName().val  → final String name = file.getName();</li>
+				<li>You can define different template rules for the same template name, e.g. <code>.toList</code> should behave differently for arrays and for sets.</li>
+				<li>You can use template variables (e.g. <code>$varName$</code>) which are filled by the user while applying the template.</li>
+				<li>You can use live template macros to automatically fill some of the template variables (e.g. <code>$var:suggestVariableName()$</code>) as well as you can define default values.</li>
+				<li>You can restrict the availability of templates or template rules to the availability of certain classes or libraries (e.g. expand <code>"test".val</code> to <code>val s = "test"</code> if Lombok is available).</li>
+				<li>It allows you to use static imports instead of class imports (e.g. <code>array.toList</code> can be expanded to <code>asList(array)</code> instead of <code>Arrays.asList(array)</code> if add <code>[USE_STATIC_IMPORTS]</code> to the rule).</li>
+				<li>It comes with <a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">67 useful and editable postfix templates for Java</a> with in total 174 template rules, e.g.
+					<ul>
+						<li>string.toInt        → Integer.parse(string)</li>
+						<li>array.toList        → Arrays.asList(array)</li>
+						<li>file.lines          → Files.readAllLines(file.toPath(), Charset.forName("UTF-8"))</li>
+						<li>file.getName().val  → final String name = file.getName();</li>
+					</ul>
+				</li>
+				<li>The text based format for defining your templates allows you to easily share them via copy and paste.</li>
 			</ul>
+		</p>
     ]]>
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 1.8.3</h3>
+			<ul>
+				<li>Added new Java postfix templates: <code>.for</code>, <code>.iter</code>, <code>.format</code>, <code>.stream</code>, and <code>.sout</code></li>
+				<li>Improved some predefined postfix templates.</li>
+				<li>Removed the default template suffix because of disadvantages in the ranking.</li>
+			</ul>
+
 			<h3>Version 1.8.2</h3>
 			<ul>
 				<li>Added a configurable template suffix to distinguish the templates of this plugin from the templates of IDEA and other plugins.</li>
