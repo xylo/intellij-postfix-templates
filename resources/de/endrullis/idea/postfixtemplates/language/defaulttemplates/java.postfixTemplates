@@ -78,21 +78,21 @@
 	java.util.List           →  java.util.Collections.sort($expr$)
 
 .sortBy : sort by attribute
-	ARRAY                    →  java.util.Arrays.sort($expr$, Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.List           →  $expr$.sort(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.stream.Stream  →  $expr$.sorted(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	ARRAY                    →  java.util.Arrays.sort($expr$, java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.List           →  $expr$.sort(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.stream.Stream  →  $expr$.sorted(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
 
 .minBy : minimum by attribute
-	ARRAY                    →  java.util.Arrays.stream($expr$).min(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.Collection     →  $expr$.stream().min(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).min(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.stream.Stream  →  $expr$.min(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).min(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.Collection     →  $expr$.stream().min(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).min(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.stream.Stream  →  $expr$.min(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
 
 .maxBy : maximum by attribute
-	ARRAY                    →  java.util.Arrays.stream($expr$).max(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.Collection     →  $expr$.stream().max(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).max(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.stream.Stream  →  $expr$.max(Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).max(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.Collection     →  $expr$.stream().max(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).max(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	java.util.stream.Stream  →  $expr$.max(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
 
 .groupBy : group by attribute
 	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.groupingBy($attributeVar*:suggestShortVariableName()$ -> $attribute$))
