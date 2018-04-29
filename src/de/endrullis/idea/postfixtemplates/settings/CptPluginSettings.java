@@ -20,7 +20,7 @@ public final class CptPluginSettings {
 	private int templateSuffixVersion = 0;
 
 	private CptPluginSettings() {
-		this(true, " →");
+		this(true, "");
 	}
 
 	public CptPluginSettings(boolean varLambdaStyle, 	@NotNull String templateSuffix) {
@@ -56,7 +56,7 @@ public final class CptPluginSettings {
 
 	void upgrade() {
 		if (templateSuffixVersion == 0 && templateSuffix.equals("→")) {
-			templateSuffix = " →";
+			templateSuffix = "";
 		}
 		templateSuffixVersion = 1;
 	}
