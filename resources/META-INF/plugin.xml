@@ -48,6 +48,7 @@
 			<h3>Version 1.8.3</h3>
 			<ul>
 				<li>Added new Java postfix templates: <code>.for</code>, <code>.iter</code>, <code>.format</code>, <code>.stream</code>, and <code>.sout</code></li>
+				<li>Added new Scala postfix template: <code>.sout</code></li>
 				<li>Improved some predefined postfix templates.</li>
 				<li>Removed the default template suffix because of disadvantages in the ranking.</li>
 			</ul>
