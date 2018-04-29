@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RequiredArgsConstructor
 @EqualsAndHashCode
 @Getter
 public final class CptPluginSettings {
@@ -24,13 +23,26 @@ public final class CptPluginSettings {
 
 	@Attribute("TemplateSuffix")
 	@NotNull
-	private final String templateSuffix;
+	private String templateSuffix;
 
 	@Attribute("TemplateSuffixVersion")
-	private final int templateSuffixVersion = 0;
+	private int templateSuffixVersion = 0;
 
 	private CptPluginSettings() {
-		this(true, "");
+			this(true, "");
+	}
+
+	public CptPluginSettings(boolean varLambdaStyle, @NotNull String templateSuffix) {
+		this.varLambdaStyle = varLambdaStyle;
+		this.templateSuffix = templateSuffix;
+		this.templateSuffixVersion = 1;
+	}
+
+	void upgrade() {
+		if (templateSuffixVersion == 0 && templateSuffix.equals("→")) {
+			templateSuffix = "";
+		}
+		templateSuffixVersion = 1;
 	}
 
 	public interface Holder {

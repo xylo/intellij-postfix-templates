@@ -361,8 +361,10 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	}
 
 	public void getExport() {
-		while (root.children().hasMoreElements()) {
-			Object o = root.children().nextElement();
+		final Enumeration children = root.children();
+
+		while (children.hasMoreElements()) {
+			Object o = children.nextElement();
 			
 		}
 	}
