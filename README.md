@@ -191,9 +191,9 @@ In the chapter above some options have been omitted for simplicity.  If you need
 ```
 * *REQUIRED_CLASS* (optional) is a name of a class that needs to be available in the module to activate the template rule (see next section for a detailed explaination)
 * *FLAG* (optional) can be one of the following flags:
-  * `USE_STATIC_IMPORTS` - adds static method imports automatically if possible
+  * [`USE_STATIC_IMPORTS`](#USE_STATIC_IMPORTS) - adds static method imports automatically if possible
 
-#### Writing library specific template rules
+#### Writing library specific template rules via REQUIRED_CLASS
 
 Sometimes you may want to write library specific template rules, i.e. rules that shall be only applied when a certain library is included in the project.  For instance, take a look at the `.val` template provided with this plugin:
 ```
@@ -214,6 +214,20 @@ if you're using Java without lombok.
 In this exmaple template the `[lombok.val]` part after the matching type is used to restrict the rule appliction to those cases where the class `lombok.val` is available in the class path.
 
 In general you can use any class name between the square brackets you want to define a restriction on.
+
+#### FLAGs
+
+##### USE_STATIC_IMPORTS
+
+If you tag a template rule with `[USE_STATIC_IMPORTS]` all static methods that are used will be automatically imported and your code gets more compact.  For instance, lets take the following template rule:
+```
+.toList : convert to List
+	ARRAY  →  java.util.Arrays.asList($expr$) [USE_STATIC_IMPORTS]
+```
+Since the rule is tagged with `[USE_STATIC_IMPORTS]` expanding of `array.toList` does not lead to `Arrays.asList(array)` but to `asList(array)` and the following line is added to your import statements:
+```
+import static java.util.Arrays.asList;
+```
 
 ## Upgrade / reset templates and configure the plugin
 
