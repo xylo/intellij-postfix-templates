@@ -10,6 +10,7 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
@@ -22,6 +23,7 @@ import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateProvider;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 import static de.endrullis.idea.postfixtemplates.utils.StringUtils.replace;
 
 public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposable {
@@ -114,22 +117,34 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 		if (checkboxTree == null) {
 			createTree();
-
-			Map<CptLang, List<CptVirtualFile>> lang2file = new HashMap<>();
-			for (CptLang lang : SupportedLanguages.supportedLanguages) {
-				final ArrayList<CptVirtualFile> files = new ArrayList<>();
-				CptUtil.getTemplateFile(lang.getLanguage()).ifPresent(file -> {
-					try {
-						files.add(new CptVirtualFile(file.toURI().toURL(), file));
-					} catch (MalformedURLException ignored) {
-					}
-				});
-				lang2file.put(lang, files);
-			}
-			checkboxTree.initTree(lang2file);
 		}
 
 		return mainPanel;
+	}
+
+	private void fillTree(Map<String, List<CptPluginSettings.VFile>> langName2virtualFile) {
+		assert checkboxTree != null;
+
+		Map<CptLang, List<CptPluginSettings.VFile>> lang2file = new HashMap<>();
+
+		for (CptLang lang : SupportedLanguages.supportedLanguages) {
+			// add files from saved settings
+			List<CptPluginSettings.VFile> cptFiles = new ArrayList<>(langName2virtualFile.getOrDefault(lang.getLanguage(), _List()));
+
+			// add files from file system (for compatibility with older versions)
+			CptUtil.getTemplateFile(lang.getLanguage()).ifPresent(file -> {
+				if (cptFiles.stream().noneMatch(f -> FileUtil.filesEqual(new File(f.file), file))) {
+					try {
+						cptFiles.add(new CptPluginSettings.VFile(true, file.toURI().toURL().toString(), file.getAbsolutePath()));
+					} catch (MalformedURLException ignored) {
+					}
+				}
+			});
+
+			lang2file.put(lang, cptFiles);
+		}
+
+		checkboxTree.initTree(lang2file);
 	}
 
 	private void changeLambdaStyle(boolean preFilled) {
@@ -248,14 +263,16 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		*/
 		changeLambdaStyle(settings.isVarLambdaStyle());
 		templateSuffixField.setText(settings.getTemplateSuffix());
+
+		fillTree(settings.getLangName2virtualFile());
 	}
 
 	@NotNull
 	@Override
 	public CptPluginSettings getPluginSettings() {
-		// TODO
-		checkboxTree.getExport();
-		return new CptPluginSettings(varLambdaRadioButton.isSelected(), templateSuffixField.getText());
+		assert checkboxTree != null;
+		val langName2virtualFile = checkboxTree.getExport();
+		return new CptPluginSettings(varLambdaRadioButton.isSelected(), langName2virtualFile, templateSuffixField.getText());
 	}
 
 	@Override

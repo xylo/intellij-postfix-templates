@@ -118,15 +118,25 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 	}
 
-	public void initTree(@NotNull Map<CptLang, List<CptVirtualFile>> lang2file) {
+	public void initTree(@NotNull Map<CptLang, List<CptPluginSettings.VFile>> lang2file) {
 		root.removeAllChildren();
 		
-		for (Map.Entry<CptLang, List<CptVirtualFile>> entry : lang2file.entrySet()) {
+		for (Map.Entry<CptLang, List<CptPluginSettings.VFile>> entry : lang2file.entrySet()) {
 			CptLang lang = entry.getKey();
 			DefaultMutableTreeNode langNode = findOrCreateLangNode(lang);
 
-			for (CptVirtualFile file : entry.getValue()) {
-				langNode.add(new FileTreeNode(lang, file));
+			for (CptPluginSettings.VFile vFile : entry.getValue()) {
+				URL url = null;
+				try {
+					url = vFile.url != null ? new URL(vFile.url) : null;
+				} catch (MalformedURLException ignored) {
+				}
+				val cptFile = new CptVirtualFile(url, new File(vFile.file));
+
+				val node = new FileTreeNode(lang, cptFile);
+				node.setChecked(vFile.enabled);
+				
+				langNode.add(node);
 			}
 		}
 
@@ -360,13 +370,17 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		return languageNode;
 	}
 
-	public void getExport() {
-		final Enumeration children = root.children();
+	@NotNull
+	HashMap<String, List<CptPluginSettings.VFile>> getExport() {
+		HashMap<String, List<CptPluginSettings.VFile>> export = new HashMap<>();
 
-		while (children.hasMoreElements()) {
-			Object o = children.nextElement();
-			
-		}
+		visitFileNodes(n -> {
+			val url = n.getFile().getUrl() != null ? n.getFile().getUrl().toString() : null;
+			val vFile = new CptPluginSettings.VFile(n.isChecked(), url, n.getFile().getFile().getAbsolutePath());
+			export.computeIfAbsent(n.getLang().getLanguage(), e -> new ArrayList<>()).add(vFile);
+		});
+
+		return export;
 	}
 
 	private static class LangTreeNode extends CheckedTreeNode {

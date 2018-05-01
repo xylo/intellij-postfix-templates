@@ -1,9 +1,8 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
 import com.intellij.util.xmlb.annotations.Attribute;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import com.intellij.util.xmlb.annotations.MapAnnotation;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -16,10 +15,10 @@ public final class CptPluginSettings {
 	public static final CptPluginSettings DEFAULT = new CptPluginSettings();
 
 	@Attribute("VarLambdaStyle")
-	private final boolean varLambdaStyle;
+	private boolean varLambdaStyle;
 
-	@Attribute("LangName2virtualFile")
-	private final Map<String, List<CptVirtualFile>> langName2virtualFile = new HashMap<>();
+	@MapAnnotation()
+	private Map<String, List<VFile>> langName2virtualFile;
 
 	@Attribute("TemplateSuffix")
 	@NotNull
@@ -29,11 +28,12 @@ public final class CptPluginSettings {
 	private int templateSuffixVersion = 0;
 
 	private CptPluginSettings() {
-			this(true, "");
+		this(true, new HashMap<>(), "");
 	}
 
-	public CptPluginSettings(boolean varLambdaStyle, @NotNull String templateSuffix) {
+	public CptPluginSettings(boolean varLambdaStyle, @NotNull Map<String, List<VFile>> langName2virtualFile, @NotNull String templateSuffix) {
 		this.varLambdaStyle = varLambdaStyle;
+		this.langName2virtualFile = langName2virtualFile;
 		this.templateSuffix = templateSuffix;
 		this.templateSuffixVersion = 1;
 	}
@@ -50,5 +50,14 @@ public final class CptPluginSettings {
 
 		@NotNull
 		CptPluginSettings getPluginSettings();
+	}
+
+	@NoArgsConstructor
+	@AllArgsConstructor
+	@Data
+	public static class VFile {
+		public boolean enabled;
+		public String url;
+		public String file;
 	}
 }
