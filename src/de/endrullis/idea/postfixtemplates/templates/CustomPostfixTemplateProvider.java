@@ -32,6 +32,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -99,11 +100,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	 */
 	@Override
 	public void reloadTemplates() {
-		CptUtil.getTemplateFile(getLanguage()).ifPresent(file -> {
-			if (file.exists()) {
-				templates = loadTemplatesFrom(file);
-			}
-		});
+		templates = loadTemplatesFromFiles(CptUtil.getTemplateFiles(getLanguage()));
 	}
 
 	@NotNull
@@ -112,17 +109,14 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	/**
 	 * Loads the postfix templates from the given file and returns them.
 	 *
-	 * @param file templates file
+	 * @param files templates files
 	 * @return set of postfix templates
 	 */
 	@SuppressWarnings("WeakerAccess")
-	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull File file) {
-		VirtualFile vFile = LocalFileSystem.getInstance().findFileByIoFile(file);
-		if (vFile != null) {
-			return loadTemplatesFrom(vFile);
-		} else {
-			return new OrderedSet<>();
-		}
+	public Set<PostfixTemplate> loadTemplatesFromFiles(@NotNull List<File> files) {
+		val vFiles = files.stream().map(f -> LocalFileSystem.getInstance().findFileByIoFile(f)).filter(f -> f != null).collect(Collectors.toList());
+
+		return loadTemplatesFromVFiles(vFiles);
 	}
 
 	public String getPluginClassName() {
@@ -132,11 +126,11 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	/**
 	 * Loads the postfix templates from the given virtual file and returns them.
 	 *
-	 * @param vFile virtual templates file
+	 * @param vFiles virtual templates files
 	 * @return set of postfix templates
 	 */
 	@SuppressWarnings("WeakerAccess")
-	public Set<PostfixTemplate> loadTemplatesFrom(@NotNull VirtualFile vFile) {
+	public Set<PostfixTemplate> loadTemplatesFromVFiles(@NotNull List<VirtualFile> vFiles) {
 		try {
 			// load templates only if the plugin is activated
 			if (getPluginClassName() != null) {
@@ -169,18 +163,20 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 		ApplicationManager.getApplication().runReadAction(() -> {
 			Project project = ProjectManager.getInstance().getOpenProjects()[0];
 
-			CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(vFile);
-			if (cptFile != null) {
-				CptTemplate[] cptTemplates = PsiTreeUtil.getChildrenOfType(cptFile, CptTemplate.class);
-				if (cptTemplates != null) {
-					for (CptTemplate cptTemplate : cptTemplates) {
-						for (CptMapping mapping : cptTemplate.getMappings().getMappingList()) {
-							StringBuilder sb = new StringBuilder();
-							for (PsiElement element : mapping.getReplacement().getChildren()) {
-								sb.append(element.getText());
-							}
+			for (VirtualFile vFile : vFiles) {
+				CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(vFile);
+				if (cptFile != null) {
+					CptTemplate[] cptTemplates = PsiTreeUtil.getChildrenOfType(cptFile, CptTemplate.class);
+					if (cptTemplates != null) {
+						for (CptTemplate cptTemplate : cptTemplates) {
+							for (CptMapping mapping : cptTemplate.getMappings().getMappingList()) {
+								StringBuilder sb = new StringBuilder();
+								for (PsiElement element : mapping.getReplacement().getChildren()) {
+									sb.append(element.getText());
+								}
 
-							templates.add(createTemplate(mapping, mapping.getMatchingClassName(), mapping.getConditionClassName(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), processEscapes(sb.toString()), this));
+								templates.add(createTemplate(mapping, mapping.getMatchingClassName(), mapping.getConditionClassName(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), processEscapes(sb.toString()), this));
+							}
 						}
 					}
 				}

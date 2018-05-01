@@ -11,8 +11,8 @@ import com.intellij.psi.PsiManager;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 
 import java.io.File;
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Action to open the templates of the language in the current editor.
@@ -36,10 +36,10 @@ public class OpenTemplatesAction extends AnAction {
 				Language language = psiFile.getLanguage();
 
 				while (language != null) {
-					Optional<File> templateFile = CptUtil.getTemplateFile(language.getID().toLowerCase());
+					List<File> templateFile = CptUtil.getTemplateFiles(language.getID().toLowerCase());
 
-					if (templateFile.isPresent()) {
-						CptUtil.openFileInEditor(project, templateFile.get());
+					if (!templateFile.isEmpty()) {
+						CptUtil.openFileInEditor(project, templateFile.get(0));
 						return;
 					}
 

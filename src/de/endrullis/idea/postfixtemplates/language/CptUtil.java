@@ -9,20 +9,24 @@ import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.newvfs.impl.VirtualFileImpl;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.util.indexing.FileBasedIndex;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
@@ -161,8 +165,28 @@ public class CptUtil {
 		}
 	}
 
+	public static List<File> getTemplateFiles(@NotNull String language) {
+		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
+			File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
+
+			if (!file.exists()) {
+				createTemplateFile(language, CptUtil.getDefaultTemplates(language));
+			}
+
+			val files = CptApplicationSettings.getInstance().getPluginSettings().getLangName2virtualFile().getOrDefault(language, new ArrayList<>());
+
+			return files.stream().filter(f -> f.enabled).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
+		} else {
+			return _List();
+		}
+	}
+
 	public static String getLanguageOfTemplateFile(@NotNull VirtualFile vFile) {
-		return vFile.getName().replaceAll("\\.postfixTemplates", "");
+		val settings = CptApplicationSettings.getInstance().getPluginSettings();
+
+		val path = vFile instanceof VirtualFileImpl ? vFile.getPath() : ((LightVirtualFile) vFile).getOriginalFile().getPath();
+
+		return settings.getFile2langName().get(path);
 	}
 
 	public static void openFileInEditor(@NotNull Project project, @NotNull File file) {

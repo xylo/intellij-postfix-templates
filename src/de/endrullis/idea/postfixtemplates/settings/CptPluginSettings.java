@@ -20,6 +20,8 @@ public final class CptPluginSettings {
 	@MapAnnotation()
 	private Map<String, List<VFile>> langName2virtualFile;
 
+	private transient Map<String, String> file2langName;
+
 	@Attribute("TemplateSuffix")
 	@NotNull
 	private String templateSuffix;
@@ -43,6 +45,19 @@ public final class CptPluginSettings {
 			templateSuffix = "";
 		}
 		templateSuffixVersion = 1;
+	}
+
+	public Map<String, String> getFile2langName() {
+		if (file2langName == null) {
+			file2langName = new HashMap<>();
+			for (Map.Entry<String, List<VFile>> entry : langName2virtualFile.entrySet()) {
+				for (VFile vFile : entry.getValue()) {
+					file2langName.put(vFile.getFile(), entry.getKey());
+				}
+			}
+		}
+
+		return file2langName;
 	}
 
 	public interface Holder {
