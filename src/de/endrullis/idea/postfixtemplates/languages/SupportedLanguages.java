@@ -41,7 +41,7 @@ public class SupportedLanguages {
 	}
 
 	public static Optional<CptLang> getCptLang(@NotNull final PsiElement element) {
-		final VirtualFile vFile = element.getContainingFile().getViewProvider().getVirtualFile().getCanonicalFile();
+		final VirtualFile vFile = element.getContainingFile().getViewProvider().getVirtualFile();
 
 		return getCptLang(vFile);
 	}

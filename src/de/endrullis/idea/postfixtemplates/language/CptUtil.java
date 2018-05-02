@@ -143,7 +143,6 @@ public class CptUtil {
 
 		try (PrintStream out = new PrintStream(file, "UTF-8")) {
 			out.println(content);
-			out.close();
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(language + " template file could not copied to " + file.getAbsolutePath(), e);
 		} catch (UnsupportedEncodingException e) {
@@ -184,9 +183,18 @@ public class CptUtil {
 	public static String getLanguageOfTemplateFile(@NotNull VirtualFile vFile) {
 		val settings = CptApplicationSettings.getInstance().getPluginSettings();
 
-		val path = vFile instanceof VirtualFileImpl ? vFile.getPath() : ((LightVirtualFile) vFile).getOriginalFile().getPath();
+		val path = getPath(vFile);
 
 		return settings.getFile2langName().get(path);
+	}
+
+	@NotNull
+	public static String getPath(@NotNull VirtualFile vFile) {
+		if (vFile instanceof LightVirtualFile) {
+			vFile = ((LightVirtualFile) vFile).getOriginalFile();
+		}
+
+		return vFile.getPath().replace('\\', '/');
 	}
 
 	public static void openFileInEditor(@NotNull Project project, @NotNull File file) {
@@ -211,14 +219,12 @@ public class CptUtil {
 		return DataKeys.PROJECT.getData(dataContext);
 	}
 
-	public static boolean isTemplateFile(VirtualFile vFile) {
-		return vFile != null && vFile.getCanonicalPath() != null &&
-			vFile.getCanonicalPath().replace('\\', '/').startsWith(CptUtil.getTemplatesPath().getAbsolutePath().replace('\\', '/'));
-	}
+	public static boolean isTemplateFile(@NotNull VirtualFile vFile, @NotNull String language) {
+		val settings = CptApplicationSettings.getInstance().getPluginSettings();
 
-	public static boolean isTemplateFile(VirtualFile vFile, String language) {
-		return vFile != null && vFile.getCanonicalPath() != null &&
-			vFile.getCanonicalPath().replace('\\', '/').startsWith(CptUtil.getTemplatesPath().getAbsolutePath().replace('\\', '/') + "/" + language);
+		val path = getPath(vFile);
+
+		return settings.getFile2langName().get(path).equals(language);
 	}
 
 	@NotNull

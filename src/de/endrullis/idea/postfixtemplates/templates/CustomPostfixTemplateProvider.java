@@ -53,7 +53,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 		@Override
 		public void beforeDocumentSaving(@NotNull Document d) {
 			VirtualFile vFile = FileDocumentManager.getInstance().getFile(d);
-			if (CptUtil.isTemplateFile(vFile, getLanguage())) {
+			if (vFile != null && CptUtil.isTemplateFile(vFile, getLanguage())) {
 				reloadTemplates();
 			}
 		}
