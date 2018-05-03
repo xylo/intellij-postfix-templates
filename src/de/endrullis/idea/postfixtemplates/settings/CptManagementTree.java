@@ -8,6 +8,7 @@ import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogBuilder;
+import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.util.Disposer;
@@ -342,12 +343,36 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 			return;
 		}
 		for (TreePath path : paths) {
-			FileTreeNode lastPathComponent = ObjectUtils.tryCast(path.getLastPathComponent(),
-				FileTreeNode.class);
+			FileTreeNode lastPathComponent = ObjectUtils.tryCast(path.getLastPathComponent(), FileTreeNode.class);
+
 			if (lastPathComponent == null) continue;
-			// TODO: remove from FS
-			CptVirtualFile file = lastPathComponent.getFile();
-			TreeUtil.removeLastPathComponent(this, path);
+
+			val checkBox = new JCheckBox("Delete file from filesystem");
+			val dialog = new DialogWrapper(this, false) {
+				{
+					setTitle("Remove file?");
+					init();
+				}
+
+				@Override
+				protected JComponent createCenterPanel() {
+					return checkBox;
+				}
+
+				@Override
+				public JComponent getPreferredFocusedComponent() {
+					return checkBox;
+				}
+			};
+			dialog.show();
+
+			if (dialog.getExitCode() == DialogWrapper.OK_EXIT_CODE) {
+				if (checkBox.isSelected()) {
+					CptVirtualFile file = lastPathComponent.getFile();
+					file.getFile().delete();
+				}
+				TreeUtil.removeLastPathComponent(this, path);
+			}
 		}
 	}
 
