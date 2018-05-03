@@ -399,9 +399,12 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	HashMap<String, List<CptPluginSettings.VFile>> getExport() {
 		HashMap<String, List<CptPluginSettings.VFile>> export = new HashMap<>();
 
+		val templatesPath = CptUtil.getTemplatesPath().getAbsolutePath();
+
 		visitFileNodes(n -> {
 			val url = n.getFile().getUrl() != null ? n.getFile().getUrl().toString() : null;
-			val vFile = new CptPluginSettings.VFile(n.isChecked(), url, n.getFile().getFile().getAbsolutePath());
+			val filePath = n.getFile().getFile().getAbsolutePath().replace(templatesPath, "${PLUGIN}");
+			val vFile = new CptPluginSettings.VFile(n.isChecked(), url, filePath);
 			export.computeIfAbsent(n.getLang().getLanguage(), e -> new ArrayList<>()).add(vFile);
 		});
 

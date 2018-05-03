@@ -2,12 +2,14 @@ package de.endrullis.idea.postfixtemplates.settings;
 
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.MapAnnotation;
+import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @EqualsAndHashCode
 @Getter
@@ -47,10 +49,16 @@ public final class CptPluginSettings {
 		templateSuffixVersion = 1;
 	}
 
+	public Map<String, List<VFile>> getLangName2virtualFile() {
+		return langName2virtualFile.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> {
+			return e.getValue().stream().map(f -> new VFile(f.enabled, f.url, f.file.replace("${PLUGIN}", CptUtil.getTemplatesPath().getAbsolutePath()))).collect(Collectors.toList());
+		}));
+	}
+
 	public Map<String, String> getFile2langName() {
 		if (file2langName == null) {
 			file2langName = new HashMap<>();
-			for (Map.Entry<String, List<VFile>> entry : langName2virtualFile.entrySet()) {
+			for (Map.Entry<String, List<VFile>> entry : getLangName2virtualFile().entrySet()) {
 				for (VFile vFile : entry.getValue()) {
 					file2langName.put(vFile.getFile(), entry.getKey());
 				}
