@@ -86,7 +86,12 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			.setEditActionUpdater(e -> checkboxTree.canEditSelectedFile())
 			.setEditAction(button -> checkboxTree.editSelectedFile())
 			.setRemoveActionUpdater(e -> checkboxTree.canRemoveSelectedFiles())
-			.setRemoveAction(button -> checkboxTree.removeSelectedFiles()).createPanel());
+			.setRemoveAction(button -> checkboxTree.removeSelectedFiles())
+			.setMoveDownActionUpdater(e -> checkboxTree.canMoveSelectedFiles())
+			.setMoveDownAction( e -> checkboxTree.moveDownSelectedFiles())
+			.setMoveUpActionUpdater(e -> checkboxTree.canMoveSelectedFiles())
+			.setMoveUpAction(e -> checkboxTree.moveUpSelectedFiles())
+			.createPanel());
 
 		treeContainer.setLayout(new BorderLayout());
 		treeContainer.add(panel);

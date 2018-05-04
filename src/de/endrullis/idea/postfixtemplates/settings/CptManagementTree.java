@@ -22,6 +22,7 @@ import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import lombok.val;
+import org.apache.commons.lang.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,6 +30,7 @@ import javax.swing.*;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -37,6 +39,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CptManagementTree extends CheckboxTree implements Disposable {
 	@NotNull
@@ -121,7 +124,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 	public void initTree(@NotNull Map<CptLang, List<CptPluginSettings.VFile>> lang2file) {
 		root.removeAllChildren();
-		
+
 		for (Map.Entry<CptLang, List<CptPluginSettings.VFile>> entry : lang2file.entrySet()) {
 			CptLang lang = entry.getKey();
 			DefaultMutableTreeNode langNode = findOrCreateLangNode(lang);
@@ -136,7 +139,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 				val node = new FileTreeNode(lang, cptFile);
 				node.setChecked(vFile.enabled);
-				
+
 				langNode.add(node);
 			}
 		}
@@ -374,6 +377,61 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 				TreeUtil.removeLastPathComponent(this, path);
 			}
 		}
+	}
+
+	public void moveDownSelectedFiles() {
+		moveSelectedNodes(1);
+	}
+
+	public void moveUpSelectedFiles() {
+		moveSelectedNodes(-1);
+	}
+
+	private void moveSelectedNodes(int direction) {
+		val paths = getSelectionModel().getSelectionPaths();
+		if (paths == null || !canMoveSelectedFiles()) {
+			return;
+		}
+		val sortedPaths = Arrays.stream(paths).sorted(Comparator.comparing(path -> {
+			val fileNode = (MutableTreeNode) path.getLastPathComponent();
+			val parentNode = (MutableTreeNode) path.getParentPath().getLastPathComponent();
+
+			return model.getIndexOfChild(parentNode, fileNode);
+		})).toArray(i -> new TreePath[i]);
+
+		if (direction > 0) {
+			ArrayUtils.reverse(sortedPaths);
+		}
+
+		for (TreePath path : sortedPaths) {
+			val fileNode = (MutableTreeNode) path.getLastPathComponent();
+			val parentNode = (MutableTreeNode) path.getParentPath().getLastPathComponent();
+
+			if (getModel() instanceof DefaultTreeModel) {
+				val model = (DefaultTreeModel) getModel();
+				val index = model.getIndexOfChild(parentNode, fileNode) + direction;
+
+				if (index >= 0 && index < model.getChildCount(parentNode)) {
+					TreeUtil.removeLastPathComponent(this, path);
+					model.insertNodeInto(fileNode, parentNode, index);
+				}
+			}
+		}
+
+		getSelectionModel().setSelectionPaths(paths);
+		selectionChanged();
+	}
+
+	public boolean canMoveSelectedFiles() {
+		val paths = getSelectionPaths();
+		if (paths == null) {
+			return false;
+		}
+		if (Arrays.stream(paths).allMatch(path -> path.getLastPathComponent() instanceof FileTreeNode)) {
+			// ensure all file nodes have the same parent
+			return Arrays.stream(paths).map(path -> path.getParentPath().getLastPathComponent()).collect(Collectors.toSet()).size() == 1;
+		}
+		return false;
 	}
 
 	private static boolean isEditable(@Nullable CptVirtualFile file) {
