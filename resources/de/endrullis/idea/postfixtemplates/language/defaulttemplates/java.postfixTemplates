@@ -57,6 +57,7 @@
 	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toList())
 	java.util.Map            →  new ArrayList<>($expr$.entrySet())
 	java.util.Optional       →  $expr$.map(e -> Collections.singletonList(e)).orElse(Collections.emptyList())
+	java.util.stream.Stream  →  $expr$.collect(Collectors.toList())
 
 .toSet : convert to Set
 	ARRAY                    →  java.util.stream.Stream.of($expr$).collect(java.util.stream.Collectors.toSet())
@@ -64,6 +65,7 @@
 	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toSet())
 	java.util.Map            →  $expr$.entrySet()
 	java.util.Optional       →  $expr$.map(e -> Collections.singleton(e)).orElse(Collections.emptySet())
+	java.util.stream.Stream  →  $expr$.collect(Collectors.toSet())
 
 .toMap : convert to Map
 	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
@@ -71,6 +73,9 @@
 	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
 	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
+
+.toOptional : wrap in Otional
+	NON_VOID                 →  Optional.ofNullable($expr$)
 
 .stream : convert to Stream
 	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false)
@@ -171,6 +176,10 @@
 	java.util.List           →  $expr$.stream().map($fVar*:suggestShortVariableName()$ -> $f$).collect(java.util.stream.Collectors.toList())
 	java.util.Set            →  $expr$.stream().map($fVar*:suggestShortVariableName()$ -> $f$).collect(java.util.stream.Collectors.toSet())
 	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
+
+.flatMap : map entries
+	java.util.List           →  $expr$.stream().flatMap($fVar*:suggestShortVariableName()$ -> $f$).collect(java.util.stream.Collectors.toList())
+	java.util.Set            →  $expr$.stream().flatMap($fVar*:suggestShortVariableName()$ -> $f$).collect(java.util.stream.Collectors.toSet())
 
 .mapKeys : map keys
 	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> $key$, e -> e.getValue()))

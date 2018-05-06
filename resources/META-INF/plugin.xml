@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.8.3</version>
+	<version>1.8.4</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -30,7 +30,7 @@
 				<li>You can use live template macros to automatically fill some of the template variables (e.g. <code>$var:suggestVariableName()$</code>) as well as you can define default values.</li>
 				<li>You can restrict the availability of templates or template rules to the availability of certain classes or libraries (e.g. expand <code>"test".val</code> to <code>val s = "test"</code> if Lombok is available).</li>
 				<li>It allows you to use static imports instead of class imports (e.g. <code>array.toList</code> can be expanded to <code>asList(array)</code> instead of <code>Arrays.asList(array)</code> if you add <code>[USE_STATIC_IMPORTS]</code> to the rule).</li>
-				<li>It comes with <a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">67 useful and editable postfix templates for Java</a> with in total 174 template rules, e.g.
+				<li>It comes with <a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">69 useful and editable postfix templates for Java</a> with in total 184 template rules, e.g.
 					<ul>
 						<li>string.toInt        → Integer.parse(string)</li>
 						<li>array.toList        → Arrays.asList(array)</li>
@@ -45,6 +45,12 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 1.8.4</h3>
+			<ul>
+				<li>Added new Java postfix templates: <code>.toOptional</code> and <code>.flatMap</code></li>
+				<li>Improved some Java postfix templates: <code>.toList</code> and <code>.toSet</code></li>
+			</ul>
+
 			<h3>Version 1.8.3</h3>
 			<ul>
 				<li>Added new Java postfix templates: <code>.for</code>, <code>.iter</code>, <code>.format</code>, <code>.stream</code>, and <code>.sout</code></li>

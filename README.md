@@ -12,7 +12,7 @@ Since IDEA 2018 you are now able to define your own postfix templates in the set
 * You can use live template macros to automatically fill some of the template variables (e.g. `$var:suggestVariableName()$`) as well as you can define default values.
 * You can restrict the availability of templates or template rules to the availability of certain classes or libraries (e.g. expand `"test".val` to `val s = "test"` if Lombok is available).
 * It allows you to use static imports instead of class imports (e.g. `array.toList` can be expanded to `asList(array)` instead of `Arrays.asList(array)` if you add `[USE_STATIC_IMPORTS]` to the rule).
-* It comes with 67 useful and editable postfix templates for Java with in total 179 template rules, e.g.
+* It comes with 69 useful and editable postfix templates for Java with in total 184 template rules, e.g.
   * `string.toInt` → `Integer.parse(string)`
   * `array.toList` → `Arrays.asList(array)`
   * `file.lines` → `Files.readAllLines(file.toPath(), Charset.forName("UTF-8"))`
