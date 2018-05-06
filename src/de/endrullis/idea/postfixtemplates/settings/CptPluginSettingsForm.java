@@ -43,6 +43,16 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 import static de.endrullis.idea.postfixtemplates.utils.StringUtils.replace;
 
 public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposable {
+	/** This field holds the last state of the tree before saving the settings or null. */
+	@Nullable
+	private static Map<CptLang, List<CptVirtualFile>> lastTreeState;
+
+	public static Map<CptLang, List<CptVirtualFile>> getLastTreeState() {
+		val state = lastTreeState;
+		lastTreeState = null;
+		return state;
+	}
+
 	private JPanel         mainPanel;
 	private JPanel         templatesEditorPanel;
 	private JButton        editButton;
@@ -71,7 +81,8 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 				try {
 					assert checkboxTree != null;
 					if (checkboxTree.getSelectedFile() != null) {
-						setEditorContent(CptUtil.getContent(checkboxTree.getSelectedFile().getFile()));
+						val file = checkboxTree.getSelectedFile().getFile();
+						setEditorContent(file.exists() ? CptUtil.getContent(file) : "");
 					}
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
@@ -276,6 +287,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	@Override
 	public CptPluginSettings getPluginSettings() {
 		assert checkboxTree != null;
+		lastTreeState = checkboxTree.getState();
 		val langName2virtualFile = checkboxTree.getExport();
 		return new CptPluginSettings(varLambdaRadioButton.isSelected(), langName2virtualFile, templateSuffixField.getText());
 	}

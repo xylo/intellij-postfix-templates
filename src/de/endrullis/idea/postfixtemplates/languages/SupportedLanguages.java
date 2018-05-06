@@ -36,7 +36,7 @@ public class SupportedLanguages {
 		supportedLanguages.forEach(lang -> put(lang.getLanguage(), lang));
 	}};
 
-	public static CptLang getCptLang(@NotNull final String language) {
+	public static CptLang getCptLang(final String language) {
 		return languageToCptLang.get(language);
 	}
 
@@ -51,9 +51,7 @@ public class SupportedLanguages {
 			return Optional.empty();
 		}
 
-		final String language = CptUtil.getLanguageOfTemplateFile(vFile);
-
-		return Optional.of(getCptLang(language));
+		return Optional.ofNullable(CptUtil.getLanguageOfTemplateFile(vFile));
 	}
 
 }

@@ -102,7 +102,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 				SimpleTextAttributes attributes;
 				if (cptTreeNode != null) {
 					//Color fgColor = cptTreeNode.isChanged() || cptTreeNode.isNew() ? JBColor.BLUE : null;
-					Color fgColor = cptTreeNode.getFile().isLocal() ? JBColor.BLUE : null;
+					Color fgColor = cptTreeNode.getFile().hasChanged() ? JBColor.BLUE : null;
 					attributes = new SimpleTextAttributes(SimpleTextAttributes.STYLE_PLAIN, fgColor);
 				} else {
 					attributes = SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES;
@@ -111,8 +111,10 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 					new SimpleTextAttributes(background, attributes.getFgColor(), JBColor.RED, attributes.getStyle()));
 
 				if (cptTreeNode != null) {
-					String url = cptTreeNode.getFile().getUrl().toString();
-					getTextRenderer().append("  " + url, new SimpleTextAttributes(SimpleTextAttributes.STYLE_SMALLER, JBColor.GRAY), false);
+					URL url = cptTreeNode.getFile().getUrl();
+					if (url != null) {
+						getTextRenderer().append("  " + url.toString(), new SimpleTextAttributes(SimpleTextAttributes.STYLE_SMALLER, JBColor.GRAY), false);
+					}
 				}
 			}
 		};
@@ -235,47 +237,36 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		popup.show(ObjectUtils.assertNotNull(button.getPreferredPopupPoint()));
 	}
 
-	public void openFileEditDialog(Project project, CptLang lang, CptVirtualFile cptVirtualFile) {
-		val addNewNode = cptVirtualFile == null;
-		val url = cptVirtualFile != null ? cptVirtualFile.getUrl() : null;
-		val dialog = new AddTemplateFileDialog(project, url);
+	public void openFileEditDialog(Project project, CptLang lang, FileTreeNode fileNode) {
+		val addNewNode = fileNode == null;
+		val cptVirtualFile = addNewNode ? null : fileNode.getFile();
+		val dialog = new AddTemplateFileDialog(project, lang, cptVirtualFile, getOtherFileNames(lang, fileNode));
 		dialog.show();
 
 		if (dialog.isOK()) {
-			try {
-				val newUrl = dialog.getURL();
-				val isFile = newUrl.getProtocol().equals("file");
+			val newCptVirtualFile = dialog.getCptVirtualFile();
 
-				if (!isFile) {
-					new DialogBuilder(project) {{
-						setErrorText("At the moment only the \"file\" protocol is supported.");
-					}}.show();
-					return;
-				}
+			// are we adding a new node?
+			if (addNewNode) {
+				val langNode = findOrCreateLangNode(lang);
+				val newNode = new FileTreeNode(lang, newCptVirtualFile);
 
-				val file = isFile ? new File(newUrl.getFile()) : new File(".");
-
-				// are we adding a new node?
-				if (addNewNode) {
-					cptVirtualFile = new CptVirtualFile(newUrl, file);
-
-					val langNode = findOrCreateLangNode(lang);
-					val newNode = new FileTreeNode(lang, cptVirtualFile);
-					val fileNode = new FileTreeNode(newNode.getLang(), newNode.getFile());
-
-					langNode.add(fileNode);
-					model.nodeStructureChanged(langNode);
-					TreeUtil.selectNode(this, fileNode);
-				} else {
-					cptVirtualFile.setUrl(newUrl);
-					cptVirtualFile.setFile(file);
-				}
-			} catch (MalformedURLException e) {
-				new DialogBuilder(project) {{
-					setErrorText("The given URL was invalid.");
-				}}.show();
+				langNode.add(newNode);
+				model.nodeStructureChanged(langNode);
+				TreeUtil.selectNode(this, newNode);
+			} else {
+				fileNode.setFile(newCptVirtualFile);
 			}
 		}
+	}
+
+	private Set<String> getOtherFileNames(CptLang lang, FileTreeNode fileNode) {
+		val langNode = findOrCreateLangNode(lang);
+
+		return TreeUtil.nodeChildren(langNode)
+			.filter(n -> n != fileNode)
+			.map(n -> ((FileTreeNode) n).getFile().getName().replace(".postfixTemplates", ""))
+			.toSet();
 	}
 
 	public boolean canEditSelectedFile() {
@@ -296,7 +287,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 		if (isEditable(file)) {
 			val project = CptUtil.getActiveProject();
-			openFileEditDialog(project, fileNode.getLang(), fileNode.getFile());
+			openFileEditDialog(project, fileNode.getLang(), fileNode);
 
 			model.nodeChanged(fileNode);
 
@@ -435,7 +426,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	}
 
 	private static boolean isEditable(@Nullable CptVirtualFile file) {
-		return file != null && file.isEditable();
+		return file != null;
 	}
 
 	@NotNull
@@ -451,6 +442,17 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		root.add(languageNode);
 
 		return languageNode;
+	}
+
+	@NotNull
+	HashMap<CptLang, List<CptVirtualFile>> getState() {
+		HashMap<CptLang, List<CptVirtualFile>> state = new HashMap<>();
+
+		visitFileNodes(n -> {
+			state.computeIfAbsent(n.getLang(), e -> new ArrayList<>()).add(n.getFile());
+		});
+
+		return state;
 	}
 
 	@NotNull

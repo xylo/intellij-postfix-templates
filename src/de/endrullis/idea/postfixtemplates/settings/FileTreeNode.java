@@ -29,7 +29,12 @@ public class FileTreeNode extends CheckedTreeNode {
     this.file = file;
   }
 
-  @Override
+	public void setFile(@NotNull CptVirtualFile file) {
+		this.file = file;
+		setUserObject(file.getName());
+	}
+
+	@Override
   public String toString() {
     return file.getName().replaceAll("\\.postfixTemplates", "");
   }

@@ -9,8 +9,16 @@ import com.intellij.util.messages.Topic;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.intellij.util.xmlb.annotations.Property;
 import lombok.Getter;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
 
 @State(
 	name = "CustomPostfixTemplatesApplicationSettings",
@@ -39,7 +47,53 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 	public void setPluginSettings(@NotNull CptPluginSettings settings) {
 		state.pluginSettings = settings;
 
+		settingsChanged();
+	}
+
+	private void settingsChanged() {
+		// check changes and eventually update file tree
+		val lastTreeState = CptPluginSettingsForm.getLastTreeState();
+
+		if (lastTreeState != null) {
+			for (List<CptVirtualFile> cptVirtualFiles : lastTreeState.values()) {
+				for (CptVirtualFile cptVirtualFile : cptVirtualFiles) {
+					try {
+						boolean needsUpdate = false;
+
+						if (cptVirtualFile.getFile() != null) {
+							createParent(cptVirtualFile.getFile());
+						}
+
+						if (cptVirtualFile.isNew()) {
+							cptVirtualFile.getFile().createNewFile();
+
+							needsUpdate = cptVirtualFile.getUrl() != null;
+						}
+						if (cptVirtualFile.fileHashChanged()) {
+							cptVirtualFile.getOldFile().renameTo(cptVirtualFile.getFile());
+						}
+						if (cptVirtualFile.urlHashChanged()) {
+							needsUpdate = true;
+						}
+
+						if (needsUpdate) {
+							val content = new Scanner(cptVirtualFile.getUrl().openStream(), "UTF-8").useDelimiter("\\A").next();
+							try (BufferedWriter writer = new BufferedWriter(new FileWriter(cptVirtualFile.getFile()))) {
+								writer.write(content);
+							}
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
 		ApplicationManager.getApplication().getMessageBus().syncPublisher(SettingsChangedListener.TOPIC).onSettingsChange(this);
+	}
+
+	private void createParent(File file) {
+		file.getParentFile().mkdirs();
 	}
 
 	@NotNull

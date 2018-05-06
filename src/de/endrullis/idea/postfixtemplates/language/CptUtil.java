@@ -9,7 +9,6 @@ import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.newvfs.impl.VirtualFileImpl;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
@@ -20,9 +19,11 @@ import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.util.indexing.FileBasedIndex;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
+import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.util.*;
@@ -164,6 +165,16 @@ public class CptUtil {
 		}
 	}
 
+	public static File getTemplateFile(@NotNull String language, @NotNull String fileName) {
+		val path = new File(getTemplatesPath(), language);
+		if (!path.exists()) {
+			//noinspection ResultOfMethodCallIgnored
+			path.mkdirs();
+		}
+
+		return new File(path, fileName + ".postfixTemplates");
+	}
+
 	public static List<File> getTemplateFiles(@NotNull String language) {
 		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
 			File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
@@ -180,21 +191,37 @@ public class CptUtil {
 		}
 	}
 
-	public static String getLanguageOfTemplateFile(@NotNull VirtualFile vFile) {
+	@Nullable
+	public static CptLang getLanguageOfTemplateFile(@NotNull VirtualFile vFile) {
+		/*
 		val settings = CptApplicationSettings.getInstance().getPluginSettings();
 
 		val path = getPath(vFile);
 
 		return settings.getFile2langName().get(path);
+  	*/
+
+		val name = vFile.getNameWithoutExtension();
+
+		return Optional.ofNullable(
+			SupportedLanguages.getCptLang(name)
+		).orElseGet(() -> {
+			return SupportedLanguages.getCptLang(getAbsoluteVirtualFile(vFile).getParent().getName());
+		});
 	}
 
 	@NotNull
 	public static String getPath(@NotNull VirtualFile vFile) {
+		return getAbsoluteVirtualFile(vFile).getPath().replace('\\', '/');
+	}
+
+	@NotNull
+	public static VirtualFile getAbsoluteVirtualFile(@NotNull VirtualFile vFile) {
 		if (vFile instanceof LightVirtualFile) {
 			vFile = ((LightVirtualFile) vFile).getOriginalFile();
 		}
 
-		return vFile.getPath().replace('\\', '/');
+		return vFile;
 	}
 
 	public static void openFileInEditor(@NotNull Project project, @NotNull File file) {
