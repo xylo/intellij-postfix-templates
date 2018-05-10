@@ -95,15 +95,34 @@ public class CptUtil {
 		return result;
 	}
 
+	/**
+	 * Returns the predefined plugin templates for the given language.
+	 *
+	 * @param language programming language
+	 * @return predefined plugin templates for the given language
+	 */
 	public static String getDefaultTemplates(String language) {
 		InputStream stream = CptUtil.class.getResourceAsStream("defaulttemplates/" + language + ".postfixTemplates");
 		return getContent(stream);
 	}
 
+	/**
+	 * Returns the content of the given file.
+	 *
+	 * @param file file
+	 * @return content of the given file
+	 * @throws FileNotFoundException
+	 */
 	public static String getContent(@NotNull File file) throws FileNotFoundException {
 		return getContent(new FileInputStream(file));
 	}
 
+	/**
+	 * Returns the content of the given input stream.
+	 *
+	 * @param stream input stream
+	 * @return content of the given input stream
+	 */
 	private static String getContent(@NotNull InputStream stream) {
 		StringBuilder sb = new StringBuilder();
 
@@ -122,6 +141,11 @@ public class CptUtil {
 		return "";
 	}
 
+	/**
+	 * Returns the path of the CPT plugin settings directory.
+	 *
+	 * @return path of the CPT plugin settings directory
+	 */
 	public static File getPluginPath() {
 		File path = PluginManager.getPlugin(PluginId.getId(CptUtil.PLUGIN_ID)).getPath();
 
@@ -132,6 +156,11 @@ public class CptUtil {
 		return path;
 	}
 
+	/**
+	 * Returns the path "$CPT_PLUGIN_SETTINGS/templates".
+	 *
+	 * @return path "$CPT_PLUGIN_SETTINGS/templates"
+	 */
 	public static File getTemplatesPath() {
 		return new File(getPluginPath(), "templates");
 	}
@@ -151,7 +180,7 @@ public class CptUtil {
 		}
 	}
 
-	public static Optional<File> getTemplateFile(@NotNull String language) {
+	public static Optional<File> getOldTemplateFile(@NotNull String language) {
 		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
 			File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
 
@@ -165,7 +194,7 @@ public class CptUtil {
 		}
 	}
 
-	public static File getTemplateFile(@NotNull String language, @NotNull String fileName) {
+	public static File getOldTemplateFile(@NotNull String language, @NotNull String fileName) {
 		val path = new File(getTemplatesPath(), language);
 		if (!path.exists()) {
 			//noinspection ResultOfMethodCallIgnored
