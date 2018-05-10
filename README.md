@@ -253,9 +253,16 @@ Go to *Settings → Editor → Custom Postfix Templates*.  Here you can chose be
 
 ## Roadmap
 
-### Version X
+### Version 2
 
-* Support for other languages
+Version 2 is already in work and will be released in the next weeks/months.
+
+It will bring you the following features:
+* It allows you to split your templates file into multiple ones.
+* It allows you to import templates from web sources and local files.
+* It solves the complicated update procedure of merging your templates with the ones from the plugin 
+  by separating your templates from auto-updatable web templates
+* You will be able to share your templates with others.
 
 ## Contribute
 
