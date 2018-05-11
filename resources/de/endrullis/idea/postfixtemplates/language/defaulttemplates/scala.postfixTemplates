@@ -1,19 +1,19 @@
 ## collection operations ##
 
 .toList : to list
-	NON_VOID  →  List($expr$)
+	NON_VOID                 →  List($expr$)
 
 .toSet : to set
-	NON_VOID  →  Set($expr$)
+	NON_VOID                 →  Set($expr$)
 
 .toMap : to map
-	scala.Tuple2  →  Map($expr$)
+	scala.Tuple2             →  Map($expr$)
 
 .toOption : to option
-	NON_VOID  →  Option($expr$)
+	NON_VOID                 →  Option($expr$)
 
 .toSome : to some
-	NON_VOID  →  Some($expr$)
+	NON_VOID                 →  Some($expr$)
 
 
 ## function applications ##
