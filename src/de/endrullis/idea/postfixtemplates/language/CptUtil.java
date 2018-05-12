@@ -243,6 +243,28 @@ public class CptUtil {
 		}
 	}
 
+	public static List<File> getEditableTemplateFiles(@NotNull String language) {
+		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
+			// eventually move old templates file to new directory
+			getOldTemplateFile(language);
+
+			val filesFromDir = getTemplateFilesFromLanguageDir(language);
+
+			val settings = CptApplicationSettings.getInstance().getPluginSettings();
+
+			val vFiles = settings.getLangName2virtualFile().getOrDefault(language, new ArrayList<>());
+			val allFilesFromConfig = vFiles.stream().map(f -> f.file).collect(Collectors.toSet());
+			val enabledFilesFromConfig = vFiles.stream().filter(f -> f.enabled && f.url == null).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
+
+			val remainingTemplateFilesFromDir = Arrays.stream(filesFromDir).filter(f -> !allFilesFromConfig.contains(f.getAbsolutePath()));
+
+			// templateFilesFromConfig + remainingTemplateFilesFromDir
+			return Stream.concat(remainingTemplateFilesFromDir, enabledFilesFromConfig.stream()).collect(Collectors.toList());
+		} else {
+			return _List();
+		}
+	}
+
 	@NotNull
 	public static File[] getTemplateFilesFromLanguageDir(@NotNull String language) {
 		final File[] files = getTemplateDir(language).listFiles(f -> f.getName().endsWith(".postfixTemplates"));
