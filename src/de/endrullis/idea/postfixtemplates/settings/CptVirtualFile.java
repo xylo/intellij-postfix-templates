@@ -65,14 +65,14 @@ public class CptVirtualFile {
 	}
 
 	public boolean hasChanged() {
-		return isNew || urlHashChanged() || fileHashChanged();
+		return isNew || urlHasChanged() || fileHasChanged();
 	}
 
-	public boolean urlHashChanged() {
+	public boolean urlHasChanged() {
 		return oldUrl != null;
 	}
 
-	public boolean fileHashChanged() {
+	public boolean fileHasChanged() {
 		return oldFile != null;
 	}
 

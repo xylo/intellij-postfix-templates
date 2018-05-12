@@ -341,6 +341,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 			if (lastPathComponent == null) continue;
 
+			/*
 			val checkBox = new JCheckBox("Delete file from filesystem");
 			val dialog = new DialogWrapper(this, false) {
 				{
@@ -367,6 +368,9 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 				}
 				TreeUtil.removeLastPathComponent(this, path);
 			}
+			*/
+			
+			TreeUtil.removeLastPathComponent(this, path);
 		}
 	}
 

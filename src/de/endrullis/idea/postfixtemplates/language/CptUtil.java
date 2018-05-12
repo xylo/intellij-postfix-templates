@@ -226,25 +226,32 @@ public class CptUtil {
 			// eventually move old templates file to new directory
 			getOldTemplateFile(language);
 
-			val filesFromDir = getTemplateDir(language).listFiles(f -> f.getName().endsWith(".postfixTemplates"));
+			val filesFromDir = getTemplateFilesFromLanguageDir(language);
 
-			if (filesFromDir != null) {
-				val settings = CptApplicationSettings.getInstance().getPluginSettings();
+			val settings = CptApplicationSettings.getInstance().getPluginSettings();
 
-				val vFiles = settings.getLangName2virtualFile().getOrDefault(language, new ArrayList<>());
-				val allFilesFromConfig = vFiles.stream().map(f -> f.file).collect(Collectors.toSet());
-				val enabledFilesFromConfig = vFiles.stream().filter(f -> f.enabled).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
+			val vFiles = settings.getLangName2virtualFile().getOrDefault(language, new ArrayList<>());
+			val allFilesFromConfig = vFiles.stream().map(f -> f.file).collect(Collectors.toSet());
+			val enabledFilesFromConfig = vFiles.stream().filter(f -> f.enabled).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
 
-				val remainingTemplateFilesFromDir = Arrays.stream(filesFromDir).filter(f -> !allFilesFromConfig.contains(f.getAbsolutePath()));
+			val remainingTemplateFilesFromDir = Arrays.stream(filesFromDir).filter(f -> !allFilesFromConfig.contains(f.getAbsolutePath()));
 
-				// templateFilesFromConfig + remainingTemplateFilesFromDir
-				return Stream.concat(remainingTemplateFilesFromDir, enabledFilesFromConfig.stream()).collect(Collectors.toList());
-			} else {
-				return _List();
-			}
+			// templateFilesFromConfig + remainingTemplateFilesFromDir
+			return Stream.concat(remainingTemplateFilesFromDir, enabledFilesFromConfig.stream()).collect(Collectors.toList());
 		} else {
 			return _List();
 		}
+	}
+
+	@NotNull
+	public static File[] getTemplateFilesFromLanguageDir(@NotNull String language) {
+		final File[] files = getTemplateDir(language).listFiles(f -> f.getName().endsWith(".postfixTemplates"));
+
+		if (files == null) {
+			return new File[0];
+		}
+
+		return files;
 	}
 
 	@Nullable
