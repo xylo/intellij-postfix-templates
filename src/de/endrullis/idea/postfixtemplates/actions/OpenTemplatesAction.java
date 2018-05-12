@@ -7,6 +7,7 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
@@ -14,6 +15,8 @@ import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
+import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
+import de.endrullis.idea.postfixtemplates.settings.CptPluginConfigurable;
 import lombok.val;
 
 import java.io.File;
@@ -41,31 +44,41 @@ public class OpenTemplatesAction extends AnAction {
 				assert psiFile != null;
 				Language language = psiFile.getLanguage();
 
-				while (language != null) {
-					List<File> templateFiles = CptUtil.getEditableTemplateFiles(language.getID().toLowerCase());
+				DefaultActionGroup actionGroup = new DefaultActionGroup();
 
-					if (!templateFiles.isEmpty()) {
-						val group = new DefaultActionGroup() {{
+				while (language != null) {
+					if (SupportedLanguages.supportedLanguageIds.contains(language.getID().toLowerCase())) {
+
+						List<File> templateFiles = CptUtil.getEditableTemplateFiles(language.getID().toLowerCase());
+
+						if (!templateFiles.isEmpty()) {
 							for (File file : templateFiles) {
-								add(new DumbAwareAction(file.getName().replace(".postfixTemplates", "")) {
+								actionGroup.add(new DumbAwareAction(language.getDisplayName() + ": " + file.getName().replace(".postfixTemplates", "")) {
 									@Override
 									public void actionPerformed(AnActionEvent anActionEvent) {
-										val project = CptUtil.getActiveProject();
+										Project project = CptUtil.getActiveProject();
 										CptUtil.openFileInEditor(project, file);
 									}
 								});
 							}
-						}};
-
-						DataContext context = anActionEvent.getDataContext();
-						ListPopup popup = JBPopupFactory.getInstance().createActionGroupPopup("Choose template file", group, context,
-							JBPopupFactory.ActionSelectionAid.ALPHA_NUMBERING, true, null);
-						popup.showInBestPositionFor(context);
-						return;
+						}
 					}
 
 					language = language.getBaseLanguage();
 				}
+
+				actionGroup.add(new DumbAwareAction("Create new template files / edit settings") {
+					@Override
+					public void actionPerformed(AnActionEvent anActionEvent) {
+						Project project = CptUtil.getActiveProject();
+						ShowSettingsUtil.getInstance().showSettingsDialog(project, CptPluginConfigurable.class);
+					}
+				});
+
+				DataContext context = anActionEvent.getDataContext();
+				ListPopup popup = JBPopupFactory.getInstance().createActionGroupPopup("Choose template file", actionGroup, context,
+					JBPopupFactory.ActionSelectionAid.ALPHA_NUMBERING, true, null);
+				popup.showInBestPositionFor(context);
 			}
 		}
 	}

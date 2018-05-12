@@ -183,7 +183,7 @@ public class CptUtil {
 	}
 
 	public static Optional<File> getOldTemplateFile(@NotNull String language) {
-		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
+		if (SupportedLanguages.supportedLanguageIds.contains(language.toLowerCase())) {
 			File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
 
 			if (file.exists()) {
@@ -222,7 +222,7 @@ public class CptUtil {
 	}
 
 	public static List<File> getTemplateFiles(@NotNull String language) {
-		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
+		if (SupportedLanguages.supportedLanguageIds.contains(language.toLowerCase())) {
 			// eventually move old templates file to new directory
 			getOldTemplateFile(language);
 
@@ -244,7 +244,7 @@ public class CptUtil {
 	}
 
 	public static List<File> getEditableTemplateFiles(@NotNull String language) {
-		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
+		if (SupportedLanguages.supportedLanguageIds.contains(language.toLowerCase())) {
 			// eventually move old templates file to new directory
 			getOldTemplateFile(language);
 

@@ -14,6 +14,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
@@ -31,6 +33,8 @@ public class SupportedLanguages {
 		new DartLang(),
 		new ScalaLang()
 	);
+
+	public static final Set<String> supportedLanguageIds = supportedLanguages.stream().map(cl -> cl.getLanguage()).collect(Collectors.toSet());
 
 	private static final HashMap<String, CptLang> languageToCptLang = new HashMap<String, CptLang>() {{
 		supportedLanguages.forEach(lang -> put(lang.getLanguage(), lang));
