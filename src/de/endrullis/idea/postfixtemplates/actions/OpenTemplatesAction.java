@@ -39,6 +39,7 @@ public class OpenTemplatesAction extends AnAction {
 					List<File> templateFile = CptUtil.getTemplateFiles(language.getID().toLowerCase());
 
 					if (!templateFile.isEmpty()) {
+						// TODO: open popup to give user the choice of which file to open
 						CptUtil.openFileInEditor(project, templateFile.get(0));
 						return;
 					}

@@ -28,6 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
@@ -165,6 +166,7 @@ public class CptUtil {
 		return new File(getPluginPath(), "templates");
 	}
 
+	@Deprecated
 	public static void createTemplateFile(@NotNull String language, String content) {
 		File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
 
@@ -184,37 +186,62 @@ public class CptUtil {
 		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
 			File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
 
-			if (!file.exists()) {
-				createTemplateFile(language, CptUtil.getDefaultTemplates(language));
+			if (file.exists()) {
+				// move file to new position
+				val newFile = getTemplateFile(language, "oldUserTemplates");
+				
+				if (file.renameTo(newFile)) {
+					return Optional.of(newFile);
+				} else {
+					return Optional.empty();
+				}
 			}
 
-			return Optional.of(file);
+			return Optional.empty();
 		} else {
 			return Optional.empty();
 		}
 	}
 
-	public static File getOldTemplateFile(@NotNull String language, @NotNull String fileName) {
-		val path = new File(getTemplatesPath(), language);
-		if (!path.exists()) {
-			//noinspection ResultOfMethodCallIgnored
-			path.mkdirs();
-		}
+	public static File getTemplateFile(@NotNull String language, @NotNull String fileName) {
+		val path = getTemplateDir(language);
 
 		return new File(path, fileName + ".postfixTemplates");
 	}
 
+	@NotNull
+	public static File getTemplateDir(@NotNull String language) {
+		final File dir = new File(getTemplatesPath(), language);
+
+		if (!dir.exists()) {
+			//noinspection ResultOfMethodCallIgnored
+			dir.mkdirs();
+		}
+
+		return dir;
+	}
+
 	public static List<File> getTemplateFiles(@NotNull String language) {
 		if (SUPPORTED_LANGUAGES.contains(language.toLowerCase())) {
-			File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
+			// eventually move old templates file to new directory
+			getOldTemplateFile(language);
 
-			if (!file.exists()) {
-				createTemplateFile(language, CptUtil.getDefaultTemplates(language));
+			val filesFromDir = getTemplateDir(language).listFiles(f -> f.getName().endsWith(".postfixTemplates"));
+
+			if (filesFromDir != null) {
+				val settings = CptApplicationSettings.getInstance().getPluginSettings();
+
+				val vFiles = settings.getLangName2virtualFile().getOrDefault(language, new ArrayList<>());
+				val allFilesFromConfig = vFiles.stream().map(f -> f.file).collect(Collectors.toSet());
+				val enabledFilesFromConfig = vFiles.stream().filter(f -> f.enabled).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
+
+				val remainingTemplateFilesFromDir = Arrays.stream(filesFromDir).filter(f -> !allFilesFromConfig.contains(f.getAbsolutePath()));
+
+				// templateFilesFromConfig + remainingTemplateFilesFromDir
+				return Stream.concat(remainingTemplateFilesFromDir, enabledFilesFromConfig.stream()).collect(Collectors.toList());
+			} else {
+				return _List();
 			}
-
-			val files = CptApplicationSettings.getInstance().getPluginSettings().getLangName2virtualFile().getOrDefault(language, new ArrayList<>());
-
-			return files.stream().filter(f -> f.enabled).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
 		} else {
 			return _List();
 		}

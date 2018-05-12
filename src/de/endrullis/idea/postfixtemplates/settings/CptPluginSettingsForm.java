@@ -1,46 +1,28 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
-import com.intellij.diff.DiffContentFactory;
-import com.intellij.diff.DiffManager;
-import com.intellij.diff.contents.DocumentContent;
-import com.intellij.diff.requests.SimpleDiffRequest;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.LocalFileSystem;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiManager;
 import com.intellij.ui.GuiUtils;
 import com.intellij.ui.ToolbarDecorator;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
-import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
-import de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateProvider;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
-import static de.endrullis.idea.postfixtemplates.utils.StringUtils.replace;
 
 public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposable {
 	/** This field holds the last state of the tree before saving the settings or null. */
@@ -130,16 +112,15 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		for (CptLang lang : SupportedLanguages.supportedLanguages) {
 			// add files from saved settings
 			List<CptPluginSettings.VFile> cptFiles = new ArrayList<>(langName2virtualFile.getOrDefault(lang.getLanguage(), _List()));
+			val filesFromConfig = cptFiles.stream().map(f -> f.getFile()).collect(Collectors.toSet());
 
-			// add files from file system (for compatibility with older versions)
-			CptUtil.getOldTemplateFile(lang.getLanguage()).ifPresent(file -> {
-				if (cptFiles.stream().noneMatch(f -> FileUtil.filesEqual(new File(f.file), file))) {
-					try {
-						cptFiles.add(new CptPluginSettings.VFile(true, file.toURI().toURL().toString(), file.getAbsolutePath()));
-					} catch (MalformedURLException ignored) {
-					}
-				}
-			});
+			// add files from filesystem that are not already in the settings
+			val templateFilesFromDir = CptUtil.getTemplateDir(lang.getLanguage()).listFiles(f -> f.getName().endsWith(".postfixTemplates"));
+			if (templateFilesFromDir != null) {
+				Arrays.stream(templateFilesFromDir).filter(f -> !filesFromConfig.contains(f.getAbsolutePath())).forEach(file -> {
+					cptFiles.add(new CptPluginSettings.VFile(true, null, file.getAbsolutePath()));
+				});
+			}
 
 			lang2file.put(lang, cptFiles);
 		}
@@ -191,7 +172,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 	/*
 	private void openTemplatesInEditor() {
-		File file = CptUtil.getOldTemplateFile(getSelectedLang().getLanguage()).get();
+		File file = CptUtil.getTemplateFile(getSelectedLang().getLanguage()).get();
 
 		Project project = CptUtil.getActiveProject();
 
@@ -211,7 +192,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private void showDiff() {
 		Project project = CptUtil.getActiveProject();
 
-		CptUtil.getOldTemplateFile(getSelectedLang().getLanguage()).ifPresent(file -> {
+		CptUtil.getTemplateFile(getSelectedLang().getLanguage()).ifPresent(file -> {
 			VirtualFile vFile = LocalFileSystem.getInstance().findFileByIoFile(file);
 
 			DocumentContent content1 = DiffContentFactory.getInstance().create(getTemplateText());
@@ -233,7 +214,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	public void setPluginSettings(@NotNull CptPluginSettings settings) {
 		// load template file content to display
 		/*
-		CptUtil.getOldTemplateFile("java").ifPresent(file -> {
+		CptUtil.getTemplateFile("java").ifPresent(file -> {
 			if (file.exists()) {
 				try {
 					templatesText = CptUtil.getContent(file);
