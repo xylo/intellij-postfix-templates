@@ -10,7 +10,7 @@ import java.io.File;
 public class WebTemplateFileParsingTestApp {
 	public static void main(String[] args) {
 		try {
-			WebTemplateFile[] entries = WebTemplateFileLoader.load(new File("test/src/yaml/webTemplateFiles.yaml").toURI().toURL());
+			WebTemplateFile[] entries = WebTemplateFileLoader.load(new File("test/src/yaml/webTemplateFiles.yaml"));
 			for (WebTemplateFile entry : entries) {
 				System.out.println(ReflectionToStringBuilder.toString(entry, ToStringStyle.MULTI_LINE_STYLE));
 			}
