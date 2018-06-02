@@ -1,4 +1,4 @@
-package yaml;
+package de.endrullis.idea.postfixtemplates.settings;
 
 import lombok.Data;
 

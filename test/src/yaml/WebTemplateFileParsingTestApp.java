@@ -1,7 +1,7 @@
 package yaml;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import de.endrullis.idea.postfixtemplates.settings.WebTemplateFile;
+import de.endrullis.idea.postfixtemplates.settings.WebTemplateFileLoader;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -9,9 +9,8 @@ import java.io.File;
 
 public class WebTemplateFileParsingTestApp {
 	public static void main(String[] args) {
-		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		try {
-			WebTemplateFile[] entries = mapper.readValue(new File("test/src/yaml/webTemplateFiles.yaml"), WebTemplateFile[].class);
+			WebTemplateFile[] entries = WebTemplateFileLoader.load(new File("test/src/yaml/webTemplateFiles.yaml").toURI().toURL());
 			for (WebTemplateFile entry : entries) {
 				System.out.println(ReflectionToStringBuilder.toString(entry, ToStringStyle.MULTI_LINE_STYLE));
 			}
