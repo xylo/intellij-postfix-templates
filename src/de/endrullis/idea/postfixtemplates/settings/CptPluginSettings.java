@@ -51,7 +51,7 @@ public final class CptPluginSettings {
 
 	public Map<String, List<VFile>> getLangName2virtualFile() {
 		return langName2virtualFile.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> {
-			return e.getValue().stream().map(f -> new VFile(f.enabled, f.url, f.file.replace("${PLUGIN}", CptUtil.getTemplatesPath().getAbsolutePath()))).collect(Collectors.toList());
+			return e.getValue().stream().map(f -> new VFile(f.enabled, f.id, f.url, f.file.replace("${PLUGIN}", CptUtil.getTemplatesPath().getAbsolutePath()))).collect(Collectors.toList());
 		}));
 	}
 
@@ -80,6 +80,7 @@ public final class CptPluginSettings {
 	@Data
 	public static class VFile {
 		public boolean enabled;
+		public String id;
 		public String url;
 		public String file;
 	}

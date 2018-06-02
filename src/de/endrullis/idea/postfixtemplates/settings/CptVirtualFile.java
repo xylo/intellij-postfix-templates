@@ -13,6 +13,10 @@ import java.net.URL;
  */
 public class CptVirtualFile {
 
+	/** ID. */
+	@Getter
+	@Setter
+	private String id;
 	/** Local (file) or remote (web) address of the templates file to copy. */
 	@Getter
 	@Setter

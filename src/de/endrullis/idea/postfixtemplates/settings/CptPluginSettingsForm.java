@@ -117,7 +117,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			// add files from filesystem that are not already in the settings
 			val templateFilesFromDir = CptUtil.getTemplateFilesFromLanguageDir(lang.getLanguage());
 			Arrays.stream(templateFilesFromDir).filter(f -> !filesFromConfig.contains(f.getAbsolutePath())).forEach(file -> {
-				cptFiles.add(new CptPluginSettings.VFile(true, null, file.getAbsolutePath()));
+				cptFiles.add(new CptPluginSettings.VFile(true, null, null, file.getAbsolutePath()));
 			});
 
 			lang2file.put(lang, cptFiles);

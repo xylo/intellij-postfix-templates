@@ -468,7 +468,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		visitFileNodes(n -> {
 			val url = n.getFile().getUrl() != null ? n.getFile().getUrl().toString() : null;
 			val filePath = n.getFile().getFile().getAbsolutePath().replace(templatesPath, "${PLUGIN}");
-			val vFile = new CptPluginSettings.VFile(n.isChecked(), url, filePath);
+			val vFile = new CptPluginSettings.VFile(n.isChecked(), n.getFile().getId(), url, filePath);
 			export.computeIfAbsent(n.getLang().getLanguage(), e -> new ArrayList<>()).add(vFile);
 		});
 
