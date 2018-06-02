@@ -1,0 +1,42 @@
+## I/O ##
+
+.lines : get lines
+	java.io.File             →  java.nio.file.Files.readAllLines($expr$.toPath(), java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
+	java.nio.file.Path       →  java.nio.file.Files.readAllLines($expr$, java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
+	java.lang.String         →  $expr$.split("\\r?\\n")
+	java.io.InputStream      →  new java.io.BufferedReader(new java.io.InputStreamReader($expr$)).lines()
+
+.content : get content
+	java.io.File             →  new String(java.nio.file.Files.readAllBytes($expr$.toPath()), $encoding::"\"UTF-8\""$)
+	java.nio.file.Path       →  new String(java.nio.file.Files.readAllBytes($expr$), $encoding::"\"UTF-8\""$)
+	java.io.InputStream      →  new java.util.Scanner($expr$, $encoding::"\"UTF-8\""$).useDelimiter("\\\\A").next()
+	java.net.URL             →  new java.util.Scanner($expr$.openStream(), $encoding::"\"UTF-8\""$).useDelimiter("\\\\A").next()
+
+.inputStream : get input stream
+	java.lang.String         →  new java.io.ByteArrayInputStream($expr$.getBytes())
+	java.io.File             →  new java.io.FileInputStream($expr$)
+	java.net.URL             →  $expr$.openStream()
+
+.outputStream : get output stream
+	java.io.File             →  new java.io.FileOutputStream($expr$)
+
+.bufferedReader : get BufferedReader
+	java.io.File             →  new java.io.BufferedReader(new java.io.FileReader($expr$))
+	java.io.InputStream      →  new java.io.BufferedReader(new java.io.InputStreamReader($expr$))
+	java.net.URL             →  new java.io.BufferedReader(new java.io.InputStreamReader($expr$.openStream()))
+
+.bufferedWriter : get BufferedWriter
+	java.io.File             →  new java.io.BufferedWriter(new java.io.FileWriter($expr$))
+	java.io.OutputStream     →  new java.io.BufferedWriter(new java.io.OutputStreamWriter($expr$))
+
+.printStream : get PrintStream
+	java.io.File             →  new java.io.PrintStream($expr$)
+	java.io.OutputStream     →  new java.io.PrintStream($expr$)
+
+.sout : print variable to System.out
+	ARRAY                    →  System.out.println(java.util.Arrays.toString($expr$))
+	NON_VOID                 →  System.out.println($expr$)
+
+.soutv : print variable to System.out
+	ARRAY                    →  System.out.println("$expr$ = " + java.util.Arrays.toString($expr$))
+	NON_VOID                 →  System.out.println("$expr$ = " + $expr$)

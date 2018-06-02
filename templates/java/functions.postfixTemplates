@@ -1,0 +1,22 @@
+## function applications ##
+
+.apply : apply the function
+	java.lang.Runnable                    →  $expr$.run()
+	java.util.function.Supplier           →  $expr$.get()
+	java.util.function.BooleanSupplier    →  $expr$.getAsBoolean()
+	java.util.function.DoubleSupplier     →  $expr$.getAsDouble()
+	java.util.function.IntSupplier        →  $expr$.getAsInt()
+	java.util.function.LongSupplier       →  $expr$.getAsLong()
+	java.util.function.Consumer           →  $expr$.accept($object$)
+	java.util.function.BiConsumer         →  $expr$.accept($object$, $object$)
+	java.util.function.DoubleConsumer     →  $expr$.accept($doubleValue$)
+	java.util.function.IntConsumer        →  $expr$.accept($intValue$)
+	java.util.function.LongConsumer       →  $expr$.accept($longValue$)
+	java.util.function.ObjDoubleConsumer  →  $expr$.accept($object$, $doubleValue$)
+	java.util.function.ObjIntConsumer     →  $expr$.accept($object$, $intValue$)
+	java.util.function.ObjLongConsumer    →  $expr$.accept($object$, $longValue$)
+	java.util.function.Predicate          →  $expr$.test($object$)
+	java.util.function.BiPredicate        →  $expr$.test($object$, $object$)
+	java.util.function.DoublePredicate    →  $expr$.test($doubleValue$)
+	java.util.function.IntPredicate       →  $expr$.test($intValue$)
+	java.util.function.LongPredicate      →  $expr$.test($longValue$)

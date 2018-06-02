@@ -1,0 +1,11 @@
+## misc ##
+
+.new : new instance
+	CLASS                    →  new $expr$($END$)
+
+.r : compile pattern
+	java.lang.String         →  java.util.regex.Pattern.compile($expr$)
+
+.val : extract as value
+	NON_VOID [lombok.val]    →  val $var:suggestVariableName()$ = $expr$;
+	NON_VOID                 →  final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;

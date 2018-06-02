@@ -1,0 +1,48 @@
+## number conversions ##
+
+.toBoolean : convert to boolean
+	java.lang.String         →  Boolean.parseBoolean($expr$)
+
+.toByte : convert to byte
+	java.lang.String         →  Byte.parseByte($expr$)
+	java.lang.Number         →  $expr$.byteValue()
+	NUMBER                   →  ((byte) ($expr$))
+
+.toShort : convert to short
+	java.lang.String         →  Short.parseShort($expr$)
+	java.lang.Number         →  $expr$.shortValue()
+	NUMBER                   →  ((short) ($expr$))
+
+.toChar : convert to char
+	java.lang.String         →  $expr$.charAt(0)
+	NUMBER                   →  ((char) ($expr$))
+
+.toInt : convert to int
+	java.lang.String         →  Integer.parseInt($expr$)
+	java.lang.Number         →  $expr$.intValue()
+	NUMBER                   →  ((int) ($expr$))
+
+.toLong : convert to long
+	java.lang.String         →  Long.parseLong($expr$)
+	java.lang.Number         →  $expr$.longValue()
+	NUMBER                   →  ((long) ($expr$))
+
+.toFloat : convert to float
+	java.lang.String         →  Float.parseFloat($expr$)
+	java.lang.Number         →  $expr$.floatValue()
+	NUMBER                   →  ((float) ($expr$))
+
+.toDouble : convert to double
+	java.lang.String         →  Double.parseDouble($expr$)
+	java.lang.Number         →  $expr$.doubleValue()
+	NUMBER                   →  ((double) ($expr$))
+
+.format : format number
+	BYTE                     →  String.format("$format::"%d"$", $expr$)
+	SHORT                    →  String.format("$format::"%d"$", $expr$)
+	CHAR                     →  String.format("$format::"%c"$", $expr$)
+	INT                      →  String.format("$format::"%d"$", $expr$)
+	LONG                     →  String.format("$format::"%d"$", $expr$)
+	FLOAT                    →  String.format("$format::"%f"$", $expr$)
+	DOUBLE                   →  String.format("$format::"%f"$", $expr$)
+	java.lang.String         →  String.format($expr$, $END$)

@@ -1,0 +1,63 @@
+## IDEA development templates ##
+
+.toVirtualFile : as virtual file
+	java.io.File [com.intellij.openapi.vfs.VirtualFile]  →  com.intellij.openapi.vfs.LocalFileSystem.getInstance().findFileByIoFile($expr$)
+
+.toFile : as file
+	com.intellij.openapi.vfs.VirtualFile  →  new java.io.File($expr$.getPath())
+
+.getAttributes : get file attributes
+	com.intellij.openapi.vfs.VirtualFile  →  com.intellij.openapi.vfs.LocalFileSystem.getInstance().getAttributes($expr$)
+
+.openInEditor : open file in editor
+	com.intellij.openapi.vfs.VirtualFile  →  new com.intellij.openapi.fileEditor.OpenFileDescriptor($project:variableOfType("com.intellij.openapi.project.Project")$, $expr$).navigate(true)
+
+.getVirtualFile : get virtual file
+	com.intellij.openapi.editor.Document  →  com.intellij.openapi.fileEditor.FileDocumentManager.getInstance().getFile($expr$)
+
+.getDocument : get document
+	com.intellij.psi.PsiFile              →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getDocument($expr$)
+	com.intellij.psi.PsiElement           →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getDocument($expr$.getContainingFile())
+	com.intellij.openapi.fileEditor.FileEditor  →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).getDocument(com.intellij.psi.PsiManager.getInstance($project*$).findFile($expr$.getFile()))
+
+.getPsiFile : get PSI file
+	com.intellij.openapi.vfs.VirtualFile  →  com.intellij.psi.PsiManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findFile($expr$)
+	com.intellij.openapi.editor.Document  →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).getPsiFile($expr$)
+	com.intellij.openapi.fileEditor.FileEditor  →  com.intellij.psi.PsiManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findFile($expr$.getFile())
+
+.getPsiJavaFile : get PSI Java file
+	com.intellij.psi.PsiClass             →  ((com.intellij.psi.PsiJavaFile) $expr$.getContaningFile())
+
+.getPsiPackage : get PSI package
+	com.intellij.psi.PsiClass             →  com.intellij.psi.JavaPsiFacade.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findPackage(((com.intellij.psi.PsiJavaFile) $expr$.getContaningFile()).getPackageName())
+	com.intellij.psi.PsiJavaFile          →  com.intellij.psi.JavaPsiFacade.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).findPackage($expr$.getPackageName())
+
+.getChildrenOfType : get children of certain type
+	com.intellij.psi.PsiElement           →  com.intellij.psi.util.PsiTreeUtil.getChildrenOfType($expr$, $class$)
+
+.getModule : get module
+	com.intellij.openapi.vfs.VirtualFile  →  com.intellij.openapi.roots.ProjectRootManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getFileIndex().getModuleForFile($expr$)
+
+.getProject : get project
+	com.intellij.openapi.actionSystem.DataContext  →  com.intellij.openapi.actionSystem.DataKeys.PROJECT.getData($expr$)
+
+.runReadAction : runWriteAction(...)
+	ANY [com.intellij.openapi.application.Application]  →  com.intellij.openapi.application.ApplicationManager.getApplication().runReadAction(() -> {\
+	                                                         $expr$$END$\
+	                                                       });
+
+.runWriteAction : runWriteAction(...)
+	ANY [com.intellij.openapi.application.Application]  →  com.intellij.openapi.application.ApplicationManager.getApplication().runWriteAction(() -> {\
+	                                                         $expr$$END$\
+	                                                       });
+
+.invokeLater : invokeLater(...)
+	ANY [com.intellij.openapi.application.Application]  →  com.intellij.openapi.application.ApplicationManager.getApplication().invokeLater(() -> {\
+	                                                         $expr$$END$\
+	                                                       });
+
+.showDiff : show diff
+	java.lang.String [com.intellij.diff.DiffManager]  →  com.intellij.diff.DiffManager.getInstance().showDiff($project:variableOfType("com.intellij.openapi.project.Project")$, new SimpleDiffRequest("$title::"Diff Title"$",\
+	                                                       com.intellij.diff.DiffContentFactory.getInstance().create($expr$),\
+	                                                       com.intellij.diff.DiffContentFactory.getInstance().create($content2::"content2"$),\
+	                                                       "$leftTitle::"Left side"$", "$rightTitle::"Right side"$", "$title::"Diff Title"$");
