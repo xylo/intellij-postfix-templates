@@ -499,7 +499,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	}
 
 	private static boolean isEditable(@Nullable CptVirtualFile file) {
-		return file != null;
+		return file != null && file.getId() == null;
 	}
 
 	@NotNull
