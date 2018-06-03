@@ -1,5 +1,11 @@
 ## I/O ##
 
+.toFile : get file
+	java.lang.String         →  new java.io.File($expr$)
+
+.toURL : get URL
+	java.lang.String         →  new java.net.URL($expr$)
+
 .lines : get lines
 	java.io.File             →  java.nio.file.Files.readAllLines($expr$.toPath(), java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
 	java.nio.file.Path       →  java.nio.file.Files.readAllLines($expr$, java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
@@ -40,3 +46,6 @@
 .soutv : print variable to System.out
 	ARRAY                    →  System.out.println("$expr$ = " + java.util.Arrays.toString($expr$))
 	NON_VOID                 →  System.out.println("$expr$ = " + $expr$)
+
+.run : run shell command
+	java.lang.String         →  java.lang.Runtime.getRuntime().exec($expr$)
