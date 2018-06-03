@@ -178,7 +178,7 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 	}
 
 	public CustomJavaStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
-		super(name.substring(1), name + CptUtil.getTemplateSuffix(), example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)), provider);
+		super(name.substring(1), name, example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)), provider);
 		this.psiElement = psiElement;
 
 		useStaticImports = template.contains("[USE_STATIC_IMPORTS]");

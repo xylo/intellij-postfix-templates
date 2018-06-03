@@ -140,7 +140,7 @@ public class CustomKotlinStringPostfixTemplate extends StringBasedPostfixTemplat
 	}
 
 	public CustomKotlinStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
-		super(name.substring(1), name + CptUtil.getTemplateSuffix(), example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)), provider);
+		super(name.substring(1), name, example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)), provider);
 		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {

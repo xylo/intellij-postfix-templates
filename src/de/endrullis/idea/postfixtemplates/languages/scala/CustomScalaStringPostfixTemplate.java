@@ -75,7 +75,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	private final PsiElement psiElement;
 
 	public CustomScalaStringPostfixTemplate(String matchingClass, String conditionClass, String templateName, String example, String template, PsiElement psiElement) {
-		super(templateName.substring(1) + CptUtil.getTemplateSuffix(), example, new AncestorSelector(getCondition(matchingClass, conditionClass), SelectorType.All()));
+		super(templateName.substring(1), example, new AncestorSelector(getCondition(matchingClass, conditionClass), SelectorType.All()));
 		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {

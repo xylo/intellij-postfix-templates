@@ -183,7 +183,7 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 	}
 
 	public CustomJavaScriptStringPostfixTemplate(String clazz, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
-		super(name.substring(1), name + CptUtil.getTemplateSuffix(), example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)), provider);
+		super(name.substring(1), name, example, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)), provider);
 		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {

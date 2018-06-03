@@ -39,7 +39,6 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private JPanel         templatesEditorPanel;
 	private JRadioButton   emptyLambdaRadioButton;
 	private JRadioButton   varLambdaRadioButton;
-	private JTextField     templateSuffixField;
 	private JPanel         treeContainer;
 
 	@Nullable
@@ -223,7 +222,6 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		});
 		*/
 		changeLambdaStyle(settings.isVarLambdaStyle());
-		templateSuffixField.setText(settings.getTemplateSuffix());
 
 		fillTree(settings.getLangName2virtualFile());
 	}
@@ -234,7 +232,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		assert checkboxTree != null;
 		lastTreeState = checkboxTree.getState();
 		val langName2virtualFile = checkboxTree.getExport();
-		return new CptPluginSettings(varLambdaRadioButton.isSelected(), langName2virtualFile, templateSuffixField.getText());
+		return new CptPluginSettings(varLambdaRadioButton.isSelected(), langName2virtualFile);
 	}
 
 	@Override

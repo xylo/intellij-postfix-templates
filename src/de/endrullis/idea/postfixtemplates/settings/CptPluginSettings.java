@@ -24,29 +24,16 @@ public final class CptPluginSettings {
 
 	private transient Map<String, String> file2langName;
 
-	@Attribute("TemplateSuffix")
-	@NotNull
-	private String templateSuffix;
-
-	@Attribute("TemplateSuffixVersion")
-	private int templateSuffixVersion = 0;
-
 	private CptPluginSettings() {
-		this(true, new HashMap<>(), "");
+		this(true, new HashMap<>());
 	}
 
-	public CptPluginSettings(boolean varLambdaStyle, @NotNull Map<String, List<VFile>> langName2virtualFile, @NotNull String templateSuffix) {
+	public CptPluginSettings(boolean varLambdaStyle, @NotNull Map<String, List<VFile>> langName2virtualFile) {
 		this.varLambdaStyle = varLambdaStyle;
 		this.langName2virtualFile = langName2virtualFile;
-		this.templateSuffix = templateSuffix;
-		this.templateSuffixVersion = 1;
 	}
 
 	void upgrade() {
-		if (templateSuffixVersion == 0 && templateSuffix.equals("→")) {
-			templateSuffix = "";
-		}
-		templateSuffixVersion = 1;
 	}
 
 	public Map<String, List<VFile>> getLangName2virtualFile() {

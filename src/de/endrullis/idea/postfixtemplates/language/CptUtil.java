@@ -340,11 +340,6 @@ public class CptUtil {
 		return settings.getFile2langName().get(path).equals(language);
 	}
 
-	@NotNull
-	public static String getTemplateSuffix() {
-		return CptApplicationSettings.getInstance().getPluginSettings().getTemplateSuffix();
-	}
-
 	public static void downloadFile(CptVirtualFile cptVirtualFile) throws IOException {
 		val content = new Scanner(cptVirtualFile.getUrl().openStream(), "UTF-8").useDelimiter("\\A").next();
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(cptVirtualFile.getFile()))) {
