@@ -1,5 +1,7 @@
 package de.endrullis.idea.postfixtemplates.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 /**
@@ -21,6 +23,11 @@ public class CollectionUtils {
 	@SafeVarargs
 	public static <T> List<T> _List(T... values) {
 		return Arrays.asList(values);
+	}
+
+	@NotNull
+	public static <T1, T2> Tuple2<T1, T2> $(T1 o1, T2 o2) {
+		return new Tuple2<>(o1, o2);
 	}
 
 }

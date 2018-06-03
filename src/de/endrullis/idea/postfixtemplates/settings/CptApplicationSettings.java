@@ -24,6 +24,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import static de.endrullis.idea.postfixtemplates.language.CptUtil.downloadFile;
+
 @State(
 	name = "CustomPostfixTemplatesApplicationSettings",
 	storages = @Storage("customPostfixTemplates.xml")
@@ -87,10 +89,7 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 						}
 
 						if (needsUpdate) {
-							val content = new Scanner(cptVirtualFile.getUrl().openStream(), "UTF-8").useDelimiter("\\A").next();
-							try (BufferedWriter writer = new BufferedWriter(new FileWriter(cptVirtualFile.getFile()))) {
-								writer.write(content);
-							}
+							downloadFile(cptVirtualFile);
 						}
 					} catch (IOException e) {
 						e.printStackTrace();

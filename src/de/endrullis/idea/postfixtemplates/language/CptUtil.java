@@ -21,6 +21,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
+import de.endrullis.idea.postfixtemplates.settings.CptVirtualFile;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -342,6 +343,13 @@ public class CptUtil {
 	@NotNull
 	public static String getTemplateSuffix() {
 		return CptApplicationSettings.getInstance().getPluginSettings().getTemplateSuffix();
+	}
+
+	public static void downloadFile(CptVirtualFile cptVirtualFile) throws IOException {
+		val content = new Scanner(cptVirtualFile.getUrl().openStream(), "UTF-8").useDelimiter("\\A").next();
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(cptVirtualFile.getFile()))) {
+			writer.write(content);
+		}
 	}
 
 }

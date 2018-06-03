@@ -18,4 +18,12 @@ public class WebTemplateFileLoader {
 		return mapper.readValue(file, WebTemplateFile[].class);
 	}
 
+	public static WebTemplateFile[] loadFromFs() {
+		try {
+			return WebTemplateFileLoader.load(new File("/home/stefan/programmierung/java/intellij-plugins/intellij-postfix-templates/test/src/yaml/webTemplateFiles.yaml"));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }

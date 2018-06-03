@@ -16,6 +16,7 @@ public class CptVirtualFile {
 	/** ID. */
 	@Getter
 	@Setter
+	@Nullable
 	private String id;
 	/** Local (file) or remote (web) address of the templates file to copy. */
 	@Getter
@@ -41,12 +42,14 @@ public class CptVirtualFile {
 	@Setter
 	private boolean isNew;
 
-	public CptVirtualFile(@Nullable URL url, @NotNull File file) {
+	public CptVirtualFile(String id, @Nullable URL url, @NotNull File file) {
+		this.id = id;
 		this.url = url;
 		this.file = file;
 	}
 
-	public CptVirtualFile(@Nullable URL url, @NotNull File file, boolean isNew) {
+	public CptVirtualFile(@Nullable String id, @Nullable URL url, @NotNull File file, boolean isNew) {
+		this.id = id;
 		this.url = url;
 		this.file = file;
 		this.isNew = isNew;

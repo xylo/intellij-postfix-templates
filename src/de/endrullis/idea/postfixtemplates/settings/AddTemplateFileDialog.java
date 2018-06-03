@@ -135,7 +135,7 @@ public class AddTemplateFileDialog extends DialogWrapper {
 			val newUrl = urlString != null ? new URL(urlString) : null;
 			val newFile = CptUtil.getTemplateFile(lang.getLanguage(), nameField.getText().trim());
 
-			val newCptVirtualFile = new CptVirtualFile(newUrl, newFile, isNew);
+			val newCptVirtualFile = new CptVirtualFile(null, newUrl, newFile, isNew);
 
 			if (!isNew && newUrl != null && oldUrl != null && !newUrl.equals(oldUrl)) {
 				newCptVirtualFile.setOldUrl(oldUrl);

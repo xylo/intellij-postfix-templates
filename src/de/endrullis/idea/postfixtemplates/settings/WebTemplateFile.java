@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class WebTemplateFile {
 
+	String lang;
 	String id;
 	String url;
 	String author;

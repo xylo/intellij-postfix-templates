@@ -7,8 +7,6 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.DialogBuilder;
-import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.util.Disposer;
@@ -21,6 +19,7 @@ import com.intellij.util.ui.tree.TreeUtil;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
+import de.endrullis.idea.postfixtemplates.utils.Tuple2;
 import lombok.val;
 import org.apache.commons.lang.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
@@ -35,11 +34,16 @@ import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static de.endrullis.idea.postfixtemplates.language.CptUtil.downloadFile;
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils.$;
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
 public class CptManagementTree extends CheckboxTree implements Disposable {
 	@NotNull
@@ -47,7 +51,10 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	@NotNull
 	private final CheckedTreeNode  root;
 
-	private final boolean canAddFile = true;
+	private final boolean                             canAddFile = true;
+	private String                                    lastFileId;
+	private Tuple2<String, WebTemplateFile>           nextMissingWtf;
+	private Iterator<Tuple2<String, WebTemplateFile>> missingWtfIter;
 
 	CptManagementTree() {
 		super(getRenderer(), new CheckedTreeNode(null));
@@ -127,27 +134,89 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	public void initTree(@NotNull Map<CptLang, List<CptPluginSettings.VFile>> lang2file) {
 		root.removeAllChildren();
 
-		for (Map.Entry<CptLang, List<CptPluginSettings.VFile>> entry : lang2file.entrySet()) {
-			CptLang lang = entry.getKey();
-			DefaultMutableTreeNode langNode = findOrCreateLangNode(lang);
+		val lang2webTemplateFiles = Arrays.stream(WebTemplateFileLoader.loadFromFs()).collect(Collectors.groupingBy(f -> f.lang));
 
-			for (CptPluginSettings.VFile vFile : entry.getValue()) {
+		for (Map.Entry<CptLang, List<CptPluginSettings.VFile>> entry : lang2file.entrySet()) {
+			val lang = entry.getKey();
+			val vFiles = entry.getValue();
+			val langNode = findOrCreateLangNode(lang);
+			val vFileIds = vFiles.stream().map(f -> f.id).collect(Collectors.toSet());
+			val webTemplateFiles = lang2webTemplateFiles.getOrDefault(lang.getLanguage(), _List());
+			val previousId2missingWebTemplateFile = new ArrayList<Tuple2<String, WebTemplateFile>>();
+
+			for (int i = 0; i < webTemplateFiles.size(); i++) {
+				val f = webTemplateFiles.get(i);
+				if (!vFileIds.contains(f.id)) {
+					val previousId = i == 0 ? null : webTemplateFiles.get(i-1).id;
+					previousId2missingWebTemplateFile.add($(previousId, f));
+				}
+			}
+			missingWtfIter = previousId2missingWebTemplateFile.iterator();
+			nextMissingWtf = missingWtfIter.hasNext() ? missingWtfIter.next() : null;
+
+			lastFileId = null;
+
+			tryAddingMissingWebTemplateFiles(lang, langNode);
+
+			/*
+			// add missing web template files to the tree
+			for (WebTemplateFile webTemplateFile : missingWebTemplateFiles) {
+				try {
+					val cptFile = new CptVirtualFile(webTemplateFile.id, new URL(webTemplateFile.url), CptUtil.getTemplateFile(lang.getLanguage(), webTemplateFile.id), true);
+					downloadFile(cptFile);
+
+					val node = new FileTreeNode(lang, cptFile);
+					node.setChecked(true);
+
+					langNode.add(node);
+				} catch (IOException ignored) {
+				}
+			}
+			*/
+
+			// add the other (old) nodes to the tree
+			for (CptPluginSettings.VFile vFile : vFiles) {
 				URL url = null;
 				try {
 					url = vFile.url != null ? new URL(vFile.url) : null;
 				} catch (MalformedURLException ignored) {
 				}
-				val cptFile = new CptVirtualFile(url, new File(vFile.file));
+				val cptFile = new CptVirtualFile(vFile.id, url, new File(vFile.file));
+				lastFileId = vFile.id;
 
 				val node = new FileTreeNode(lang, cptFile);
 				node.setChecked(vFile.enabled);
 
 				langNode.add(node);
+
+				tryAddingMissingWebTemplateFiles(lang, langNode);
 			}
 		}
 
 		model.nodeStructureChanged(root);
 		TreeUtil.expandAll(this);
+	}
+
+	private void tryAddingMissingWebTemplateFiles(CptLang lang, DefaultMutableTreeNode langNode) {
+		if (nextMissingWtf != null) {
+			if (Objects.equals(nextMissingWtf._1, lastFileId)) {
+				WebTemplateFile webTemplateFile = nextMissingWtf._2;
+				try {
+					CptVirtualFile cptFile = new CptVirtualFile(webTemplateFile.id, new URL(webTemplateFile.url), CptUtil.getTemplateFile(lang.getLanguage(), webTemplateFile.id), true);
+					lastFileId = webTemplateFile.id;
+					downloadFile(cptFile);
+
+					FileTreeNode node = new FileTreeNode(lang, cptFile);
+					node.setChecked(true);
+
+					langNode.add(node);
+				} catch (IOException ignored) {
+				}
+				nextMissingWtf = missingWtfIter.hasNext() ? missingWtfIter.next() : null;
+
+				tryAddingMissingWebTemplateFiles(lang, langNode);
+			}
+		}
 	}
 
 	@Nullable
