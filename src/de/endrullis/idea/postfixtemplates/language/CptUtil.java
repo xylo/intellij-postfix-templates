@@ -27,11 +27,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 @SuppressWarnings("WeakerAccess")
 public class CptUtil {
@@ -336,14 +338,22 @@ public class CptUtil {
 		val settings = CptApplicationSettings.getInstance().getPluginSettings();
 
 		val path = getPath(vFile);
+		val lang = settings.getFile2langName().get(path);
 
-		return settings.getFile2langName().get(path).equals(language);
+		return lang != null && lang.equals(language);
 	}
 
 	public static void downloadFile(CptVirtualFile cptVirtualFile) throws IOException {
+		val tmpFile = File.createTempFile("idea.cpt." + cptVirtualFile.getName(), null);
 		val content = new Scanner(cptVirtualFile.getUrl().openStream(), "UTF-8").useDelimiter("\\A").next();
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(cptVirtualFile.getFile()))) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(tmpFile))) {
 			writer.write(content);
+		}
+
+		Files.move(tmpFile.toPath(), cptVirtualFile.getFile().toPath(), REPLACE_EXISTING);
+
+		if (cptVirtualFile.getId() != null) {
+			cptVirtualFile.getFile().setReadOnly();
 		}
 	}
 

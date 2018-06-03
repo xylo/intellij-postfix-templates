@@ -75,7 +75,7 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 							createParent(cptVirtualFile.getFile());
 						}
 
-						if (cptVirtualFile.isNew()) {
+						if (cptVirtualFile.isNew() || !cptVirtualFile.getFile().exists()) {
 							//noinspection ResultOfMethodCallIgnored
 							cptVirtualFile.getFile().createNewFile();
 

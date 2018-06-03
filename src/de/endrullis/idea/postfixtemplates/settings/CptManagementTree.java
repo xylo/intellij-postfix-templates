@@ -138,10 +138,11 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 		for (Map.Entry<CptLang, List<CptPluginSettings.VFile>> entry : lang2file.entrySet()) {
 			val lang = entry.getKey();
-			val vFiles = entry.getValue();
+			val vFiles = entry.getValue().stream().filter(f -> new File(f.file).exists()).collect(Collectors.toList());
 			val langNode = findOrCreateLangNode(lang);
 			val vFileIds = vFiles.stream().map(f -> f.id).collect(Collectors.toSet());
 			val webTemplateFiles = lang2webTemplateFiles.getOrDefault(lang.getLanguage(), _List());
+			val id2webTemplateFile = webTemplateFiles.stream().collect(Collectors.toMap(e -> e.id, e -> e));
 			val previousId2missingWebTemplateFile = new ArrayList<Tuple2<String, WebTemplateFile>>();
 
 			for (int i = 0; i < webTemplateFiles.size(); i++) {
@@ -158,27 +159,19 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 			tryAddingMissingWebTemplateFiles(lang, langNode);
 
-			/*
-			// add missing web template files to the tree
-			for (WebTemplateFile webTemplateFile : missingWebTemplateFiles) {
-				try {
-					val cptFile = new CptVirtualFile(webTemplateFile.id, new URL(webTemplateFile.url), CptUtil.getTemplateFile(lang.getLanguage(), webTemplateFile.id), true);
-					downloadFile(cptFile);
-
-					val node = new FileTreeNode(lang, cptFile);
-					node.setChecked(true);
-
-					langNode.add(node);
-				} catch (IOException ignored) {
-				}
-			}
-			*/
-
 			// add the other (old) nodes to the tree
 			for (CptPluginSettings.VFile vFile : vFiles) {
+				val webTemplateFile = id2webTemplateFile.get(vFile.id);
+
+				// if the file has an ID which is no longer present in the web template files -> skip the file
+				if (vFile.id != null && webTemplateFile == null) {
+					continue;
+				}
+
 				URL url = null;
 				try {
-					url = vFile.url != null ? new URL(vFile.url) : null;
+					url = vFile.id != null ? new URL(webTemplateFile.url) :
+								vFile.url != null ? new URL(vFile.url) : null;
 				} catch (MalformedURLException ignored) {
 				}
 				val cptFile = new CptVirtualFile(vFile.id, url, new File(vFile.file));
