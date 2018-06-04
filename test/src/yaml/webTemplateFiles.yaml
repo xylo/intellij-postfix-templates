@@ -3,40 +3,40 @@
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/numbers.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: stefan.endrullis.de
+  website: http://stefan.endrullis.de
   description: Provides templates for converting between all kind of numbers and strings
 - lang: java
   id: endrullis.functions
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/functions.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: stefan.endrullis.de
+  website: http://stefan.endrullis.de
   description: Provides the .apply template for all kind of function types (Runnable, Supplier, ...)
 - lang: java
   id: endrullis.io
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/io.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: stefan.endrullis.de
+  website: http://stefan.endrullis.de
   description: Provides templates for different IO objects/operations
 - lang: java
   id: endrullis.collections
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/collections.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: stefan.endrullis.de
+  website: http://stefan.endrullis.de
   description: Provides templates for converting collection types and operating on them in a functional style
 - lang: java
   id: endrullis.misc
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/misc.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: stefan.endrullis.de
+  website: http://stefan.endrullis.de
   description: Provides templates for miscellaneous cases
 - lang: java
   id: endrullis.idea-dev
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/idea-dev.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: stefan.endrullis.de
+  website: http://stefan.endrullis.de
   description: Provides templates for Intellij IDEA (plugin) developers

@@ -1,5 +1,6 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
+import com.intellij.ide.BrowserUtil;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
@@ -16,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -40,7 +43,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private JRadioButton   emptyLambdaRadioButton;
 	private JRadioButton   varLambdaRadioButton;
 	private JPanel         treeContainer;
-	private JLabel         templatesFileInfoLabel;
+	private JEditorPane    templatesFileInfoLabel;
 
 	@Nullable
 	private Editor templatesEditor;
@@ -104,6 +107,12 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 		emptyLambdaRadioButton.addActionListener(e -> changeLambdaStyle(false));
 		varLambdaRadioButton.addActionListener(e -> changeLambdaStyle(true));
+
+		templatesFileInfoLabel.addHyperlinkListener(e -> {
+			if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())) {
+				BrowserUtil.browse(e.getURL());
+			}
+		});
 
 		new ButtonGroup() {{
 			add(emptyLambdaRadioButton);
