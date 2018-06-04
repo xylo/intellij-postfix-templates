@@ -40,6 +40,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private JRadioButton   emptyLambdaRadioButton;
 	private JRadioButton   varLambdaRadioButton;
 	private JPanel         treeContainer;
+	private JLabel         templatesFileInfoLabel;
 
 	@Nullable
 	private Editor templatesEditor;
@@ -57,9 +58,22 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			protected void selectionChanged() {
 				try {
 					assert checkboxTree != null;
-					if (checkboxTree.getSelectedFile() != null) {
-						val file = checkboxTree.getSelectedFile().getFile();
+					val selectedFile = checkboxTree.getSelectedFile();
+
+					if (selectedFile != null) {
+						val file = selectedFile.getFile();
 						setEditorContent(file.exists() ? CptUtil.getContent(file) : "");
+
+						val webTemplateFile = selectedFile.getWebTemplateFile();
+						if (webTemplateFile != null) {
+							String s = "<html><table>";
+							s += "<tr><td>Author:</td><td><a href=\"mailto:" + webTemplateFile.email + "\">" + webTemplateFile.author + "</a></td></tr>";
+							s += "<tr><td>Website:</td><td><a href=\"" + webTemplateFile.website + "\">" + webTemplateFile.website + "</a></td></tr>";
+							s += "<tr><tds>Description:</td><td>" + webTemplateFile.description + "</td></tr></table>";
+							templatesFileInfoLabel.setText(s);
+						} else {
+							templatesFileInfoLabel.setText("");
+						}
 					}
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();

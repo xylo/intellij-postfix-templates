@@ -41,8 +41,13 @@ public class CptVirtualFile {
 	@Getter
 	@Setter
 	private boolean isNew;
+	/** Web template file info if available. */
+	@Getter
+	@Setter
+	@Nullable
+	private WebTemplateFile webTemplateFile;
 
-	public CptVirtualFile(String id, @Nullable URL url, @NotNull File file) {
+	public CptVirtualFile(@Nullable String id, @Nullable URL url, @NotNull File file) {
 		this.id = id;
 		this.url = url;
 		this.file = file;

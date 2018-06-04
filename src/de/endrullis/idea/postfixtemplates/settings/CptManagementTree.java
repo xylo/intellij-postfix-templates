@@ -175,6 +175,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 				} catch (MalformedURLException ignored) {
 				}
 				val cptFile = new CptVirtualFile(vFile.id, url, new File(vFile.file));
+				cptFile.setWebTemplateFile(webTemplateFile);
 				lastFileId = vFile.id;
 
 				val node = new FileTreeNode(lang, cptFile);
