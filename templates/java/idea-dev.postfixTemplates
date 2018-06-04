@@ -18,6 +18,7 @@
 .getDocument : get document
 	com.intellij.psi.PsiFile              →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getDocument($expr$)
 	com.intellij.psi.PsiElement           →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getDocument($expr$.getContainingFile())
+	com.intellij.openapi.vfs.VirtualFile  →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).getDocument(com.intellij.psi.PsiManager.getInstance($project*$).findFile($expr$))
 	com.intellij.openapi.fileEditor.FileEditor  →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).getDocument(com.intellij.psi.PsiManager.getInstance($project*$).findFile($expr$.getFile()))
 
 .getPsiFile : get PSI file
