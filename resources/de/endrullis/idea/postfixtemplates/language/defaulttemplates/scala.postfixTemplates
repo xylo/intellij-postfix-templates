@@ -42,6 +42,12 @@
 
 ## I/O ##
 
+.toFile : get file
+	java.lang.String         →  new File($expr$)
+
+.toURL : get URL
+	java.lang.String         →  new URL($expr$)
+
 .lines : get lines
 	java.io.File             →  Source.fromFile($expr$, $enc::"\"UTF-8\""$).getLines()
 	java.nio.file.Path       →  Files.readAllLines($expr$, Charset.forName($encoding::"\"UTF-8\""$))
@@ -80,9 +86,9 @@
 ## others ##
 
 .sout : print variable to System.out
-	scala.Array              →  println($expr$.mkString("(", ", ", ")"))
-	NON_VOID                 →  println($expr$)
+	scala.Array              →  println($expr$.mkString("(", ", ", ")"));
+	NON_VOID                 →  println($expr$);
 
 .soutv : print variable to System.out
-	scala.Array              →  println("$expr$ = " + $expr$.mkString("(", ", ", ")"))
-	NON_VOID                 →  println("$expr$ = " + $expr$)
+	scala.Array              →  println("$expr$ = " + $expr$.mkString("(", ", ", ")"));
+	NON_VOID                 →  println("$expr$ = " + $expr$);

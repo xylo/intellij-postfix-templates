@@ -254,6 +254,12 @@
 
 ## I/O ##
 
+.toFile : get file
+	java.lang.String         →  new java.io.File($expr$)
+
+.toURL : get URL
+	java.lang.String         →  new java.net.URL($expr$)
+
 .lines : get lines
 	java.io.File             →  java.nio.file.Files.readAllLines($expr$.toPath(), java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
 	java.nio.file.Path       →  java.nio.file.Files.readAllLines($expr$, java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
@@ -287,6 +293,10 @@
 	java.io.File             →  new java.io.PrintStream($expr$)
 	java.io.OutputStream     →  new java.io.PrintStream($expr$)
 
+.run : run shell command
+	java.lang.String         →  java.lang.Runtime.getRuntime().exec($expr$)
+
+
 
 ## others ##
 
@@ -301,12 +311,12 @@
 	NON_VOID                 →  final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;
 
 .sout : print variable to System.out
-	ARRAY                    →  System.out.println(java.util.Arrays.toString($expr$))
-	NON_VOID                 →  System.out.println($expr$)
+	ARRAY                    →  System.out.println(java.util.Arrays.toString($expr$));
+	NON_VOID                 →  System.out.println($expr$);
 
 .soutv : print variable to System.out
-	ARRAY                    →  System.out.println("$expr$ = " + java.util.Arrays.toString($expr$))
-	NON_VOID                 →  System.out.println("$expr$ = " + $expr$)
+	ARRAY                    →  System.out.println("$expr$ = " + java.util.Arrays.toString($expr$));
+	NON_VOID                 →  System.out.println("$expr$ = " + $expr$);
 
 
 
@@ -330,6 +340,7 @@
 .getDocument : get document
 	com.intellij.psi.PsiFile              →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getDocument($expr$)
 	com.intellij.psi.PsiElement           →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getDocument($expr$.getContainingFile())
+	com.intellij.openapi.vfs.VirtualFile  →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).getDocument(com.intellij.psi.PsiManager.getInstance($project*$).findFile($expr$))
 	com.intellij.openapi.fileEditor.FileEditor  →  com.intellij.psi.PsiDocumentManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project")$).getDocument(com.intellij.psi.PsiManager.getInstance($project*$).findFile($expr$.getFile()))
 
 .getPsiFile : get PSI file
