@@ -3,6 +3,7 @@ package de.endrullis.idea.postfixtemplates.settings;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.MapAnnotation;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
+import de.endrullis.idea.postfixtemplates.utils.Tuple2;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils.$;
 
 @EqualsAndHashCode
 @Getter
@@ -22,7 +25,8 @@ public final class CptPluginSettings {
 	@MapAnnotation()
 	private Map<String, List<VFile>> langName2virtualFile;
 
-	private transient Map<String, String> file2langName;
+	private transient Map<String, String>                file2langName;
+	private transient Map<String, Tuple2<String, VFile>> file2langAndVFile;
 
 	private CptPluginSettings() {
 		this(true, new HashMap<>());
@@ -53,6 +57,19 @@ public final class CptPluginSettings {
 		}
 
 		return file2langName;
+	}
+
+	public Map<String, Tuple2<String, VFile>> getFile2langAndVFile() {
+		if (file2langAndVFile == null) {
+			file2langAndVFile = new HashMap<>();
+			for (Map.Entry<String, List<VFile>> entry : getLangName2virtualFile().entrySet()) {
+				for (VFile vFile : entry.getValue()) {
+					file2langAndVFile.put(vFile.getFile(), $(entry.getKey(), vFile));
+				}
+			}
+		}
+
+		return file2langAndVFile;
 	}
 
 	public interface Holder {

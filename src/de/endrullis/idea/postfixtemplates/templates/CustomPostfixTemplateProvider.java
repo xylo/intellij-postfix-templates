@@ -37,8 +37,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
+import static de.endrullis.idea.postfixtemplates.language.CptUtil.processTemplates;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.processEscapes;
 import static java.util.stream.Collectors.toList;
 
@@ -164,22 +166,14 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 			Project project = ProjectManager.getInstance().getOpenProjects()[0];
 
 			for (VirtualFile vFile : vFiles) {
-				CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(vFile);
-				if (cptFile != null) {
-					CptTemplate[] cptTemplates = PsiTreeUtil.getChildrenOfType(cptFile, CptTemplate.class);
-					if (cptTemplates != null) {
-						for (CptTemplate cptTemplate : cptTemplates) {
-							for (CptMapping mapping : cptTemplate.getMappings().getMappingList()) {
-								StringBuilder sb = new StringBuilder();
-								for (PsiElement element : mapping.getReplacement().getChildren()) {
-									sb.append(element.getText());
-								}
-
-								templates.add(createTemplate(mapping, mapping.getMatchingClassName(), mapping.getConditionClassName(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), processEscapes(sb.toString()), this));
-							}
-						}
+				processTemplates(project, vFile, (cptTemplate, mapping) -> {
+					StringBuilder sb = new StringBuilder();
+					for (PsiElement element : mapping.getReplacement().getChildren()) {
+						sb.append(element.getText());
 					}
-				}
+
+					templates.add(createTemplate(mapping, mapping.getMatchingClassName(), mapping.getConditionClassName(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), processEscapes(sb.toString()), this));
+				});
 			}
 		});
 

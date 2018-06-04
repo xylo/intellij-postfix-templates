@@ -19,9 +19,12 @@ import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.util.indexing.FileBasedIndex;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
+import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
+import de.endrullis.idea.postfixtemplates.settings.CptPluginSettings;
 import de.endrullis.idea.postfixtemplates.settings.CptVirtualFile;
+import de.endrullis.idea.postfixtemplates.utils.Tuple2;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,6 +43,8 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 public class CptUtil {
 	public static final String PLUGIN_ID = "de.endrullis.idea.postfixtemplates";
 	public static final Set<String> SUPPORTED_LANGUAGES = new HashSet<>(_List("java", "javascript", "scala", "kotlin", "dart"));
+
+	private static String templatesPathString = null;
 
 	public static Project findProject(PsiElement element) {
 		PsiFile containingFile = element.getContainingFile();
@@ -169,6 +175,14 @@ public class CptUtil {
 		return new File(getPluginPath(), "templates");
 	}
 
+	public static String getTemplatesPathString() {
+		if (templatesPathString != null) {
+			templatesPathString = getTemplatesPath().getAbsolutePath().replace('\\', '/');
+		}
+
+		return templatesPathString;
+	}
+
 	@Deprecated
 	public static void createTemplateFile(@NotNull String language, String content) {
 		File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
@@ -281,14 +295,6 @@ public class CptUtil {
 
 	@Nullable
 	public static CptLang getLanguageOfTemplateFile(@NotNull VirtualFile vFile) {
-		/*
-		val settings = CptApplicationSettings.getInstance().getPluginSettings();
-
-		val path = getPath(vFile);
-
-		return settings.getFile2langName().get(path);
-  	*/
-
 		val name = vFile.getNameWithoutExtension();
 
 		return Optional.ofNullable(
@@ -326,7 +332,10 @@ public class CptUtil {
 
 	public static void openFileInEditor(@NotNull Project project, @NotNull VirtualFile vFile) {
 		// open templates file in an editor
-		new OpenFileDescriptor(project, vFile).navigate(true);
+		final OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, vFile);
+		openFileDescriptor.navigate(true);
+
+		//EditorFactory.getInstance().createViewer(document, project);
 	}
 
 	public static Project getActiveProject() {
@@ -341,6 +350,34 @@ public class CptUtil {
 		val lang = settings.getFile2langName().get(path);
 
 		return lang != null && lang.equals(language);
+	}
+
+	public static boolean isActiveTemplateFile(@NotNull VirtualFile vFile) {
+		val path = getPath(vFile);
+		return path.startsWith(getTemplatesPathString());
+	}
+
+	@Nullable
+	public static Tuple2<String, CptPluginSettings.VFile> getLangAndVFile(@NotNull VirtualFile vFile) {
+		val settings = CptApplicationSettings.getInstance().getPluginSettings();
+
+		val path = getPath(vFile);
+
+		return settings.getFile2langAndVFile().get(path);
+	}
+
+	public static void processTemplates(Project project, VirtualFile vFile, BiConsumer<CptTemplate, CptMapping> action) {
+		CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(vFile);
+		if (cptFile != null) {
+			CptTemplate[] cptTemplates = PsiTreeUtil.getChildrenOfType(cptFile, CptTemplate.class);
+			if (cptTemplates != null) {
+				for (CptTemplate cptTemplate : cptTemplates) {
+					for (CptMapping mapping : cptTemplate.getMappings().getMappingList()) {
+						action.accept(cptTemplate, mapping);
+					}
+				}
+			}
+		}
 	}
 
 	public static void downloadFile(CptVirtualFile cptVirtualFile) throws IOException {
