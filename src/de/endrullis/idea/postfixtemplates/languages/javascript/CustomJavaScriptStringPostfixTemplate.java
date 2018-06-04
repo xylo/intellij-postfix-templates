@@ -7,6 +7,7 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpres
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils;
+import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.util.Condition;
@@ -108,7 +109,7 @@ public class CustomJavaScriptStringPostfixTemplate extends StringBasedPostfixTem
 		}
 		*/
 
-		while (expression != null && expression.getTextRange().getEndOffset() == elementAtCaret.getTextRange().getEndOffset()) {
+		while (expression != null && expression instanceof JSExpression && expression.getTextRange().getEndOffset() == elementAtCaret.getTextRange().getEndOffset()) {
 			//System.out.println(expression + " - " + expression.getText() + " - " + expression.getTextRange());
 			final PsiElement finalExpression = expression;
 
