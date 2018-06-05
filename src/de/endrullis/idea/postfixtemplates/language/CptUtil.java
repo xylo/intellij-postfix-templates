@@ -380,9 +380,13 @@ public class CptUtil {
 		}
 	}
 
-	public static void downloadFile(CptVirtualFile cptVirtualFile) throws IOException {
+	/** Downloads/updates the given web template file. */
+	public static void downloadWebTemplateFile(CptVirtualFile cptVirtualFile) throws IOException {
 		val tmpFile = File.createTempFile("idea.cpt." + cptVirtualFile.getName(), null);
 		val content = new Scanner(cptVirtualFile.getUrl().openStream(), "UTF-8").useDelimiter("\\A").next();
+
+		
+
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(tmpFile))) {
 			writer.write(content);
 		}

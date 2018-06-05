@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -32,7 +31,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	@Nullable
 	private static Map<CptLang, List<CptVirtualFile>> lastTreeState;
 
-	public static Map<CptLang, List<CptVirtualFile>> getLastTreeState() {
+	static Map<CptLang, List<CptVirtualFile>> getLastTreeState() {
 		val state = lastTreeState;
 		lastTreeState = null;
 		return state;

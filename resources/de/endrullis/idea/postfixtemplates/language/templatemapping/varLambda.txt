@@ -1,7 +1,7 @@
-$f$            → $fVar*:suggestShortVariableName()$ -> $f$
+$f$            → $fVar:suggestShortVariableName()$ -> $f$
 $keyF$         → e -> $key$
 $valueF$       → e -> $value$
-$attributeF$   → $attributeVar*:suggestShortVariableName()$ -> $attribute$
-$conditionF$   → $conditionVar*:suggestShortVariableName()$ -> $condition$
-$endActionF$   → $actionVar*:suggestShortVariableName()$ -> $END$
+$attributeF$   → $attributeVar:suggestShortVariableName()$ -> $attribute$
+$conditionF$   → $conditionVar:suggestShortVariableName()$ -> $condition$
+$endActionF$   → $actionVar:suggestShortVariableName()$ -> $END$
 $accumulatorF$ → (a, b) -> $accumulator$

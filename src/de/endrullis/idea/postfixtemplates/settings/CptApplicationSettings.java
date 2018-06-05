@@ -5,30 +5,23 @@ import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.editor.actionSystem.EditorActionManager;
-import com.intellij.openapi.editor.actionSystem.TypedAction;
-import com.intellij.openapi.editor.actionSystem.TypedActionHandler;
 import com.intellij.util.messages.Topic;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.intellij.util.xmlb.annotations.Property;
-import de.endrullis.idea.postfixtemplates.actions.EditorTypedHandler;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import lombok.Getter;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static de.endrullis.idea.postfixtemplates.language.CptUtil.downloadFile;
+import static de.endrullis.idea.postfixtemplates.language.CptUtil.downloadWebTemplateFile;
 
 @State(
 	name = "CustomPostfixTemplatesApplicationSettings",
@@ -93,7 +86,7 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 						}
 
 						if (needsUpdate) {
-							downloadFile(cptVirtualFile);
+							downloadWebTemplateFile(cptVirtualFile);
 						}
 					} catch (IOException e) {
 						e.printStackTrace();

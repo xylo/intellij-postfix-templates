@@ -41,7 +41,7 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static de.endrullis.idea.postfixtemplates.language.CptUtil.downloadFile;
+import static de.endrullis.idea.postfixtemplates.language.CptUtil.downloadWebTemplateFile;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils.$;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
@@ -198,7 +198,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 				try {
 					CptVirtualFile cptFile = new CptVirtualFile(webTemplateFile.id, new URL(webTemplateFile.url), CptUtil.getTemplateFile(lang.getLanguage(), webTemplateFile.id), true);
 					lastFileId = webTemplateFile.id;
-					downloadFile(cptFile);
+					downloadWebTemplateFile(cptFile);
 
 					FileTreeNode node = new FileTreeNode(lang, cptFile);
 					node.setChecked(true);
