@@ -37,12 +37,13 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		return state;
 	}
 
-	private JPanel         mainPanel;
-	private JPanel         templatesEditorPanel;
-	private JRadioButton   emptyLambdaRadioButton;
-	private JRadioButton   varLambdaRadioButton;
-	private JPanel         treeContainer;
-	private JEditorPane    templatesFileInfoLabel;
+	private JPanel       mainPanel;
+	private JPanel       templatesEditorPanel;
+	private JRadioButton emptyLambdaRadioButton;
+	private JRadioButton varLambdaRadioButton;
+	private JPanel       treeContainer;
+	private JEditorPane  templatesFileInfoLabel;
+	private JCheckBox    automaticUpdatesCheckBox;
 
 	@Nullable
 	private Editor templatesEditor;
@@ -231,18 +232,8 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 	@Override
 	public void setPluginSettings(@NotNull CptPluginSettings settings) {
-		// load template file content to display
-		/*
-		CptUtil.getTemplateFile("java").ifPresent(file -> {
-			if (file.exists()) {
-				try {
-					templatesText = CptUtil.getContent(file);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		*/
+		automaticUpdatesCheckBox.setSelected(settings.isUpdateWebTemplatesAutomatically());
+
 		changeLambdaStyle(settings.isVarLambdaStyle());
 
 		fillTree(settings.getLangName2virtualFile());
@@ -254,7 +245,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		assert checkboxTree != null;
 		lastTreeState = checkboxTree.getState();
 		val langName2virtualFile = checkboxTree.getExport();
-		return new CptPluginSettings(varLambdaRadioButton.isSelected(), langName2virtualFile);
+		return new CptPluginSettings(varLambdaRadioButton.isSelected(), automaticUpdatesCheckBox.isSelected(), langName2virtualFile);
 	}
 
 	@Override

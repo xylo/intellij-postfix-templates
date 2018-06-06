@@ -20,7 +20,10 @@ public final class CptPluginSettings {
 	public static final CptPluginSettings DEFAULT = new CptPluginSettings();
 
 	@Attribute("VarLambdaStyle")
-	private boolean varLambdaStyle;
+	private boolean varLambdaStyle = true;
+
+	@Attribute("UpdateWebTemplatesAutomatically")
+	private boolean updateWebTemplatesAutomatically = true;
 
 	@MapAnnotation()
 	private Map<String, List<VFile>> langName2virtualFile;
@@ -29,11 +32,12 @@ public final class CptPluginSettings {
 	private transient Map<String, Tuple2<String, VFile>> file2langAndVFile;
 
 	private CptPluginSettings() {
-		this(true, new HashMap<>());
+		this(true, true, new HashMap<>());
 	}
 
-	public CptPluginSettings(boolean varLambdaStyle, @NotNull Map<String, List<VFile>> langName2virtualFile) {
+	public CptPluginSettings(boolean varLambdaStyle, boolean updateWebTemplatesAutomatically, @NotNull Map<String, List<VFile>> langName2virtualFile) {
 		this.varLambdaStyle = varLambdaStyle;
+		this.updateWebTemplatesAutomatically = updateWebTemplatesAutomatically;
 		this.langName2virtualFile = langName2virtualFile;
 	}
 
