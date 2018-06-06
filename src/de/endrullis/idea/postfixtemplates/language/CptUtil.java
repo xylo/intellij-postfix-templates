@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
+import static de.endrullis.idea.postfixtemplates.utils.StringUtils.replace;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 @SuppressWarnings("WeakerAccess")
@@ -380,13 +381,26 @@ public class CptUtil {
 		}
 	}
 
+	private static String applyReplacements(String templatesText, boolean preFilled) {
+		final String[] finalTemplatesText = new String[]{templatesText};
+
+		new BufferedReader(new InputStreamReader(
+			CptUtil.class.getResourceAsStream("templatemapping/" + (preFilled ? "var" : "empty") + "Lambda.txt")
+		)).lines().filter(l -> l.contains("→")).forEach(line -> {
+			String[] split = line.split("→");
+			finalTemplatesText[0] = replace(finalTemplatesText[0], split[0].trim(), split[1].trim());
+		});
+
+		return finalTemplatesText[0];
+	}
+
 	/** Downloads/updates the given web template file. */
 	public static void downloadWebTemplateFile(CptVirtualFile cptVirtualFile) throws IOException {
+		val preFilled = CptApplicationSettings.getInstance().getPluginSettings().isVarLambdaStyle();
+
 		val tmpFile = File.createTempFile("idea.cpt." + cptVirtualFile.getName(), null);
-		val content = new Scanner(cptVirtualFile.getUrl().openStream(), "UTF-8").useDelimiter("\\A").next();
-
+		val content = applyReplacements(getContent(cptVirtualFile.getUrl().openStream()), preFilled);
 		
-
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(tmpFile))) {
 			writer.write(content);
 		}

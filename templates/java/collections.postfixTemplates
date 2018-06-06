@@ -17,11 +17,11 @@
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toSet())
 
 .toMap : convert to Map
-	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
-	java.util.Collection     →  $expr$.stream().collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
-	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
-	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.toMap($keyF$, $valueF$))
+	java.util.Collection     →  $expr$.stream().collect(java.util.stream.Collectors.toMap($keyF$, $valueF$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toMap($keyF$, $valueF$))
+	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toMap($keyF$, $valueF$))
+	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap($keyF$, $valueF$))
 
 .toOptional : wrap in Otional
 	NON_VOID                 →  Optional.ofNullable($expr$)
@@ -68,39 +68,39 @@
 	java.util.List           →  java.util.Collections.sort($expr$)
 
 .sortBy : sort by attribute
-	ARRAY                    →  java.util.Arrays.sort($expr$, java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.List           →  $expr$.sort(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.stream.Stream  →  $expr$.sorted(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	ARRAY                    →  java.util.Arrays.sort($expr$, java.util.Comparator.comparing($attributeF$))
+	java.util.List           →  $expr$.sort(java.util.Comparator.comparing($attributeF$))
+	java.util.stream.Stream  →  $expr$.sorted(java.util.Comparator.comparing($attributeF$))
 
 .minBy : minimum by attribute
-	ARRAY                    →  java.util.Arrays.stream($expr$).min(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.Collection     →  $expr$.stream().min(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).min(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.stream.Stream  →  $expr$.min(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).min(java.util.Comparator.comparing($attributeF$))
+	java.util.Collection     →  $expr$.stream().min(java.util.Comparator.comparing($attributeF$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).min(java.util.Comparator.comparing($attributeF$))
+	java.util.stream.Stream  →  $expr$.min(java.util.Comparator.comparing($attributeF$))
 
 .maxBy : maximum by attribute
-	ARRAY                    →  java.util.Arrays.stream($expr$).max(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.Collection     →  $expr$.stream().max(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).max(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.stream.Stream  →  $expr$.max(java.util.Comparator.comparing($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).max(java.util.Comparator.comparing($attributeF$))
+	java.util.Collection     →  $expr$.stream().max(java.util.Comparator.comparing($attributeF$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).max(java.util.Comparator.comparing($attributeF$))
+	java.util.stream.Stream  →  $expr$.max(java.util.Comparator.comparing($attributeF$))
 
 .groupBy : group by attribute
-	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.groupingBy($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.Collection     →  $expr$.stream().collect(java.util.stream.Collectors.groupingBy($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.groupingBy($attributeVar*:suggestShortVariableName()$ -> $attribute$))
-	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.groupingBy($attributeVar*:suggestShortVariableName()$ -> $attribute$))
+	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.groupingBy($attributeF$))
+	java.util.Collection     →  $expr$.stream().collect(java.util.stream.Collectors.groupingBy($attributeF$))
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.groupingBy($attributeF$))
+	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.groupingBy($attributeF$))
 
 .exists : any match
-	ARRAY                    →  java.util.Arrays.stream($expr$).anyMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
-	java.util.Collection     →  $expr$.stream().anyMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).anyMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
-	java.util.stream.Stream  →  $expr$.anyMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
+	ARRAY                    →  java.util.Arrays.stream($expr$).anyMatch($conditionF$)
+	java.util.Collection     →  $expr$.stream().anyMatch($conditionF$)
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).anyMatch($conditionF$)
+	java.util.stream.Stream  →  $expr$.anyMatch($conditionF$)
 
 .forall : all match
-	ARRAY                    →  java.util.Arrays.stream($expr$).allMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
-	java.util.Collection     →  $expr$.stream().allMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).allMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
-	java.util.stream.Stream  →  $expr$.allMatch($conditionVar*:suggestShortVariableName()$ -> $condition$)
+	ARRAY                    →  java.util.Arrays.stream($expr$).allMatch($conditionF$)
+	java.util.Collection     →  $expr$.stream().allMatch($conditionF$)
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).allMatch($conditionF$)
+	java.util.stream.Stream  →  $expr$.allMatch($conditionF$)
 
 .reverse : reverse collection
 	ARRAY [org.apache.commons.lang.ArrayUtils] →  org.apache.commons.lang.ArrayUtils.reverse($expr$)
@@ -112,8 +112,8 @@
 	java.util.stream.Stream  →  java.util.stream.Stream.concat($expr$, $stream$)
 
 .forEach : for each
-	ARRAY                    →  java.util.Arrays.stream($expr$).forEach($actionVar*:suggestShortVariableName()$ -> $END$)
-	java.util.Optional       →  $expr$.ifPresent($actionVar*:suggestShortVariableName()$ -> $END$)
+	ARRAY                    →  java.util.Arrays.stream($expr$).forEach($endActionF$)
+	java.util.Optional       →  $expr$.ifPresent($endActionF$)
 
 .mkString : make a string
 	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.joining($separator$))
@@ -122,45 +122,45 @@
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.joining($separator$))
 
 .map : map entries
-	java.util.List           →  $expr$.stream().map($fVar*:suggestShortVariableName()$ -> $f$).collect(java.util.stream.Collectors.toList())
-	java.util.Set            →  $expr$.stream().map($fVar*:suggestShortVariableName()$ -> $f$).collect(java.util.stream.Collectors.toSet())
-	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> $key$, e -> $value$))
+	java.util.List           →  $expr$.stream().map($f$).collect(java.util.stream.Collectors.toList())
+	java.util.Set            →  $expr$.stream().map($f$).collect(java.util.stream.Collectors.toSet())
+	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap($keyF$, $valueF$))
 
 .flatMap : map entries
-	java.util.List           →  $expr$.stream().flatMap($fVar*:suggestShortVariableName()$ -> $f$).collect(java.util.stream.Collectors.toList())
-	java.util.Set            →  $expr$.stream().flatMap($fVar*:suggestShortVariableName()$ -> $f$).collect(java.util.stream.Collectors.toSet())
+	java.util.List           →  $expr$.stream().flatMap($f$).collect(java.util.stream.Collectors.toList())
+	java.util.Set            →  $expr$.stream().flatMap($f$).collect(java.util.stream.Collectors.toSet())
 
 .mapKeys : map keys
-	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> $key$, e -> e.getValue()))
+	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap($keyF$, e -> e.getValue()))
 
 .mapValues : map values
-	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> e.getKey(), e -> $value$))
+	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap(e -> e.getKey(), $valueF$))
 
 .getOrElseUpdate : get or else update
-	java.util.Map            →  $expr$.computeIfAbsent($key$, e -> $value$)
+	java.util.Map            →  $expr$.computeIfAbsent($key$, $valueF$)
 
 .filter : filter map entries
-	java.util.List           →  $expr$.stream().filter($conditionVar*:suggestShortVariableName()$ -> $condition$).collect(java.util.stream.Collectors.toList())
-	java.util.Set            →  $expr$.stream().filter($conditionVar*:suggestShortVariableName()$ -> $condition$).collect(java.util.stream.Collectors.toSet())
-	java.util.Map            →  $expr$.entrySet().stream().filter($conditionVar*:suggestShortVariableName()$ -> $condition$).collect(java.util.stream.Collectors.toMap(e -> e.getKey(), e -> e.getValue()))
+	java.util.List           →  $expr$.stream().filter($conditionF$).collect(java.util.stream.Collectors.toList())
+	java.util.Set            →  $expr$.stream().filter($conditionF$).collect(java.util.stream.Collectors.toSet())
+	java.util.Map            →  $expr$.entrySet().stream().filter($conditionF$).collect(java.util.stream.Collectors.toMap(e -> e.getKey(), e -> e.getValue()))
 	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toList())
 
 .reduce : reduce
-	ARRAY                    →  java.util.Arrays.stream($expr$).reduce((a, b) -> $accumulator$)
-	java.util.Collection     →  $expr$.stream().reduce((a, b) -> $accumulator$)
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).reduce((a, b) -> $accumulator$)
+	ARRAY                    →  java.util.Arrays.stream($expr$).reduce($accumulatorF$)
+	java.util.Collection     →  $expr$.stream().reduce($accumulatorF$)
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).reduce($accumulatorF$)
 
 .fold : fold
-	ARRAY                    →  java.util.Arrays.stream($expr$).reduce($neutralElement$, (a, b) -> $accumulator$)
-	java.util.Collection     →  $expr$.stream().reduce($neutralElement$, (a, b) -> $accumulator$)
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).reduce($neutralElement$, (a, b) -> $accumulator$)
-	java.util.stream.Stream  →  $expr$.reduce($neutralElement$, (a, b) -> $accumulator$)
+	ARRAY                    →  java.util.Arrays.stream($expr$).reduce($neutralElement$, $accumulatorF$)
+	java.util.Collection     →  $expr$.stream().reduce($neutralElement$, $accumulatorF$)
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).reduce($neutralElement$, $accumulatorF$)
+	java.util.stream.Stream  →  $expr$.reduce($neutralElement$, $accumulatorF$)
 
 .find : find element
-	ARRAY                    →  java.util.Arrays.stream($expr$).filter($conditionVar*:suggestShortVariableName()$ -> $condition$).findFirst()
-	java.util.Collection     →  $expr$.stream().filter($conditionVar*:suggestShortVariableName()$ -> $condition$).findFirst()
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).filter($conditionVar*:suggestShortVariableName()$ -> $condition$).findFirst()
-	java.util.stream.Stream  →  $expr$.filter($conditionVar*:suggestShortVariableName()$ -> $condition$).findFirst()
+	ARRAY                    →  java.util.Arrays.stream($expr$).filter($conditionF$).findFirst()
+	java.util.Collection     →  $expr$.stream().filter($conditionF$).findFirst()
+	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).filter($conditionF$).findFirst()
+	java.util.stream.Stream  →  $expr$.filter($conditionF$).findFirst()
 
 .take : take a certain number of elements
 	java.util.stream.Stream  →  $expr$.limit($intValue$)

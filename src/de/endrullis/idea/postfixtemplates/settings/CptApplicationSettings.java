@@ -47,15 +47,21 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 
 	@Override
 	public void setPluginSettings(@NotNull CptPluginSettings settings) {
+		val oldVarLambdaStyle = state.pluginSettings.isVarLambdaStyle();
+
 		state.pluginSettings = settings;
 
-		settingsChanged();
+		val lambdaStyleChanged = oldVarLambdaStyle != settings.isVarLambdaStyle();
+
+		settingsChanged(lambdaStyleChanged);
 	}
 
 	/**
 	 * This method is called after the user changed some settings and saved them.
+	 *
+	 * @param lambdaStyleChanged indicates if lambda style has changed
 	 */
-	private void settingsChanged() {
+	private void settingsChanged(boolean lambdaStyleChanged) {
 		// check changes and eventually update file tree
 		val lastTreeState = CptPluginSettingsForm.getLastTreeState();
 
@@ -72,7 +78,7 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 							createParent(cptVirtualFile.getFile());
 						}
 
-						if (cptVirtualFile.isNew() || !cptVirtualFile.getFile().exists()) {
+						if (cptVirtualFile.isNew() || !cptVirtualFile.getFile().exists() || lambdaStyleChanged) {
 							//noinspection ResultOfMethodCallIgnored
 							cptVirtualFile.getFile().createNewFile();
 
