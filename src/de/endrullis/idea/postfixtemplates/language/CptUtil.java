@@ -6,6 +6,7 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.DataKeys;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
+import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -22,6 +23,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
+import de.endrullis.idea.postfixtemplates.settings.CptPluginConfigurable;
 import de.endrullis.idea.postfixtemplates.settings.CptPluginSettings;
 import de.endrullis.idea.postfixtemplates.settings.CptVirtualFile;
 import de.endrullis.idea.postfixtemplates.utils.Tuple2;
@@ -329,6 +331,10 @@ public class CptUtil {
 	public static Project getActiveProject() {
 		DataContext dataContext = DataManager.getInstance().getDataContextFromFocus().getResult();
 		return DataKeys.PROJECT.getData(dataContext);
+	}
+
+	public static void openPluginSettings(Project project) {
+		ShowSettingsUtil.getInstance().showSettingsDialog(project, CptPluginConfigurable.class);
 	}
 
 	public static boolean isTemplateFile(@NotNull VirtualFile vFile, @NotNull String language) {

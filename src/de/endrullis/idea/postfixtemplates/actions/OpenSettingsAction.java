@@ -4,6 +4,7 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.openapi.project.Project;
+import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.settings.CptPluginConfigurable;
 
 /**
@@ -17,7 +18,7 @@ public class OpenSettingsAction extends AnAction {
 		Project project = anActionEvent.getProject();
 
 		if (project != null) {
-			ShowSettingsUtil.getInstance().showSettingsDialog(project, CptPluginConfigurable.class);
+			CptUtil.openPluginSettings(project);
 		}
 	}
 }

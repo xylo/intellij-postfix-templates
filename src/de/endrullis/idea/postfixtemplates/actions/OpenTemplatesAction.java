@@ -71,7 +71,7 @@ public class OpenTemplatesAction extends AnAction {
 					@Override
 					public void actionPerformed(AnActionEvent anActionEvent) {
 						Project project = CptUtil.getActiveProject();
-						ShowSettingsUtil.getInstance().showSettingsDialog(project, CptPluginConfigurable.class);
+						CptUtil.openPluginSettings(project);
 					}
 				});
 

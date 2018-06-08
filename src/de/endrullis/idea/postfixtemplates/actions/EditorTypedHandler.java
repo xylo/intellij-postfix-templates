@@ -108,80 +108,100 @@ public class EditorTypedHandler implements TypedActionHandler {
 				editableTemplateFiles.add(new FileWrapper(file));
 			}
 		}
-		final ComboBox<FileWrapper> fileComboBox = new ComboBox<>(editableTemplateFiles.toArray(new FileWrapper[0]));
 
-		val builder = new DialogBuilder().title("Edit template").centerPanel(
-			new VerticalBox() {{
-				add(new JLabel("Web template files cannot be edited directly."));
-				add(new JLabel("But you can override the template " + cptTemplate.getTemplateName() + " in your own template file."));
-				add(new JLabel("Please choose the template file you want to edit."));
-				add(new BorderLayoutPanel() {{
-					add(new JLabel("Template file to edit: "), BorderLayout.WEST);
-					add(fileComboBox, BorderLayout.CENTER);
-				}});
-			}}
-		);
-		builder.addOkAction().setText("Edit template file");
-		builder.addCancelAction();
+		if (editableTemplateFiles.isEmpty()) {
+			val builder = new DialogBuilder().title("Edit template").centerPanel(
+				new VerticalBox() {{
+					add(new JLabel("Web template files cannot be edited directly."));
+					add(new JLabel("But you can override templates from web template files in your own template files."));
+					add(new JLabel("To do so, please create a template file in the settings dialog and put it somewhere above the file \"" + originalFile.getName().replace(".postfixTemplates", "") + "\"."));
+					add(new JLabel("Afterwards, try to edit this web template file (" + originalFile.getName() + ") again."));
+				}}
+			);
+			builder.addOkAction().setText("Open settings dialog");
+			builder.addCancelAction();
 
-		ApplicationManager.getApplication().invokeLater(() -> {
-			if (builder.show() == DialogWrapper.OK_EXIT_CODE) {
-				FileWrapper selectedFileWrapper = (FileWrapper) fileComboBox.getSelectedItem();
+			ApplicationManager.getApplication().invokeLater(() -> {
+				if (builder.show() == DialogWrapper.OK_EXIT_CODE) {
+					CptUtil.openPluginSettings(project);
+				}
+			});
+		} else {
+			final ComboBox<FileWrapper> fileComboBox = new ComboBox<>(editableTemplateFiles.toArray(new FileWrapper[0]));
 
-				if (selectedFileWrapper != null) {
-					val virtualFile = LocalFileSystem.getInstance().findFileByIoFile(selectedFileWrapper.file);
-					if (virtualFile != null) {
-						ApplicationManager.getApplication().invokeLater(() -> {
-							CptUtil.openFileInEditor(project, selectedFileWrapper.file);
+			val builder = new DialogBuilder().title("Edit template").centerPanel(
+				new VerticalBox() {{
+					add(new JLabel("Web template files cannot be edited directly."));
+					add(new JLabel("But you can override the template " + cptTemplate.getTemplateName() + " in your own template file."));
+					add(new JLabel("Please choose the template file you want to edit."));
+					add(new BorderLayoutPanel() {{
+						add(new JLabel("Template file to edit: "), BorderLayout.WEST);
+						add(fileComboBox, BorderLayout.CENTER);
+					}});
+				}}
+			);
+			builder.addOkAction().setText("Edit template file");
+			builder.addCancelAction();
 
-							// find insertion offset in editable template file (use template offset if template already exists)
-							AtomicInteger offset = new AtomicInteger(-1);
-							CptUtil.processTemplates(project, virtualFile, (thatCptTemplate, thatCptMapping) -> {
-								if (cptTemplate.getTemplateName().equals(thatCptTemplate.getTemplateName())) {
-									offset.set(thatCptMapping.getTextRange().getEndOffset());
+			ApplicationManager.getApplication().invokeLater(() -> {
+				if (builder.show() == DialogWrapper.OK_EXIT_CODE) {
+					FileWrapper selectedFileWrapper = (FileWrapper) fileComboBox.getSelectedItem();
+
+					if (selectedFileWrapper != null) {
+						val virtualFile = LocalFileSystem.getInstance().findFileByIoFile(selectedFileWrapper.file);
+						if (virtualFile != null) {
+							ApplicationManager.getApplication().invokeLater(() -> {
+								CptUtil.openFileInEditor(project, selectedFileWrapper.file);
+
+								// find insertion offset in editable template file (use template offset if template already exists)
+								AtomicInteger offset = new AtomicInteger(-1);
+								CptUtil.processTemplates(project, virtualFile, (thatCptTemplate, thatCptMapping) -> {
+									if (cptTemplate.getTemplateName().equals(thatCptTemplate.getTemplateName())) {
+										offset.set(thatCptMapping.getTextRange().getEndOffset());
+									}
+								});
+
+								val psiFile = Objects.requireNonNull(PsiManager.getInstance(project).findFile(virtualFile));
+								val document = Objects.requireNonNull(PsiDocumentManager.getInstance(project).getDocument(psiFile));
+
+								// compose template/mapping to insert
+								String textToInsert = "";
+								if (offset.get() == -1) {
+									textToInsert = "\n" + cptTemplate.getTemplateName() + " : " + cptTemplate.getTemplateDescription();
+									offset.set(document.getTextLength());
 								}
-							});
+								textToInsert += "\n" + "  " + cptMapping.getMatchingClassName();
 
-							val psiFile = Objects.requireNonNull(PsiManager.getInstance(project).findFile(virtualFile));
-							val document = Objects.requireNonNull(PsiDocumentManager.getInstance(project).getDocument(psiFile));
-
-							// compose template/mapping to insert
-							String textToInsert = "";
-							if (offset.get() == -1) {
-								textToInsert = "\n" + cptTemplate.getTemplateName() + " : " + cptTemplate.getTemplateDescription();
-								offset.set(document.getTextLength());
-							}
-							textToInsert += "\n" + "  " + cptMapping.getMatchingClassName();
-
-							if (cptMapping.getConditionClassName() != null) {
-								textToInsert += " [" + cptMapping.getConditionClassName() + "]";
-							}
-							textToInsert += "  →  " + cptMapping.getReplacementString();
-
-							String finalTextToInsert = textToInsert;
-
-							WriteCommandAction.runWriteCommandAction(project, () -> {
-								// insert template/mapping
-								document.insertString(offset.get(), finalTextToInsert);
-								PsiDocumentManager.getInstance(project).commitDocument(document);
-								val editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
-
-								if (editor != null) {
-									// move caret to newly inserted template/mapping
-									CptUtil.processTemplates(project, virtualFile, (thatCptTemplate, thatCptMapping) -> {
-										if (cptTemplate.getTemplateName().equals(thatCptTemplate.getTemplateName())
-											&& cptMapping.getMatchingClassName().equals(thatCptMapping.getMatchingClassName())) {
-											final int textOffset = thatCptMapping.getTextRange().getStartOffset();
-											editor.getCaretModel().moveToOffset(textOffset);
-										}
-									});
+								if (cptMapping.getConditionClassName() != null) {
+									textToInsert += " [" + cptMapping.getConditionClassName() + "]";
 								}
-							});
-						}, ModalityState.NON_MODAL);
+								textToInsert += "  →  " + cptMapping.getReplacementString();
+
+								String finalTextToInsert = textToInsert;
+
+								WriteCommandAction.runWriteCommandAction(project, () -> {
+									// insert template/mapping
+									document.insertString(offset.get(), finalTextToInsert);
+									PsiDocumentManager.getInstance(project).commitDocument(document);
+									val editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
+
+									if (editor != null) {
+										// move caret to newly inserted template/mapping
+										CptUtil.processTemplates(project, virtualFile, (thatCptTemplate, thatCptMapping) -> {
+											if (cptTemplate.getTemplateName().equals(thatCptTemplate.getTemplateName())
+												&& cptMapping.getMatchingClassName().equals(thatCptMapping.getMatchingClassName())) {
+												final int textOffset = thatCptMapping.getTextRange().getStartOffset();
+												editor.getCaretModel().moveToOffset(textOffset);
+											}
+										});
+									}
+								});
+							}, ModalityState.NON_MODAL);
+						}
 					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	@Data
