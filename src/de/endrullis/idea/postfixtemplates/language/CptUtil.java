@@ -33,6 +33,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -240,28 +241,14 @@ public class CptUtil {
 	}
 
 	public static List<File> getTemplateFiles(@NotNull String language) {
-		if (SupportedLanguages.supportedLanguageIds.contains(language.toLowerCase())) {
-			// eventually move old templates file to new directory
-			getOldTemplateFile(language);
-
-			val filesFromDir = getTemplateFilesFromLanguageDir(language);
-
-			val settings = CptApplicationSettings.getInstance().getPluginSettings();
-
-			val vFiles = settings.getLangName2virtualFile().getOrDefault(language, new ArrayList<>());
-			val allFilesFromConfig = vFiles.stream().map(f -> f.file).collect(Collectors.toSet());
-			val enabledFilesFromConfig = vFiles.stream().filter(f -> f.enabled).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
-
-			val remainingTemplateFilesFromDir = Arrays.stream(filesFromDir).filter(f -> !allFilesFromConfig.contains(f.getAbsolutePath()));
-
-			// templateFilesFromConfig + remainingTemplateFilesFromDir
-			return Stream.concat(remainingTemplateFilesFromDir, enabledFilesFromConfig.stream()).collect(Collectors.toList());
-		} else {
-			return _List();
-		}
+		return getTemplateFiles(language, f -> f.enabled);
 	}
 
 	public static List<File> getEditableTemplateFiles(@NotNull String language) {
+		return getTemplateFiles(language, f -> f.enabled && f.url == null);
+	}
+
+	public static List<File> getTemplateFiles(@NotNull String language, Predicate<CptPluginSettings.VFile> fileFilter) {
 		if (SupportedLanguages.supportedLanguageIds.contains(language.toLowerCase())) {
 			// eventually move old templates file to new directory
 			getOldTemplateFile(language);
@@ -272,7 +259,7 @@ public class CptUtil {
 
 			val vFiles = settings.getLangName2virtualFile().getOrDefault(language, new ArrayList<>());
 			val allFilesFromConfig = vFiles.stream().map(f -> f.file).collect(Collectors.toSet());
-			val enabledFilesFromConfig = vFiles.stream().filter(f -> f.enabled && f.url == null).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
+			val enabledFilesFromConfig = vFiles.stream().filter(fileFilter).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
 
 			val remainingTemplateFilesFromDir = Arrays.stream(filesFromDir).filter(f -> !allFilesFromConfig.contains(f.getAbsolutePath()));
 
