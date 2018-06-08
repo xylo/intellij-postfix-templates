@@ -387,13 +387,17 @@ public class CptUtil {
 		return finalTemplatesText[0];
 	}
 
+	/** Downloads/updates the web template info file. */
+	public static void downloadWebTemplateInfoFile() throws IOException {
+	}
+
 	/** Downloads/updates the given web template file. */
 	public static void downloadWebTemplateFile(CptVirtualFile cptVirtualFile) throws IOException {
 		val preFilled = CptApplicationSettings.getInstance().getPluginSettings().isVarLambdaStyle();
 
 		val tmpFile = File.createTempFile("idea.cpt." + cptVirtualFile.getName(), null);
 		val content = applyReplacements(getContent(cptVirtualFile.getUrl().openStream()), preFilled);
-		
+
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(tmpFile))) {
 			writer.write(content);
 		}

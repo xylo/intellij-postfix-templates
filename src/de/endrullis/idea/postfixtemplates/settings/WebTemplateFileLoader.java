@@ -20,7 +20,7 @@ public class WebTemplateFileLoader {
 
 	public static WebTemplateFile[] loadFromFs() {
 		try {
-			return WebTemplateFileLoader.load(new File("/home/stefan/programmierung/java/intellij-plugins/intellij-postfix-templates/test/src/yaml/webTemplateFiles.yaml"));
+			return WebTemplateFileLoader.load(new File("/home/stefan/programmierung/java/intellij-plugins/intellij-postfix-templates/templates/webTemplateFiles.yaml"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
