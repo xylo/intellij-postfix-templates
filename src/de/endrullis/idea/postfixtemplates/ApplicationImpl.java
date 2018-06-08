@@ -44,7 +44,7 @@ public class ApplicationImpl implements ApplicationInterface {
 
 		if (CptApplicationSettings.getInstance().getPluginSettings().isUpdateWebTemplatesAutomatically()) {
 
-			ProgressManager.getInstance().run(new Task.Backgroundable(project, "Updating Web Templates") {
+			ProgressManager.getInstance().run(new Task.Backgroundable(project, "Updating Custom Postfix Web Templates") {
 				public void run(@NotNull ProgressIndicator progressIndicator) {
 					// download the web templates file only once a day
 					if (!getWebTemplatesInfoFile().exists() || new Date().getTime() - getWebTemplatesInfoFile().lastModified() > 1000*60*60*24) {

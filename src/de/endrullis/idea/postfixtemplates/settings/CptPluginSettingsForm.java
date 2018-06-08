@@ -65,17 +65,18 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 					if (selectedFile != null) {
 						val file = selectedFile.getFile();
+						final String fileName = selectedFile.getName().replace(".postfixTemplates", "");
 						setEditorContent(file.exists() ? CptUtil.getContent(file) : "");
 
 						val webTemplateFile = selectedFile.getWebTemplateFile();
 						if (webTemplateFile != null) {
-							String s = "<html><table>";
+							String s = "<html>Web Template File \"" + fileName + "\"<table>";
 							s += "<tr><td>Author:</td><td><a href=\"mailto:" + webTemplateFile.email + "\">" + webTemplateFile.author + "</a></td></tr>";
 							s += "<tr><td>Website:</td><td><a href=\"" + webTemplateFile.website + "\">" + webTemplateFile.website + "</a></td></tr>";
 							s += "<tr><tds>Description:</td><td>" + webTemplateFile.description + "</td></tr></table>";
 							templatesFileInfoLabel.setText(s);
 						} else {
-							templatesFileInfoLabel.setText("");
+							templatesFileInfoLabel.setText("<html>User Template File \"" + fileName + "\"");
 						}
 					}
 				} catch (FileNotFoundException e) {
