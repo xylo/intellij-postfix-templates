@@ -170,7 +170,7 @@ public class EditorTypedHandler implements TypedActionHandler {
 									textToInsert = "\n" + cptTemplate.getTemplateName() + " : " + cptTemplate.getTemplateDescription();
 									offset.set(document.getTextLength());
 								}
-								textToInsert += "\n" + "  " + cptMapping.getMatchingClassName();
+								textToInsert += "\n\t" + cptMapping.getMatchingClassName();
 
 								if (cptMapping.getConditionClassName() != null) {
 									textToInsert += " [" + cptMapping.getConditionClassName() + "]";

@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static de.endrullis.idea.postfixtemplates.language.CptUtil.getVirtualFile;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
 /**
@@ -45,9 +46,7 @@ public class SupportedLanguages {
 	}
 
 	public static Optional<CptLang> getCptLang(@NotNull final PsiElement element) {
-		final VirtualFile vFile = element.getContainingFile().getViewProvider().getVirtualFile();
-
-		return getCptLang(vFile);
+		return getCptLang(getVirtualFile(element));
 	}
 
 	public static Optional<CptLang> getCptLang(VirtualFile vFile) {
