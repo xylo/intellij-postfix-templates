@@ -134,7 +134,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	public void initTree(@NotNull Map<CptLang, List<CptPluginSettings.VFile>> lang2file) {
 		root.removeAllChildren();
 
-		val lang2webTemplateFiles = Arrays.stream(WebTemplateFileLoader.loadFromFs()).collect(Collectors.groupingBy(f -> f.lang));
+		val lang2webTemplateFiles = Arrays.stream(CptUtil.loadWebTemplateFiles()).collect(Collectors.groupingBy(f -> f.lang));
 
 		for (Map.Entry<CptLang, List<CptPluginSettings.VFile>> entry : lang2file.entrySet()) {
 			val lang = entry.getKey();

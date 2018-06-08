@@ -22,16 +22,14 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
-import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
-import de.endrullis.idea.postfixtemplates.settings.CptPluginConfigurable;
-import de.endrullis.idea.postfixtemplates.settings.CptPluginSettings;
-import de.endrullis.idea.postfixtemplates.settings.CptVirtualFile;
+import de.endrullis.idea.postfixtemplates.settings.*;
 import de.endrullis.idea.postfixtemplates.utils.Tuple2;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -242,6 +240,11 @@ public class CptUtil {
 		return dir;
 	}
 
+	@NotNull
+	public static File getWebTemplatesInfoFile() {
+		return new File(getTemplatesPath(), "webTemplateFiles.yaml");
+	}
+
 	public static List<File> getTemplateFiles(@NotNull String language) {
 		return getTemplateFiles(language, f -> f.enabled);
 	}
@@ -388,7 +391,17 @@ public class CptUtil {
 	}
 
 	/** Downloads/updates the web template info file. */
-	public static void downloadWebTemplateInfoFile() throws IOException {
+	public static void downloadWebTemplatesInfoFile() throws IOException {
+		URL url = new URL("https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/webTemplateFiles.yaml");
+
+		val tmpFile = File.createTempFile("idea.cpt.webtemplates", null);
+		val content = getContent(url.openStream());
+
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(tmpFile))) {
+			writer.write(content);
+		}
+
+		Files.move(tmpFile.toPath(), getWebTemplatesInfoFile().toPath(), REPLACE_EXISTING);
 	}
 
 	/** Downloads/updates the given web template file. */
@@ -406,6 +419,23 @@ public class CptUtil {
 
 		if (cptVirtualFile.getId() != null) {
 			cptVirtualFile.getFile().setReadOnly();
+		}
+	}
+
+	public static WebTemplateFile[] loadWebTemplateFiles() {
+		// download the web templates file only once a day
+		if (!getWebTemplatesInfoFile().exists() || new Date().getTime() - getWebTemplatesInfoFile().lastModified() > 1000*60*60*24) {
+			try {
+				downloadWebTemplatesInfoFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		try {
+			return WebTemplateFileLoader.load(getWebTemplatesInfoFile());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
