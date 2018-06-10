@@ -201,7 +201,7 @@ public class CptUtil {
 		}
 	}
 
-	public static Optional<File> getOldTemplateFile(@NotNull String language) {
+	public static void moveOldTemplateFile(@NotNull String language) {
 		if (SupportedLanguages.supportedLanguageIds.contains(language.toLowerCase())) {
 			File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
 
@@ -209,16 +209,8 @@ public class CptUtil {
 				// move file to new position
 				val newFile = getTemplateFile(language, "oldUserTemplates");
 				
-				if (file.renameTo(newFile)) {
-					return Optional.of(newFile);
-				} else {
-					return Optional.empty();
-				}
+				file.renameTo(newFile);
 			}
-
-			return Optional.empty();
-		} else {
-			return Optional.empty();
 		}
 	}
 
@@ -256,7 +248,7 @@ public class CptUtil {
 	public static List<File> getTemplateFiles(@NotNull String language, Predicate<CptPluginSettings.VFile> fileFilter) {
 		if (SupportedLanguages.supportedLanguageIds.contains(language.toLowerCase())) {
 			// eventually move old templates file to new directory
-			getOldTemplateFile(language);
+			moveOldTemplateFile(language);
 
 			val filesFromDir = getTemplateFilesFromLanguageDir(language);
 

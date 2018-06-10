@@ -23,21 +23,16 @@ import com.intellij.openapi.vfs.VirtualFileContentsChangedAdapter;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.containers.OrderedSet;
 import com.intellij.util.messages.MessageBusConnection;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
-import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
-import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.language.CptUtil.processTemplates;
