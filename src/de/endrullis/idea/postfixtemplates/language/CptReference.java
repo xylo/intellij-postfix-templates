@@ -22,11 +22,11 @@ public class CptReference extends PsiReferenceBase<PsiElement> implements PsiPol
 	public ResolveResult[] multiResolve(boolean incompleteCode) {
 		Project project = myElement.getProject();
 		final List<CptMapping> properties = CptUtil.findMappings(project, key);
-		List<ResolveResult> results = new ArrayList<ResolveResult>();
+		List<ResolveResult> results = new ArrayList<>();
 		for (CptMapping property : properties) {
 			results.add(new PsiElementResolveResult(property));
 		}
-		return results.toArray(new ResolveResult[results.size()]);
+		return results.toArray(new ResolveResult[0]);
 	}
 
 	@Nullable

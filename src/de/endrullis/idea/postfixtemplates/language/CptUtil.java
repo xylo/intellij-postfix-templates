@@ -64,9 +64,13 @@ public class CptUtil {
 	public static List<CptMapping> findMappings(Project project, String key) {
 		List<CptMapping> result = null;
 
+		val virtualFiles = FileTypeIndex.getFiles(CptFileType.INSTANCE, GlobalSearchScope.allScope(project));
+
+		/*
 		Collection<VirtualFile> virtualFiles =
 			FileBasedIndex.getInstance().getContainingFiles(FileTypeIndex.NAME, CptFileType.INSTANCE,
 				GlobalSearchScope.allScope(project));
+		*/
 
 		for (VirtualFile virtualFile : virtualFiles) {
 			CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(virtualFile);
@@ -91,9 +95,13 @@ public class CptUtil {
 	public static List<CptMapping> findMappings(Project project) {
 		List<CptMapping> result = new ArrayList<>();
 
+		val virtualFiles = FileTypeIndex.getFiles(CptFileType.INSTANCE, GlobalSearchScope.allScope(project));
+
+		/*
 		Collection<VirtualFile> virtualFiles =
 			FileBasedIndex.getInstance().getContainingFiles(FileTypeIndex.NAME, CptFileType.INSTANCE,
 				GlobalSearchScope.allScope(project));
+		*/
 
 		for (VirtualFile virtualFile : virtualFiles) {
 			CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(virtualFile);
