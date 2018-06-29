@@ -251,8 +251,12 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 					PsiFile psiFile = psiElement.getContainingFile().getOriginalFile();
 					VirtualFile virtualFile = psiFile.getVirtualFile();
 					Module module = ProjectRootManager.getInstance(project).getFileIndex().getModuleForFile(virtualFile);
-					assert module != null;
-					return JavaPsiFacade.getInstance(project).findClass(conditionClass, GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, true)) != null;
+
+					if (module != null) {
+						return JavaPsiFacade.getInstance(project).findClass(conditionClass, GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, true)) != null;
+					} else {
+						return JavaPsiFacade.getInstance(project).findClass(conditionClass, GlobalSearchScope.projectScope(project)) != null;
+					}
 				} else {
 					return false;
 				}
