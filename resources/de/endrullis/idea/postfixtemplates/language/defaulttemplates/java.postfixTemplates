@@ -225,6 +225,21 @@
 .get : get element
 	ARRAY                    →  $expr$[$i$]
 
+.ie : CollectionUtils.isEmpty()
+	java.util.Collection     →  if (org.apache.commons.collections4.CollectionUtils.isEmpty($expr$)) {\
+                                  $END$\
+                                }
+	java.util.Map            →  if (org.apache.commons.collections4.MapUtils.isEmpty($expr$)) {\
+                                  $END$\
+                                }
+
+.ine : CollectionUtils.isNotEmpty()
+	java.util.Collection     →  if (org.apache.commons.collections4.CollectionUtils.isNotEmpty($expr$)) {\
+                                  $END$\
+                                }
+	java.util.Map            →  if (org.apache.commons.collections4.MapUtils.isNotEmpty($expr$)) {\
+                                  $END$\
+                                }
 
 
 ## function applications ##
@@ -317,6 +332,26 @@
 .soutv : print variable to System.out
 	ARRAY                    →  System.out.println("$expr$ = " + java.util.Arrays.toString($expr$));
 	NON_VOID                 →  System.out.println("$expr$ = " + $expr$);
+
+.ie : StringUtils.isEmpty()
+	java.lang.String         →  if (org.apache.commons.lang3.StringUtils.isEmpty($expr$)) {\
+                                  $END$\
+                                }
+
+.ine : StringUtils.isNotEmpty()
+	java.lang.String         →  if (org.apache.commons.lang3.StringUtils.isNotEmpty($expr$)) {\
+                                  $END$\
+                                }
+
+.ib : StringUtils.isBlank()
+	java.lang.String         →  if (org.apache.commons.lang3.StringUtils.isBlank($expr$)) {\
+                                  $END$\
+                                }
+
+.inb : StringUtils.isNotBlank()
+	java.lang.String         →  if (org.apache.commons.lang3.StringUtils.isNotBlank($expr$)) {\
+                                  $END$\
+                                }
 
 
 
