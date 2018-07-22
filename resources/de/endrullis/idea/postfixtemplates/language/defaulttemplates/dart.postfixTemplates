@@ -1,0 +1,3 @@
+
+.example : example template
+	ANY  →  foo($expr$)

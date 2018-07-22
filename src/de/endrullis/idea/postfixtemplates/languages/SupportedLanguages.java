@@ -4,6 +4,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
+import de.endrullis.idea.postfixtemplates.languages.dart.DartLang;
 import de.endrullis.idea.postfixtemplates.languages.java.JavaLang;
 import de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptLang;
 import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinLang;
@@ -27,6 +28,7 @@ public class SupportedLanguages {
 		new KotlinLang(),
 		new JavaLang(),
 		new JavaScriptLang(),
+		new DartLang(),
 		new ScalaLang()
 	);
 
