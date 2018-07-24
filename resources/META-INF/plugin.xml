@@ -12,7 +12,7 @@
 		<br/><br/>
 
 		<p>
-			This plugin lets you define your own postfix templates for Java, Scala, Kotlin, and JavaScript.
+			This plugin lets you define your own postfix templates for Java, Scala, Kotlin, Dart and JavaScript.
 		</p>
 
 		<p>
@@ -230,6 +230,7 @@
 	<depends>com.intellij.modules.java</depends>
 	<depends optional="true">org.intellij.scala</depends>
 	<depends optional="true">org.jetbrains.kotlin</depends>
+	<depends optional="true">Dart</depends>
 
 	<application-components>
 		<component>
@@ -247,6 +248,8 @@
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.scala.ScalaPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="kotlin"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinPostfixTemplateProvider"/>
+		<codeInsight.template.postfixTemplateProvider language="Dart"
+													  implementationClass="de.endrullis.idea.postfixtemplates.languages.dart.DartPostfixTemplateProvider"/>
 
 		<applicationConfigurable id="Settings.CustomPostfixTemplates"
 		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"
