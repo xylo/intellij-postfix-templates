@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.8.6</version>
+	<version>1.8.7</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -45,6 +45,12 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 1.8.7</h3>
+			<ul>
+				<li>Added basic support for Dart (untyped templates only).
+				    Credits go to <a href="https://github.com/maksimr">Maksim Ryzhikov</a> for implementing it.</li>
+			</ul>
+
 			<h3>Version 1.8.6</h3>
 			<ul>
 				<li>Fixed bug #65: AssertionError in scratch files</li>
