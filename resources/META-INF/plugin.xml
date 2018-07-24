@@ -249,7 +249,7 @@
 		<codeInsight.template.postfixTemplateProvider language="kotlin"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="Dart"
-													  implementationClass="de.endrullis.idea.postfixtemplates.languages.dart.DartPostfixTemplateProvider"/>
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.dart.DartPostfixTemplateProvider"/>
 
 		<applicationConfigurable id="Settings.CustomPostfixTemplates"
 		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"

@@ -9,8 +9,8 @@ import de.endrullis.idea.postfixtemplates.language.CptLang;
  */
 public class DartLang extends CptLang {
 
-    public DartLang() {
-        super("Dart", DartAnnotator.class);
-    }
+	public DartLang() {
+		super("Dart", DartAnnotator.class);
+	}
 
 }

@@ -7,21 +7,22 @@ import org.jetbrains.annotations.NotNull;
 
 public class DartPostfixTemplateProvider extends CustomPostfixTemplateProvider {
 
-    @NotNull
-    @Override
-    protected String getLanguage() {
-        return "dart";
-    }
+	@NotNull
+	@Override
+	protected String getLanguage() {
+		return "dart";
+	}
 
-    public String getPluginClassName() {
-        return "com.jetbrains.lang.dart.psi.DartExpression";
-    }
+	@Override
+	public String getPluginClassName() {
+		return "com.jetbrains.lang.dart.psi.DartExpression";
+	}
 
-    @NotNull
-    @Override
-    protected CustomDartStringPostfixTemplate createTemplate(CptMapping mapping, String matchingClass, String conditionClass, String templateName, String description, String template, PostfixTemplateProvider provider) {
-        return DartStringPostfixTemplateCreator.createTemplate(mapping, matchingClass, conditionClass, templateName, description, template, provider);
-    }
+	@NotNull
+	@Override
+	protected CustomDartStringPostfixTemplate createTemplate(CptMapping mapping, String matchingClass, String conditionClass, String templateName, String description, String template, PostfixTemplateProvider provider) {
+		return DartStringPostfixTemplateCreator.createTemplate(mapping, matchingClass, conditionClass, templateName, description, template, provider);
+	}
 
 }
 
