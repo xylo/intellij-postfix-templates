@@ -225,21 +225,22 @@
 .get : get element
 	ARRAY                    →  $expr$[$i$]
 
-.ie : CollectionUtils.isEmpty()
-	java.util.Collection     →  if (org.apache.commons.collections4.CollectionUtils.isEmpty($expr$)) {\
-                                  $END$\
-                                }
-	java.util.Map            →  if (org.apache.commons.collections4.MapUtils.isEmpty($expr$)) {\
-                                  $END$\
-                                }
+.isEmpty : null-safe isEmpty check
+	java.util.Collection [org.apache.commons.collections4.CollectionUtils]   →  org.apache.commons.collections4.CollectionUtils.isEmpty($expr$)
+	java.util.Map        [org.apache.commons.collections4.MapUtils]          →  org.apache.commons.collections4.MapUtils.isEmpty($expr$)
+	java.lang.String     [org.apache.commons.lang3.StringUtils]              →  org.apache.commons.lang3.StringUtils.isEmpty($expr$)
 
-.ine : CollectionUtils.isNotEmpty()
-	java.util.Collection     →  if (org.apache.commons.collections4.CollectionUtils.isNotEmpty($expr$)) {\
-                                  $END$\
-                                }
-	java.util.Map            →  if (org.apache.commons.collections4.MapUtils.isNotEmpty($expr$)) {\
-                                  $END$\
-                                }
+.isNotEmpty : null-safe isNotEmpty check
+	java.util.Collection [org.apache.commons.collections4.CollectionUtils]   →  org.apache.commons.collections4.CollectionUtils.isNotEmpty($expr$)
+	java.util.Map        [org.apache.commons.collections4.MapUtils]          →  org.apache.commons.collections4.MapUtils.isNotEmpty($expr$)
+	java.lang.String     [org.apache.commons.lang3.StringUtils]              →  org.apache.commons.lang3.StringUtils.isNotEmpty($expr$)
+
+.isBlank : StringUtils.isBlank()
+	java.lang.String [org.apache.commons.lang3.StringUtils]   →  org.apache.commons.lang3.StringUtils.isBlank($expr$)
+
+.isNotBlank : StringUtils.isNotBlank()
+	java.lang.String [org.apache.commons.lang3.StringUtils]   →  org.apache.commons.lang3.StringUtils.isNotBlank($expr$)
+
 
 
 ## function applications ##
@@ -332,26 +333,6 @@
 .soutv : print variable to System.out
 	ARRAY                    →  System.out.println("$expr$ = " + java.util.Arrays.toString($expr$));
 	NON_VOID                 →  System.out.println("$expr$ = " + $expr$);
-
-.ie : StringUtils.isEmpty()
-	java.lang.String         →  if (org.apache.commons.lang3.StringUtils.isEmpty($expr$)) {\
-                                  $END$\
-                                }
-
-.ine : StringUtils.isNotEmpty()
-	java.lang.String         →  if (org.apache.commons.lang3.StringUtils.isNotEmpty($expr$)) {\
-                                  $END$\
-                                }
-
-.ib : StringUtils.isBlank()
-	java.lang.String         →  if (org.apache.commons.lang3.StringUtils.isBlank($expr$)) {\
-                                  $END$\
-                                }
-
-.inb : StringUtils.isNotBlank()
-	java.lang.String         →  if (org.apache.commons.lang3.StringUtils.isNotBlank($expr$)) {\
-                                  $END$\
-                                }
 
 
 
