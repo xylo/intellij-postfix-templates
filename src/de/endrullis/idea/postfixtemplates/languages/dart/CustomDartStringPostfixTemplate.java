@@ -17,7 +17,6 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
-import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
@@ -134,7 +133,7 @@ public class CustomDartStringPostfixTemplate extends StringBasedPostfixTemplate 
 	}
 
 	public CustomDartStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
-		super(name.substring(1), name + CptUtil.getTemplateSuffix(), example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)), provider);
+		super(name.substring(1), name, example, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)), provider);
 		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
@@ -188,4 +187,3 @@ public class CustomDartStringPostfixTemplate extends StringBasedPostfixTemplate 
 	}
 
 }
-

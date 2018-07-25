@@ -21,7 +21,7 @@ import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import de.endrullis.idea.postfixtemplates.utils.Tuple2;
 import lombok.val;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

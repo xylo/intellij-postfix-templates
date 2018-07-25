@@ -17,7 +17,6 @@ import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.testFramework.LightVirtualFile;
-import com.intellij.util.indexing.FileBasedIndex;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
@@ -44,7 +43,6 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 @SuppressWarnings("WeakerAccess")
 public class CptUtil {
 	public static final String PLUGIN_ID = "de.endrullis.idea.postfixtemplates";
-	public static final Set<String> SUPPORTED_LANGUAGES = new HashSet<>(_List("java", "javascript", "scala", "kotlin", "dart"));
 
 	private static String templatesPathString = null;
 
