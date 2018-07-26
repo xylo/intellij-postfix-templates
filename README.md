@@ -12,7 +12,7 @@ Since IDEA 2018 you are now able to define your own postfix templates in the set
 * You can use live template macros to automatically fill some of the template variables (e.g. `$var:suggestVariableName()$`) as well as you can define default values.
 * You can restrict the availability of templates or template rules to the availability of certain classes or libraries (e.g. expand `"test".val` to `val s = "test"` if Lombok is available).
 * It allows you to use static imports instead of class imports (e.g. `array.toList` can be expanded to `asList(array)` instead of `Arrays.asList(array)` if you add `[USE_STATIC_IMPORTS]` to the rule).
-* It comes with 76 useful and editable postfix templates for Java with in total 196 template rules, e.g.
+* It comes with 76 useful and editable postfix templates for Java with in total 197 template rules, e.g.
   * `string.toInt` → `Integer.parse(string)`
   * `array.toList` → `Arrays.asList(array)`
   * `file.lines` → `Files.readAllLines(file.toPath(), Charset.forName("UTF-8"))`
@@ -48,7 +48,7 @@ The following templates are shipped with the plugin and shall provide you with a
 * `.minBy`, `.maxBy` - find the minimum/maximum in arrays, collections, iterables, and streams 
 * `.groupBy` - group arrays, collections, iterables, and streams by attribute
 * `.exists`, `.forall` - test if one/all element(s) of an array, a collection, an iterable, or a stream hold(s) a given condition
-* `.reverse` - reverse arrays and lists
+* `.reverse` - reverse arrays, lists, and strings
 * `.concat` - concatenate arrays, collections, and streams
 * `.mkString` - join the elements (strings) of an array, a collection, an iterable, or a stream into one string by using a given separator
 * `.stream` - convert iterable to stream
