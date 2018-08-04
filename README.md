@@ -12,7 +12,7 @@ Since IDEA 2018 you are now able to define your own postfix templates in the set
 * You can use live template macros to automatically fill some of the template variables (e.g. `$var:suggestVariableName()$`) as well as you can define default values.
 * You can restrict the availability of templates or template rules to the availability of certain classes or libraries (e.g. expand `"test".val` to `val s = "test"` if Lombok is available).
 * It allows you to use static imports instead of class imports (e.g. `array.toList` can be expanded to `asList(array)` instead of `Arrays.asList(array)` if you add `[USE_STATIC_IMPORTS]` to the rule).
-* It comes with 76 useful and editable postfix templates for Java with in total 197 template rules, e.g.
+* It comes with 82 useful and editable postfix templates for Java with in total 203 template rules, e.g.
   * `string.toInt` → `Integer.parse(string)`
   * `array.toList` → `Arrays.asList(array)`
   * `file.lines` → `Files.readAllLines(file.toPath(), Charset.forName("UTF-8"))`
@@ -100,6 +100,12 @@ For Scala users there is the live template `_` which expands to `v -> v` to acce
 * `.getChildrenOfType` - get children of an PsiElement and of a certain type
 * `.getModule` - get IDEA module
 * `.getProject` - get IDEA project
+* `.getFileEditorManager` - get FileEditorManager
+* `.getPsiManager` - get PsiManager
+* `.getPsiFileFactory` - get PsiFileFactory
+* `.getProjectRootManager` - get ProjectRootManager
+* `.getTemplateManager` - get TemplateManager
+* `.getJavaPsiFacade` - get JavaPsiFacade
 * `.runReadAction` - wrap in an runWriteAction(...) block
 * `.runWriteAction` - wrap in an runWriteAction(...) block
 * `.invokeLater` - wrap in an invokeLater(...) block

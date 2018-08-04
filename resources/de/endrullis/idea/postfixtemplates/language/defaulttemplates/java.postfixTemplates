@@ -375,11 +375,29 @@
 .getChildrenOfType : get children of certain type
 	com.intellij.psi.PsiElement           →  com.intellij.psi.util.PsiTreeUtil.getChildrenOfType($expr$, $class$)
 
-.getModule : get module
+.getModule : get Module
 	com.intellij.openapi.vfs.VirtualFile  →  com.intellij.openapi.roots.ProjectRootManager.getInstance($project:variableOfType("com.intellij.openapi.project.Project"):concat(expr, ".getProject()")$).getFileIndex().getModuleForFile($expr$)
 
-.getProject : get project
+.getProject : get Project
 	com.intellij.openapi.actionSystem.DataContext  →  com.intellij.openapi.actionSystem.DataKeys.PROJECT.getData($expr$)
+
+.getFileEditorManager : get FileEditorManager
+	com.intellij.openapi.project.Project  →  com.intellij.openapi.fileEditor.FileEditorManager.getInstance($expr$)
+
+.getPsiManager : get PsiManager
+	com.intellij.openapi.project.Project  →  com.intellij.psi.PsiManager.getInstance($expr$)
+
+.getPsiFileFactory : get PsiFileFactory
+	com.intellij.openapi.project.Project  →  com.intellij.psi.PsiFileFactory.getInstance($expr$)
+
+.getProjectRootManager : get ProjectRootManager
+	com.intellij.openapi.project.Project  →  com.intellij.openapi.roots.ProjectRootManager.getInstance($expr$)
+
+.getTemplateManager : get TemplateManager
+	com.intellij.openapi.project.Project  →  com.intellij.codeInsight.template.TemplateManager.getInstance($expr$)
+
+.getJavaPsiFacade : get JavaPsiFacade
+	com.intellij.openapi.project.Project  →  com.intellij.psi.JavaPsiFacade.getInstance($expr$)
 
 .runReadAction : runWriteAction(...)
 	ANY [com.intellij.openapi.application.Application]  →  com.intellij.openapi.application.ApplicationManager.getApplication().runReadAction(() -> {\
