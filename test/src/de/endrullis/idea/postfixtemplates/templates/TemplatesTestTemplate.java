@@ -1,6 +1,6 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.*;
 import java.net.MalformedURLException;
