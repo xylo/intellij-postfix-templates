@@ -20,6 +20,8 @@ import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,8 +72,14 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 						val webTemplateFile = selectedFile.getWebTemplateFile();
 						if (webTemplateFile != null) {
+							String subject = "";
+							try {
+								subject = URLEncoder.encode("[Custom Postfix Templates] " + fileName, "UTF-8").replaceAll("\\+", "%20");
+							} catch (UnsupportedEncodingException e) {
+								e.printStackTrace();
+							}
 							String s = "<html>Web Template File \"" + fileName + "\"<table>";
-							s += "<tr><td>Author:</td><td><a href=\"mailto:" + webTemplateFile.email + "\">" + webTemplateFile.author + "</a></td></tr>";
+							s += "<tr><td>Author:</td><td><a href=\"mailto:" + webTemplateFile.email + "?subject=" + subject + "\">" + webTemplateFile.author + "</a></td></tr>";
 							s += "<tr><td>Website:</td><td><a href=\"" + webTemplateFile.website + "\">" + webTemplateFile.website + "</a></td></tr>";
 							s += "<tr><tds>Description:</td><td>" + webTemplateFile.description + "</td></tr></table>";
 							templatesFileInfoLabel.setText(s);
