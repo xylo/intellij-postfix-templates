@@ -1,11 +1,15 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
+import com.intellij.icons.AllIcons;
 import com.intellij.ide.BrowserUtil;
 import com.intellij.openapi.Disposable;
+import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
+import com.intellij.openapi.project.Project;
+import com.intellij.ui.AnActionButton;
 import com.intellij.ui.GuiUtils;
 import com.intellij.ui.ToolbarDecorator;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
@@ -27,6 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposable {
 	/** This field holds the last state of the tree before saving the settings or null. */
@@ -106,10 +111,21 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			.setMoveDownAction( e -> checkboxTree.moveDownSelectedFiles())
 			.setMoveUpActionUpdater(e -> checkboxTree.canMoveSelectedFiles())
 			.setMoveUpAction(e -> checkboxTree.moveUpSelectedFiles())
+			.addExtraAction(new AnActionButton("Help", AllIcons.Actions.Help) {
+				@Override
+				public void actionPerformed(AnActionEvent event) {
+					showHelpDialog(event.getProject());
+				}
+			})
 			.createPanel());
 
 		treeContainer.setLayout(new BorderLayout());
 		treeContainer.add(panel);
+	}
+
+	private void showHelpDialog(Project project) {
+		val dialog = new SettingsHelpDialog(project);
+		dialog.show();
 	}
 
 	JComponent getComponent() {

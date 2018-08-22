@@ -106,13 +106,20 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 				final Color background = selected ? UIUtil.getTreeSelectionBackground() : UIUtil.getTreeTextBackground();
 				FileTreeNode cptTreeNode = ObjectUtils.tryCast(node, FileTreeNode.class);
-				SimpleTextAttributes attributes;
+
+				SimpleTextAttributes attributes = SimpleTextAttributes.REGULAR_ATTRIBUTES;
 				if (cptTreeNode != null) {
+					if (cptTreeNode.getFile().isSelfMade()) {
+						getTextRenderer().append("[user] ", new SimpleTextAttributes(background, JBColor.GREEN, JBColor.GREEN, attributes.getStyle()));
+					} else if (cptTreeNode.getFile().isLocal()) {
+						getTextRenderer().append("[local] ", new SimpleTextAttributes(background, JBColor.BLUE, JBColor.BLUE, attributes.getStyle()));
+					} else {
+						getTextRenderer().append("[web] ", new SimpleTextAttributes(background, JBColor.YELLOW, JBColor.YELLOW, attributes.getStyle()));
+					}
+
 					//Color fgColor = cptTreeNode.isChanged() || cptTreeNode.isNew() ? JBColor.BLUE : null;
 					Color fgColor = cptTreeNode.getFile().hasChanged() ? JBColor.BLUE : null;
 					attributes = new SimpleTextAttributes(SimpleTextAttributes.STYLE_PLAIN, fgColor);
-				} else {
-					attributes = SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES;
 				}
 				getTextRenderer().append(StringUtil.notNullize(value.toString()),
 					new SimpleTextAttributes(background, attributes.getFgColor(), JBColor.RED, attributes.getStyle()));
