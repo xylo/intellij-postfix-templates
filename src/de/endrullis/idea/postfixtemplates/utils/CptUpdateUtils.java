@@ -104,27 +104,6 @@ public class CptUpdateUtils {
 			});
 
 		}
-
-		/*
-		, new NotificationListener {
-      def hyperlinkUpdate(notification: Notification, event: HyperlinkEvent) {
-        notification.expire()
-        applicationSettings.ASK_USE_LATEST_PLUGIN_BUILDS = false
-        event.getDescription match {
-          case "EAP"     => doUpdatePluginHostsAndCheck(EAP)
-          case "Nightly" => doUpdatePluginHostsAndCheck(Nightly)
-          case "Release" => doUpdatePluginHostsAndCheck(Release)
-          case _         => applicationSettings.ASK_USE_LATEST_PLUGIN_BUILDS = true
-        }
-      }
-    })
-    */
-		/*
-		ApplicationManager.getApplication().invokeLater(() -> {
-			Notification notification = NOTIFICATION_GROUP.createNotification("CptTemplatesUpdate", "Custom Postfix Templates Title", "message", NotificationType.INFORMATION);
-			Notifications.Bus.notify(notification);
-		});
-		*/
 	}
 
 }
