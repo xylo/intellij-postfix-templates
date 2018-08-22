@@ -402,8 +402,12 @@ public class CptUtil {
 		Files.move(tmpFile.toPath(), getWebTemplatesInfoFile().toPath(), REPLACE_EXISTING);
 	}
 
-	/** Downloads/updates the given web template file. */
-	public static void downloadWebTemplateFile(CptVirtualFile cptVirtualFile) throws IOException {
+	/**
+	 * Downloads/updates the given web template file.
+	 *
+	 * @return true if the file is new
+	 */
+	public static boolean downloadWebTemplateFile(CptVirtualFile cptVirtualFile) throws IOException {
 		val preFilled = CptApplicationSettings.getInstance().getPluginSettings().isVarLambdaStyle();
 
 		val tmpFile = File.createTempFile("idea.cpt." + cptVirtualFile.getName(), null);
@@ -413,11 +417,15 @@ public class CptUtil {
 			writer.write(content);
 		}
 
+		//Arrays.equals(Files.readAllBytes(tmpFile.toPath()), Files.readAllBytes(cptVirtualFile.getFile().toPath()));
+		boolean isNew = !cptVirtualFile.getFile().exists();
 		Files.move(tmpFile.toPath(), cptVirtualFile.getFile().toPath(), REPLACE_EXISTING);
 
 		if (cptVirtualFile.getId() != null) {
 			cptVirtualFile.getFile().setReadOnly();
 		}
+
+		return isNew;
 	}
 
 	public static WebTemplateFile[] loadWebTemplateFiles() {

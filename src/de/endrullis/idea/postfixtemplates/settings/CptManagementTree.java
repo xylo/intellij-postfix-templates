@@ -131,7 +131,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 	}
 
-	public void initTree(@NotNull Map<CptLang, List<CptPluginSettings.VFile>> lang2file) {
+	public void initTree(@NotNull Map<CptLang, List<CptPluginSettings.VFile>> lang2file, boolean activateNewFiles) {
 		root.removeAllChildren();
 
 		val lang2webTemplateFiles = Arrays.stream(CptUtil.loadWebTemplateFiles()).collect(Collectors.groupingBy(f -> f.lang));
@@ -157,14 +157,15 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 			lastFileId = null;
 
-			tryAddingMissingWebTemplateFiles(lang, langNode);
+			tryAddingMissingWebTemplateFiles(lang, langNode, activateNewFiles);
 
 			// add the other (old) nodes to the tree
 			for (CptPluginSettings.VFile vFile : vFiles) {
 				val webTemplateFile = id2webTemplateFile.get(vFile.id);
+				val fileId = vFile.getFile().replaceFirst(".*/", "").replace(".postfixTemplates", "");
 
 				// if the file has an ID which is no longer present in the web template files -> skip the file
-				if (vFile.id != null && webTemplateFile == null) {
+				if (vFile.id != null && webTemplateFile == null || vFile.id == null && id2webTemplateFile.containsKey(fileId)) {
 					continue;
 				}
 
@@ -183,7 +184,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 				langNode.add(node);
 
-				tryAddingMissingWebTemplateFiles(lang, langNode);
+				tryAddingMissingWebTemplateFiles(lang, langNode, activateNewFiles);
 			}
 		}
 
@@ -191,7 +192,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		TreeUtil.expandAll(this);
 	}
 
-	private void tryAddingMissingWebTemplateFiles(CptLang lang, DefaultMutableTreeNode langNode) {
+	private void tryAddingMissingWebTemplateFiles(CptLang lang, DefaultMutableTreeNode langNode, boolean activateNewFiles) {
 		if (nextMissingWtf != null) {
 			if (Objects.equals(nextMissingWtf._1, lastFileId)) {
 				WebTemplateFile webTemplateFile = nextMissingWtf._2;
@@ -201,14 +202,14 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 					downloadWebTemplateFile(cptFile);
 
 					FileTreeNode node = new FileTreeNode(lang, cptFile);
-					node.setChecked(true);
+					node.setChecked(activateNewFiles);
 
 					langNode.add(node);
 				} catch (IOException ignored) {
 				}
 				nextMissingWtf = missingWtfIter.hasNext() ? missingWtfIter.next() : null;
 
-				tryAddingMissingWebTemplateFiles(lang, langNode);
+				tryAddingMissingWebTemplateFiles(lang, langNode, activateNewFiles);
 			}
 		}
 	}

@@ -291,6 +291,7 @@
 		<liveTemplateContext implementation="de.endrullis.idea.postfixtemplates.language.CptContext"/>
 		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.SuggestShortVariableNameMacro"/>
 		<lookup.actionProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLookupActionProvider"/>
+		<postStartupActivity implementation="de.endrullis.idea.postfixtemplates.MyPostStartupActivity"/>
 	</extensions>
 
 	<actions>

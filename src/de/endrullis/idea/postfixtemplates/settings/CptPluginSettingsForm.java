@@ -46,6 +46,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private JPanel       treeContainer;
 	private JEditorPane  templatesFileInfoLabel;
 	private JCheckBox    automaticUpdatesCheckBox;
+	private JCheckBox    activateNewWebTemplatesCheckBox;
 
 	@Nullable
 	private Editor templatesEditor;
@@ -135,7 +136,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		return mainPanel;
 	}
 
-	private void fillTree(Map<String, List<CptPluginSettings.VFile>> langName2virtualFile) {
+	private void fillTree(Map<String, List<CptPluginSettings.VFile>> langName2virtualFile, boolean activateNewFiles) {
 		assert checkboxTree != null;
 
 		Map<CptLang, List<CptPluginSettings.VFile>> lang2file = new HashMap<>();
@@ -154,7 +155,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			lang2file.put(lang, cptFiles);
 		}
 
-		checkboxTree.initTree(lang2file);
+		checkboxTree.initTree(lang2file, activateNewFiles);
 	}
 
 	private void changeLambdaStyle(boolean preFilled) {
@@ -242,10 +243,11 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	@Override
 	public void setPluginSettings(@NotNull CptPluginSettings settings) {
 		automaticUpdatesCheckBox.setSelected(settings.isUpdateWebTemplatesAutomatically());
+		activateNewWebTemplatesCheckBox.setSelected(settings.isActivateNewWebTemplateFilesAutomatically());
 
 		changeLambdaStyle(settings.isVarLambdaStyle());
 
-		fillTree(settings.getLangName2virtualFile());
+		fillTree(settings.getLangName2virtualFile(), settings.isActivateNewWebTemplateFilesAutomatically());
 	}
 
 	@NotNull
@@ -254,7 +256,13 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		assert checkboxTree != null;
 		lastTreeState = checkboxTree.getState();
 		val langName2virtualFile = checkboxTree.getExport();
-		return new CptPluginSettings(varLambdaRadioButton.isSelected(), automaticUpdatesCheckBox.isSelected(), langName2virtualFile);
+
+		return new CptPluginSettings(
+			varLambdaRadioButton.isSelected(),
+			automaticUpdatesCheckBox.isSelected(),
+			activateNewWebTemplatesCheckBox.isSelected(),
+			2,
+			langName2virtualFile);
 	}
 
 	@Override
