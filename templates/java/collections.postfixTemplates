@@ -105,6 +105,7 @@
 .reverse : reverse collection
 	ARRAY [org.apache.commons.lang.ArrayUtils] →  org.apache.commons.lang.ArrayUtils.reverse($expr$)
 	java.util.List           →  java.util.Collections.reverse($expr$)
+	java.lang.String         →  new StringBuilder($expr$).reverse().toString()
 
 .concat : concat
 	ARRAY                    →  java.util.stream.Stream.concat(java.util.Arrays.stream($expr$), $stream$)
