@@ -428,6 +428,12 @@ public class CptUtil {
 		return isNew;
 	}
 
+	/**
+	 * Downloads the web templates info file if the last update was more than 1 day ago, and
+	 * returns the web template files listed in the info file.
+	 *
+	 * @return returns the web template files listed in the info file
+	 */
 	public static WebTemplateFile[] loadWebTemplateFiles() {
 		// download the web templates file only once a day
 		if (!getWebTemplatesInfoFile().exists() || new Date().getTime() - getWebTemplatesInfoFile().lastModified() > 1000*60*60*24) {
