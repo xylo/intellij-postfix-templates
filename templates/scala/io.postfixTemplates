@@ -39,3 +39,14 @@
 .printStream : get PrintStream
 	java.io.File             →  new PrintStream($expr$)
 	java.io.OutputStream     →  new PrintStream($expr$)
+
+
+## others ##
+
+.sout : print variable to System.out
+	scala.Array              →  println($expr$.mkString("(", ", ", ")"))
+	#NON_VOID                 →  println($expr$)
+
+.soutv : print variable to System.out
+	scala.Array              →  println("$expr$ = " + $expr$.mkString("(", ", ", ")"))
+	NON_VOID                 →  println("$expr$ = " + $expr$)

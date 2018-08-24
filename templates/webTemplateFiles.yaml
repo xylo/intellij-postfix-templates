@@ -40,3 +40,31 @@
   email: stefan@endrullis.de
   website: http://stefan.endrullis.de
   description: Provides templates for Intellij IDEA (plugin) developers
+- lang: scala
+  id: endrullis.functions
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/scala/functions.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: http://stefan.endrullis.de
+  description: Provides the .apply template for all kind of Java function types (Runnable, Supplier, ...)
+- lang: scala
+  id: endrullis.io
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/scala/io.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: http://stefan.endrullis.de
+  description: Provides templates for different IO objects/operations
+- lang: scala
+  id: endrullis.collections
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/collections.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: http://stefan.endrullis.de
+  description: Provides templates for converting collection types and operating on them in a functional style
+- lang: scala
+  id: endrullis.misc
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/scala/misc.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: http://stefan.endrullis.de
+  description: Provides templates for miscellaneous cases
