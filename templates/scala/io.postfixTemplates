@@ -1,0 +1,41 @@
+## I/O ##
+
+.toFile : get file
+	java.lang.String         →  new File($expr$)
+
+.toURL : get URL
+	java.lang.String         →  new URL($expr$)
+
+.lines : get lines
+	java.io.File             →  Source.fromFile($expr$, $enc::"\"UTF-8\""$).getLines()
+	java.nio.file.Path       →  Files.readAllLines($expr$, Charset.forName($encoding::"\"UTF-8\""$))
+	java.io.InputStream      →  Source.fromInputStream($expr$, $enc::"\"UTF-8\""$).getLines()
+	java.net.URL             →  Source.fromURL($expr$, $enc::"\"UTF-8\""$).getLines()
+	java.lang.String         →  $expr$.split("\\r?\\n")
+
+.content : get content
+	java.io.File             →  new String(Files.readAllBytes($expr$.toPath()), $encoding::"\"UTF-8\""$)
+	java.nio.file.Path       →  new String(Files.readAllBytes($expr$), $encoding::"\"UTF-8\""$)
+	java.io.InputStream      →  new Scanner($expr$, $encoding::"\"UTF-8\""$).useDelimiter("\\A").next()
+	java.net.URL             →  new Scanner($expr$.openStream(), $encoding::"\"UTF-8\""$).useDelimiter("\\A").next()
+
+.inputStream : get input stream
+	java.lang.String         →  new ByteArrayInputStream($expr$.getBytes())
+	java.io.File             →  new FileInputStream($expr$)
+	java.net.URL             →  $expr$.openStream()
+
+.outputStream : get output stream
+	java.io.File             →  new FileOutputStream($expr$)
+
+.bufferedReader : get BufferedReader
+	java.io.File             →  new BufferedReader(new FileReader($expr$))
+	java.io.InputStream      →  new BufferedReader(new InputStreamReader($expr$))
+	java.net.URL             →  new BufferedReader(new InputStreamReader($expr$.openStream()))
+
+.bufferedWriter : get BufferedWriter
+	java.io.File             →  new BufferedWriter(new FileWriter($expr$))
+	java.io.OutputStream     →  new BufferedWriter(new OutputStreamWriter($expr$))
+
+.printStream : get PrintStream
+	java.io.File             →  new PrintStream($expr$)
+	java.io.OutputStream     →  new PrintStream($expr$)
