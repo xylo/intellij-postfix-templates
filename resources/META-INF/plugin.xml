@@ -292,6 +292,10 @@
 		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.SuggestShortVariableNameMacro"/>
 		<lookup.actionProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLookupActionProvider"/>
 		<postStartupActivity implementation="de.endrullis.idea.postfixtemplates.MyPostStartupActivity"/>
+		<intentionAction>
+			<className>de.endrullis.idea.postfixtemplates.intention.OverrideTemplateRuleIntention</className>
+			<category>Custom Postfix Templates</category>
+		</intentionAction>
 	</extensions>
 
 	<actions>

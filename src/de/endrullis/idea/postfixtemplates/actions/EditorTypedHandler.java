@@ -4,6 +4,7 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.command.WriteCommandAction;
+import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.TypedActionHandler;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
@@ -72,32 +73,36 @@ public class EditorTypedHandler implements TypedActionHandler {
 
 		if (isWebTemplateFile) {
 			val offset = editor.getCaretModel().getOffset();
+
 			val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
 
 			if (psiFile != null) {
 				PsiElement element = psiFile.findElementAt(offset);
-
-				while (element != null && !(element instanceof CptMapping) && !(element instanceof CptTemplate)) {
-					element = element.getParent();
-				}
-
-				val vFile = Objects.requireNonNull(FileDocumentManager.getInstance().getFile(document));
-				val language = CptUtil.getLanguageOfTemplateFile(vFile);
-
-				if (language != null && element != null) {
-					if (element instanceof CptMapping) {
-						CptMapping cptMapping = (CptMapping) element;
-						CptTemplate cptTemplate = (CptTemplate) cptMapping.getParent().getParent();
-						openFileEditDialog(project, language.getLanguage(), vFile, cptTemplate, cptMapping);
-					}
-				}
+				eventuallyOpenFileEditDialog(document, project, element);
 			}
 		} else {
 			oldHandler.execute(editor, c, dataContext);
 		}
 	}
 
-	private void openFileEditDialog(Project project, String language, VirtualFile originalFile, CptTemplate cptTemplate, CptMapping cptMapping) {
+	public static void eventuallyOpenFileEditDialog(Document document, Project project, PsiElement element) {
+		while (element != null && !(element instanceof CptMapping) && !(element instanceof CptTemplate)) {
+			element = element.getParent();
+		}
+
+		val vFile = Objects.requireNonNull(FileDocumentManager.getInstance().getFile(document));
+		val language = CptUtil.getLanguageOfTemplateFile(vFile);
+
+		if (language != null && element != null) {
+			if (element instanceof CptMapping) {
+				CptMapping cptMapping = (CptMapping) element;
+				CptTemplate cptTemplate = (CptTemplate) cptMapping.getParent().getParent();
+				openFileEditDialog(project, language.getLanguage(), vFile, cptTemplate, cptMapping);
+			}
+		}
+	}
+
+	private static void openFileEditDialog(Project project, String language, VirtualFile originalFile, CptTemplate cptTemplate, CptMapping cptMapping) {
 		val editableTemplateFiles = new ArrayList<FileWrapper>();
 		for (File file : CptUtil.getTemplateFiles(language)) {
 			if (file.getName().equals(originalFile.getName())) {
@@ -206,7 +211,7 @@ public class EditorTypedHandler implements TypedActionHandler {
 
 	@Data
 	@AllArgsConstructor
-	class FileWrapper {
+	static class FileWrapper {
 		public File file;
 
 		@Override
