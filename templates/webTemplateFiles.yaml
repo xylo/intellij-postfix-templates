@@ -1,70 +1,63 @@
 - lang: java
   id: endrullis.numbers
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/numbers.postfixTemplates
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/numbers.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: http://stefan.endrullis.de
   description: Provides templates for converting between all kind of numbers and strings
 - lang: java
   id: endrullis.functions
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/functions.postfixTemplates
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/functions.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: http://stefan.endrullis.de
   description: Provides the .apply template for all kind of function types (Runnable, Supplier, ...)
 - lang: java
   id: endrullis.io
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/io.postfixTemplates
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/io.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: http://stefan.endrullis.de
   description: Provides templates for different IO objects/operations
 - lang: java
   id: endrullis.collections
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/collections.postfixTemplates
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/collections.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: http://stefan.endrullis.de
   description: Provides templates for converting collection types and operating on them in a functional style
 - lang: java
   id: endrullis.misc
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/misc.postfixTemplates
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/misc.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: http://stefan.endrullis.de
   description: Provides templates for miscellaneous cases
 - lang: java
   id: endrullis.idea-dev
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/idea-dev.postfixTemplates
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/idea-dev.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: http://stefan.endrullis.de
   description: Provides templates for Intellij IDEA (plugin) developers
 - lang: scala
   id: endrullis.functions
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/scala/functions.postfixTemplates
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/functions.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: http://stefan.endrullis.de
   description: Provides the .apply template for all kind of Java function types (Runnable, Supplier, ...)
 - lang: scala
   id: endrullis.io
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/scala/io.postfixTemplates
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/io.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: http://stefan.endrullis.de
   description: Provides templates for different IO objects/operations
 - lang: scala
   id: endrullis.collections
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/java/collections.postfixTemplates
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/collections.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: http://stefan.endrullis.de
   description: Provides templates for converting collection types and operating on them in a functional style
-- lang: scala
-  id: endrullis.misc
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/v2/templates/scala/misc.postfixTemplates
-  author: Stefan Endrullis
-  email: stefan@endrullis.de
-  website: http://stefan.endrullis.de
-  description: Provides templates for miscellaneous cases
