@@ -32,7 +32,7 @@ public final class CptPluginSettings {
 	private int settingsVersion;
 
 	@MapAnnotation()
-	private Map<String, List<VFile>> langName2virtualFile;
+	private Map<String, List<VFile>> langName2virtualFiles;
 
 	private transient Map<String, String>                file2langName;
 	private transient Map<String, Tuple2<String, VFile>> file2langAndVFile;
@@ -45,20 +45,20 @@ public final class CptPluginSettings {
 	                         boolean updateWebTemplatesAutomatically,
 	                         boolean activateNewWebTemplateFilesAutomatically,
 	                         int settingsVersion,
-	                         @NotNull Map<String, List<VFile>> langName2virtualFile) {
+	                         @NotNull Map<String, List<VFile>> langName2virtualFiles) {
 		
 		this.varLambdaStyle = varLambdaStyle;
 		this.updateWebTemplatesAutomatically = updateWebTemplatesAutomatically;
 		this.activateNewWebTemplateFilesAutomatically = activateNewWebTemplateFilesAutomatically;
 		this.settingsVersion = settingsVersion;
-		this.langName2virtualFile = langName2virtualFile;
+		this.langName2virtualFiles = langName2virtualFiles;
 	}
 
 	void upgrade() {
 	}
 
-	public Map<String, List<VFile>> getLangName2virtualFile() {
-		return langName2virtualFile.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> {
+	public Map<String, List<VFile>> getLangName2virtualFiles() {
+		return langName2virtualFiles.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> {
 			return e.getValue().stream().map(f -> new VFile(f.enabled, f.id, f.url, f.file.replace("${PLUGIN}", CptUtil.getTemplatesPath().getAbsolutePath()))).collect(Collectors.toList());
 		}));
 	}
@@ -66,7 +66,7 @@ public final class CptPluginSettings {
 	public Map<String, String> getFile2langName() {
 		if (file2langName == null) {
 			file2langName = new HashMap<>();
-			for (Map.Entry<String, List<VFile>> entry : getLangName2virtualFile().entrySet()) {
+			for (Map.Entry<String, List<VFile>> entry : getLangName2virtualFiles().entrySet()) {
 				for (VFile vFile : entry.getValue()) {
 					file2langName.put(vFile.getFile(), entry.getKey());
 				}
@@ -79,7 +79,7 @@ public final class CptPluginSettings {
 	public Map<String, Tuple2<String, VFile>> getFile2langAndVFile() {
 		if (file2langAndVFile == null) {
 			file2langAndVFile = new HashMap<>();
-			for (Map.Entry<String, List<VFile>> entry : getLangName2virtualFile().entrySet()) {
+			for (Map.Entry<String, List<VFile>> entry : getLangName2virtualFiles().entrySet()) {
 				for (VFile vFile : entry.getValue()) {
 					file2langAndVFile.put(vFile.getFile(), $(entry.getKey(), vFile));
 				}
@@ -104,5 +104,9 @@ public final class CptPluginSettings {
 		public String id;
 		public String url;
 		public String file;
+
+		public boolean isUserTemplateFile() {
+			return url == null;
+		}
 	}
 }

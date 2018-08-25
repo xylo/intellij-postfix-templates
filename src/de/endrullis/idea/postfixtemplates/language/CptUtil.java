@@ -216,6 +216,8 @@ public class CptUtil {
 				val newFile = getTemplateFile(language, "oldUserTemplates");
 				
 				file.renameTo(newFile);
+
+				LocalFileSystem.getInstance().refreshIoFiles(_List(file, newFile, newFile.getParentFile()));
 			}
 		}
 	}
@@ -260,7 +262,7 @@ public class CptUtil {
 
 			val settings = CptApplicationSettings.getInstance().getPluginSettings();
 
-			val vFiles = settings.getLangName2virtualFile().getOrDefault(language, new ArrayList<>());
+			val vFiles = settings.getLangName2virtualFiles().getOrDefault(language, new ArrayList<>());
 			val allFilesFromConfig = vFiles.stream().map(f -> f.file).collect(Collectors.toSet());
 			val enabledFilesFromConfig = vFiles.stream().filter(fileFilter).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
 
@@ -359,6 +361,16 @@ public class CptUtil {
 		val path = getPath(vFile);
 
 		return settings.getFile2langAndVFile().get(path);
+	}
+
+	public static boolean isUserTemplateFile(@NotNull VirtualFile vFile) {
+		final Tuple2<String, CptPluginSettings.VFile> langAndVFile = getLangAndVFile(vFile);
+
+		if (langAndVFile == null) {
+			return false;
+		}
+
+		return langAndVFile._2.isUserTemplateFile();
 	}
 
 	public static void processTemplates(Project project, VirtualFile vFile, BiConsumer<CptTemplate, CptMapping> action) {

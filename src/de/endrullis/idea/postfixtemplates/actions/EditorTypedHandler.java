@@ -18,6 +18,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiManager;
+import com.intellij.ui.SeparatorComponent;
 import com.intellij.ui.components.panels.VerticalBox;
 import com.intellij.util.ui.components.BorderLayoutPanel;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
@@ -78,14 +79,14 @@ public class EditorTypedHandler implements TypedActionHandler {
 
 			if (psiFile != null) {
 				PsiElement element = psiFile.findElementAt(offset);
-				eventuallyOpenFileEditDialog(document, project, element);
+				eventuallyOpenFileEditDialog(document, project, element, true);
 			}
 		} else {
 			oldHandler.execute(editor, c, dataContext);
 		}
 	}
 
-	public static void eventuallyOpenFileEditDialog(Document document, Project project, PsiElement element) {
+	public static void eventuallyOpenFileEditDialog(Document document, Project project, PsiElement element, boolean userTriedToEditFile) {
 		while (element != null && !(element instanceof CptMapping) && !(element instanceof CptTemplate)) {
 			element = element.getParent();
 		}
@@ -97,12 +98,12 @@ public class EditorTypedHandler implements TypedActionHandler {
 			if (element instanceof CptMapping) {
 				CptMapping cptMapping = (CptMapping) element;
 				CptTemplate cptTemplate = (CptTemplate) cptMapping.getParent().getParent();
-				openFileEditDialog(project, language.getLanguage(), vFile, cptTemplate, cptMapping);
+				openFileEditDialog(project, language.getLanguage(), vFile, cptTemplate, cptMapping, userTriedToEditFile);
 			}
 		}
 	}
 
-	private static void openFileEditDialog(Project project, String language, VirtualFile originalFile, CptTemplate cptTemplate, CptMapping cptMapping) {
+	private static void openFileEditDialog(Project project, String language, VirtualFile originalFile, CptTemplate cptTemplate, CptMapping cptMapping, boolean userTriedToEditFile) {
 		val editableTemplateFiles = new ArrayList<FileWrapper>();
 		for (File file : CptUtil.getTemplateFiles(language)) {
 			if (file.getName().equals(originalFile.getName())) {
@@ -115,12 +116,18 @@ public class EditorTypedHandler implements TypedActionHandler {
 		}
 
 		if (editableTemplateFiles.isEmpty()) {
-			val builder = new DialogBuilder().title("Edit template").centerPanel(
+			val builder = new DialogBuilder().title("Override template rule").centerPanel(
 				new VerticalBox() {{
-					add(new JLabel("Web template files cannot be edited directly."));
-					add(new JLabel("But you can override templates from web template files in your own template files."));
-					add(new JLabel("To do so, please create a template file in the settings dialog and put it somewhere above the file \"" + originalFile.getName().replace(".postfixTemplates", "") + "\"."));
-					add(new JLabel("Afterwards, try to edit this web template file (" + originalFile.getName() + ") again."));
+					if (userTriedToEditFile) {
+						add(new JLabel("Web template files cannot be edited directly."));
+						add(new JLabel("But you can override templates from web template files in your own user template files that are loaded before."));
+						add(new JLabel("To do so, please create a template file in the settings dialog and put it somewhere above the file \"" + originalFile.getName().replace(".postfixTemplates", "") + "\"."));
+						add(new JLabel("<html>Afterwards, go to the template rule you want to override again, press <i>Alt+Enter</i>, and choose <i>Override template rule</i>."));
+					} else {
+						add(new JLabel("You can override templates from web template files in your own user template files that are loaded before."));
+						add(new JLabel("To do so, please create a template file in the settings dialog and put it somewhere above the file \"" + originalFile.getName().replace(".postfixTemplates", "") + "\"."));
+						add(new JLabel("<html>Afterwards, go to the template rule you want to override again, press <i>Alt+Enter</i>, and choose <i>Override template rule</i>."));
+					}
 				}}
 			);
 			builder.addOkAction().setText("Open settings dialog");
@@ -134,11 +141,18 @@ public class EditorTypedHandler implements TypedActionHandler {
 		} else {
 			final ComboBox<FileWrapper> fileComboBox = new ComboBox<>(editableTemplateFiles.toArray(new FileWrapper[0]));
 
-			val builder = new DialogBuilder().title("Edit template").centerPanel(
+			val builder = new DialogBuilder().title("Override template rule").centerPanel(
 				new VerticalBox() {{
-					add(new JLabel("Web template files cannot be edited directly."));
-					add(new JLabel("But you can override the template " + cptTemplate.getTemplateName() + " in your own template file."));
-					add(new JLabel("Please choose the template file you want to edit."));
+					if (userTriedToEditFile) {
+						add(new JLabel("Web template files cannot be edited directly."));
+						add(new JLabel("But you can override templates from web template files in your own user template files that are loaded before."));
+						add(new SeparatorComponent(10));
+					} else {
+						//add(new JLabel("You can override this template rule by putting your own rule in a user template file"));
+						//add(new JLabel("that is loaded before this web template file (" + cptTemplate.getTemplateName() + ")."));
+					}
+					add(new JLabel("Please choose the template file in which you want to override the template rule."));
+					add(new SeparatorComponent(10));
 					add(new BorderLayoutPanel() {{
 						add(new JLabel("Template file to edit: "), BorderLayout.WEST);
 						add(fileComboBox, BorderLayout.CENTER);

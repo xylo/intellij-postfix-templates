@@ -263,7 +263,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 		changeLambdaStyle(settings.isVarLambdaStyle());
 
-		fillTree(settings.getLangName2virtualFile(), settings.isActivateNewWebTemplateFilesAutomatically());
+		fillTree(settings.getLangName2virtualFiles(), settings.isActivateNewWebTemplateFilesAutomatically());
 	}
 
 	@NotNull

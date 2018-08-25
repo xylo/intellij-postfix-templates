@@ -10,6 +10,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.util.IncorrectOperationException;
 import de.endrullis.idea.postfixtemplates.actions.EditorTypedHandler;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
+import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import lombok.val;
@@ -40,7 +41,9 @@ public class OverrideTemplateRuleIntention extends PsiElementBaseIntentionAction
 	}
 
 	public boolean isAvailable(@NotNull Project project, Editor editor, @Nullable PsiElement element) {
-		if (element == null || editor == null) return false;
+		if (element == null || editor == null || CptUtil.isUserTemplateFile(CptUtil.getVirtualFile(element))) {
+			return false;
+		}
 
 		while (element != null && !(element instanceof CptMapping) && !(element instanceof CptTemplate)) {
 			element = element.getParent();
@@ -54,7 +57,7 @@ public class OverrideTemplateRuleIntention extends PsiElementBaseIntentionAction
 		val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
 
 		if (psiFile != null) {
-			EditorTypedHandler.eventuallyOpenFileEditDialog(document, project, element);
+			EditorTypedHandler.eventuallyOpenFileEditDialog(document, project, element, false);
 		}
 	}
 
