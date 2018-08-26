@@ -18,26 +18,26 @@ import com.intellij.util.PlatformIcons;
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public class CptLookupActionProvider implements LookupActionProvider {
-  @Override
-  public void fillActions(LookupElement element, final Lookup lookup, Consumer<LookupElementAction> consumer) {
-    if (element instanceof PostfixTemplateLookupElement) {
-      final PostfixTemplateLookupElement templateLookupElement = (PostfixTemplateLookupElement) element;
-      final PostfixTemplate template = templateLookupElement.getPostfixTemplate();
+	@Override
+	public void fillActions(LookupElement element, final Lookup lookup, Consumer<LookupElementAction> consumer) {
+		if (element instanceof PostfixTemplateLookupElement) {
+			final PostfixTemplateLookupElement templateLookupElement = (PostfixTemplateLookupElement) element;
+			final PostfixTemplate template = templateLookupElement.getPostfixTemplate();
 
-	    if (template instanceof Navigatable && ((Navigatable) template).canNavigate()) {
-		    consumer.consume(new LookupElementAction(PlatformIcons.EDIT, "Edit custom '" + template.getKey() + "' template") {
-			    @Override
-			    public Result performLookupAction() {
-				    final Project project = lookup.getProject();
-				    ApplicationManager.getApplication().invokeLater(() -> {
-					    if (project.isDisposed()) return;
+			if (template instanceof Navigatable && ((Navigatable) template).canNavigate()) {
+				consumer.consume(new LookupElementAction(PlatformIcons.EDIT, "Edit custom '" + template.getKey() + "' template") {
+					@Override
+					public Result performLookupAction() {
+						final Project project = lookup.getProject();
+						ApplicationManager.getApplication().invokeLater(() -> {
+							if (project.isDisposed()) return;
 
-					    ((Navigatable) template).navigate(true);
-				    });
-				    return Result.HIDE_LOOKUP;
-			    }
-		    });
-	    }
-    }
-  }
+							((Navigatable) template).navigate(true);
+						});
+						return Result.HIDE_LOOKUP;
+					}
+				});
+			}
+		}
+	}
 }
