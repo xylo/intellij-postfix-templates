@@ -181,7 +181,10 @@ public class CptUtil {
 	 * @return path "$CPT_PLUGIN_SETTINGS/templates"
 	 */
 	public static File getTemplatesPath() {
-		return new File(getPluginPath(), "templates");
+		final File templates = new File(getPluginPath(), "templates");
+		templates.mkdirs();
+
+		return templates;
 	}
 
 	public static String getTemplatesPathString() {
