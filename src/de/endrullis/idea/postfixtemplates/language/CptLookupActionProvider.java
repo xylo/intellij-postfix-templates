@@ -25,7 +25,7 @@ public class CptLookupActionProvider implements LookupActionProvider {
 			final PostfixTemplate template = templateLookupElement.getPostfixTemplate();
 
 			if (template instanceof Navigatable && ((Navigatable) template).canNavigate()) {
-				consumer.consume(new LookupElementAction(PlatformIcons.EDIT, "Edit custom '" + template.getKey() + "' template") {
+				consumer.consume(new LookupElementAction(PlatformIcons.EDIT, "Edit '" + template.getKey() + "' template") {
 					@Override
 					public Result performLookupAction() {
 						final Project project = lookup.getProject();
