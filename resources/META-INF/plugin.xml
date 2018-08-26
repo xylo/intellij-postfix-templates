@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>1.8.8</version>
+	<version>2.0.0</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -45,6 +45,14 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.0.0</h3>
+			<ul>
+				<li>You can now split your templates into multiple files.</li>
+				<li>You can import templates from URLs or local files and keep them automatically up-to-date.</li>
+				<li>Predefined web templates have been separated from user templates in order to allow smooth and effortless updates (no manually merging required anymore).</li>
+        <li>Sharing of templates is now much easier than before.</li>
+			</ul>
+
 			<h3>Version 1.8.8</h3>
 			<ul>
 				<li>Added new Java postfix templates: <code>.isEmpty</code>, <code>.isNotEmpty</code>, <code>.isBlank</code>, <code>.isNotBlank</code></li>
