@@ -29,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -145,7 +146,7 @@ public class CptUtil {
 		StringBuilder sb = new StringBuilder();
 
 		// convert system newlines into UNIX newlines, because IDEA works only with UNIX newlines
-		try (BufferedReader in = new BufferedReader(new InputStreamReader(stream, "UTF-8"))) {
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
 			String line;
 			while ((line = in.readLine()) != null) {
 				sb.append(line).append("\n");
