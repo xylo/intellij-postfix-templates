@@ -5,6 +5,7 @@ import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.util.messages.Topic;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.intellij.util.xmlb.annotations.Property;
@@ -17,7 +18,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.language.CptUtil.downloadWebTemplateFile;
@@ -66,6 +69,8 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 		val lastTreeState = CptPluginSettingsForm.getLastTreeState();
 
 		if (lastTreeState != null) {
+			List<File> changedFiles = new ArrayList<>();
+
 			for (CptLang cptLang : SupportedLanguages.supportedLanguages) {
 				val cptVirtualFiles = lastTreeState.getOrDefault(cptLang, _List());
 
@@ -92,6 +97,7 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 
 						if (needsUpdate) {
 							downloadWebTemplateFile(cptVirtualFile);
+							changedFiles.add(cptVirtualFile.getFile());
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -105,6 +111,8 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 					.filter(f -> !filesInTree.contains(f.getAbsolutePath()))
 					.forEach(f -> f.delete());
 			}
+
+			LocalFileSystem.getInstance().refreshIoFiles(changedFiles);
 		}
 
 		ApplicationManager.getApplication().getMessageBus().syncPublisher(SettingsChangedListener.TOPIC).onSettingsChange(this);
