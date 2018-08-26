@@ -192,9 +192,10 @@ public class CptUtil {
 		return templatesPathString;
 	}
 
-	@Deprecated
-	public static void createTemplateFile(@NotNull String language, String content) {
-		File file = new File(CptUtil.getTemplatesPath(), language + ".postfixTemplates");
+	public static void createTemplateFile(@NotNull String language, @NotNull String filename, @NotNull String content) {
+		File file = new File(CptUtil.getTemplatesPath() + "/" + language, filename + ".postfixTemplates");
+
+		if (file.exists()) return;
 
 		//noinspection ResultOfMethodCallIgnored
 		file.getParentFile().mkdirs();
@@ -218,7 +219,7 @@ public class CptUtil {
 				
 				file.renameTo(newFile);
 
-				LocalFileSystem.getInstance().refreshIoFiles(_List(file, newFile, newFile.getParentFile()));
+				LocalFileSystem.getInstance().refreshIoFiles(_List(file, newFile));
 			}
 		}
 	}
@@ -467,6 +468,31 @@ public class CptUtil {
 	@NotNull
 	public static VirtualFile getVirtualFile(@NotNull PsiElement element) {
 		return element.getContainingFile().getViewProvider().getVirtualFile();
+	}
+
+	public static void createTopPrioUserTemplateFile(String language, String fileName) {
+		createTemplateFile(language, fileName, getDefaultTemplates("example"));
+		val templateFile = getTemplateFile(language, fileName);
+
+		val pluginSettings = CptApplicationSettings.getInstance().getPluginSettings();
+
+		val langName2virtualFiles = pluginSettings.getLangName2virtualFiles();
+		val vFiles = langName2virtualFiles.get(language);
+		vFiles.add(0, new CptPluginSettings.VFile(true, null, null, templateFile.getAbsolutePath()));
+
+		val newLangName2virtualFiles = langName2virtualFiles.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> {
+			return e.getValue().stream().map(f -> new CptPluginSettings.VFile(f.enabled, f.id, f.url, f.file.replace(CptUtil.getTemplatesPath().getAbsolutePath(), "${PLUGIN}"))).collect(Collectors.toList());
+		}));
+
+		CptPluginSettings newPluginSettings = new CptPluginSettings(
+			pluginSettings.isVarLambdaStyle(),
+			pluginSettings.isUpdateWebTemplatesAutomatically(),
+			pluginSettings.isActivateNewWebTemplateFilesAutomatically(),
+			pluginSettings.getSettingsVersion(),
+			newLangName2virtualFiles
+		);
+
+		CptApplicationSettings.getInstance().setPluginSettings(newPluginSettings);
 	}
 
 }

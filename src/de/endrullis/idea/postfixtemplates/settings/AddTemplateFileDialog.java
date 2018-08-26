@@ -200,7 +200,7 @@ public class AddTemplateFileDialog extends DialogWrapper {
 	@Nullable
 	@Override
 	public JComponent getPreferredFocusedComponent() {
-		return typeField;
+		return nameField;
 	}
 
 }
