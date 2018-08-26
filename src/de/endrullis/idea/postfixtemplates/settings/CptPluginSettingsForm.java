@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
-import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposable {
 	/** This field holds the last state of the tree before saving the settings or null. */

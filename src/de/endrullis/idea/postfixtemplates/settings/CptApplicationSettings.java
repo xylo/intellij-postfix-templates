@@ -10,6 +10,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.intellij.util.xmlb.annotations.Property;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
+import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import lombok.Getter;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
@@ -17,11 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.language.CptUtil.downloadWebTemplateFile;
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
 @State(
 	name = "CustomPostfixTemplatesApplicationSettings",
@@ -66,10 +66,9 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 		val lastTreeState = CptPluginSettingsForm.getLastTreeState();
 
 		if (lastTreeState != null) {
-			for (Map.Entry<CptLang, List<CptVirtualFile>> entry : lastTreeState.entrySet()) {
-				val cptLang = entry.getKey();
-				val cptVirtualFiles = entry.getValue();
-				
+			for (CptLang cptLang : SupportedLanguages.supportedLanguages) {
+				val cptVirtualFiles = lastTreeState.getOrDefault(cptLang, _List());
+
 				for (CptVirtualFile cptVirtualFile : cptVirtualFiles) {
 					try {
 						boolean needsUpdate = false;
