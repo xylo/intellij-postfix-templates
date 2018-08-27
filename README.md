@@ -5,19 +5,19 @@ At the moment it supports the following programming languages with : Java, Scala
 
 ## So what is the difference to IDEA's postfix templates?
 
-Since IDEA 2018 you are now able to define your own postfix templates in the settings UI (*Editor → General → Postfix Templates*). However, this is a pretty new feature and it's less functional than this plugin. Here are some of the advantages of this plugin:
+Since IDEA 2018 you are now able to define your own postfix templates in the settings UI (*Editor → General → Postfix Templates*). However, this is a pretty new feature and it's less functional than this plugin. Here are some of the **advantages of this plugin**:
 
-* You can define different template rules for the same template name, e.g. .toList should behave differently for arrays and for sets.
-* You can use template variables (e.g. `$varName$`) which are filled by the user while applying the template.
-* You can use live template macros to automatically fill some of the template variables (e.g. `$var:suggestVariableName()$`) as well as you can define default values.
-* You can restrict the availability of templates or template rules to the availability of certain classes or libraries (e.g. expand `"test".val` to `val s = "test"` if Lombok is available).
-* It allows you to use static imports instead of class imports (e.g. `array.toList` can be expanded to `asList(array)` instead of `Arrays.asList(array)` if you add `[USE_STATIC_IMPORTS]` to the rule).
+* You can **define different template rules for the same template name**, e.g. .toList should behave differently for arrays and for sets.
+* You can **use template variables** (e.g. `$varName$`) which are filled by the user while applying the template.
+* You can **use live template macros** to automatically fill some of the template variables (e.g. `$var:suggestVariableName()$`) as well as you can define default values.
+* You can **restrict the availability of templates or template rules to the availability of certain classes or libraries** (e.g. expand `"test".val` to `val s = "test"` if Lombok is available).
+* It allows you to **use static imports instead of class imports** (e.g. `array.toList` can be expanded to `asList(array)` instead of `Arrays.asList(array)` if you add `[USE_STATIC_IMPORTS]` to the rule).
 * It comes with 82 useful and editable postfix templates for Java with in total 203 template rules, e.g.
   * `string.toInt` → `Integer.parse(string)`
   * `array.toList` → `Arrays.asList(array)`
   * `file.lines` → `Files.readAllLines(file.toPath(), Charset.forName("UTF-8"))`
   * `file.getName().val` → `final String name = file.getName();`
-* The text based format for defining your templates allows you to easily share them via copy and paste.
+* The text based format for defining your templates allows you to **easily share** them via copy and paste.
 
 ## Screencast
 
