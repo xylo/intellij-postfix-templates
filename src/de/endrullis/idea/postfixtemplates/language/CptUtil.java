@@ -24,6 +24,7 @@ import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import de.endrullis.idea.postfixtemplates.settings.*;
 import de.endrullis.idea.postfixtemplates.utils.Tuple2;
 import lombok.val;
+import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -304,7 +305,12 @@ public class CptUtil {
 
 	@NotNull
 	public static String getPath(@NotNull VirtualFile vFile) {
-		return getAbsoluteVirtualFile(vFile).getPath().replace('\\', '/');
+		return fixFilePath(getAbsoluteVirtualFile(vFile).getPath());
+	}
+
+	@NotNull
+	public static String fixFilePath(@NotNull String filePath) {
+		return filePath.replace('\\', '/');
 	}
 
 	@NotNull
@@ -396,7 +402,7 @@ public class CptUtil {
 		final String[] finalTemplatesText = new String[]{templatesText};
 
 		new BufferedReader(new InputStreamReader(
-			CptUtil.class.getResourceAsStream("templatemapping/" + (preFilled ? "var" : "empty") + "Lambda.txt")
+			CptUtil.class.getResourceAsStream("templatemapping/" + (preFilled ? "var" : "empty") + "Lambda.txt"), StandardCharsets.UTF_8
 		)).lines().filter(l -> l.contains("→")).forEach(line -> {
 			String[] split = line.split("→");
 			finalTemplatesText[0] = replace(finalTemplatesText[0], split[0].trim(), split[1].trim());
@@ -412,9 +418,7 @@ public class CptUtil {
 		val tmpFile = File.createTempFile("idea.cpt.webtemplates", null);
 		val content = getContent(url.openStream());
 
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(tmpFile))) {
-			writer.write(content);
-		}
+		FileUtils.writeStringToFile(tmpFile, content, StandardCharsets.UTF_8);
 
 		Files.move(tmpFile.toPath(), getWebTemplatesInfoFile().toPath(), REPLACE_EXISTING);
 	}
@@ -430,9 +434,7 @@ public class CptUtil {
 		val tmpFile = File.createTempFile("idea.cpt." + cptVirtualFile.getName(), null);
 		val content = applyReplacements(getContent(cptVirtualFile.getUrl().openStream()), preFilled);
 
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(tmpFile))) {
-			writer.write(content);
-		}
+		FileUtils.writeStringToFile(tmpFile, content, StandardCharsets.UTF_8);
 
 		//Arrays.equals(Files.readAllBytes(tmpFile.toPath()), Files.readAllBytes(cptVirtualFile.getFile().toPath()));
 		boolean isNew = !cptVirtualFile.getFile().exists();

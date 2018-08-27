@@ -68,7 +68,7 @@ public final class CptPluginSettings {
 			file2langName = new HashMap<>();
 			for (Map.Entry<String, List<VFile>> entry : getLangName2virtualFiles().entrySet()) {
 				for (VFile vFile : entry.getValue()) {
-					file2langName.put(vFile.getFile(), entry.getKey());
+					file2langName.put(CptUtil.fixFilePath(vFile.getFile()), entry.getKey());
 				}
 			}
 		}
@@ -81,7 +81,7 @@ public final class CptPluginSettings {
 			file2langAndVFile = new HashMap<>();
 			for (Map.Entry<String, List<VFile>> entry : getLangName2virtualFiles().entrySet()) {
 				for (VFile vFile : entry.getValue()) {
-					file2langAndVFile.put(vFile.getFile(), $(entry.getKey(), vFile));
+					file2langAndVFile.put(CptUtil.fixFilePath(vFile.getFile()), $(entry.getKey(), vFile));
 				}
 			}
 		}
