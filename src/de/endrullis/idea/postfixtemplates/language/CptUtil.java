@@ -436,6 +436,9 @@ public class CptUtil {
 
 		//Arrays.equals(Files.readAllBytes(tmpFile.toPath()), Files.readAllBytes(cptVirtualFile.getFile().toPath()));
 		boolean isNew = !cptVirtualFile.getFile().exists();
+		if (cptVirtualFile.getFile().exists()) {
+			cptVirtualFile.getFile().setWritable(true);
+		}
 		Files.move(tmpFile.toPath(), cptVirtualFile.getFile().toPath(), REPLACE_EXISTING);
 
 		if (cptVirtualFile.getId() != null) {

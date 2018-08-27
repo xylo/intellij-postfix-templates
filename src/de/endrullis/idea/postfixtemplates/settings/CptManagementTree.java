@@ -169,7 +169,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 			// add the other (old) nodes to the tree
 			for (CptPluginSettings.VFile vFile : vFiles) {
 				val webTemplateFile = id2webTemplateFile.get(vFile.id);
-				val fileId = vFile.getFile().replaceFirst(".*/", "").replace(".postfixTemplates", "");
+				val fileId = vFile.getFile().replaceFirst(".*[/\\\\]", "").replace(".postfixTemplates", "");
 
 				// if the file has an ID which is no longer present in the web template files -> skip the file
 				if (vFile.id != null && webTemplateFile == null || vFile.id == null && id2webTemplateFile.containsKey(fileId)) {
@@ -213,6 +213,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 					langNode.add(node);
 				} catch (IOException ignored) {
+					ignored.printStackTrace();
 				}
 				nextMissingWtf = missingWtfIter.hasNext() ? missingWtfIter.next() : null;
 
