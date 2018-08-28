@@ -37,6 +37,10 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	@Nullable
 	private static Map<CptLang, List<CptVirtualFile>> lastTreeState;
 
+	static void resetLastTreeState() {
+		lastTreeState = null;
+	}
+
 	static Map<CptLang, List<CptVirtualFile>> getLastTreeState() {
 		val state = lastTreeState;
 		lastTreeState = null;

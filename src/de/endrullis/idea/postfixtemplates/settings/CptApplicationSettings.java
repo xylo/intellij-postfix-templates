@@ -59,6 +59,11 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 		settingsChanged(lambdaStyleChanged);
 	}
 
+	public void setPluginSettingsExternally(@NotNull CptPluginSettings settings) {
+		CptPluginSettingsForm.resetLastTreeState();
+		setPluginSettings(settings);
+	}
+
 	/**
 	 * This method is called after the user changed some settings and saved them.
 	 *

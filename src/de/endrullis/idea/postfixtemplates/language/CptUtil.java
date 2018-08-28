@@ -204,12 +204,10 @@ public class CptUtil {
 		//noinspection ResultOfMethodCallIgnored
 		file.getParentFile().mkdirs();
 
-		try (PrintStream out = new PrintStream(file, "UTF-8")) {
-			out.println(content);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(language + " template file could not copied to " + file.getAbsolutePath(), e);
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException("UTF-8 not supported", e);
+		try {
+			FileUtils.writeStringToFile(file, content, StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			throw new RuntimeException("Template file " + file.getAbsolutePath() + " could not be written", e);
 		}
 	}
 
@@ -501,7 +499,7 @@ public class CptUtil {
 			newLangName2virtualFiles
 		);
 
-		CptApplicationSettings.getInstance().setPluginSettings(newPluginSettings);
+		CptApplicationSettings.getInstance().setPluginSettingsExternally(newPluginSettings);
 	}
 
 }
