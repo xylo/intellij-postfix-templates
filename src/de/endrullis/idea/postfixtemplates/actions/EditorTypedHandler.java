@@ -182,6 +182,7 @@ public class EditorTypedHandler implements TypedActionHandler {
 					}});
 				}}
 			);
+			builder.setPreferredFocusComponent(fileComboBox);
 			builder.addOkAction().setText("Edit template file");
 			builder.addCancelAction();
 
