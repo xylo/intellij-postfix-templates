@@ -157,6 +157,8 @@ public class EditorTypedHandler implements TypedActionHandler {
 					if (virtualFile != null) {
 						addTemplateRuleToFile(project, cptTemplate, cptMapping, virtualFile);
 					}
+
+					CptUtil.openFileInEditor(project, templateFile);
 				}
 			});
 		} else {

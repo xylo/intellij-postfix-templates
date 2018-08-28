@@ -12,6 +12,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.ListPopup;
+import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.ui.components.panels.VerticalBox;
@@ -25,6 +26,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
 /**
  * Action to open the templates of the language in the current editor.
@@ -89,11 +92,22 @@ public class OpenTemplatesAction extends AnAction {
 										}
 									});
 								}
+							} else {
+								actionGroup.add(new DumbAwareAction("Create new user template file" + (multiLang ? " for " + language.getDisplayName() : "")) {
+									@Override
+									public void actionPerformed(AnActionEvent anActionEvent) {
+										CptUtil.createTopPrioUserTemplateFile(language.getID().toLowerCase(), "user");
+										final File templateFile = CptUtil.getTemplateFile(language.getID().toLowerCase(), "user");
+										LocalFileSystem.getInstance().refreshIoFiles(_List(templateFile));
+
+										CptUtil.openFileInEditor(project, templateFile);
+									}
+								});
 							}
 						}
 					}
 
-					actionGroup.add(new DumbAwareAction("Create new template files / edit settings") {
+					actionGroup.add(new DumbAwareAction("Open settings of Custom Postfix Templates") {
 						@Override
 						public void actionPerformed(AnActionEvent anActionEvent) {
 							Project project = CptUtil.getActiveProject();

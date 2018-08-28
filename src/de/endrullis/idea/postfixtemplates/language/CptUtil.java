@@ -269,10 +269,10 @@ public class CptUtil {
 			val settings = CptApplicationSettings.getInstance().getPluginSettings();
 
 			val vFiles = settings.getLangName2virtualFiles().getOrDefault(language, new ArrayList<>());
-			val allFilesFromConfig = vFiles.stream().map(f -> f.file).collect(Collectors.toSet());
+			val allFilesFromConfig = vFiles.stream().map(f -> CptUtil.fixFilePath(f.file)).collect(Collectors.toSet());
 			val enabledFilesFromConfig = vFiles.stream().filter(fileFilter).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
 
-			val remainingTemplateFilesFromDir = Arrays.stream(filesFromDir).filter(f -> !allFilesFromConfig.contains(f.getAbsolutePath()));
+			val remainingTemplateFilesFromDir = Arrays.stream(filesFromDir).filter(f -> !allFilesFromConfig.contains(CptUtil.fixFilePath(f.getAbsolutePath())));
 
 			// templateFilesFromConfig + remainingTemplateFilesFromDir
 			return Stream.concat(remainingTemplateFilesFromDir, enabledFilesFromConfig.stream()).collect(Collectors.toList());
@@ -326,6 +326,7 @@ public class CptUtil {
 		VirtualFile vFile = LocalFileSystem.getInstance().findFileByIoFile(file);
 
 		if (vFile == null) {
+			LocalFileSystem.getInstance().refreshIoFiles(_List(file));
 			vFile = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(file);
 		}
 
@@ -485,7 +486,7 @@ public class CptUtil {
 		val pluginSettings = CptApplicationSettings.getInstance().getPluginSettings();
 
 		val langName2virtualFiles = pluginSettings.getLangName2virtualFiles();
-		val vFiles = langName2virtualFiles.get(language);
+		val vFiles = langName2virtualFiles.computeIfAbsent(language, l -> new ArrayList<>());
 		vFiles.add(0, new CptPluginSettings.VFile(true, null, null, templateFile.getAbsolutePath()));
 
 		val newLangName2virtualFiles = langName2virtualFiles.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> {

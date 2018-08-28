@@ -98,6 +98,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	@Override
 	public void reloadTemplates() {
 		templates = loadTemplatesFromFiles(CptUtil.getTemplateFiles(getLanguage()));
+		//PostfixTemplateStorage.getInstance().setTemplates(this, templates);
 	}
 
 	@NotNull
