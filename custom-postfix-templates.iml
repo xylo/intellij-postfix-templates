@@ -17,5 +17,6 @@
     <orderEntry type="library" name="com.fasterxml.jackson.core:jackson-databind:2.9.4" level="project" />
     <orderEntry type="library" name="org.apache.commons:commons-lang3:3.7" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="org.projectlombok:lombok:1.18.0" level="project" />
+    <orderEntry type="library" name="commons-io:commons-io:2.6" level="project" />
   </component>
 </module>
