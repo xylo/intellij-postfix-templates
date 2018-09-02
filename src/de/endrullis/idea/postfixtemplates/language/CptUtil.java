@@ -221,7 +221,7 @@ public class CptUtil {
 				
 				file.renameTo(newFile);
 
-				LocalFileSystem.getInstance().refreshIoFiles(_List(file, newFile));
+				LocalFileSystem.getInstance().refreshIoFiles(_List(newFile));
 			}
 		}
 	}
