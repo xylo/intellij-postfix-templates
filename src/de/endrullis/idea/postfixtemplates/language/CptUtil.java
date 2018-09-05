@@ -173,7 +173,7 @@ public class CptUtil {
 			path = new File(path.getParentFile(), path.getName().substring(0, path.getName().length() - 4));
 		}
 
-		return path;
+		return new File(path.getParentFile(), path.getName() + "_templates");
 	}
 
 	/**
