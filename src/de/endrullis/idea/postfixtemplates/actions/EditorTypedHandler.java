@@ -17,6 +17,7 @@ import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.ui.SeparatorComponent;
 import com.intellij.ui.components.panels.VerticalBox;
@@ -63,17 +64,20 @@ public class EditorTypedHandler implements TypedActionHandler {
 		boolean isWebTemplateFile = false;
 
 		if (project != null) {
-			val fileType = Objects.requireNonNull(PsiDocumentManager.getInstance(project).getPsiFile(editor.getDocument())).getFileType();
+			final PsiFile psiFile = PsiDocumentManager.getInstance(project).getPsiFile(editor.getDocument());
+			if (psiFile != null) {
+				val fileType = psiFile.getFileType();
 
-			if (fileType.equals(CptFileType.INSTANCE)) {
-				val virtualFile = FileDocumentManager.getInstance().getFile(document);
+				if (fileType.equals(CptFileType.INSTANCE)) {
+					val virtualFile = FileDocumentManager.getInstance().getFile(document);
 
-				if (virtualFile != null) {
-					val langAndVFile = CptUtil.getLangAndVFile(virtualFile);
+					if (virtualFile != null) {
+						val langAndVFile = CptUtil.getLangAndVFile(virtualFile);
 
-					isWebTemplateFile = langAndVFile != null && langAndVFile._2.id != null;
+						isWebTemplateFile = langAndVFile != null && langAndVFile._2.id != null;
+					}
+					//WriteCommandAction.runWriteCommandAction(project, () -> document.insertString(0, "Typed\n"));
 				}
-				//WriteCommandAction.runWriteCommandAction(project, () -> document.insertString(0, "Typed\n"));
 			}
 		}
 
