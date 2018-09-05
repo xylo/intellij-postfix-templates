@@ -30,6 +30,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.val;
+import lombok.var;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -61,10 +62,11 @@ public class EditorTypedHandler implements TypedActionHandler {
 		val document = editor.getDocument();
 		val project = editor.getProject();
 
-		boolean isWebTemplateFile = false;
+		var isWebTemplateFile = false;
 
 		if (project != null) {
-			final PsiFile psiFile = PsiDocumentManager.getInstance(project).getPsiFile(editor.getDocument());
+			val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
+
 			if (psiFile != null) {
 				val fileType = psiFile.getFileType();
 
@@ -87,7 +89,7 @@ public class EditorTypedHandler implements TypedActionHandler {
 			val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
 
 			if (psiFile != null) {
-				PsiElement element = psiFile.findElementAt(offset);
+				val element = psiFile.findElementAt(offset);
 				eventuallyOpenFileEditDialog(document, project, element, true);
 			}
 		} else {
