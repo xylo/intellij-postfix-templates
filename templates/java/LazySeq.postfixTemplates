@@ -1,5 +1,4 @@
-
-# shortcuts for static imports
+## shortcuts for static imports ##
 
 .ls : create LazySeq
 	ANY [de.endrullis.lazyseq.LazySeq]  →  [USE_STATIC_IMPORTS] iat.utils.javaScala.StaticImports.ls($expr$)
@@ -11,7 +10,7 @@
 	de.endrullis.lazyseq.Tuple  →  [USE_STATIC_IMPORTS] iat.utils.javaScala.StaticImports.lts($expr$)
 
 
-# refine/deactivate collection templates
+## refine/deactivate collection templates ##
 
 .sort : sort naturally
 	de.endrullis.lazyseq.LazySeq  →  [SKIP]
