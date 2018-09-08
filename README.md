@@ -221,6 +221,7 @@ In the chapter above some options have been omitted for simplicity.  If you need
 * *REQUIRED_CLASS* (optional) is a name of a class that needs to be available in the module to activate the template rule (see next section for a detailed explaination)
 * *FLAG* (optional) can be one of the following flags:
   * [`USE_STATIC_IMPORTS`](#USE_STATIC_IMPORTS) - adds static method imports automatically if possible
+  * `SKIP` - skips the rule
 
 #### Writing library specific template rules via REQUIRED_CLASS
 
