@@ -3,7 +3,7 @@
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/LazySeq.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates%3A-xylo.LazySeq
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates%:-xylo.LazySeq
   description: Provides templates for LazySeq collections (alternative to Java 8 streams)
 - lang: java
   id: xylo.numbers
@@ -17,35 +17,35 @@
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/functions.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: https://github.com/xylo/intellij-postfix-templates
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.functions
   description: Provides the .apply template for all kind of function types (Runnable, Supplier, ...)
 - lang: java
   id: xylo.io
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/io.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: https://github.com/xylo/intellij-postfix-templates
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.io
   description: Provides templates for different IO objects/operations
 - lang: java
   id: xylo.collections
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/collections.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: https://github.com/xylo/intellij-postfix-templates
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.collections
   description: Provides templates for converting collection types and operating on them in a functional style
 - lang: java
   id: xylo.misc
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/misc.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: https://github.com/xylo/intellij-postfix-templates
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.misc
   description: Provides templates for miscellaneous cases
 - lang: java
   id: xylo.idea-dev
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/idea-dev.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: https://github.com/xylo/intellij-postfix-templates
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.idea-dev
   description: Provides templates for Intellij IDEA (plugin) developers
 - lang: scala
   id: xylo.functions
