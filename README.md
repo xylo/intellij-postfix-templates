@@ -220,8 +220,8 @@ In the chapter above some options have been omitted for simplicity.  If you need
 ```
 * *REQUIRED_CLASS* (optional) is a name of a class that needs to be available in the module to activate the template rule (see next section for a detailed explaination)
 * *FLAG* (optional) can be one of the following flags:
-  * [`USE_STATIC_IMPORTS`](#USE_STATIC_IMPORTS) - adds static method imports automatically if possible
-  * `SKIP` - skips the rule
+  * [`USE_STATIC_IMPORTS`](#use_static_imports) - adds static method imports automatically if possible
+  * [`SKIP`](#skip) - skips the rule
 
 #### Writing library specific template rules via REQUIRED_CLASS
 
@@ -258,6 +258,21 @@ Since the rule is tagged with `[USE_STATIC_IMPORTS]` expanding of `array.toList`
 ```
 import static java.util.Arrays.asList;
 ```
+
+##### SKIP
+
+You can use the `[SKIP]` flag for deactivating the template rule for a given matching type.
+
+Example:
+```
+.sort : sort naturally
+	de.endrullis.lazyseq.LazySeq  →  [SKIP]
+	java.util.List                →  java.util.Collections.sort($expr$)
+```
+
+In this example a postfix template `.sort` is defined.
+The first rule tells the plugin that there shall be no completition for expressions of type `LazySeq`.
+The second rule defines how `List` expressions shall be completed.
 
 ## Upgrade / reset templates and configure the plugin
 
