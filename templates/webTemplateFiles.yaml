@@ -1,9 +1,16 @@
 - lang: java
+  id: xylo.LazySeq
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/LazySeq.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates%3A-xylo.LazySeq
+  description: Provides templates for LazySeq collections (alternative to Java 8 streams)
+- lang: java
   id: xylo.numbers
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/numbers.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
-  website: https://github.com/xylo/intellij-postfix-templates
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.numbers
   description: Provides templates for converting between all kind of numbers and strings
 - lang: java
   id: xylo.functions
