@@ -44,7 +44,7 @@ public class CombinedPostfixTemplate extends PostfixTemplate implements Navigata
 	public boolean isApplicable(@NotNull PsiElement context, @NotNull Document copyDocument, int newOffset) {
 		myApplicableTemplate = myTemplates.stream().filter(t -> t.isApplicable(context, copyDocument, newOffset)).findFirst();
 
-		return myApplicableTemplate.isPresent();
+		return myApplicableTemplate.map(t -> !t.getExample().equals("[SKIP]")).orElse(false);
 	}
 
 	@Override

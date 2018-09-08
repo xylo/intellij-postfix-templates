@@ -168,7 +168,18 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 						sb.append(element.getText());
 					}
 
-					templates.add(createTemplate(mapping, mapping.getMatchingClassName(), mapping.getConditionClassName(), cptTemplate.getTemplateName(), cptTemplate.getTemplateDescription(), processEscapes(sb.toString()), this));
+					val template = processEscapes(sb.toString()).trim();
+					val templateDescription = template.equals("[SKIP]") ? "[SKIP]" : cptTemplate.getTemplateDescription();
+
+					templates.add(createTemplate(
+						mapping,
+						mapping.getMatchingClassName(),
+						mapping.getConditionClassName(),
+						cptTemplate.getTemplateName(),
+						templateDescription,
+						template,
+						this
+					));
 				});
 			}
 		});
