@@ -9,6 +9,7 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.ui.AnActionButton;
 import com.intellij.ui.GuiUtils;
 import com.intellij.ui.ToolbarDecorator;
@@ -16,6 +17,7 @@ import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
+import de.endrullis.idea.postfixtemplates.utils.CptUpdateUtils;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -55,6 +57,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private JEditorPane  templatesFileInfoLabel;
 	private JCheckBox    automaticUpdatesCheckBox;
 	private JCheckBox    activateNewWebTemplatesCheckBox;
+	private JButton      updateNowButton;
 
 	@Nullable
 	private Editor templatesEditor;
@@ -152,6 +155,8 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		emptyLambdaRadioButton.addActionListener(e -> changeLambdaStyle(false));
 		varLambdaRadioButton.addActionListener(e -> changeLambdaStyle(true));
 
+		updateNowButton.addActionListener(e -> askForUpdatingTemplateFilesNow());
+
 		templatesFileInfoLabel.addHyperlinkListener(e -> {
 			if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())) {
 				BrowserUtil.browse(e.getURL());
@@ -168,6 +173,39 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		}
 
 		return mainPanel;
+	}
+
+	private void askForUpdatingTemplateFilesNow() {
+		val project = CptUtil.getActiveProject();
+
+		val oldSettings = CptApplicationSettings.getInstance().getPluginSettings();
+		val currentSettings = getPluginSettings();
+
+		if (!oldSettings.equals(currentSettings)) {
+			val builder = new DialogBuilder().title("Unsaved changes").centerPanel(
+				new JLabel("Please apply the unsaved changes before running the update.")
+			);
+			builder.removeAllActions();
+			builder.addOkAction();
+			builder.showModal(true);
+		} else {
+			updateTemplateFilesNow(project, currentSettings);
+		}
+	}
+
+	private void updateTemplateFilesNow(Project project, CptPluginSettings currentSettings) {
+		CptUpdateUtils.checkForWebTemplateUpdates(project, true, () -> {
+			fillTree(currentSettings.getLangName2virtualFiles(), currentSettings.isActivateNewWebTemplateFilesAutomatically());
+
+			ApplicationManager.getApplication().invokeLater(() -> {
+				val builder = new DialogBuilder().title("Update successful").centerPanel(
+					new JLabel("The templates have been successfully updated.")
+				);
+				builder.removeAllActions();
+				builder.addOkAction();
+				builder.show();
+			});
+		});
 	}
 
 	private void fillTree(Map<String, List<CptPluginSettings.VFile>> langName2virtualFile, boolean activateNewFiles) {

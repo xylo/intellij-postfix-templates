@@ -13,14 +13,16 @@ import de.endrullis.idea.postfixtemplates.settings.CptVirtualFile;
 import de.endrullis.idea.postfixtemplates.settings.WebTemplateFileLoader;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Date;
 
-import static de.endrullis.idea.postfixtemplates.language.CptUtil.downloadWebTemplatesInfoFile;
-import static de.endrullis.idea.postfixtemplates.language.CptUtil.getWebTemplatesInfoFile;
-import static de.endrullis.idea.postfixtemplates.language.CptUtil.moveOldTemplateFile;
+import static de.endrullis.idea.postfixtemplates.language.CptUtil.*;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * CPT update utilities.
@@ -32,11 +34,13 @@ public class CptUpdateUtils {
 	private static final Object updateSync = new Object();
 
 	public static void checkForWebTemplateUpdates(Project project) {
+		checkForWebTemplateUpdates(project, false, null);
+	}
+
+	public static void checkForWebTemplateUpdates(Project project, boolean forceUpdate, @Nullable Runnable afterUpdateAction) {
 		final CptPluginSettings pluginSettings = CptApplicationSettings.getInstance().getPluginSettings();
 
 		if (pluginSettings.isUpdateWebTemplatesAutomatically()) {
-
-			NotificationGroup notificationGroup = new NotificationGroup("Custom Postfix Templates", NotificationDisplayType.STICKY_BALLOON, true);
 
 			ProgressManager.getInstance().run(new Task.Backgroundable(project, "Updating Custom Postfix Web Templates") {
 				public void run(@NotNull ProgressIndicator progressIndicator) {
@@ -44,12 +48,26 @@ public class CptUpdateUtils {
 						for (String language : SupportedLanguages.supportedLanguageIds) {
 							// eventually move old templates file to new directory
 							moveOldTemplateFile(language);
+
+							// copy local template files
+							val vFiles = pluginSettings.getLangName2virtualFiles().get(language);
+							if (vFiles != null) {
+								for (CptPluginSettings.VFile vFile : vFiles) {
+									if (vFile.isLocalTemplateFile()) {
+										try {
+											Files.copy(new URL(vFile.getUrl()).openStream(), new File(vFile.file).toPath(), REPLACE_EXISTING);
+										} catch (IOException e) {
+											e.printStackTrace();
+										}
+									}
+								}
+							}
 						}
 
 						boolean newTemplateFiles = false;
 
 						// download the web templates file only once a day
-						if (!getWebTemplatesInfoFile().exists() || new Date().getTime() - getWebTemplatesInfoFile().lastModified() > 1000 * 60 * 60 * 24) {
+						if (forceUpdate || !getWebTemplatesInfoFile().exists() || new Date().getTime() - getWebTemplatesInfoFile().lastModified() > 1000 * 60 * 60 * 24) {
 							try {
 								downloadWebTemplatesInfoFile();
 
@@ -79,25 +97,31 @@ public class CptUpdateUtils {
 						progressIndicator.setFraction(1.0);
 						progressIndicator.setText("finished");
 
-						if (pluginSettings.getSettingsVersion() < 2) {
-							Notification notification = notificationGroup.createNotification("Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files. Please check your <a href=\"settings\">settings</a> to configure the plugin.", NotificationType.INFORMATION,
-								(notification1, hyperlinkEvent) -> {
-									notification1.expire();
-									CptUtil.openPluginSettings(project);
-								}
-							);
+						if (afterUpdateAction != null) {
+							afterUpdateAction.run();
+						} else {
+							NotificationGroup notificationGroup = new NotificationGroup("Custom Postfix Templates", NotificationDisplayType.STICKY_BALLOON, true);
 
-							Notifications.Bus.notify(notification, project);
-						} else
-						if (newTemplateFiles) {
-							Notification notification = notificationGroup.createNotification("Custom Postfix Templates", "New web template files are available.  You can activate them in the <a href=\"settings\">settings</a>.", NotificationType.INFORMATION,
-								(notification1, hyperlinkEvent) -> {
-									notification1.expire();
-									CptUtil.openPluginSettings(project);
-								}
-							);
+							if (pluginSettings.getSettingsVersion() < 2) {
+								Notification notification = notificationGroup.createNotification("Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files. Please check your <a href=\"settings\">settings</a> to configure the plugin.", NotificationType.INFORMATION,
+									(notification1, hyperlinkEvent) -> {
+										notification1.expire();
+										CptUtil.openPluginSettings(project);
+									}
+								);
 
-							Notifications.Bus.notify(notification, project);
+								Notifications.Bus.notify(notification, project);
+							} else
+							if (newTemplateFiles) {
+								Notification notification = notificationGroup.createNotification("Custom Postfix Templates", "New web template files are available.  You can activate them in the <a href=\"settings\">settings</a>.", NotificationType.INFORMATION,
+									(notification1, hyperlinkEvent) -> {
+										notification1.expire();
+										CptUtil.openPluginSettings(project);
+									}
+								);
+
+								Notifications.Bus.notify(notification, project);
+							}
 						}
 					}
 				}

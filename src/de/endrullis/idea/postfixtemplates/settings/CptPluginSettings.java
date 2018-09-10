@@ -108,5 +108,9 @@ public final class CptPluginSettings {
 		public boolean isUserTemplateFile() {
 			return url == null;
 		}
+
+		public boolean isLocalTemplateFile() {
+			return url != null && url.startsWith("file:");
+		}
 	}
 }
