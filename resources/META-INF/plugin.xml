@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>2.0.3</version>
+	<version>2.0.4</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -30,7 +30,7 @@
 				<li>You can use live template macros to automatically fill some of the template variables (e.g. <code>$var:suggestVariableName()$</code>) as well as you can define default values.</li>
 				<li>You can restrict the availability of templates or template rules to the availability of certain classes or libraries (e.g. expand <code>"test".val</code> to <code>val s = "test"</code> if Lombok is available).</li>
 				<li>It allows you to use static imports instead of class imports (e.g. <code>array.toList</code> can be expanded to <code>asList(array)</code> instead of <code>Arrays.asList(array)</code> if you add <code>[USE_STATIC_IMPORTS]</code> to the rule).</li>
-				<li>It comes with <a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">82 useful and editable postfix templates for Java</a> with in total 203 template rules, e.g.
+				<li>It comes with <a href="https://github.com/xylo/intellij-postfix-templates#preconfigured-java-templates-for-scala-users-and-those-who-want-to-simplify-their-life">more than 100 useful and editable postfix templates for Java</a> with more than 200 template rules, e.g.
 					<ul>
 						<li>string.toInt        → Integer.parse(string)</li>
 						<li>array.toList        → Arrays.asList(array)</li>
@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.0.4</h3>
+			<ul>
+				<li>Fixed bug #78: IllegalStateException: @NotNull method de/endrullis/idea/postfixtemplates/language/CptUtil.getAbsoluteVirtualFile must not return null.</li>
+			</ul>
+
 			<h3>Version 2.0.3</h3>
 			<ul>
 				<li>Added an option to skip the application of an postfix template for a given data type (just use "[SKIP]" as template code).</li>

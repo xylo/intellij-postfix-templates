@@ -314,7 +314,11 @@ public class CptUtil {
 	@NotNull
 	public static VirtualFile getAbsoluteVirtualFile(@NotNull VirtualFile vFile) {
 		if (vFile instanceof LightVirtualFile) {
-			vFile = ((LightVirtualFile) vFile).getOriginalFile();
+			final VirtualFile originalFile = ((LightVirtualFile) vFile).getOriginalFile();
+
+			if (originalFile != null) {
+				vFile = originalFile;
+			}
 		}
 
 		return vFile;
