@@ -79,8 +79,14 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 						final String fileName = selectedFile.getName().replace(".postfixTemplates", "");
 						setEditorContent(file.exists() ? CptUtil.getContent(file) : "");
 
-						val webTemplateFile = selectedFile.getWebTemplateFile();
-						if (webTemplateFile != null) {
+						if (selectedFile.isSelfMade()) {
+							templatesFileInfoLabel.setText("<html>User Template File \"" + fileName + "\"");
+						} else if (selectedFile.isLocal()) {
+							String s = "<html>Local Template File \"" + fileName + "\"<table>";
+							s += "<tr><td>URL:</td><td><a href=\"" + selectedFile.getUrl().toString() + "\">" + limitTo50(selectedFile.getUrl().toString()) + "</a></td></tr></table>";
+							templatesFileInfoLabel.setText(s);
+						} else if (selectedFile.getWebTemplateFile() != null) {
+							val webTemplateFile = selectedFile.getWebTemplateFile();
 							String subject = "";
 							try {
 								subject = URLEncoder.encode("[Custom Postfix Templates] " + fileName, "UTF-8").replaceAll("\\+", "%20");
@@ -89,11 +95,12 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 							}
 							String s = "<html>Web Template File \"" + fileName + "\"<table>";
 							s += "<tr><td>Author:</td><td><a href=\"mailto:" + webTemplateFile.email + "?subject=" + subject + "\">" + webTemplateFile.author + "</a></td></tr>";
-							s += "<tr><td>Website:</td><td><a href=\"" + webTemplateFile.website + "\">" + webTemplateFile.website + "</a></td></tr>";
+							s += "<tr><td>Website:</td><td><a href=\"" + webTemplateFile.website + "\">" + limitTo50(webTemplateFile.website) + "</a></td></tr>";
+							s += "<tr><td>URL:</td><td><a href=\"" + selectedFile.getUrl().toString() + "\">" + limitTo50(selectedFile.getUrl().toString()) + "</a></td></tr>";
 							s += "<tr><tds>Description:</td><td>" + webTemplateFile.description + "</td></tr></table>";
 							templatesFileInfoLabel.setText(s);
 						} else {
-							templatesFileInfoLabel.setText("<html>User Template File \"" + fileName + "\"");
+							templatesFileInfoLabel.setText("");
 						}
 					}
 				} catch (FileNotFoundException e) {
@@ -124,6 +131,14 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 		treeContainer.setLayout(new BorderLayout());
 		treeContainer.add(panel);
+	}
+
+	private String limitTo50(String string) {
+		if (string.length() > 50) {
+			return string.substring(0, 48) + "...";
+		} else {
+			return string;
+		}
 	}
 
 	private void showHelpDialog(Project project) {
