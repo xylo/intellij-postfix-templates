@@ -274,22 +274,9 @@ In this example a postfix template `.sort` is defined.
 The first rule tells the plugin that there shall be no completition for expressions of type `LazySeq`.
 The second rule defines how `List` expressions shall be completed.
 
-## Upgrade / reset templates and configure the plugin
+## Update templates and open plugin settings
 
-Go to *Settings → Editor → Custom Postfix Templates*.  Here you can chose between two different lambda styles and reset your templates to the predefined ones of the plugin.  Alternatively you can also upgrade your templates file by building a diff between the predefined ones and yours.
-
-## Roadmap
-
-### Version 2
-
-Version 2 is already in work and will be released in the next weeks/months.
-
-It will bring you the following features:
-* It allows you to split your templates file into multiple ones.
-* It allows you to import templates from web sources and local files.
-* It solves the complicated update procedure of merging your templates with the ones from the plugin 
-  by separating your templates from auto-updatable web templates
-* You will be able to share your templates with others.
+Go to *Settings → Editor → Custom Postfix Templates* or *Tools → Custom Postfix Templates → Open Settings / Upgrade Templates*.  There you can chose between two different lambda styles and check/uncheck the template files you want to enable/disable.
 
 ## Contribute
 
