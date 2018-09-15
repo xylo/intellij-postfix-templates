@@ -133,7 +133,7 @@
 	java.util.Set            →  $expr$.stream().map($f$).collect(java.util.stream.Collectors.toSet())
 	java.util.Map            →  $expr$.entrySet().stream().collect(java.util.stream.Collectors.toMap($keyF$, $valueF$))
 
-.flatMap : map entries
+.flatMap : flat map entries
 	java.util.List           →  $expr$.stream().flatMap($f$).collect(java.util.stream.Collectors.toList())
 	java.util.Set            →  $expr$.stream().flatMap($f$).collect(java.util.stream.Collectors.toSet())
 
