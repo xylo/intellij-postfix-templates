@@ -34,6 +34,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static de.endrullis.idea.postfixtemplates.language.CptUtil.processTemplates;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.processEscapes;
@@ -210,7 +211,8 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 			if (theseTemplates.size() == 1) {
 				combinedTemplates.add(theseTemplates.get(0));
 			} else {
-				String example = templates.stream().distinct().count() > 1 ? theseTemplates.get(0).getExample() : "";
+				val examples = theseTemplates.stream().map(t -> t.getExample()).filter(s -> !s.equals("[SKIP]")).distinct().collect(Collectors.toList());
+				String example = examples.size() >= 1 ? examples.get(0) : "";
 				combinedTemplates.add(new CombinedPostfixTemplate(theseTemplates.get(0).getKey(), example, theseTemplates, this));
 			}
 		}
