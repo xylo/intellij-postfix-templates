@@ -59,3 +59,9 @@
 
 .find : find element
 	de.endrullis.lazyseq.LazySeq  →  [SKIP]
+
+.head : find element
+	de.endrullis.lazyseq.LazySeq  →  [SKIP]
+
+.first : find element
+	de.endrullis.lazyseq.LazySeq  →  $expr$.head()

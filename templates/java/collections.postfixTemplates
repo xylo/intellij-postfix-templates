@@ -180,3 +180,15 @@
 
 .get : get element
 	ARRAY                    →  $expr$[$i$]
+
+.head : get first element
+	ARRAY                    →  $expr$[0]
+	java.util.List           →  $expr$.get(0)
+
+.first : get first element
+	ARRAY                    →  $expr$[0]
+	java.util.List           →  $expr$.get(0)
+
+.last : get last element
+	ARRAY                    →  $expr$[$expr$.length-1]
+	java.util.List           →  $expr$.get($expr$.size()-1)
