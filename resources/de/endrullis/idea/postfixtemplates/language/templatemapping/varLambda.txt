@@ -5,3 +5,4 @@ $attributeF$   → $attributeVar:suggestShortVariableName()$ -> $attribute$
 $conditionF$   → $conditionVar:suggestShortVariableName()$ -> $condition$
 $endActionF$   → $actionVar:suggestShortVariableName()$ -> $END$
 $accumulatorF$ → (a, b) -> $accumulator$
+$supplierF$    → () -> $supplier$
