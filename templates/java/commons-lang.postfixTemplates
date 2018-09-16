@@ -1,0 +1,157 @@
+## Templates for Apache commons-lang3 ##
+
+.join : joins strings/elements together
+	ARRAY [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.join($expr$)
+
+.center : center text in string
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.center($expr$)
+
+.capitalize : capitalize first character
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.capitalize($expr$)
+
+.uncapitalize : capitalize first character
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.uncapitalize($expr$)
+
+.abbreviate : abbreviate
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.abbreviate($expr$, $maxLength$)
+
+.abbreviateMiddle : abbreviate middle
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.abbreviateMiddle($expr$, $middle$, $length$)
+
+.chop : remove last character
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.chop($expr$)
+
+.chomp : remove tailing line separators
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.chomp($expr$)
+
+.isAllLowerCase : is all lower case
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isAllLowerCase($expr$)
+
+.isAllUpperCase : is all upper case
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isAllUpperCase($expr$)
+
+.isBlank : is blank
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isBlank($expr$)
+
+.isAnyBlank : is any blank
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isAnyBlank($expr$)
+
+.isNoneBlank : is none blank
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isNoneBlank($expr$)
+
+.isNotBlank : is not blank
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isNotBlank($expr$)
+
+.isEmptyNullSafe : null safe is empty
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isEmpty($expr$)
+
+.isAnyEmpty : is any empty
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isEmpty($expr$)
+
+.isNoneEmpty : is none empty
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isNoneEmpty($expr$)
+
+.isNotEmpty : is none empty
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isNotEmpty($expr$)
+
+.isAlpha : contains only alphabetic characters
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isAlpha($expr$)
+
+.isAlphaSpace : contains only alphabetic characters and spaces
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isAlphaSpace($expr$)
+
+.isAlphanumeric : contains only alphanumeric characters
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isAlphanumeric($expr$)
+
+.isAlphanumericSpace : contains only alphanumeric characters and spaces
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isAlphanumericSpace($expr$)
+
+.isNumeric : contains only numeric characters
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isNumeric($expr$)
+
+.isNumericSpace : contains only numeric characters and spaces
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isNumericSpace($expr$)
+
+.isAsciiPrintable : is ASCII printable
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isAsciiPrintable($expr$)
+
+.isWhitespace : is whitespace
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.isWhitespace($expr$)
+
+.reverse : reverse
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.reverse($expr$)
+
+.remove : remove
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.remove($expr$, $chars$)
+
+.removeStart : remove start
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.removeStart($expr$, $chars$)
+
+.removeStartIgnoreCase : remove start
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.removeStartIgnoreCase($expr$, $chars$)
+
+.removeEnd : remove end
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.removeEnd($expr$, $chars$)
+
+.removeEndIgnoreCase : remove end
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.removeEndIgnoreCase($expr$, $chars$)
+
+.strip : strip
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.strip($expr$)
+
+.containsAny : contains any
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.containsAny($expr$, $chars$)
+
+.containsNone : contains none
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.containsNone($expr$, $chars$)
+
+.containsOnly : contains only
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.containsOnly($expr$, $chars$)
+
+.appendIfMissing : append if missing
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.appendIfMissing($expr$, $suffix$)
+
+.appendIfMissingIgnoreCase : append if missing by ignoring case
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.appendIfMissingIgnoreCase($expr$, $suffix$)
+
+.prependIfMissing : prepend if missing
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.prependIfMissing($expr$, $suffix$)
+
+.prependIfMissingIgnoreCase : prepend if missing by ignoring case
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.prependIfMissingIgnoreCase($expr$, $suffix$)
+
+.substringBefore : substring before the first delimiter
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringBefore($expr$, $delimiter$)
+
+.substringBeforeLast : substring before the last delimiter
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringBeforeLast($expr$, $delimiter$)
+
+.substringAfter : substring after the first delimiter
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringAfter($expr$, $delimiter$)
+
+.substringAfterLast : substring after the last delimiter
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringAfterLast($expr$, $delimiter$)
+
+.substringBetween : substring between strings
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringBetween($expr$, $tag$)
+
+.substringsBetween : substring between strings
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringsBetween($expr$, $open$, $close$)
+
+.stringBefore : substring before the first delimiter
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringBefore($expr$, $delimiter$)
+
+.stringBeforeLast : substring before the last delimiter
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringBeforeLast($expr$, $delimiter$)
+
+.stringAfter : substring after the first delimiter
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringAfter($expr$, $delimiter$)
+
+.stringAfterLast : substring after the last delimiter
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringAfterLast($expr$, $delimiter$)
+
+.stringBetween : substring between strings
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringBetween($expr$, $tag$)
+
+.stringsBetween : substring between strings
+	java.lang.String [org.apache.commons.lang3.StringUtils]  →  org.apache.commons.lang3.StringUtils.substringsBetween($expr$, $open$, $close$)
