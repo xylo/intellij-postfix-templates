@@ -297,7 +297,12 @@ public class CptUtil {
 		return Optional.ofNullable(
 			SupportedLanguages.getCptLang(name)
 		).orElseGet(() -> {
-			return SupportedLanguages.getCptLang(getAbsoluteVirtualFile(vFile).getParent().getName());
+			val parent = getAbsoluteVirtualFile(vFile).getParent();
+			if (parent != null) {
+				return SupportedLanguages.getCptLang(parent.getName());
+			} else {
+				return null;
+			}
 		});
 	}
 

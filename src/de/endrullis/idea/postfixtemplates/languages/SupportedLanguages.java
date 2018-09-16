@@ -10,6 +10,7 @@ import de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptLang;
 import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinLang;
 import de.endrullis.idea.postfixtemplates.languages.scala.ScalaLang;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,14 +42,17 @@ public class SupportedLanguages {
 		supportedLanguages.forEach(lang -> put(lang.getLanguage(), lang));
 	}};
 
+	@Nullable
 	public static CptLang getCptLang(final String language) {
 		return languageToCptLang.get(language);
 	}
 
+	@NotNull
 	public static Optional<CptLang> getCptLang(@NotNull final PsiElement element) {
 		return getCptLang(getVirtualFile(element));
 	}
 
+	@NotNull
 	public static Optional<CptLang> getCptLang(VirtualFile vFile) {
 		if (vFile == null) {
 			return Optional.empty();
