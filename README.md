@@ -39,77 +39,24 @@ Select the `.toInt` template and see how it is expanded.
 
 And if you want to see the template definition, just press *Alt+ENTER* in the completiion popup and select *Edit '.toInt' template*.
 
-## Preconfigured Java templates which bring a tiny bit of the Scala/Kotlin feeling to Java
+## Kinds of template files
 
-The following templates are shipped with the plugin and shall provide you with a template basis and with some useful examples:
-* `.toByte`, `.toShort`, `.toChar`, `.toInt`, `.toLong`, `.toFloat`, `.toDouble`, `.format` - convert strings and numbers
-* `.toList`, `.toSet`, `.toMap` - convert arrays, collections, iterables, and streams to lists, sets, or maps
-* `.sort`, `.sortBy` - sort arrays, lists, and streams (by attribute)
-* `.minBy`, `.maxBy` - find the minimum/maximum in arrays, collections, iterables, and streams 
-* `.groupBy` - group arrays, collections, iterables, and streams by attribute
-* `.exists`, `.forall` - test if one/all element(s) of an array, a collection, an iterable, or a stream hold(s) a given condition
-* `.reverse` - reverse arrays, lists, and strings
-* `.concat` - concatenate arrays, collections, and streams
-* `.mkString` - join the elements (strings) of an array, a collection, an iterable, or a stream into one string by using a given separator
-* `.stream` - convert iterable to stream
-* `.map` - map the entries of lists, sets, and maps
-* `.mapKeys` - map the keys of a map
-* `.mapValues` - map the values of a map
-* `.getOrElseUpdate` - return the map value of a given key or compute it and return it
-* `.filter` - filter the elements of lists, sets, maps, and iterables
-* `.reduce` - reduce the elements of arrays, collections, and iterables
-* `.fold` - reduce the elements of arrays, collections, and iterables by using a neutral element (similar to Scala fold)
-* `.find` - find an element in arrays, collections, iterables, and streams
-* `.take` - take a certain number of elements from a stream
-* `.drop` - skip a certain number of elements from a stream
-* `.size` - get the length or an array
-* `.get` - get an element of an array by index
-* `.forEach` - iterate over arrays, and optionals
-* `.isEmpty` - null-safe isEmpty check for collections, maps and strings
-* `.isNotEmpty` - null-safe isNotEmpty check for collections, maps and strings
-* `.isBlank` - null-safe isBlank check strings
-* `.isNotBlank` - null-safe isNotBlank check for strings
-* `.apply` - apply a runnable, supplier, consumer, or predicate
-* `.lines` - get the lines of text files, paths, input streams, and strings
-* `.content` - get the text content of files, paths, input streams, and URLs
-* `.inputStream` - get input stream of files, URLs, strings
-* `.outputStream` - get output stream for files
-* `.bufferedReader` - get buffered reader for files, input streams, and URLs
-* `.bufferedWriter` - get buffered writer for files and output streams
-* `.printStream` - get PrintStream for files and output streams
-* `.r` - convert a string into a regular expression
-* `.val` - extract the expression as value (similar to the `.var` template)
-* `.new` - create a new instance of a class
-* `.soutv` - print variable to System.out
+There are three different types of template files:
+* User template files: use them to define your own templates and/or override local or web template rules
+* Local template files: loaded from the local file system, read-only, and updated automatically when an IDEA project is opened
+* Web template files: loaded from the web, read-only, and updated automatically once a day
 
-The idea behind these templates is to bring a tiny bit of Scala feeling back to Java.
+## Order of template files/rules
 
-For Scala users there is the live template `_` which expands to `v -> v` to accelerate the creating of lambda expressions.
+Template rules are applied in a first-come-first-serve manner, i.e., more specific rules/files should be placed above more general rules/files.
+Reorder files in the tree by selecting them and by using the up/down buttons.
 
-### Special templates for IDEA (plugin) developers
+## Predefined web templates files
 
-* `.toVirtualFile` - convert to virtual file
-* `.toFile` - convert to file
-* `.getAttributes` - get file attributes
-* `.openInEditor` - open file in editor
-* `.getVirtualFile` - get virtual file
-* `.getDocument` - get IDEA document
-* `.getPsiFile` - get PSI file
-* `.getPsiJavaFile` - get PSI Java file
-* `.getPsiPackage` - get PSI package
-* `.getChildrenOfType` - get children of an PsiElement and of a certain type
-* `.getModule` - get IDEA module
-* `.getProject` - get IDEA project
-* `.getFileEditorManager` - get FileEditorManager
-* `.getPsiManager` - get PsiManager
-* `.getPsiFileFactory` - get PsiFileFactory
-* `.getProjectRootManager` - get ProjectRootManager
-* `.getTemplateManager` - get TemplateManager
-* `.getJavaPsiFacade` - get JavaPsiFacade
-* `.runReadAction` - wrap in an runWriteAction(...) block
-* `.runWriteAction` - wrap in an runWriteAction(...) block
-* `.invokeLater` - wrap in an invokeLater(...) block
-* `.showDiff` - open a diff view
+The plugin comes with a set of so-called "web template files" which provide in total [more than 100 useful templates](https://github.com/xylo/intellij-postfix-templates/wiki). 
+While web template files are read-only and shall not be edited by the user because of automatic updates, you can still edit or deactivate templates of these files.
+
+To change or deactivate a predefined template you just have to start the template name completion with *Ctrl+Space* and then press *ALT+Enter* and select the third item (*Edit .TEMPLATE_NAME template*).  The corresponding web template file is opened and you see the definition of the template rule.  Since you cannot this template file directly you have to override the template rule by pressing *Alt+Enter* and selecting *Override template rule*.  This overriding works in a way that your template rule needs to be loaded before the predefined template gets loaded.  This is done by adding your rule to a user template file which is placed above the predefined web template file in the plugin settings.  In case that you don't have a user template file which is loaded before, you are offered to create one.  After you selected an existing user template or created a new one the template rule to override is automatically added to this file and you can start adapting it.  To deactivate a template rule, replace the rigth side of the rule with *[SKIP]*. 
 
 ## Edit the templates
 
