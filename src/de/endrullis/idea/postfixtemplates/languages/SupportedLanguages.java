@@ -9,6 +9,7 @@ import de.endrullis.idea.postfixtemplates.languages.java.JavaLang;
 import de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptLang;
 import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinLang;
 import de.endrullis.idea.postfixtemplates.languages.scala.ScalaLang;
+import de.endrullis.idea.postfixtemplates.languages.sql.SqlLang;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +34,8 @@ public class SupportedLanguages {
 		new JavaLang(),
 		new JavaScriptLang(),
 		new DartLang(),
-		new ScalaLang()
+		new ScalaLang(),
+		new SqlLang()
 	);
 
 	public static final Set<String> supportedLanguageIds = supportedLanguages.stream().map(cl -> cl.getLanguage()).collect(Collectors.toSet());

@@ -44,6 +44,8 @@ public class CptUpdateUtils {
 
 			ProgressManager.getInstance().run(new Task.Backgroundable(project, "Updating Custom Postfix Web Templates") {
 				public void run(@NotNull ProgressIndicator progressIndicator) {
+					progressIndicator.setIndeterminate(false);
+
 					synchronized (updateSync) {
 						for (String language : SupportedLanguages.supportedLanguageIds) {
 							// eventually move old templates file to new directory
