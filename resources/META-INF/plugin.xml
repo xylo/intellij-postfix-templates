@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>2.0.7</version>
+	<version>2.1.0</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.1.0</h3>
+			<ul>
+				<li>Made plugin compatible with IDEA 2018.3.</li>
+			</ul>
+
 			<h3>Version 2.0.7</h3>
 			<ul>
 				<li>Fixed a NullPointerException that occurred sometimes when opening a template file.</li>
@@ -268,7 +273,7 @@
 	</change-notes>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-	<idea-version since-build="181.4203.550"/>
+	<idea-version since-build="183"/>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
 			 on how to target different products -->

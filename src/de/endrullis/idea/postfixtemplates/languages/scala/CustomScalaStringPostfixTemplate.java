@@ -5,7 +5,6 @@ import com.intellij.codeInsight.template.impl.Variable;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.OrderedSet;
-import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
 import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
@@ -13,8 +12,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.ScalaStringBasedPostfixTemplate;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
-import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.SelectorConditions;
-import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.SelectorType;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -75,7 +72,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	private final PsiElement psiElement;
 
 	public CustomScalaStringPostfixTemplate(String matchingClass, String conditionClass, String templateName, String example, String template, PsiElement psiElement) {
-		super(templateName.substring(1), example, new AncestorSelector(getCondition(matchingClass, conditionClass), SelectorType.All()));
+		super(templateName.substring(1), example, new AncestorSelector.SelectAllAncestors(getCondition(matchingClass, conditionClass)));
 		this.psiElement = psiElement;
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
@@ -122,7 +119,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
 
 		if (psiElementCondition == null) {
-			psiElementCondition = SelectorConditions.isDescendantCondition(matchingClass);
+			psiElementCondition = ScalaPostfixTemplatesUtils.isDescendant(matchingClass);
 		}
 
 		return withProjectClassCondition(conditionClass, psiElementCondition);
