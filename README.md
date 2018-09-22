@@ -229,5 +229,8 @@ Go to *Settings → Editor → Custom Postfix Templates* or *Tools → Custom Po
 
 Any contributions are welcome.  Just fork the project, make your changes and create a pull request.
 
+Here are some guides:
+* [Add new language support](https://github.com/xylo/intellij-postfix-templates/wiki/Add-new-language-support)
+
 # See also
 * [Feature request for custom postfix completion at jetbrains.com](https://youtrack.jetbrains.com/issue/IDEA-122443)
