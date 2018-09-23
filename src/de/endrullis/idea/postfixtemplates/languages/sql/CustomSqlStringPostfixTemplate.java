@@ -14,7 +14,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.sql.psi.SqlExpression;
+import com.intellij.sql.psi.SqlType;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
@@ -40,8 +40,12 @@ public class CustomSqlStringPostfixTemplate extends StringBasedPostfixTemplate i
 
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
+	/** Contains predefined type-to-psiCondition mappings as well as cached mappings for individual types. */
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), e -> true);
+		for (SqlType.Category category : SqlType.Category.values()) {
+			put(category.name(), SqlPostfixTemplatesUtils.isCategory(category));
+		}
 	}};
 
 	private final String template;
@@ -172,38 +176,13 @@ public class CustomSqlStringPostfixTemplate extends StringBasedPostfixTemplate i
 
 	@NotNull
 	public static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String conditionClass) {
-		/*
 		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
 
 		if (psiElementCondition == null) {
-			psiElementCondition = MyJavaPostfixTemplatesUtils.isCustomClass(matchingClass);
+			psiElementCondition = SqlPostfixTemplatesUtils.isCustomClass(matchingClass);
 		}
 
-		if (conditionClass == null) {
-			return psiElementCondition;
-		} else {
-			final Condition<PsiElement> finalPsiElementCondition = psiElementCondition;
-
-			return psiElement -> {
-				if (finalPsiElementCondition.value(psiElement)) {
-					final Project project = psiElement.getProject();
-					PsiFile psiFile = psiElement.getContainingFile().getOriginalFile();
-					VirtualFile virtualFile = psiFile.getVirtualFile();
-					Module module = ProjectRootManager.getInstance(project).getFileIndex().getModuleForFile(virtualFile);
-					assert module != null;
-					return JavaPsiFacade.getInstance(project).findClass(conditionClass, GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, true)) != null;
-				} else {
-					return false;
-				}
-			};
-		}
-		*/
-		return psiElement -> {
-			if (psiElement instanceof SqlExpression) {
-				return true;
-			}
-			return false;
-		};
+		return psiElementCondition;
 	}
 
 	@Nullable

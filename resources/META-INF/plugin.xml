@@ -12,7 +12,7 @@
 		<br/><br/>
 
 		<p>
-			This plugin lets you define your own postfix templates for Java, Scala, Kotlin, Dart and JavaScript.
+			This plugin lets you define your own postfix templates for Java, Scala, Kotlin, Dart, JavaScript, and SQL.
 		</p>
 
 		<p>
@@ -47,7 +47,7 @@
 	<change-notes><![CDATA[
 			<h3>Version 2.2.0</h3>
 			<ul>
-				<li>Added untyped SQL support.</li>
+				<li>Added typed SQL support.</li>
 			</ul>
 
 			<h3>Version 2.1.0</h3>
