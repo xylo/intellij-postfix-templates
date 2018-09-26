@@ -53,7 +53,7 @@ Reorder files in the tree by selecting them and by using the up/down buttons.
 
 ## Predefined web templates files
 
-The plugin comes with a set of so-called "web template files" which provide in total [more than 100 useful templates](https://github.com/xylo/intellij-postfix-templates/wiki). 
+The plugin comes with a set of so-called "web template files" which provide in total [more than 200 useful templates](https://github.com/xylo/intellij-postfix-templates/wiki). 
 While web template files are read-only and shall not be edited by the user because of automatic updates, you can still edit or deactivate templates of these files.
 
 To change or deactivate a predefined template you just have to start the template name completion with *Ctrl+Space* and then press *ALT+Enter* and select the third item (*Edit .TEMPLATE_NAME template*).  The corresponding web template file is opened and you see the definition of the template rule.  Since you cannot this template file directly you have to override the template rule by pressing *Alt+Enter* and selecting *Override template rule*.  This overriding works in a way that your template rule needs to be loaded before the predefined template gets loaded.  This is done by adding your rule to a user template file which is placed above the predefined web template file in the plugin settings.  In case that you don't have a user template file which is loaded before, you are offered to create one.  After you selected an existing user template or created a new one the template rule to override is automatically added to this file and you can start adapting it.  To deactivate a template rule, replace the rigth side of the rule with *[SKIP]*. 
