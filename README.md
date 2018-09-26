@@ -1,7 +1,7 @@
 # Custom Postfix Templates for Intellij IDEA
 
 **Custom Postfix Templates** is an Intellij IDEA plugin that allows you to define your own custom [postfix templates](https://blog.jetbrains.com/idea/2014/03/postfix-completion/).
-At the moment it supports the following programming languages with : Java, Scala, Kotlin (untyped templates), Dart (untyped templates), and JavaScript (untyped templates).
+At the moment it supports the following programming languages with : Java, Scala, SQL, Kotlin (untyped templates), Dart (untyped templates), and JavaScript (untyped templates).
 
 ## So what is the difference to IDEA's postfix templates?
 
@@ -126,6 +126,26 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
   * `LONG` - scala.Long or java.lang.Long
   * `FLOAT` - scala.Float or java.lang.Float
   * `DOUBLE` - scala.Double or java.lang.Double
+* In **SQL** the *MATCHING_TYPE* can be either a Java class name or one of the following special types:
+  * `ANY` - any expression
+  * `UNKNOWN` - unknown expression
+  * `DEFAULT` - ?
+  * `INTEGER` - integer expression
+  * `REAL` - real expression
+  * `STRING` - string expression
+  * `BOOLEAN` - boolean expression
+  * `DATE_TIME` - date-time expression
+  * `DATE` - date expression
+  * `TIME` - time expression
+  * `TIMESTAMP` - timestamp expression
+  * `INTERVAL` - interval expression
+  * `BYTES` - bytes expression
+  * `REFERENCE` - ?
+  * `ARRAY` - array expression
+  * `COLLECTION` - collection expression
+  * `TABLE` - table reference
+  * `RECORD` - ?
+  * `SETO` - ?
 * In **JavaScript** the *MATCHING_TYPE* has to be `ANY`.
 * In **Kotlin** the *MATCHING_TYPE* has to be `ANY`.
 * In **Dart** the *MATCHING_TYPE* has to be `ANY`.
