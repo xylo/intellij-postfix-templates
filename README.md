@@ -250,6 +250,7 @@ Go to *Settings → Editor → Custom Postfix Templates* or *Tools → Custom Po
 Any contributions are welcome.  Just fork the project, make your changes and create a pull request.
 
 Here are some guides:
+* [Create a template file for a utility class/library](https://github.com/xylo/intellij-postfix-templates/wiki/Create-a-template-file-for-a-utility-class-library)
 * [Add new language support](https://github.com/xylo/intellij-postfix-templates/wiki/Add-new-language-support)
 
 # See also
