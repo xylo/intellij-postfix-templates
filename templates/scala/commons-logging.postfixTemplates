@@ -1,0 +1,30 @@
+## Templates for Apache commons-logging ##
+
+.logDebug : log debug message
+	java.lang.String    [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.debug($expr$, $exception:variableOfType("java.lang.Throwable")$)
+	java.lang.Throwable [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.debug("$message$", $expr$)
+
+.logError : log error message
+	java.lang.String    [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.error($expr$, $exception:variableOfType("java.lang.Throwable")$)
+	java.lang.Throwable [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.error("$message$", $expr$)
+
+.logFatal : log fatal message
+	java.lang.String    [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.fatal($expr$, $exception:variableOfType("java.lang.Throwable")$)
+	java.lang.Throwable [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.fatal("$message$", $expr$)
+
+.logInfo : log info message
+	java.lang.String    [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.info($expr$, $exception:variableOfType("java.lang.Throwable")$)
+	java.lang.Throwable [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.info("$message$", $expr$)
+
+.logTrace : log trace message
+	java.lang.String    [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.trace($expr$, $exception:variableOfType("java.lang.Throwable")$)
+	java.lang.Throwable [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.trace("$message$", $expr$)
+
+.logWarn : log warn message
+	java.lang.String    [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.warn($expr$, $exception:variableOfType("java.lang.Throwable")$)
+	java.lang.Throwable [org.apache.commons.logging.Log]  →  $log*:variableOfType("org.apache.commons.logging.Log"):"log"$.warn("$message$", $expr$)
+
+
+.getLog : get log
+	java.lang.Class  [org.apache.commons.logging.LogFactory]  →  LogFactory.getLog($expr$)
+  java.lang.String [org.apache.commons.logging.LogFactory]  →  LogFactory.getLog($expr$)

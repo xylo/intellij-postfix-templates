@@ -27,6 +27,13 @@
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.commons-lang
   description: Provides templates for Apache commons-lang
 - lang: java
+  id: xylo.commons-logging
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/commons-logging.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.commons-logging
+  description: Provides templates for Apache commons-logging
+- lang: java
   id: xylo.io
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/io.postfixTemplates
   author: Stefan Endrullis
@@ -48,12 +55,26 @@
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.misc
   description: Provides templates for miscellaneous cases
 - lang: java
+  id: xylo.java-reflect
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/java-reflect.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.java-reflect
+  description: Provides templates for the Java Reflection API
+- lang: java
   id: xylo.idea-dev
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/idea-dev.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.idea-dev
   description: Provides templates for Intellij IDEA (plugin) developers
+- lang: scala
+  id: xylo.commons-logging
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/commons-logging.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates:-xylo.commons-logging
+  description: Provides templates for Apache commons-logging
 - lang: scala
   id: xylo.functions
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/functions.postfixTemplates
@@ -75,3 +96,10 @@
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates
   description: Provides templates for converting collection types and operating on them in a functional style
+- lang: scala
+  id: xylo.java-reflect
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/java-reflect.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates:-xylo.java-reflect
+  description: Provides templates for the Java Reflection API

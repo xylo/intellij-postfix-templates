@@ -1,0 +1,37 @@
+## Templates for methods ##
+
+.isAbstract : isAbstract
+	java.lang.reflect.Method  →  Modifier.isAbstract($expr$.getModifiers) 
+
+.isFinal : isFinal
+	java.lang.reflect.Method  →  Modifier.isFinal($expr$.getModifiers) 
+
+.isInterface : isInterface
+	java.lang.reflect.Method  →  Modifier.isInterface($expr$.getModifiers) 
+
+.isNative : isNative
+	java.lang.reflect.Method  →  Modifier.isNative($expr$.getModifiers) 
+
+.isPrivate : isPrivate
+	java.lang.reflect.Method  →  Modifier.isPrivate($expr$.getModifiers) 
+
+.isProtected : isProtected
+	java.lang.reflect.Method  →  Modifier.isProtected($expr$.getModifiers) 
+
+.isPublic : isPublic
+	java.lang.reflect.Method  →  Modifier.isPublic($expr$.getModifiers) 
+
+.isStatic : isStatic
+	java.lang.reflect.Method  →  Modifier.isStatic($expr$.getModifiers) 
+
+.isStrict : isStrict
+	java.lang.reflect.Method  →  Modifier.isStrict($expr$.getModifiers) 
+
+.isSynchronized : isSynchronized
+	java.lang.reflect.Method  →  Modifier.isSynchronized($expr$.getModifiers) 
+
+.isTransient : isTransient
+	java.lang.reflect.Method  →  Modifier.isTransient($expr$.getModifiers) 
+
+.isVolatile : isVolatile
+	java.lang.reflect.Method  →  Modifier.isVolatile($expr$.getModifiers) 
