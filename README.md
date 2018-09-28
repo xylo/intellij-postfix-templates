@@ -1,7 +1,7 @@
 # Custom Postfix Templates for Intellij IDEA
 
 **Custom Postfix Templates** is an Intellij IDEA plugin that allows you to define your own custom [postfix templates](https://blog.jetbrains.com/idea/2014/03/postfix-completion/).
-At the moment it supports the following programming languages with : Java, Scala, SQL, Kotlin (untyped templates), Dart (untyped templates), and JavaScript (untyped templates).
+At the moment it supports the following programming languages with : Java, Scala, SQL, Kotlin (untyped templates), Python (untyped templates), Dart (untyped templates), and JavaScript (untyped templates).
 
 ## So what is the difference to IDEA's postfix templates?
 
@@ -146,9 +146,10 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
   * `TABLE` - table reference
   * `RECORD` - ?
   * `SETO` - ?
-* In **JavaScript** the *MATCHING_TYPE* has to be `ANY`.
 * In **Kotlin** the *MATCHING_TYPE* has to be `ANY`.
+* In **Python** the *MATCHING_TYPE* has to be `ANY`.
 * In **Dart** the *MATCHING_TYPE* has to be `ANY`.
+* In **JavaScript** the *MATCHING_TYPE* has to be `ANY`.
 
 The *TEMPLATE_CODE* can be any text which may also contain template variables used as placeholder.
 * Simple template variables have the format `$NAME$`.
