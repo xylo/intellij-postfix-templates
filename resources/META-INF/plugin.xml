@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>2.2.0</version>
+	<version>2.3.0</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.3.0</h3>
+			<ul>
+				<li>Added untyped Python support.</li>
+			</ul>
+
 			<h3>Version 2.2.0</h3>
 			<ul>
 				<li>Added typed SQL support.</li>
@@ -287,6 +292,7 @@
 	<depends optional="true">org.intellij.scala</depends>
 	<depends optional="true">org.jetbrains.kotlin</depends>
 	<depends optional="true">Dart</depends>
+	<depends optional="true">com.intellij.modules.python</depends>
 
 	<application-components>
 		<component>
@@ -308,7 +314,9 @@
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.dart.DartPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="SQL"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.sql.SqlPostfixTemplateProvider"/>
-
+		<codeInsight.template.postfixTemplateProvider language="Python"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.python.PythonPostfixTemplateProvider"/>
+	
 		<applicationConfigurable id="Settings.CustomPostfixTemplates"
 		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"
 		                         groupId="editor"
