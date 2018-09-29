@@ -22,6 +22,9 @@ import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.plugins.groovy.lang.lexer.GroovyElementType;
+import org.jetbrains.plugins.groovy.lang.psi.GroovyElementTypes;
+import org.jetbrains.plugins.groovy.lang.psi.GroovyPsiElement;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -79,7 +82,15 @@ public class CustomGroovyStringPostfixTemplate extends StringBasedPostfixTemplat
 			//System.out.println(expression + " - " + expression.getText() + " - " + expression.getTextRange());
 			final PsiElement finalExpression = expression;
 
-			if (expression.getPrevSibling() == null || expression.getPrevSibling().getNode().getElementType() == TokenType.WHITE_SPACE) {
+			if (expression.getPrevSibling() == null
+					|| expression.getPrevSibling().getNode().getElementType() == TokenType.WHITE_SPACE
+					|| expression.getPrevSibling().getNode().getElementType() == GroovyElementTypes.NL
+					|| expression.getPrevSibling().getNode().getElementType() == GroovyElementTypes.T_LBRACE
+					|| expression.getPrevSibling().getNode().getElementType() == GroovyElementTypes.T_LBRACK
+					|| expression.getPrevSibling().getNode().getElementType() == GroovyElementTypes.T_COMMA
+					|| expression.getPrevSibling().getNode().getElementType() == GroovyElementTypes.T_COLON
+					|| expression.getPrevSibling().getNode().getElementType() == GroovyElementTypes.T_LPAREN
+			) {
 				if (expressions.stream().noneMatch(pe -> finalExpression.getTextRange().equals(pe.getTextRange()))) {
 					expressions.add(expression);
 				}

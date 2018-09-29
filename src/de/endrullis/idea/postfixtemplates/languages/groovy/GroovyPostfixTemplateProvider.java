@@ -13,12 +13,10 @@ public class GroovyPostfixTemplateProvider extends CustomPostfixTemplateProvider
 		return "groovy";
 	}
 
-	/*
 	@Override
 	public String getPluginClassName() {
-		return "org.codehaus.groovy.bsf.GroovyEngine";
+		return "org.jetbrains.plugins.groovy.lang.psi.GroovyPsiElement";
 	}
-	*/
 
 	@NotNull
 	@Override

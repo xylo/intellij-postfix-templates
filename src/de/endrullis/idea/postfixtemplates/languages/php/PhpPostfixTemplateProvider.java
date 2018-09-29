@@ -4,7 +4,6 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvid
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateProvider;
 import org.jetbrains.annotations.NotNull;
-import org.rust.lang.core.RsPsiPattern;
 
 public class PhpPostfixTemplateProvider extends CustomPostfixTemplateProvider {
 

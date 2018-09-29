@@ -35,7 +35,7 @@ public class SupportedLanguages {
 
 	public static final List<CptLang> supportedLanguages = _List(
 		new DartLang(),
-		//new GroovyLang(),
+		new GroovyLang(),
 		new KotlinLang(),
 		new JavaLang(),
 		new JavaScriptLang(),

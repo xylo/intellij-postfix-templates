@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>2.3.1</version>
+	<version>2.4.0</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -12,7 +12,7 @@
 		<br/><br/>
 
 		<p>
-			This plugin lets you define your own postfix templates for Java, Scala, SQL, Kotlin, Python, PHP, Dart, and JavaScript.
+			This plugin lets you define your own postfix templates for Java, Scala, SQL, Kotlin, Python, PHP, Dart, JavaScript, Rust, and Groovy.
 		</p>
 
 		<p>
@@ -45,6 +45,12 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.4.0</h3>
+			<ul>
+				<li>Added untyped Rust support.</li>
+				<li>Added untyped Groovy support.</li>
+			</ul>
+
 			<h3>Version 2.3.1</h3>
 			<ul>
 				<li>Added compatibility to PHPStorm and PyCharm.</li>
@@ -301,6 +307,7 @@
 	<depends optional="true">com.intellij.modules.python</depends>
 	<depends optional="true">com.jetbrains.php</depends>
 	<depends optional="true">org.rust.lang</depends>
+	<depends optional="true">org.intellij.groovy</depends>
 
 	<application-components>
 		<component>
@@ -328,10 +335,8 @@
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.php.PhpPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="Rust"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.rust.RustPostfixTemplateProvider"/>
-		<!--
 		<codeInsight.template.postfixTemplateProvider language="Groovy"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.groovy.GroovyPostfixTemplateProvider"/>
-    -->
 
 		<applicationConfigurable id="Settings.CustomPostfixTemplates"
 		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"
