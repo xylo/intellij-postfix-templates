@@ -325,6 +325,10 @@
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.python.PythonPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="PHP"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.php.PhpPostfixTemplateProvider"/>
+		<!--
+		<codeInsight.template.postfixTemplateProvider language="Groovy"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.groovy.GroovyPostfixTemplateProvider"/>
+    -->
 
 		<applicationConfigurable id="Settings.CustomPostfixTemplates"
 		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"

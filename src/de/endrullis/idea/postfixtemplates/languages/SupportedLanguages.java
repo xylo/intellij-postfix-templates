@@ -5,6 +5,7 @@ import com.intellij.psi.PsiElement;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.languages.dart.DartLang;
+import de.endrullis.idea.postfixtemplates.languages.groovy.GroovyLang;
 import de.endrullis.idea.postfixtemplates.languages.java.JavaLang;
 import de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptLang;
 import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinLang;
@@ -32,14 +33,15 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 public class SupportedLanguages {
 
 	public static final List<CptLang> supportedLanguages = _List(
+		new DartLang(),
+		//new GroovyLang(),
 		new KotlinLang(),
 		new JavaLang(),
 		new JavaScriptLang(),
-		new DartLang(),
 		new ScalaLang(),
 		new SqlLang(),
-		new PythonLang(),
-		new PhpLang()
+		new PhpLang(),
+		new PythonLang()
 	);
 
 	public static final Set<String> supportedLanguageIds = supportedLanguages.stream().map(cl -> cl.getLanguage()).collect(Collectors.toSet());
