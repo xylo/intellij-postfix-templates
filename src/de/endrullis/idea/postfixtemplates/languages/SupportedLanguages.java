@@ -11,6 +11,7 @@ import de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptLang;
 import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinLang;
 import de.endrullis.idea.postfixtemplates.languages.php.PhpLang;
 import de.endrullis.idea.postfixtemplates.languages.python.PythonLang;
+import de.endrullis.idea.postfixtemplates.languages.rust.RustLang;
 import de.endrullis.idea.postfixtemplates.languages.scala.ScalaLang;
 import de.endrullis.idea.postfixtemplates.languages.sql.SqlLang;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +42,8 @@ public class SupportedLanguages {
 		new ScalaLang(),
 		new SqlLang(),
 		new PhpLang(),
-		new PythonLang()
+		new PythonLang(),
+		new RustLang()
 	);
 
 	public static final Set<String> supportedLanguageIds = supportedLanguages.stream().map(cl -> cl.getLanguage()).collect(Collectors.toSet());

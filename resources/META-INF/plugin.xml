@@ -300,6 +300,7 @@
 	<depends optional="true">Dart</depends>
 	<depends optional="true">com.intellij.modules.python</depends>
 	<depends optional="true">com.jetbrains.php</depends>
+	<depends optional="true">org.rust.lang</depends>
 
 	<application-components>
 		<component>
@@ -325,6 +326,8 @@
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.python.PythonPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="PHP"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.php.PhpPostfixTemplateProvider"/>
+		<codeInsight.template.postfixTemplateProvider language="Rust"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.rust.RustPostfixTemplateProvider"/>
 		<!--
 		<codeInsight.template.postfixTemplateProvider language="Groovy"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.groovy.GroovyPostfixTemplateProvider"/>
