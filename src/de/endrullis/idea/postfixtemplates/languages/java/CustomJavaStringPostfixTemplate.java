@@ -20,9 +20,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
-import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
-import de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +35,7 @@ import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplate
 import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.getTopmostExpression;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
-import static de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils.*;
+import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**

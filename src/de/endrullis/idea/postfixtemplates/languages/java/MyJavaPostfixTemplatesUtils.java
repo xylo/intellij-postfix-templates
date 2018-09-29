@@ -1,4 +1,4 @@
-package de.endrullis.idea.postfixtemplates.templates;
+package de.endrullis.idea.postfixtemplates.languages.java;
 
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.*;

@@ -1,5 +1,7 @@
 package de.endrullis.idea.postfixtemplates.languages.scala;
 
+import com.intellij.codeInsight.completion.CompletionInitializationContext;
+import com.intellij.codeInsight.completion.JavaCompletionContributor;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.openapi.editor.Editor;
@@ -40,4 +42,9 @@ public class ScalaPostfixTemplateProvider extends CustomPostfixTemplateProvider 
 	public PsiFile preCheck(@NotNull PsiFile copyFile, @NotNull Editor realEditor, int currentOffset) {
 		return copyFile;
 	}
+
+	protected boolean isSemicolonNeeded(@NotNull PsiFile file, @NotNull Editor editor) {
+		return JavaCompletionContributor.semicolonNeeded(editor, file, CompletionInitializationContext.calcStartOffset(editor.getCaretModel().getCurrentCaret()));
+	}
+
 }

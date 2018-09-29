@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>2.3.0</version>
+	<version>2.3.1</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.3.1</h3>
+			<ul>
+				<li>Added compatibility to PHPStorm and PyCharm.</li>
+			</ul>
+
 			<h3>Version 2.3.0</h3>
 			<ul>
 				<li>Added untyped Python support.</li>
@@ -289,7 +294,7 @@
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
 			 on how to target different products -->
 	<depends>com.intellij.modules.lang</depends>
-	<depends>com.intellij.modules.java</depends>
+	<depends optional="true">com.intellij.modules.java</depends>
 	<depends optional="true">org.intellij.scala</depends>
 	<depends optional="true">org.jetbrains.kotlin</depends>
 	<depends optional="true">Dart</depends>
@@ -336,7 +341,9 @@
 		<colorSettingsPage implementation="de.endrullis.idea.postfixtemplates.language.CptColorSettingsPage"/>
 		<annotator language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptAnnotator"/>
 		<completion.contributor language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptCompletionContributor" order="first" id="compositieAttributeValues"/>
+		<!--
 		<psi.referenceContributor implementation="de.endrullis.idea.postfixtemplates.language.CptReferenceContributor"/>
+		-->
 		<gotoSymbolContributor implementation="de.endrullis.idea.postfixtemplates.language.CptChooseByNameContributor"/>
 		<lang.psiStructureViewFactory language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptStructureViewFactory"/>
 		<lang.formatter language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptFormattingModelBuilder"/>

@@ -1,8 +1,6 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
 import com.intellij.AppTopics;
-import com.intellij.codeInsight.completion.CompletionInitializationContext;
-import com.intellij.codeInsight.completion.JavaCompletionContributor;
 import com.intellij.codeInsight.template.postfix.templates.PostfixLiveTemplate;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplate;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
@@ -34,7 +32,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static de.endrullis.idea.postfixtemplates.language.CptUtil.processTemplates;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.processEscapes;
@@ -245,8 +242,8 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 		return copyFile;
 	}
 
-	private static boolean isSemicolonNeeded(@NotNull PsiFile file, @NotNull Editor editor) {
-		return JavaCompletionContributor.semicolonNeeded(editor, file, CompletionInitializationContext.calcStartOffset(editor.getCaretModel().getCurrentCaret()));
+	protected boolean isSemicolonNeeded(@NotNull PsiFile file, @NotNull Editor editor) {
+		return false;
 	}
 
 	/**

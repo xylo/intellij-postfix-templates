@@ -20,7 +20,6 @@ import static de.endrullis.idea.postfixtemplates.languages.java.CustomJavaString
 import static de.endrullis.idea.postfixtemplates.languages.scala.ScalaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
-import static de.endrullis.idea.postfixtemplates.templates.MyJavaPostfixTemplatesUtils.IS_ANY;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**
@@ -34,7 +33,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
-		put(SpecialType.ANY.name(), IS_ANY);
+		put(SpecialType.ANY.name(), e -> true);
 		put(SpecialType.VOID.name(), VOID);
 		put(SpecialType.NON_VOID.name(), NON_VOID);
 		//put(SpecialType.ARRAY.name(), IS_ARRAY);
