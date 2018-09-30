@@ -1,11 +1,13 @@
 package de.endrullis.idea.postfixtemplates.language;
 
-import com.intellij.navigation.*;
+import com.intellij.navigation.ChooseByNameContributor;
+import com.intellij.navigation.NavigationItem;
 import com.intellij.openapi.project.Project;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CptChooseByNameContributor implements ChooseByNameContributor {
 	@NotNull

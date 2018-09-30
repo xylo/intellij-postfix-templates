@@ -3,7 +3,8 @@ package de.endrullis.idea.postfixtemplates.language.psi;
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
-import de.endrullis.idea.postfixtemplates.language.*;
+import de.endrullis.idea.postfixtemplates.language.CptFileType;
+import de.endrullis.idea.postfixtemplates.language.CptLanguage;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;

@@ -1,11 +1,5 @@
 package de.endrullis.idea.postfixtemplates.languages.python;
 
-import com.intellij.openapi.util.Condition;
-import com.intellij.psi.PsiElement;
-import com.jetbrains.python.psi.PyExpression;
-import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
-
 /**
  * Utilities for Python postfix templates.
  *

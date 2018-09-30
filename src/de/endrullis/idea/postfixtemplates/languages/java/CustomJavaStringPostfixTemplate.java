@@ -20,8 +20,8 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
-import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
+import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,13 +29,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.IS_BOOLEAN;
-import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.IS_NON_VOID;
-import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.IS_NOT_PRIMITIVE;
-import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.getTopmostExpression;
+import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.*;
+import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.IS_ARRAY;
+import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.IS_ITERABLE_OR_ARRAY;
+import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
-import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**

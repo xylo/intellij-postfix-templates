@@ -2,17 +2,11 @@ package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 /**
  * Action to open the java templates.

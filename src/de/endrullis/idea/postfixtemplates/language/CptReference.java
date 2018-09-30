@@ -1,13 +1,16 @@
 package de.endrullis.idea.postfixtemplates.language;
 
-import com.intellij.codeInsight.lookup.*;
+import com.intellij.codeInsight.lookup.LookupElement;
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CptReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
 	private String key;

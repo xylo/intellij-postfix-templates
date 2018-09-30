@@ -3,9 +3,9 @@
 package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.lexer.FlexLexer;
+import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
-import com.intellij.psi.TokenType;
 
 
 /**

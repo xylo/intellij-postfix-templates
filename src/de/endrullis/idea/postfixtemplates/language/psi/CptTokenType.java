@@ -2,7 +2,8 @@ package de.endrullis.idea.postfixtemplates.language.psi;
 
 import com.intellij.psi.tree.IElementType;
 import de.endrullis.idea.postfixtemplates.language.CptLanguage;
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 
 public class CptTokenType extends IElementType {
 	public CptTokenType(@NotNull @NonNls String debugName) {

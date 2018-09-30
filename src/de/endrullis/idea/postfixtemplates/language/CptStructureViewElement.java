@@ -1,13 +1,18 @@
 package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.util.treeView.smartTree.*;
-import com.intellij.navigation.*;
-import com.intellij.psi.*;
+import com.intellij.ide.util.treeView.smartTree.SortableTreeElement;
+import com.intellij.ide.util.treeView.smartTree.TreeElement;
+import com.intellij.navigation.ItemPresentation;
+import com.intellij.navigation.NavigationItem;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import de.endrullis.idea.postfixtemplates.language.psi.*;
+import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
+import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CptStructureViewElement implements StructureViewTreeElement, SortableTreeElement {
 	private PsiElement element;

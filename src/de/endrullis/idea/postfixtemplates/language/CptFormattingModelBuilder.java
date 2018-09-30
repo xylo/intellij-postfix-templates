@@ -3,10 +3,12 @@ package de.endrullis.idea.postfixtemplates.language;
 import com.intellij.formatting.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class CptFormattingModelBuilder implements FormattingModelBuilder {
 	@NotNull

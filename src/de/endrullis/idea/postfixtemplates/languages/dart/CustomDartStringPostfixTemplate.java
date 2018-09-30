@@ -8,11 +8,10 @@ import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import static de.endrullis.idea.postfixtemplates.languages.dart.DartPostfixTemplatesUtils.*;
-import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
-
+import static de.endrullis.idea.postfixtemplates.languages.dart.DartPostfixTemplatesUtils.IS_ANY;
 
 @SuppressWarnings("WeakerAccess")
 public class CustomDartStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {

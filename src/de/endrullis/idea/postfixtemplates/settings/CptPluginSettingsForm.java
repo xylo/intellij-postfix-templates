@@ -28,8 +28,8 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;

@@ -1,7 +1,8 @@
 package de.endrullis.idea.postfixtemplates.language.psi;
 
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFileFactory;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
 
 public class CptElementFactory {

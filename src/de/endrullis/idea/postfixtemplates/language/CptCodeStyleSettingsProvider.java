@@ -1,9 +1,13 @@
 package de.endrullis.idea.postfixtemplates.language;
 
-import com.intellij.application.options.*;
+import com.intellij.application.options.CodeStyleAbstractConfigurable;
+import com.intellij.application.options.CodeStyleAbstractPanel;
 import com.intellij.openapi.options.Configurable;
-import com.intellij.psi.codeStyle.*;
-import org.jetbrains.annotations.*;
+import com.intellij.psi.codeStyle.CodeStyleSettings;
+import com.intellij.psi.codeStyle.CodeStyleSettingsProvider;
+import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class CptCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
 	@Override

@@ -1,12 +1,19 @@
 package de.endrullis.idea.postfixtemplates.language;
 
-import com.intellij.lang.*;
+import com.intellij.lang.ASTNode;
+import com.intellij.lang.ParserDefinition;
+import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.*;
-import com.intellij.psi.tree.*;
+import com.intellij.psi.FileViewProvider;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.TokenType;
+import com.intellij.psi.tree.IFileElementType;
+import com.intellij.psi.tree.TokenSet;
 import de.endrullis.idea.postfixtemplates.language.parser.CptParser;
-import de.endrullis.idea.postfixtemplates.language.psi.*;
+import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
+import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
 import org.jetbrains.annotations.NotNull;
 
 public class CptParserDefinition implements ParserDefinition {
