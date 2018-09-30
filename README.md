@@ -146,7 +146,27 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
   * `TABLE` - table reference
   * `RECORD` - ?
   * `SETO` - ?
-* In **PHP** the *MATCHING_TYPE* has to be `ANY`.
+* In **PHP** the *MATCHING_TYPE* can be either a PHP class name or one of the following special types:
+  * `ANY` - any expression
+  * `empty`
+  * `mixed`
+  * `null`
+  * `string`
+  * `boolean`
+  * `int`
+  * `float`
+  * `object`
+  * `callable`
+  * `resource`
+  * `array`
+  * `iterable`
+  * `number`
+  * `void`
+  * `unset`
+  * `static`
+  * `\Closure`
+  * `\Exception`
+  * `\Throwable`
 * In **Kotlin** the *MATCHING_TYPE* has to be `ANY`.
 * In **Python** the *MATCHING_TYPE* has to be `ANY`.
 * In **Dart** the *MATCHING_TYPE* has to be `ANY`.
