@@ -1,8 +1,11 @@
-package de.endrullis.idea.postfixtemplates.languages.groovy;
+package de.endrullis.idea.postfixtemplates.templates;
 
+import com.intellij.codeInsight.template.Template;
+import com.intellij.codeInsight.template.impl.Variable;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelector;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelectorBase;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
+import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
 import com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.project.DumbService;
@@ -10,41 +13,81 @@ import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.TokenType;
-import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
-import de.endrullis.idea.postfixtemplates.templates.SpecialType;
+import com.intellij.util.containers.OrderedSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.plugins.groovy.lang.psi.GroovyElementTypes;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.getTopmostExpression;
+import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
+import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**
- * Custom postfix template for Groovy.
+ * Common abstract class for simple string based postfix templates.
+ *
+ * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
-@SuppressWarnings("WeakerAccess")
-public class CustomGroovyStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
+public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfixTemplate implements NavigatableTemplate {
 
-	/** Contains predefined type-to-psiCondition mappings as well as cached mappings for individual types. */
-	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
-		put(SpecialType.ANY.name(), e -> true);
-	}};
+	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
-	private static final Set<IElementType> delimiterTokens = _Set(
-		TokenType.WHITE_SPACE,
-		GroovyElementTypes.NL,
-		GroovyElementTypes.T_LBRACE,
-		GroovyElementTypes.T_LBRACK,
-		GroovyElementTypes.T_COMMA,
-		GroovyElementTypes.T_COLON,
-		GroovyElementTypes.T_LPAREN
-	);
+	protected final String          template;
+	protected final Set<MyVariable> variables = new OrderedSet<>();
+	protected final PsiElement      psiElement;
+
+	public SimpleStringBasedPostfixTemplate(String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement, PostfixTemplateExpressionSelector selector) {
+		super(name.substring(1), name, example, selector, provider);
+		this.psiElement = psiElement;
+
+		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
+			return !PREDEFINED_VARIABLES.contains(v.getName());
+		}).collect(Collectors.toList());
+
+		this.template = removeVariableValues(template, allVariables);
+
+		// filter out variable duplicates
+		Set<String> foundVarNames = new HashSet<>();
+		for (MyVariable variable : allVariables) {
+			if (!foundVarNames.contains(variable.getName())) {
+				variables.add(variable);
+				foundVarNames.add(variable.getName());
+			}
+		}
+	}
+
+	@Override
+	protected PsiElement getElementToRemove(PsiElement expr) {
+		return expr;
+	}
+
+	@Override
+	public void setVariables(@NotNull Template template, @NotNull PsiElement psiElement) {
+		super.setVariables(template, psiElement);
+
+		List<MyVariable> sortedVars = variables.stream().sorted(Comparator.comparing(s -> s.getNo())).collect(Collectors.toList());
+
+		for (Variable variable : sortedVars) {
+			template.addVariable(variable.getName(), variable.getExpression(), variable.getDefaultValueExpression(),
+				variable.isAlwaysStopAt(), variable.skipOnStart());
+		}
+	}
+
+	@Nullable
+	@Override
+	public String getTemplateString(@NotNull PsiElement element) {
+		return template;
+	}
+
+	@Override
+	public PsiElement getNavigationElement() {
+		return psiElement;
+	}
 
 	public static List<PsiElement> collectExpressions(final PsiFile file,
 	                                                  final Document document,
@@ -77,7 +120,7 @@ public class CustomGroovyStringPostfixTemplate extends SimpleStringBasedPostfixT
 			//System.out.println(expression + " - " + expression.getText() + " - " + expression.getTextRange());
 			final PsiElement finalExpression = expression;
 
-			if (expression.getPrevSibling() == null || delimiterTokens.contains(expression.getPrevSibling().getNode().getElementType())) {
+			if (expression.getPrevSibling() == null || expression.getPrevSibling().getNode().getElementType() == TokenType.WHITE_SPACE) {
 				if (expressions.stream().noneMatch(pe -> finalExpression.getTextRange().equals(pe.getTextRange()))) {
 					expressions.add(expression);
 				}
@@ -129,21 +172,6 @@ public class CustomGroovyStringPostfixTemplate extends SimpleStringBasedPostfixT
 				return JavaPostfixTemplatesUtils.getRenderer();
 			}
 		};
-	}
-
-	public CustomGroovyStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
-		super(name, example, template, provider, psiElement, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)));
-	}
-
-	@NotNull
-	public static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String conditionClass) {
-		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
-
-		if (psiElementCondition == null) {
-			//psiElementCondition = GroovyPostfixTemplatesUtils.isCustomClass(matchingClass);
-		}
-
-		return psiElementCondition;
 	}
 
 }
