@@ -3,13 +3,13 @@ package de.endrullis.idea.postfixtemplates.languages.java;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.search.GlobalSearchScope;
 import de.endrullis.idea.postfixtemplates.language.CptCompletionUtil;
 import de.endrullis.idea.postfixtemplates.language.CptLangAnnotator;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -31,7 +31,7 @@ public class JavaAnnotator implements CptLangAnnotator {
 	@Override
 	public boolean isMatchingType(@NotNull LeafPsiElement element, @NotNull String className) {
 		return className2exists.computeIfAbsent(className, name -> {
-			final Project project = element.getProject();
+			val project = element.getProject();
 			return JavaPsiFacade.getInstance(project).findClass(className, GlobalSearchScope.allScope(project)) != null;
 		});
 	}

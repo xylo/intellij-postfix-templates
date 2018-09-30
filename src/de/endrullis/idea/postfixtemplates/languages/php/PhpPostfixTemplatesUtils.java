@@ -41,8 +41,8 @@ class PhpPostfixTemplatesUtils {
 		PhpType.UNSET,
 		PhpType.STATIC,
 		PhpType.EXCEPTION,
-		PhpType.THROWABLE,
-		PhpType.$THIS
+		PhpType.THROWABLE
+		//PhpType.$THIS
 	);
 
 	@NotNull

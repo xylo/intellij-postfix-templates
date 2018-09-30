@@ -4,9 +4,11 @@ import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import com.jetbrains.php.PhpIndex;
 import com.jetbrains.php.lang.psi.resolve.types.PhpType;
 import de.endrullis.idea.postfixtemplates.language.CptLangAnnotator;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -28,7 +30,10 @@ public class PhpAnnotator implements CptLangAnnotator {
 
 	@Override
 	public boolean isMatchingType(@NotNull final LeafPsiElement element, @NotNull final String className) {
-		return className2exists.containsKey(className);
+		return className2exists.computeIfAbsent(className, name -> {
+			val project = element.getProject();
+			return PhpIndex.getInstance(project).getClassByName(className) != null;
+		});
 	}
 
 	@Override
