@@ -1,11 +1,10 @@
 package de.endrullis.idea.postfixtemplates.languages.php;
 
-import com.intellij.openapi.util.Condition;
+import com.intellij.codeInsight.completion.CompletionParameters;
+import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.psi.PsiElement;
-import com.intellij.sql.psi.SqlExpression;
-import com.intellij.sql.psi.SqlType;
+import com.jetbrains.php.PhpIndex;
 import com.jetbrains.php.lang.psi.resolve.types.PhpType;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
@@ -19,7 +18,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
  */
 class PhpPostfixTemplatesUtils {
 
-	public static final Set<PhpType> PHP_TYPES = _Set(
+	static final Set<PhpType> PHP_TYPES = _Set(
 		PhpType.EMPTY,
 		PhpType.MIXED,
 		PhpType.NULL,
@@ -45,17 +44,16 @@ class PhpPostfixTemplatesUtils {
 		//PhpType.$THIS
 	);
 
-	@NotNull
-	static Condition<PsiElement> isCustomClass(String clazz) {
-		return element -> element instanceof SqlExpression && isCustomClass(((SqlExpression) element).getSqlType(), clazz.toLowerCase());
+	static boolean isInstanceOf(@NotNull PhpType subType, @NotNull PhpType superType, PsiElement psiElement) {
+		return superType.isConvertibleFrom(subType, PhpIndex.getInstance(psiElement.getProject()));
 	}
 
-	private static boolean isCustomClass(SqlType sqlType, String type) {
-		return StringUtils.substringBefore(sqlType.getDisplayName(), "(").equals(type);
+	static boolean isProjectClass(@NotNull String conditionClass, PsiElement e) {
+		return PhpIndex.getInstance(e.getProject()).getClassByName(conditionClass) != null;
 	}
 
-	static Condition<PsiElement> isCategory(SqlType.Category category) {
-		return element -> element instanceof SqlExpression && ((SqlExpression) element).getSqlType().getCategory().equals(category);
+	static void addCompletions(CompletionParameters parameters, CompletionResultSet resultSet) {
+		// TODO
 	}
 
 }

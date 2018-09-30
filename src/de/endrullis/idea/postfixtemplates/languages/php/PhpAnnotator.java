@@ -42,6 +42,8 @@ public class PhpAnnotator implements CptLangAnnotator {
 		for (PhpType phpType : PhpPostfixTemplatesUtils.PHP_TYPES) {
 			resultSet.addElement(LookupElementBuilder.create(phpType.toString()));
 		}
+
+		PhpPostfixTemplatesUtils.addCompletions(parameters, resultSet);
 	}
 
 }
