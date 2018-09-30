@@ -52,7 +52,19 @@ public class CustomPhpStringPostfixTemplate extends SimpleStringBasedPostfixTemp
 		if (psiElementCondition == null) {
 			val phpType = new PhpType().add(matchingClass);
 			psiElementCondition = e -> e instanceof PhpTypedElement && isInstanceOf(((PhpTypedElement) e).getType(), phpType, e);
-			type2psiCondition.put(matchingClass, psiElementCondition);
+			// type2psiCondition.put(matchingClass, psiElementCondition);
+		}
+
+		if (conditionClass != null) {
+			val oldPsiElementCondition = psiElementCondition;
+			psiElementCondition = e -> {
+				val condiCls = PhpIndex.getInstance(e.getProject()).getClassByName(conditionClass);
+				if (condiCls == null) {
+					return false;
+				} else {
+					return oldPsiElementCondition.value(e);
+				}
+			};
 		}
 
 		return psiElementCondition;
