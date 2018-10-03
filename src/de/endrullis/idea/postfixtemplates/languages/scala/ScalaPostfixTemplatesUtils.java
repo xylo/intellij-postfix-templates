@@ -27,12 +27,11 @@ class ScalaPostfixTemplatesUtils {
 	static final Condition<PsiElement> DECIMAL_NUMBER = e ->
 		Stream.of(BYTE, CHAR, DOUBLE, FLOAT, INT, LONG, SHORT).anyMatch(t -> t.value(e));
 
-	public static Condition<PsiElement> isDescendant(String... classes) {
-		return isDescendant(Arrays.asList(classes));
-	}
+	private static Condition<PsiElement> isDescendant(String class1, String class2) {
+		final Condition<PsiElement> class1Condition = SelectorConditions.isDescendantCondition(class1);
+		final Condition<PsiElement> class2Condition = SelectorConditions.isDescendantCondition(class2);
 
-	public static Condition<PsiElement> isDescendant(List<String> classes) {
-		return AncestorSelector.isSameOrInheritor(JavaConverters.asScalaBuffer(classes));
+		return psiElement -> class1Condition.value(psiElement) || class2Condition.value(psiElement);
 	}
 
 }
