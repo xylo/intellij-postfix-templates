@@ -13,6 +13,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.ScalaStringBasedPostfixTemplate;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
+import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.SelectorConditions;
+import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.SelectorType;
 
 import java.util.*;
 import java.util.stream.Collectors;

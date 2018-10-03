@@ -2,11 +2,8 @@ package de.endrullis.idea.postfixtemplates.languages.scala;
 
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
-import scala.collection.JavaConverters;
+import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.SelectorConditions;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 /**
