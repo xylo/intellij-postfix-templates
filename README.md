@@ -1,7 +1,7 @@
 # Custom Postfix Templates for Intellij IDEA
 
 **Custom Postfix Templates** is an Intellij IDEA plugin that allows you to define your own custom [postfix templates](https://blog.jetbrains.com/idea/2014/03/postfix-completion/).
-At the moment it supports the following programming languages with : Java, Scala, SQL, PHP, Kotlin (untyped templates), Python (untyped templates), Dart (untyped templates), JavaScript (untyped templates), and Rust (untyped templates).
+At the moment it supports the following programming languages with : Java, Scala, SQL, PHP, Groovy, Kotlin (untyped templates), Python (untyped templates), Dart (untyped templates), JavaScript (untyped templates), and Rust (untyped templates).
 
 ## So what is the difference to IDEA's postfix templates?
 
@@ -167,6 +167,20 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
   * `\Closure`
   * `\Exception`
   * `\Throwable`
+* In **Java** the *MATCHING_TYPE* can be either a Java class name or one of the following special types:
+  * `ANY` - any expression
+  * `ARRAY` - any Java array
+  * `BOOLEAN` - boxed or unboxed boolean expressions
+  * `ITERABLE_OR_ARRAY` - any iterable or array
+  * `NUMBER` - any boxed or unboxed number
+  * `BYTE` - a boxed or unboxed byte value
+  * `SHORT` - a boxed or unboxed short value
+  * `CHAR` - a boxed or unboxed char value
+  * `INT` - a boxed or unboxed int value
+  * `LONG` - a boxed or unboxed long value
+  * `FLOAT` - a boxed or unboxed float value
+  * `DOUBLE` - a boxed or unboxed double value
+  * `CLASS` - any class reference
 * In **Kotlin** the *MATCHING_TYPE* has to be `ANY`.
 * In **Python** the *MATCHING_TYPE* has to be `ANY`.
 * In **Dart** the *MATCHING_TYPE* has to be `ANY`.
