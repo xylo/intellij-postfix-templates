@@ -167,7 +167,7 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
   * `\Closure`
   * `\Exception`
   * `\Throwable`
-* In **Java** the *MATCHING_TYPE* can be either a Java class name or one of the following special types:
+* In **Groovy** the *MATCHING_TYPE* can be either a Java/Groovy class name or one of the following special types:
   * `ANY` - any expression
   * `ARRAY` - any Java array
   * `BOOLEAN` - boxed or unboxed boolean expressions
