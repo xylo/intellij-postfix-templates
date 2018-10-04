@@ -9,20 +9,23 @@ import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiType;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
-import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.plugins.groovy.lang.psi.GroovyElementTypes;
+import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.GrExpression;
 
 import java.util.*;
 
 import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.getTopmostExpression;
+import static de.endrullis.idea.postfixtemplates.languages.groovy.GroovyPostfixTemplatesUtils.*;
+import static de.endrullis.idea.postfixtemplates.languages.java.CustomJavaStringPostfixTemplate.withProjectClassCondition;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**
@@ -33,7 +36,31 @@ public class CustomGroovyStringPostfixTemplate extends SimpleStringBasedPostfixT
 
 	/** Contains predefined type-to-psiCondition mappings as well as cached mappings for individual types. */
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
-		put(SpecialType.ANY.name(), e -> true);
+		put(GroovyType.ANY.name(), e -> true);
+		//put(GroovyType.VOID.name(), IS_VOID);
+		//put(GroovyType.NON_VOID.name(), IS_NON_VOID);
+		put(GroovyType.ARRAY.name(), GroovyPostfixTemplatesUtils.IS_ARRAY);
+		put(GroovyType.BOOLEAN.name(), e -> e instanceof GrExpression && isCustomClass(((GrExpression) e).getType(), "java.lang.Boolean"));
+		put(GroovyType.ITERABLE_OR_ARRAY.name(), GroovyPostfixTemplatesUtils.IS_ITERABLE_OR_ARRAY);
+		//put(GroovyType.NOT_PRIMITIVE.name(), IS_NOT_PRIMITIVE);
+		put(GroovyType.NUMBER.name(), IS_DECIMAL_NUMBER);
+		put(GroovyType.BYTE.name(), isCertainNumberType(PsiType.BYTE));
+		put(GroovyType.SHORT.name(), isCertainNumberType(PsiType.SHORT));
+		put(GroovyType.CHAR.name(), isCertainNumberType(PsiType.CHAR));
+		put(GroovyType.INT.name(), isCertainNumberType(PsiType.INT));
+		put(GroovyType.LONG.name(), isCertainNumberType(PsiType.LONG));
+		put(GroovyType.FLOAT.name(), isCertainNumberType(PsiType.FLOAT));
+		put(GroovyType.DOUBLE.name(), isCertainNumberType(PsiType.DOUBLE));
+		//put(GroovyType.BYTE_LITERAL.name(), isCertainNumberLiteral(PsiType.BYTE));
+		//put(GroovyType.SHORT_LITERAL.name(), isCertainNumberLiteral(PsiType.SHORT));
+		//put(GroovyType.CHAR_LITERAL.name(), isCertainNumberLiteral(PsiType.CHAR));
+		//put(GroovyType.INT_LITERAL.name(), isCertainNumberLiteral(PsiType.INT));
+		//put(GroovyType.LONG_LITERAL.name(), isCertainNumberLiteral(PsiType.LONG));
+		//put(GroovyType.FLOAT_LITERAL.name(), isCertainNumberLiteral(PsiType.FLOAT));
+		//put(GroovyType.DOUBLE_LITERAL.name(), isCertainNumberLiteral(PsiType.DOUBLE));
+		//put(GroovyType.NUMBER_LITERAL.name(), IS_DECIMAL_NUMBER_LITERAL);
+		//put(GroovyType.STRING_LITERAL.name(), STRING_LITERAL);
+		put(GroovyType.CLASS.name(), e -> e instanceof GrExpression && isCustomClass(((GrExpression) e).getType(), "java.lang.Class"));
 	}};
 
 	private static final Set<IElementType> delimiterTokens = _Set(
@@ -140,10 +167,10 @@ public class CustomGroovyStringPostfixTemplate extends SimpleStringBasedPostfixT
 		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
 
 		if (psiElementCondition == null) {
-			//psiElementCondition = GroovyPostfixTemplatesUtils.isCustomClass(matchingClass);
+			psiElementCondition = GroovyPostfixTemplatesUtils.isCustomClass(matchingClass);
 		}
 
-		return psiElementCondition;
+		return withProjectClassCondition(conditionClass, psiElementCondition);
 	}
 
 }

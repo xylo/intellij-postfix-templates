@@ -96,7 +96,7 @@ public abstract class MyJavaPostfixTemplatesUtils {
 
 	@Contract("null,_ -> false")
 	public static boolean isCustomClass(@Nullable PsiType type, @NotNull String clazz) {
-		return type != null && InheritanceUtil.isInheritor(type, clazz);
+		return InheritanceUtil.isInheritor(type, clazz);
 	}
 
 	@Contract("null -> false")
@@ -119,7 +119,7 @@ public abstract class MyJavaPostfixTemplatesUtils {
 
 	@Contract("null -> false")
 	public static boolean isVoid(@Nullable PsiType type) {
-		return type != null && PsiType.VOID.equals(type);
+		return PsiType.VOID.equals(type);
 	}
 
 }
