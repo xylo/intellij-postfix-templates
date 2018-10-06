@@ -3,6 +3,11 @@ package de.endrullis.idea.postfixtemplates.languages.python;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
+import com.jetbrains.python.PyElementTypes;
+import com.jetbrains.python.psi.PyTypedElement;
+import com.jetbrains.python.psi.types.PyType;
+import com.jetbrains.python.psi.types.PyTypeTokenTypes;
+import com.jetbrains.python.psi.types.TypeEvalContext;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +34,9 @@ public class CustomPythonStringPostfixTemplate extends SimpleStringBasedPostfixT
 	@NotNull
 	public static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String conditionClass) {
 		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
+
+		// PyElementTypes.INTEGER_LITERAL_EXPRESSION
+		//TypeEvalContext.codeAnalysis(e.getProject(), e.getContainingFile()).getType((PyTypedElement) e)
 
 		if (psiElementCondition == null) {
 			//psiElementCondition = PythonPostfixTemplatesUtils.isCustomClass(matchingClass);
