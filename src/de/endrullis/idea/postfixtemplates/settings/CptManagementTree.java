@@ -267,8 +267,8 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 			for (CptLang lang : SupportedLanguages.supportedLanguages) {
 				add(new DumbAwareAction(lang.getNiceName()) {
 					@Override
-					public void actionPerformed(AnActionEvent anActionEvent) {
-						val project = CptUtil.getActiveProject();
+					public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
+						val project = anActionEvent.getProject();
 						openFileEditDialog(project, lang, null);
 					}
 				});

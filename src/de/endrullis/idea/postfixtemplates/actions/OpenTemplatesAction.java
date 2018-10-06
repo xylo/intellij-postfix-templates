@@ -20,6 +20,7 @@ import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.io.File;
@@ -86,16 +87,15 @@ public class OpenTemplatesAction extends AnAction {
 									String prefix = multiLang ? language.getDisplayName() + ": " : "";
 									actionGroup.add(new DumbAwareAction(prefix + file.getName().replace(".postfixTemplates", "")) {
 										@Override
-										public void actionPerformed(AnActionEvent anActionEvent) {
-											Project project = CptUtil.getActiveProject();
-											CptUtil.openFileInEditor(project, file);
+										public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
+											CptUtil.openFileInEditor(Objects.requireNonNull(project), file);
 										}
 									});
 								}
 							} else {
 								actionGroup.add(new DumbAwareAction("Create new user template file" + (multiLang ? " for " + language.getDisplayName() : "")) {
 									@Override
-									public void actionPerformed(AnActionEvent anActionEvent) {
+									public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
 										CptUtil.createTopPrioUserTemplateFile(language.getID().toLowerCase(), "user");
 										final File templateFile = CptUtil.getTemplateFile(language.getID().toLowerCase(), "user");
 										LocalFileSystem.getInstance().refreshIoFiles(_List(templateFile));
@@ -109,8 +109,7 @@ public class OpenTemplatesAction extends AnAction {
 
 					actionGroup.add(new DumbAwareAction("Open settings of Custom Postfix Templates") {
 						@Override
-						public void actionPerformed(AnActionEvent anActionEvent) {
-							Project project = CptUtil.getActiveProject();
+						public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
 							CptUtil.openPluginSettings(project);
 						}
 					});

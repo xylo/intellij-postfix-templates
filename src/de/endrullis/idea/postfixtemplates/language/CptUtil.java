@@ -2,8 +2,8 @@ package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.ide.DataManager;
 import com.intellij.ide.plugins.PluginManager;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.DataKeys;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.options.ShowSettingsUtil;
@@ -350,9 +350,10 @@ public class CptUtil {
 		//EditorFactory.getInstance().createViewer(document, project);
 	}
 
+	@Deprecated
 	public static Project getActiveProject() {
 		DataContext dataContext = DataManager.getInstance().getDataContextFromFocus().getResult();
-		return DataKeys.PROJECT.getData(dataContext);
+		return CommonDataKeys.PROJECT.getData(dataContext);
 	}
 
 	public static void openPluginSettings(Project project) {
