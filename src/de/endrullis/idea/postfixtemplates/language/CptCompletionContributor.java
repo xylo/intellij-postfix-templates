@@ -12,7 +12,7 @@ import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
-import static de.endrullis.idea.postfixtemplates.languages.java.CustomJavaStringPostfixTemplate.PREDEFINED_VARIABLES;
+import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates.PREDEFINED_VARIABLES;
 
 public class CptCompletionContributor extends CompletionContributor {
 	public CptCompletionContributor() {

@@ -33,17 +33,15 @@ import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplate
 import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.IS_ARRAY;
 import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.IS_ITERABLE_OR_ARRAY;
 import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.*;
+import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates.PREDEFINED_VARIABLES;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
-import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**
  * Custom postfix template for Java.
  */
 @SuppressWarnings("WeakerAccess")
 public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate implements NavigatableTemplate {
-
-	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), IS_ANY);

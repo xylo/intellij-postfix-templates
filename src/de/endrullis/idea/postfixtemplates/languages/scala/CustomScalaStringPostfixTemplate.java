@@ -5,6 +5,7 @@ import com.intellij.codeInsight.template.impl.Variable;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.OrderedSet;
+import de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
 import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
@@ -20,7 +21,6 @@ import static de.endrullis.idea.postfixtemplates.languages.java.CustomJavaString
 import static de.endrullis.idea.postfixtemplates.languages.scala.ScalaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
-import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**
  * Custom postfix template for Scala.
@@ -30,7 +30,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 @SuppressWarnings("WeakerAccess")
 public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTemplate implements NavigatableTemplate {
 
-	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
+	public static final Set<String> PREDEFINED_VARIABLES = CustomPostfixTemplates.PREDEFINED_VARIABLES;
 
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), e -> true);

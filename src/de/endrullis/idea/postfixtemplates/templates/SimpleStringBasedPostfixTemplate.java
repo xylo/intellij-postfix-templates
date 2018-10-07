@@ -6,27 +6,24 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpres
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelectorBase;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
-import com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.util.Condition;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.TokenType;
+import com.intellij.psi.*;
+import com.intellij.psi.util.PsiExpressionTrimRenderer;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
+import de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.getTopmostExpression;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
-import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**
  * Common abstract class for simple string based postfix templates.
@@ -35,7 +32,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
  */
 public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfixTemplate implements NavigatableTemplate {
 
-	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
+	public static final Set<String> PREDEFINED_VARIABLES = CustomPostfixTemplates.PREDEFINED_VARIABLES;
 
 	protected final String          template;
 	protected final Set<MyVariable> variables = new OrderedSet<>();
@@ -163,13 +160,19 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 
 				if (!expressions.isEmpty()) return expressions;
 
-				return ContainerUtil.filter(ContainerUtil.<PsiElement>createMaybeSingletonList(getTopmostExpression(context)), getFilters(offset));
+				//final PsiExpression topmostExpression = getTopmostExpression(context);
+				final PsiExpression topmostExpression = null;
+				return ContainerUtil.filter(ContainerUtil.<PsiElement>createMaybeSingletonList(topmostExpression), getFilters(offset));
 			}
 
 			@NotNull
 			@Override
 			public Function<PsiElement, String> getRenderer() {
-				return JavaPostfixTemplatesUtils.getRenderer();
+				return element -> {
+					assert element instanceof PsiExpression;
+					
+					return (new PsiExpressionTrimRenderer.RenderFunction()).fun((PsiExpression) element);
+				};
 			}
 		};
 	}

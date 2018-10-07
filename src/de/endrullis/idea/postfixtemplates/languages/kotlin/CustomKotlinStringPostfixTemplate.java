@@ -16,17 +16,13 @@ import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**
  * Custom postfix template for Kotlin.
  */
 @SuppressWarnings("WeakerAccess")
 public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
-
-	public static final Set<String> PREDEFINED_VARIABLES = _Set("expr", "END");
 
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), e -> true);
