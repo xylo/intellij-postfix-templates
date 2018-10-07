@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>2.6.1.183</version>
+	<version>2.6.2.183</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.6.2</h3>
+			<ul>
+				<li>Fixed bug #85: NoClassDefFoundError: com/intellij/psi/PsiType in PHPStorm and PyCharm.</li>
+			</ul>
+
 			<h3>Version 2.6.1</h3>
 			<ul>
 				<li>Fixed bug #84: NoClassDefFoundError: com/intellij/openapi/actionSystem/DataKeys.</li>
