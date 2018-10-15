@@ -1,5 +1,8 @@
 ## collection conversions ##
 
+.toArray : convert to array
+	java.util.Collection  →  $expr$.toArray(new $arrayType:guessElementType(expr)):"Object"$[0])
+
 .toList : convert to List
 	ARRAY                    →  java.util.Arrays.asList($expr$)
 	java.util.Collection     →  new java.util.ArrayList<>($expr$)
