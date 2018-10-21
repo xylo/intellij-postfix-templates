@@ -243,7 +243,7 @@
 
 
 .implode : implode
-    array   →   implode($glue$, $expr$)
+    array   →   implode($glue::"\", \""$, $expr$)
 
 .join : join
-    array   →   join($glue$, $expr$)
+    array   →   join($glue::"\", \""$, $expr$)
