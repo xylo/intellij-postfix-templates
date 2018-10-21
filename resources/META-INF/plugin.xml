@@ -328,6 +328,7 @@
 	<depends optional="true">com.jetbrains.php</depends>
 	<depends optional="true">org.rust.lang</depends>
 	<depends optional="true">org.intellij.groovy</depends>
+	<depends optional="true">com.intellij.modules.rider</depends>
 
 	<application-components>
 		<component>
@@ -357,6 +358,10 @@
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.rust.RustPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="Groovy"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.groovy.GroovyPostfixTemplateProvider"/>
+		<!--
+		<codeInsight.template.postfixTemplateProvider language="C#"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.csharp.CsharpPostfixTemplateProvider"/>
+		-->
 
 		<applicationConfigurable id="Settings.CustomPostfixTemplates"
 		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"

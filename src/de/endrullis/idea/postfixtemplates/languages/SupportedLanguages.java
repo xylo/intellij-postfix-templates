@@ -4,6 +4,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
+import de.endrullis.idea.postfixtemplates.languages.csharp.CsharpLang;
 import de.endrullis.idea.postfixtemplates.languages.dart.DartLang;
 import de.endrullis.idea.postfixtemplates.languages.groovy.GroovyLang;
 import de.endrullis.idea.postfixtemplates.languages.java.JavaLang;
@@ -34,6 +35,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 public class SupportedLanguages {
 
 	public static final List<CptLang> supportedLanguages = _List(
+		//new CsharpLang(),
 		new DartLang(),
 		new GroovyLang(),
 		new KotlinLang(),

@@ -3,7 +3,7 @@ package de.endrullis.idea.postfixtemplates.languages.python;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 
 /**
- * Language definition for Java.
+ * Language definition for Python.
  *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
