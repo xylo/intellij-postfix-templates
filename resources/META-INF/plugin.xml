@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>2.6.2.183</version>
+	<version>2.6.3.183</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -13,20 +13,21 @@
 
 		<p>
 			This plugin lets you define your own postfix templates for Java, Scala, SQL, PHP, Kotlin, Python, Dart, JavaScript, Rust, and Groovy.
+			It also comes with hundreds of useful postfix templates shared by the community.  You're welcome to contribute your templates as well.
 		</p>
 
 		<p>
-			<i>So what is the difference to IDEA's postfix templates?</i>
+			<i>Apart from the community approach, how does the plugin differ from IDEA's postfix templates?</i>
 		</p>
 
 		<p>
-			Since IDEA 2018 you are now able to define your own postfix templates in the settings UI (<i>Editor → General → Postfix Templates</i>).
+			Since IDEA 2018 you are now able to define your own postfix templates for some languages in the settings UI (<i>Editor → General → Postfix Templates</i>).
 			However, this is a pretty new feature and it's less functional than this plugin.
 
 			Here are some of the advantages of this plugin:
 			<ul>
-				<li>You can define different template rules for the same template name, e.g. <code>.toList</code> should behave differently for arrays and for sets.</li>
-				<li>You can use template variables (e.g. <code>$varName$</code>) which are filled by the user while applying the template.</li>
+				<li>You can define different template rules (context based) for the same template name, e.g. <code>.toList</code> should behave differently for arrays and for sets.</li>
+				<li>You can use template variables (e.g. <code>$varName$</code>) which are filled in by the user while applying the template.</li>
 				<li>You can use live template macros to automatically fill some of the template variables (e.g. <code>$var:suggestVariableName()$</code>) as well as you can define default values.</li>
 				<li>You can restrict the availability of templates or template rules to the availability of certain classes or libraries (e.g. expand <code>"test".val</code> to <code>val s = "test"</code> if Lombok is available).</li>
 				<li>It allows you to use static imports instead of class imports (e.g. <code>array.toList</code> can be expanded to <code>asList(array)</code> instead of <code>Arrays.asList(array)</code> if you add <code>[USE_STATIC_IMPORTS]</code> to the rule).</li>
@@ -38,13 +39,18 @@
 						<li>file.getName().val  → final String name = file.getName();</li>
 					</ul>
 				</li>
-				<li>The text based format for defining your templates allows you to easily share them via copy and paste.</li>
+				<li>There are multiple ways to easily <a href="https://github.com/xylo/intellij-postfix-templates/wiki/Share-a-template-file-with-others">share your templates with others</a>.</li>
 			</ul>
 		</p>
     ]]>
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.6.3</h3>
+			<ul>
+				<li>Underscores can be used in template names.</li>
+			</ul>
+
 			<h3>Version 2.6.2</h3>
 			<ul>
 				<li>Fixed bug #85: NoClassDefFoundError: com/intellij/psi/PsiType in PHPStorm and PyCharm.</li>

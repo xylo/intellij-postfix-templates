@@ -123,7 +123,12 @@ public class CptUtil {
 	 */
 	public static String getDefaultTemplates(String language) {
 		InputStream stream = CptUtil.class.getResourceAsStream("defaulttemplates/" + language + ".postfixTemplates");
-		return getContent(stream);
+		try {
+			return getContent(stream);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 
 	/**
@@ -134,7 +139,12 @@ public class CptUtil {
 	 * @throws FileNotFoundException
 	 */
 	public static String getContent(@NotNull File file) throws FileNotFoundException {
-		return getContent(new FileInputStream(file));
+		try {
+			return getContent(new FileInputStream(file));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 
 	/**
@@ -143,7 +153,7 @@ public class CptUtil {
 	 * @param stream input stream
 	 * @return content of the given input stream
 	 */
-	private static String getContent(@NotNull InputStream stream) {
+	private static String getContent(@NotNull InputStream stream) throws IOException {
 		StringBuilder sb = new StringBuilder();
 
 		// convert system newlines into UNIX newlines, because IDEA works only with UNIX newlines
@@ -154,11 +164,7 @@ public class CptUtil {
 			}
 
 			return sb.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-
-		return "";
 	}
 
 	/**

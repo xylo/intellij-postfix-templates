@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <excludeFromCompile>
+      <file url="file://$PROJECT_DIR$/test/src/de/endrullis/idea/postfixtemplates/language/CptFormattingModelBuilderTest.java" />
+      <file url="file://$PROJECT_DIR$/test/src/de/endrullis/idea/postfixtemplates/templates/TemplateExtractionTestApp.java" />
+      <file url="file://$PROJECT_DIR$/test/src/de/endrullis/idea/postfixtemplates/templates/CustomStringPostfixTemplateTest.java" />
+    </excludeFromCompile>
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
       <entry name="!?*.form" />
