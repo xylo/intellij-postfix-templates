@@ -1,0 +1,231 @@
+## array templates ##
+
+.for : foreach
+	array   →   foreach ($expr$ as \$$var$) {\
+	$END$\
+}
+
+.chunk : array_chunk
+	array   →   array_chunk($expr$, $size::"size"$)
+
+.column : array_column
+	array   →   array_column($expr$, $column::"column"$)
+
+.combine : array_combine
+	array   →   array_combine($expr$, $array2::"array2"$)
+
+.count_values : array_count_values
+	array   →   array_count_values($expr$)
+
+.diff_assoc : array_diff_assoc
+	array   →   array_diff_assoc($expr$, $array2::"array2"$)
+
+.diff_key : array_diff_key
+	array   →   array_diff_key($expr$, $array2::"array2"$)
+
+.diff_uassoc : array_diff_uassoc
+	array   →   array_diff_uassoc($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
+
+.diff_ukey : array_diff_ukey
+	array   →   array_diff_ukey($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
+
+.diff : array_diff
+	array   →   array_diff($expr$, $array2::"array2"$)
+
+.fill_keys : array_fill_keys
+	array   →   array_fill_keys($expr$, $value::"value"$)
+
+.fill : array_fill
+	array   →   array_fill($expr$, $num::"num"$, $value::"value"$)
+
+.filter : array_filter
+	array   →   array_filter($expr$, function (\$$var$) { return $result$; })
+
+.flip : array_flip
+	array   →   array_flip($expr$)
+
+.intersect_assoc : array_intersect_assoc
+	array   →   array_intersect_assoc($expr$, $array2::"array2"$)
+
+.intersect_key : array_intersect_key
+	array   →   array_intersect_key($expr$, $array2::"array2"$)
+
+.intersect_uassoc : array_intersect_uassoc
+	array   →   array_intersect_uassoc($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
+
+.intersect_ukey : array_intersect_ukey
+	array   →   array_intersect_ukey($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
+
+.intersect : array_intersect
+	array   →   array_intersect($expr$, $array2::"array2"$)
+
+.key_exists : array_key_exists
+	array   →   array_key_exists($key::"key"$, $expr$)
+
+.key_first : array_key_first
+	array   →   array_key_first($expr$)
+
+.key_last : array_key_last
+	array   →   array_key_last($expr$)
+
+.keys : array_keys
+	array   →   array_keys($expr$)
+
+.map : array_map
+	array   →   array_map(function (\$$var$) { return $result$; }, $expr$)
+
+.merge_recursive : array_merge_recursive
+	array   →   array_merge_recursive($expr$)
+
+.merge : array_merge
+	array   →   array_merge($expr$)
+
+.multisort : array_multisort
+	array   →   array_multisort($expr$)
+
+.pad : array_pad
+	array   →   array_pad($expr$, $size::"size"$, $value::"value"$)
+
+.pop : array_pop
+	array   →   array_pop($expr$)
+
+.product : array_product
+	array   →   array_product($expr$)
+
+.push : array_push
+	array   →   array_push($expr$)
+
+.rand : array_rand
+	array   →   array_rand($expr$)
+
+.reduce : array_reduce
+	array   →   array_reduce($expr$, function (\$$var$) { return $result$; })
+
+.replace_recursive : array_replace_recursive
+	array   →   array_replace_recursive($expr$, $array2::"array2"$)
+
+.replace : array_replace
+	array   →   array_replace($expr$, $array2::"array2"$)
+
+.reverse : array_reverse
+	array   →   array_reverse($expr$)
+
+.search : array_search
+	array   →   array_search($needle::"needle"$, $expr$)
+
+.array_shift : array_shift
+	array   →   array_shift($expr$)
+
+.array_slice : array_slice
+	array   →   array_slice($expr$, $offset::"offset"$)
+
+.array_splice : array_splice
+	array   →   array_splice($expr$)
+
+.array_sum : array_sum
+	array   →   array_sum($expr$)
+
+.array_udiff_assoc : array_udiff_assoc
+	array   →   array_udiff_assoc($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
+
+.array_udiff_uassoc : array_udiff_uassoc
+	array   →   array_udiff_uassoc($expr$, $array2::"array2"$, function (\$$var$) { return $result$; }, function (\$$var2$) { return $result2$; })
+
+.array_udiff : array_udiff
+	array   →   array_udiff($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
+
+.array_uintersect_assoc : array_uintersect_assoc
+	array   →   array_uintersect_assoc($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
+
+.array_uintersect_uassoc : array_uintersect_uassoc
+	array   →   array_uintersect_uassoc($expr$, $array2::"array2"$, function (\$$var$) { return $result$; }, function (\$$var2$) { return $result2$; })
+
+.array_uintersect : array_uintersect
+	array   →   array_uintersect($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
+
+.array_unique : array_unique
+	array   →   array_unique($expr$)
+
+.array_unshift : array_unshift
+	array   →   array_unshift($expr$)
+
+.array_values : array_values
+	array   →   array_values($expr$)
+
+.array_walk_recursive : array_walk_recursive
+	array   →   array_walk_recursive($expr$, function (\$$var$) { return $result$; })
+
+.array_walk : array_walk
+	array   →   array_walk($expr$, function (\$$var$) { return $result$; })
+
+.arsort : arsort
+	array   →   arsort($expr$)
+
+.asort : asort
+	array   →   asort($expr$)
+
+.count : count
+	array   →   count($expr$)
+
+.current : current
+	array   →   current($expr$)
+
+.each : each
+	array   →   each($expr$)
+
+.end : end
+	array   →   end($expr$)
+
+.extract : extract
+	array   →   extract($expr$)
+
+.in_array : in_array
+	array   →   in_array($needle::"needle"$, $expr$)
+
+.key : key
+	array   →   key($expr$)
+
+.krsort : krsort
+	array   →   krsort($expr$)
+
+.ksort : ksort
+	array   →   ksort($expr$)
+
+.natcasesort : natcasesort
+	array   →   natcasesort($expr$)
+
+.natsort : natsort
+	array   →   natsort($expr$)
+
+.next : next
+	array   →   next($expr$)
+
+.pos : pos
+	array   →   pos($expr$)
+
+.prev : prev
+	array   →   prev($expr$)
+
+.reset : reset
+	array   →   reset($expr$)
+
+.rsort : rsort
+	array   →   rsort($expr$)
+
+.shuffle : shuffle
+	array   →   shuffle($expr$)
+
+.sizeof : sizeof
+	array   →   sizeof($expr$)
+
+.sort : sort
+	array   →   sort($expr$)
+
+.uasort : uasort
+	array   →   uasort($expr$, function (\$$var$) { return $result$; })
+
+.uksort : uksort
+	array   →   uksort($expr$, function (\$$var$) { return $result$; })
+
+.usort : usort
+	array   →   usort($expr$, function (\$$var$) { return $result$; })

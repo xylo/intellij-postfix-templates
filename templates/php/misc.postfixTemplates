@@ -1,0 +1,7 @@
+## strings ##
+
+.json_encode : json_encode
+    ANY   →   json_encode($expr$)
+
+.json_encode : json_encode
+    ANY   →   json_encode($expr$)
