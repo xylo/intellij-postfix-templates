@@ -5,6 +5,16 @@
 	$END$\
 }
 
+.foreach : foreach
+	array   →   foreach ($expr$ as \$$var$) {\
+	$END$\
+}
+
+.iter : foreach
+	array   →   foreach ($expr$ as \$$var$) {\
+	$END$\
+}
+
 .chunk : array_chunk
 	array   →   array_chunk($expr$, $size::"size"$)
 
