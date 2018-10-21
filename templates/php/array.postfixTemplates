@@ -113,49 +113,49 @@
 .search : array_search
 	array   →   array_search($needle::"needle"$, $expr$)
 
-.array_shift : array_shift
+.shift : array_shift
 	array   →   array_shift($expr$)
 
-.array_slice : array_slice
+.slice : array_slice
 	array   →   array_slice($expr$, $offset::"offset"$)
 
-.array_splice : array_splice
+.splice : array_splice
 	array   →   array_splice($expr$)
 
-.array_sum : array_sum
+.sum : array_sum
 	array   →   array_sum($expr$)
 
-.array_udiff_assoc : array_udiff_assoc
+.udiff_assoc : array_udiff_assoc
 	array   →   array_udiff_assoc($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
 
-.array_udiff_uassoc : array_udiff_uassoc
+.udiff_uassoc : array_udiff_uassoc
 	array   →   array_udiff_uassoc($expr$, $array2::"array2"$, function (\$$var$) { return $result$; }, function (\$$var2$) { return $result2$; })
 
-.array_udiff : array_udiff
+.udiff : array_udiff
 	array   →   array_udiff($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
 
-.array_uintersect_assoc : array_uintersect_assoc
+.uintersect_assoc : array_uintersect_assoc
 	array   →   array_uintersect_assoc($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
 
-.array_uintersect_uassoc : array_uintersect_uassoc
+.uintersect_uassoc : array_uintersect_uassoc
 	array   →   array_uintersect_uassoc($expr$, $array2::"array2"$, function (\$$var$) { return $result$; }, function (\$$var2$) { return $result2$; })
 
-.array_uintersect : array_uintersect
+.uintersect : array_uintersect
 	array   →   array_uintersect($expr$, $array2::"array2"$, function (\$$var$) { return $result$; })
 
-.array_unique : array_unique
+.unique : array_unique
 	array   →   array_unique($expr$)
 
-.array_unshift : array_unshift
+.unshift : array_unshift
 	array   →   array_unshift($expr$)
 
-.array_values : array_values
+.values : array_values
 	array   →   array_values($expr$)
 
-.array_walk_recursive : array_walk_recursive
+.walk_recursive : array_walk_recursive
 	array   →   array_walk_recursive($expr$, function (\$$var$) { return $result$; })
 
-.array_walk : array_walk
+.walk : array_walk
 	array   →   array_walk($expr$, function (\$$var$) { return $result$; })
 
 .arsort : arsort
