@@ -103,3 +103,17 @@
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates:-xylo.java-reflect
   description: Provides templates for the Java Reflection API
+- lang: php
+  id: xylo.array
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/php/array.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/PHP-web-templates:-xylo.array
+  description: Provides templates for miscellaneous use cases
+- lang: php
+  id: xylo.misc
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/php/misc.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/PHP-web-templates:-xylo.misc
+  description: Provides templates for arrays
