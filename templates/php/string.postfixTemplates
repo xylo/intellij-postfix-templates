@@ -1,0 +1,262 @@
+## string templates ##
+
+.bin2hex : bin2hex
+	string   →   bin2hex($expr$)
+
+.chop : chop
+	string   →   chop($expr$)
+
+.chunk_split : chunk_split
+	string   →   chunk_split($expr$)
+
+.convert_cyr_string : convert_cyr_string
+	string   →   convert_cyr_string($expr$, $from::"from"$, $to::"to"$)
+
+.convert_uudecode : convert_uudecode
+	string   →   convert_uudecode($expr$)
+
+.convert_uuencode : convert_uuencode
+	string   →   convert_uuencode($expr$)
+
+.count_chars : count_chars
+	string   →   count_chars($expr$)
+
+.crc32 : crc32
+	string   →   crc32($expr$)
+
+.crypt : crypt
+	string   →   crypt($expr$)
+
+.explode : explode
+	string   →   explode($delimiter::"delim"$, $expr$)
+
+.hebrev : hebrev
+	string   →   hebrev($expr$)
+
+.hebrevc : hebrevc
+	string   →   hebrevc($expr$)
+
+.hex2bin : hex2bin
+	string   →   hex2bin($expr$)
+
+.html_entity_decode : html_entity_decode
+	string   →   html_entity_decode($expr$)
+
+.htmlentities : htmlentities
+	string   →   htmlentities($expr$)
+
+.htmlspecialchars_decode : htmlspecialchars_decode
+	string   →   htmlspecialchars_decode($expr$)
+
+.htmlspecialchars : htmlspecialchars
+	string   →   htmlspecialchars($expr$)
+
+.lcfirst : lcfirst
+	string   →   lcfirst($expr$)
+
+.levenshtein : levenshtein
+	string   →   levenshtein($expr$, $string2::"string2"$)
+
+.ltrim : ltrim
+	string   →   ltrim($expr$)
+
+.md5_file : md5_file
+	string   →   md5_file($expr$)
+
+.md5 : md5
+	string   →   md5($expr$)
+
+.metaphone : metaphone
+	string   →   metaphone($expr$)
+
+.nl2br : nl2br
+	string   →   nl2br($expr$)
+
+.ord : ord
+	string   →   ord($expr$)
+
+.parse_str : parse_str
+	string   →   parse_str($expr$)
+
+.print : print
+	string   →   print($expr$)
+
+.printf : printf
+	ANY   →   printf($format::'format'$, $expr$)
+
+.quoted_printable_decode : quoted_printable_decode
+	string   →   quoted_printable_decode($expr$)
+
+.quoted_printable_encode : quoted_printable_encode
+	string   →   quoted_printable_encode($expr$)
+
+.quotemeta : quotemeta
+	string   →   quotemeta($expr$)
+
+.rtrim : rtrim
+	string   →   rtrim($expr$)
+
+.sha1_file : sha1_file
+	string   →   sha1_file($expr$)
+
+.sha1 : sha1
+	string   →   sha1($expr$)
+
+.similar_text : similar_text
+	string   →   similar_text($expr$, $string2::"string2"$)
+
+.soundex : soundex
+	string   →   soundex($expr$)
+
+.sprintf : sprintf
+	string   →   sprintf($format::'format'$, $expr$)
+
+.sscanf : sscanf
+	string   →   sscanf($expr$, $format::'format'$)
+
+.getcsv : str_getcsv
+	string   →   str_getcsv($expr$)
+
+.ireplace : str_ireplace
+	string   →   str_ireplace($search::"search"$, $replace::"replace"$, $expr$)
+
+.pad : str_pad
+	string   →   str_pad($expr$, $pad_length::"pad_length"$)
+
+.repeat : str_repeat
+	string   →   str_repeat($expr$, $multiplier::"multiplier"$)
+
+.replace : str_replace
+	string   →   str_replace($search::"search"$, $replace::"replace"$, $expr$)
+
+.rot13 : str_rot13
+	string   →   str_rot13($expr$)
+
+.shuffle : str_shuffle
+	string   →   str_shuffle($expr$)
+
+.split : str_split
+	string   →   str_split($expr$)
+
+.word_count : str_word_count
+	string   →   str_word_count($expr$)
+
+.casecmp : strcasecmp
+	string   →   strcasecmp($expr$, $string2::"string2"$)
+
+.cmp : strcmp
+	string   →   strcmp($expr$, $string2::"string2"$)
+
+.compare : strcmp
+	string   →   strcmp($expr$, $string2::"string2"$)
+
+.coll : strcoll
+	string   →   strcoll($expr$, $string2::"string2"$)
+
+.natcasecmp : strnatcasecmp
+	string   →   strnatcasecmp($expr$, $string2::"string2"$)
+
+.natcmp : strnatcmp
+	string   →   strnatcmp($expr$, $string2::"string2"$)
+
+.ncasecmp : strncasecmp
+	string   →   strncasecmp($expr$, $string2::"string2"$)
+
+.ncmp : strncmp
+	string   →   strncmp($expr$, $string2::"string2"$)
+
+.chr : strchr
+	string   →   strchr($expr$, $needle::"needle"$)
+
+.str : strstr
+	string   →   strstr($expr$, $needle::"needle"$)
+
+.ipos : stripos
+	string   →   stripos($expr$, $needle::"needle"$)
+
+.ripos : strripos
+	string   →   strripos($expr$, $needle::"needle"$)
+
+.rpos : strrpos
+	string   →   strrpos($expr$, $needle::"needle"$)
+
+.pos : strpos
+	string   →   strpos($expr$, $needle::"needle"$)
+
+.rchr : strrchr
+	string   →   strrchr($expr$, $needle::"needle"$)
+
+.istr : stristr
+	string   →   stristr($expr$, $needle::"needle"$)
+
+.pbrk : strpbrk
+	string   →   strpbrk($expr$, $char_list::"char_list"$)
+
+.cspn : strcspn
+	string   →   strcspn($expr$, $mask::"mask"$)
+
+.spn : strspn
+	string   →   strspn($expr$, $mask::"mask"$)
+
+.strip_tags : strip_tags
+	string   →   strip_tags($expr$)
+
+.stripcslashes : stripcslashes
+	string   →   stripcslashes($expr$)
+
+.stripcslashes : stripcslashes
+	string   →   stripcslashes($expr$)
+
+.stripslashes : stripslashes
+	string   →   stripslashes($expr$)
+
+.strlen : strlen
+	string   →   strlen($expr$)
+
+.len : strlen
+	string   →   strlen($expr$)
+
+.length : strlen
+	string   →   strlen($expr$)
+
+.rev : strrev
+	string   →   strrev($expr$)
+
+.revert : revert
+	string   →   strrev($expr$)
+
+.tok : strtok
+	string   →   strtok($expr$, $token::"token"$)
+
+.tolower : strtolower
+	string   →   strtolower($expr$)
+
+.toupper : strtoupper
+	string   →   strtoupper($expr$)
+
+.tr : strtr
+	string   →   strtr($expr$, $from::"from"$, $to::"to"$)
+
+.substr_compare : substr_compare
+	string   →   substr_compare($expr$, $str::"str"$, $offset::"offset"$)
+
+.substr_count : substr_count
+	string   →   chop($expr$, $needle::"needle"$)
+
+.substr_replace : substr_replace
+	string   →   substr_replace($expr$, $repacement::"replacement"$, $start::"start"$)
+
+.substr : substr
+	string   →   substr($expr$, $start::"start"$)
+
+.trim : trim
+	string   →   trim($expr$)
+
+.ucfirst : ucfirst
+	string   →   ucfirst($expr$)
+
+.ucwords : ucwords
+	string   →   ucwords($expr$)
+
+.wordwrap : wordwrap
+	string   →   wordwrap($expr$)

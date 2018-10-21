@@ -109,11 +109,18 @@
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates/wiki/PHP-web-templates:-xylo.array
-  description: Provides templates for miscellaneous use cases
+  description: Provides templates for arrays
+- lang: php
+  id: xylo.string
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/php/string.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/PHP-web-templates:-xylo.string
+  description: Provides templates for strings
 - lang: php
   id: xylo.misc
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/php/misc.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates/wiki/PHP-web-templates:-xylo.misc
-  description: Provides templates for arrays
+  description: Provides templates for miscellaneous use cases

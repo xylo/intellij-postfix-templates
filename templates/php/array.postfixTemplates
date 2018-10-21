@@ -239,3 +239,11 @@
 
 .usort : usort
 	array   →   usort($expr$, function (\$$var$) { return $result$; })
+
+
+
+.implode : implode
+    array   →   implode($glue$, $expr$)
+
+.join : join
+    array   →   join($glue$, $expr$)
