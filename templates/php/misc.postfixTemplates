@@ -5,3 +5,14 @@
 
 .json_decode : json_decode
     ANY   →   json_decode($expr$)
+
+## conversion / format ##
+
+.toChar : to char
+	int   →   chr($expr$)
+
+.money_format : money_format
+	float   →   money_format($format::'%i'$, $expr$)
+
+.format : number_format
+	float   →   number_format($expr$)
