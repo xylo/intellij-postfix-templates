@@ -5,6 +5,7 @@
 
 .isFinal : isFinal
 	java.lang.reflect.Method  →  java.lang.reflect.Modifier.isFinal($expr$.getModifiers())
+	java.lang.reflect.Field  →  java.lang.reflect.Modifier.isFinal($expr$.getModifiers())
 
 .isInterface : isInterface
 	java.lang.reflect.Method  →  java.lang.reflect.Modifier.isInterface($expr$.getModifiers())
@@ -14,15 +15,19 @@
 
 .isPrivate : isPrivate
 	java.lang.reflect.Method  →  java.lang.reflect.Modifier.isPrivate($expr$.getModifiers())
+	java.lang.reflect.Field  →  java.lang.reflect.Modifier.isPrivate($expr$.getModifiers())
 
 .isProtected : isProtected
 	java.lang.reflect.Method  →  java.lang.reflect.Modifier.isProtected($expr$.getModifiers())
+	java.lang.reflect.Field  →  java.lang.reflect.Modifier.isProtected($expr$.getModifiers())
 
 .isPublic : isPublic
 	java.lang.reflect.Method  →  java.lang.reflect.Modifier.isPublic($expr$.getModifiers())
+	java.lang.reflect.Field  →  java.lang.reflect.Modifier.isPublic($expr$.getModifiers())
 
 .isStatic : isStatic
 	java.lang.reflect.Method  →  java.lang.reflect.Modifier.isStatic($expr$.getModifiers())
+	java.lang.reflect.Field  →  java.lang.reflect.Modifier.isStatic($expr$.getModifiers())
 
 .isStrict : isStrict
 	java.lang.reflect.Method  →  java.lang.reflect.Modifier.isStrict($expr$.getModifiers())
@@ -32,6 +37,8 @@
 
 .isTransient : isTransient
 	java.lang.reflect.Method  →  java.lang.reflect.Modifier.isTransient($expr$.getModifiers())
+	java.lang.reflect.Field  →  java.lang.reflect.Modifier.isTransient($expr$.getModifiers())
 
 .isVolatile : isVolatile
 	java.lang.reflect.Method  →  java.lang.reflect.Modifier.isVolatile($expr$.getModifiers())
+	java.lang.reflect.Field  →  java.lang.reflect.Modifier.isVolatile($expr$.getModifiers())
