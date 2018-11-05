@@ -20,6 +20,10 @@ public class KotlinAnnotator implements CptLangAnnotator {
 
 	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
 		put(SpecialType.ANY.name(), true);
+		put(SpecialType.STRING_LITERAL.name(), true);
+		put(SpecialType.FLOAT_LITERAL.name(), true);
+		put(SpecialType.INT_LITERAL.name(), true);
+		put(SpecialType.CHAR_LITERAL.name(), true);
 	}};
 
 	@Override
@@ -29,7 +33,7 @@ public class KotlinAnnotator implements CptLangAnnotator {
 
 	@Override
 	public void completeMatchingType(@NotNull CompletionParameters parameters, @NotNull CompletionResultSet resultSet) {
-		resultSet.addElement(LookupElementBuilder.create(SpecialType.ANY.name()));
+		className2exists.keySet().forEach(key -> resultSet.addElement(LookupElementBuilder.create(key)));
 	}
 
 }

@@ -3,13 +3,18 @@ package de.endrullis.idea.postfixtemplates.languages.kotlin;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.kotlin.KtNodeTypes;
 import org.jetbrains.kotlin.caches.resolve.KotlinCacheService;
 import org.jetbrains.kotlin.idea.resolve.ResolutionFacade;
+import org.jetbrains.kotlin.psi.KtConstantExpression;
 import org.jetbrains.kotlin.psi.KtExpression;
+import org.jetbrains.kotlin.psi.KtLiteralStringTemplateEntry;
+import org.jetbrains.kotlin.psi.KtStringTemplateExpression;
 import org.jetbrains.kotlin.resolve.BindingContext;
 import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode;
 
@@ -25,7 +30,11 @@ import java.util.Map;
 public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
 
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
-		put(SpecialType.ANY.name(), e -> true);
+		put(SpecialType.ANY.name(), e -> e instanceof KtExpression);
+		put(SpecialType.STRING_LITERAL.name(), e -> e instanceof KtStringTemplateExpression);
+		put(SpecialType.FLOAT_LITERAL.name(), e -> e instanceof KtConstantExpression && ((KtConstantExpression) e).getNode().getElementType() == KtNodeTypes.FLOAT_CONSTANT);
+		put(SpecialType.INT_LITERAL.name(), e -> e instanceof KtConstantExpression && ((KtConstantExpression) e).getNode().getElementType() == KtNodeTypes.INTEGER_CONSTANT);
+		put(SpecialType.CHAR_LITERAL.name(), e -> e instanceof KtConstantExpression && ((KtConstantExpression) e).getNode().getElementType() == KtNodeTypes.CHARACTER_CONSTANT);
 	}};
 
 	public CustomKotlinStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
@@ -39,13 +48,19 @@ public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixT
 
 	@NotNull
 	public static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String conditionClass) {
-		/*
 		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
 
 		if (psiElementCondition == null) {
-			psiElementCondition = MyJavaPostfixTemplatesUtils.isCustomClass(matchingClass);
+			//psiElementCondition = MyJavaPostfixTemplatesUtils.isCustomClass(matchingClass);
 		}
 
+		if (psiElementCondition != null) {
+			return psiElementCondition;
+		} else {
+			return e -> false;
+		}
+
+		/*
 		if (conditionClass == null) {
 			return psiElementCondition;
 		} else {
@@ -64,7 +79,6 @@ public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixT
 				}
 			};
 		}
-		*/
 		return psiElement -> {
 			if (psiElement instanceof KtExpression) {
 				/*
@@ -77,10 +91,10 @@ public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixT
 				*/
 				//bindingContext[BindingContext.EXPRESSION_TYPE_INFO, element];
 				//val expressionType = element.getType(bindingContext);
-				return true;
-			}
-			return false;
-		};
+				//return true;
+			//}
+			//return false;
+		//};
 	}
 
 	private static BindingContext analyze(KtExpression ktExpression, BodyResolveMode bodyResolveMode) {
