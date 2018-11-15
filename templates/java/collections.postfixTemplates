@@ -11,6 +11,9 @@
 	java.util.Optional       →  $expr$.map(e -> Collections.singletonList(e)).orElse(Collections.emptyList())
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toList())
 
+.toString : convert to String
+	ARRAY                    →  java.util.Arrays.toString($expr$)
+
 .toSet : convert to Set
 	ARRAY                    →  java.util.stream.Stream.of($expr$).collect(java.util.stream.Collectors.toSet())
 	java.util.Collection     →  new java.util.HashSet<>($expr$)
