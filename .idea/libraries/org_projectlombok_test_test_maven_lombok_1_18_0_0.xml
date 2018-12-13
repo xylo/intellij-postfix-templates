@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="org.projectlombok.test:test-maven-lombok:1.18.0.0" type="repository">
+    <properties maven-id="org.projectlombok.test:test-maven-lombok:1.18.0.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/test-maven-lombok-1.18.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/validation-api-2.0.1.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.25.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/logback-classic-1.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/logback-core-1.2.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
