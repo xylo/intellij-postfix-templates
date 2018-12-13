@@ -4,28 +4,15 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import de.endrullis.idea.postfixtemplates.language.CptLang;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
-import de.endrullis.idea.postfixtemplates.languages.csharp.CsharpLang;
-import de.endrullis.idea.postfixtemplates.languages.dart.DartLang;
-import de.endrullis.idea.postfixtemplates.languages.groovy.GroovyLang;
-import de.endrullis.idea.postfixtemplates.languages.java.JavaLang;
-import de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptLang;
-import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinLang;
-import de.endrullis.idea.postfixtemplates.languages.php.PhpLang;
-import de.endrullis.idea.postfixtemplates.languages.python.PythonLang;
-import de.endrullis.idea.postfixtemplates.languages.rust.RustLang;
-import de.endrullis.idea.postfixtemplates.languages.scala.ScalaLang;
-import de.endrullis.idea.postfixtemplates.languages.sql.SqlLang;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.reflections.Reflections;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.language.CptUtil.getVirtualFile;
-import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
 /**
  * All supported languages of this plugin.
@@ -34,19 +21,25 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
  */
 public class SupportedLanguages {
 
-	public static final List<CptLang> supportedLanguages = _List(
-		//new CsharpLang(),
-		new DartLang(),
-		new GroovyLang(),
-		new KotlinLang(),
-		new JavaLang(),
-		new JavaScriptLang(),
-		new ScalaLang(),
-		new SqlLang(),
-		new PhpLang(),
-		new PythonLang(),
-		new RustLang()
-	);
+	private static List<CptLang> getLangs() {
+		Reflections reflections = new Reflections("de.endrullis.idea.postfixtemplates.languages");
+
+		Set<Class<? extends CptLang>> langClasses = reflections.getSubTypesOf(CptLang.class);
+
+		List<CptLang> langs = langClasses.stream().map(c -> {
+			try {
+				return Optional.of((CptLang) c.getConstructor().newInstance());
+			} catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+				e.printStackTrace();
+				return Optional.<CptLang>empty();
+			}
+		}).filter(o -> o.isPresent()).map(o -> o.get())
+			.sorted(Comparator.comparing(l -> l.getNiceName().toLowerCase())).collect(Collectors.toList());
+
+		return langs;
+	}
+
+	public static final List<CptLang> supportedLanguages = getLangs();
 
 	public static final Set<String> supportedLanguageIds = supportedLanguages.stream().map(cl -> cl.getLanguage()).collect(Collectors.toSet());
 
