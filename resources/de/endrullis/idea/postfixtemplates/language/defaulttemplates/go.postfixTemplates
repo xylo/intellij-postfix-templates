@@ -1,0 +1,4 @@
+## number conversions ##
+
+.toInt : convert string to int
+	ANY  →  strconv.Atoi($expr$)
