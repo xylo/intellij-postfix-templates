@@ -340,6 +340,7 @@
 	<depends optional="true">org.rust.lang</depends>
 	<depends optional="true">org.intellij.groovy</depends>
 	<depends optional="true">com.intellij.modules.rider</depends>
+	<depends optional="true">com.intellij.modules.go</depends>
 
 	<application-components>
 		<component>
@@ -369,6 +370,8 @@
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.rust.RustPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="Groovy"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.groovy.GroovyPostfixTemplateProvider"/>
+		<codeInsight.template.postfixTemplateProvider language="Go"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.go.GoPostfixTemplateProvider"/>
 		<!--
 		<codeInsight.template.postfixTemplateProvider language="C#"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.csharp.CsharpPostfixTemplateProvider"/>
