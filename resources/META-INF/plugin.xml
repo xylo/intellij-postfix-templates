@@ -372,7 +372,7 @@
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.rust.RustPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="Groovy"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.groovy.GroovyPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="Go"
+		<codeInsight.template.postfixTemplateProvider language="go"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.go.GoPostfixTemplateProvider"/>
 		<!--
 		<codeInsight.template.postfixTemplateProvider language="C#"
