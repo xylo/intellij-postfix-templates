@@ -1,0 +1,20 @@
+.noerrAssert : assert no error
+    ERROR  →  assert.NoError(t, $expr$, "$end$")
+
+.equalAssert : assert equal
+    ANY  →  assert.Equal(t, $expr$, $VAR0$, "$end$")
+
+.nilAssert : assert nil
+    NIL  →  assert.Nil(t, $expr$, "$end$")
+
+.notnilAssert : assert not nil
+    NIL  →  assert.NotNil(t, $expr$, "$end$")
+
+.trueAssert : assert true
+    BOOLEAN  →  assert.True(t, $expr$, "$end$")
+
+.falseAssert : assert false
+    BOOLEAN  →  assert.False(t, $expr$, "$end$")
+
+.lenAssert : assert length
+    NIL  →  assert.Len(t, $expr$, $VAR0$, "$end$")

@@ -1,0 +1,29 @@
+.zap : zap error
+ERROR  →  zap.L().Error("$end$", zap.Error($expr$))
+
+.infoZap : zerolog info
+    STRING  →  zap.L().Info($expr$)
+
+.debugZap : zerolog debug
+    STRING  →  zap.L().Debug($expr$)
+
+.warnZap : zerolog warn
+    STRING  →  zap.L().Warn($expr$)
+
+.fatalZap : zerolog fatal
+    STRING  →  zap.L().Fatal($expr$)
+
+.panicZap : zerolog panic
+    STRING  →  zap.L().Panic($expr$)
+
+.debugIntZap : zerolog debug int
+    INT  →  zap.L().Debug("$VAR0$", zap.Int("$VAR1$", $expr$))
+
+.debugStrZap : zerolog debug string
+    STRING  →  zap.L().Debug("$VAR0$", zap.String("$VAR1$", $expr$))
+
+.debugFloatZap : zerolog debug float
+    FLOAT  →  zap.L().Debug("$VAR0$", zap.Float64("$VAR1$", $expr$))
+
+.debugBsZap : zerolog debug byte slice
+    BYTESLICE  →  zap.L().Debug("$VAR0$", zap.ByteString("$VAR1$", $expr$))
