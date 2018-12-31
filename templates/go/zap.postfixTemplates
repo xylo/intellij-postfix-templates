@@ -1,3 +1,5 @@
+## zap operations ##
+
 .zapInfo : zerolog info
     STRING     →  zap.L().Info($expr$)
 

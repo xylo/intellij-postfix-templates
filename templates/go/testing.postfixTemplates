@@ -1,3 +1,5 @@
+## assert operations ##
+
 .assertNoerr : assert no error
     ERROR    →  assert.NoError(t, $expr$, "$end$")
 

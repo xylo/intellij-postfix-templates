@@ -1,3 +1,5 @@
+## zerolog operations ##
+
 .logInfo : zerolog info
     STRING     →  log.Info().Msg($expr$)
 

@@ -1,3 +1,5 @@
+## collection operations ##
+
 .app : append and assign
 	ARRAY  →  $expr$ = append($expr$, $end$)
 
