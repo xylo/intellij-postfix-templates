@@ -1,29 +1,29 @@
-.log : zerolog err
-    ERROR  →  log.Error().Err($expr$).Msg("$end$")
+.logInfo : zerolog info
+    STRING     →  log.Info().Msg($expr$)
 
-.info : zerolog info
-    STRING  →  log.Info().Msg($expr$)
+.logDebug : zerolog debug
+    STRING     →  log.Debug().Msg($expr$)
 
-.debug : zerolog debug
-    STRING  →  log.Debug().Msg($expr$)
+.logWarn : zerolog warn
+    STRING     →  log.Warn().Msg($expr$)
 
-.warn : zerolog warn
-    STRING  →  log.Warn().Msg($expr$)
+.logError : zerolog err
+    ERROR      →  log.Error().Err($expr$).Msg("$end$")
 
-.fatal : zerolog fatal
-    STRING  →  log.Fatal().Msg($expr$)
+.logFatal : zerolog fatal
+    STRING     →  log.Fatal().Msg($expr$)
 
-.panic : zerolog panic
-    STRING  →  log.Panic().Msg($expr$)
+.logPanic : zerolog panic
+    STRING     →  log.Panic().Msg($expr$)
 
-.debugInt : zerolog debug int
-    INT  →  log.Debug().Int("$VAR0$", $expr$).Msg("$VAR1$")
+.logDebugInt : zerolog debug int
+    INT        →  log.Debug().Int("$VAR0$", $expr$).Msg("$VAR1$")
 
-.debugStr : zerolog debug string
-    STRING  →  log.Debug().Str("$VAR0$", $expr$).Msg("$VAR1$")
+.logDebugStr : zerolog debug string
+    STRING     →  log.Debug().Str("$VAR0$", $expr$).Msg("$VAR1$")
 
-.debugFloat : zerolog debug float
-    FLOAT  →  log.Debug().Float64("$VAR0$", $expr$).Msg("$VAR1$")
+.logDebugFloat : zerolog debug float
+    FLOAT      →  log.Debug().Float64("$VAR0$", $expr$).Msg("$VAR1$")
 
-.debugBs : zerolog debug byte slice
+.logDebugBs : zerolog debug byte slice
     BYTESLICE  →  log.Debug().Bytes("$VAR0$", $expr$).Msg("$VAR1$")
