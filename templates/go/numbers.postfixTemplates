@@ -2,7 +2,7 @@
     STRING  →  $VAR0$, $VAR1$ := strconv.Atoi($expr$)
 
 .toUInt : convert string to int
-    UINT  →  uint64($expr$)
+    INT64  →  uint64($expr$)
 
 .equal : bytes equal
     BYTESLICE  →  bytes.Equal($expr$, $end$)
