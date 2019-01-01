@@ -13,7 +13,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.isArray;
+import java.util.function.Function;
 
 /**
  * Utilities for PHP postfix templates.
@@ -69,7 +69,7 @@ class GoPostfixTemplatesUtils {
 	};
 
 	static final Condition<PsiElement> IS_FLOAT = element -> {
-		return GoTypeUtil.isFloatType(((GoExpression) element).getGoType(null));
+		return nullTypeToFalse(((GoExpression) element).getGoType(null), GoTypeUtil::isFloatType);
 	};
 
 	static final Condition<PsiElement> IS_BYTESLICE = element -> {
@@ -90,15 +90,23 @@ class GoPostfixTemplatesUtils {
 	};
 
 	static final Condition<PsiElement> IS_COMPLEX = element -> {
-		return GoTypeUtil.isComplexType(((GoExpression) element).getGoType(null));
+		return nullTypeToFalse(((GoExpression) element).getGoType(null), GoTypeUtil::isComplexType);
 	};
 
 	static final Condition<PsiElement> IS_NIL = element -> {
-		return GoTypeUtil.isAllowedComparingToNil(((GoExpression) element).getGoType(null));
+		return nullTypeToFalse(((GoExpression) element).getGoType(null), GoTypeUtil::isAllowedComparingToNil);
 	};
 
 	static final Condition<PsiElement> IS_STRING = element -> {
 		return GoTypeUtil.isString(((GoExpression) element).getGoType(null));
 	};
+
+	private static boolean nullTypeToFalse(GoType goType, Function<GoType, Boolean> f) {
+		if (goType == null) {
+			return false;
+		} else {
+			return f.apply(goType);
+		}
+	}
 
 }
