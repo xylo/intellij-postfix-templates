@@ -13,6 +13,7 @@ import java.util.Map;
 /**
  * Code annotator for Go CPTs.
  *
+ * @author Philip Griggs (philipgriggs@gmail.com)
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public class GoAnnotator implements CptLangAnnotator {

@@ -5,7 +5,7 @@ import de.endrullis.idea.postfixtemplates.language.CptLang;
 /**
  * Language definition for Java.
  *
- * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
+ * @author Philip Griggs (philipgriggs@gmail.com)
  */
 public class GoLang extends CptLang {
 

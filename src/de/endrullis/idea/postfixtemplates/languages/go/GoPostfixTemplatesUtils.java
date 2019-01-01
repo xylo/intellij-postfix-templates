@@ -18,6 +18,7 @@ import java.util.function.Function;
 /**
  * Utilities for PHP postfix templates.
  *
+ * @author Philip Griggs (philipgriggs@gmail.com)
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 class GoPostfixTemplatesUtils {
