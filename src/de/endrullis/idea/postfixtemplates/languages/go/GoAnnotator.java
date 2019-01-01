@@ -19,20 +19,9 @@ import java.util.Map;
 public class GoAnnotator implements CptLangAnnotator {
 
 	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
-		put(SpecialType.ANY.name(), true);
-		put(SpecialType.BOOLEAN.name(), true);
-		put(SpecialType.INT.name(), true);
-		put(SpecialType.INT64.name(), true);
-		put(SpecialType.UINT.name(), true);
-		put(SpecialType.FLOAT32.name(), true);
-		put(SpecialType.FLOAT64.name(), true);
-		put(SpecialType.FLOAT.name(), true);
-		put(SpecialType.BYTESLICE.name(), true);
-		put(SpecialType.ERROR.name(), true);
-		put(SpecialType.ARRAY.name(), true);
-		put(SpecialType.COMPLEX.name(), true);
-		put(SpecialType.NIL.name(), true);
-		put(SpecialType.STRING.name(), true);
+		for (String key : CustomGoStringPostfixTemplate.type2psiCondition.keySet()) {
+			put(key, true);
+		}
 	}};
 
 	@Override
@@ -42,7 +31,9 @@ public class GoAnnotator implements CptLangAnnotator {
 
 	@Override
 	public void completeMatchingType(@NotNull CompletionParameters parameters, @NotNull CompletionResultSet resultSet) {
-		resultSet.addElement(LookupElementBuilder.create(SpecialType.ANY.name()));
+		for (String key : CustomGoStringPostfixTemplate.type2psiCondition.keySet()) {
+			resultSet.addElement(LookupElementBuilder.create(key));
+		}
 	}
 
 }
