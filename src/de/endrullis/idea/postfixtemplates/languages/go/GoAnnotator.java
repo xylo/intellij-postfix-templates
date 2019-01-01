@@ -5,7 +5,6 @@ import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import de.endrullis.idea.postfixtemplates.language.CptLangAnnotator;
-import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
