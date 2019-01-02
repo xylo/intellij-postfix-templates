@@ -1,0 +1,30 @@
+## number conversions ##
+
+.toInt : convert string to int
+    STRING     →  $VAR0$, $VAR1$ := strconv.Atoi($expr$)
+
+.toString : convert to string
+    INT        →  strconv.Itoa($expr$)
+    FLOAT      →  strconv.FormatFloat($expr$, 'f', 6, 64)
+    BYTESLICE  →  string($expr$)
+
+.toUInt : convert int to uint
+    INT64      →  uint64($expr$)
+
+.toByte : convert string to byte
+    STRING     →  []byte($expr$)
+
+.toFloat : convert int to float
+    INT        →  float64($expr$)
+
+.equal : bytes equal
+    BYTESLICE  →  bytes.Equal($expr$, $end$)
+
+.deepEqual : struct / slice equal
+    ANY        →  reflect.DeepEqual($expr$, $end$)
+
+.putuint64L : PutUint64L
+    BYTESLICE  →  binary.LittleEndian.PutUint64($expr$, $end$)
+
+.putuint64B : PutUint64B
+    BYTESLICE  →  binary.BigEndian.PutUint64($expr$, $end$)

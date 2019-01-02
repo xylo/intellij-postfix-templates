@@ -1,0 +1,18 @@
+## collection operations ##
+
+.app : append and assign
+	ARRAY  →  $expr$ = append($expr$, $end$)
+
+.reverse : reverse collection
+	ARRAY  →  for i, j := 0, len($expr$)-1; i < j; i, j = i+1, j-1 {\
+				  $expr$[i], $expr$[j] = $expr$[j], $expr$[i]\
+			  }
+
+.concat : concat
+	ARRAY  →  $expr$ = append($expr$, $VAR0$...)
+
+.size : length
+	ARRAY  →  len($expr$)
+
+.end : get last element
+	ARRAY  →  $expr$[len($expr$)-1]

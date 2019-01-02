@@ -1,0 +1,13 @@
+## others ##
+
+.wrap : wrap err
+	ERROR      →  errors.wrap($expr$, "$end$")
+
+.marshal : json marshal
+	ANY        →  $VAR0$, $VAR1$ := json.Marshal($expr$)
+
+.unmarshal : json unmarshal
+	BYTESLICE  →  $VAR0$ := json.Unmarshal($expr$, $end$)
+
+.now : now unix
+	INT64      →  $expr$ = time.Now().Unix()

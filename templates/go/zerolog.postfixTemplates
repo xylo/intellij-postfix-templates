@@ -1,0 +1,31 @@
+## zerolog operations ##
+
+.logInfo : zerolog info
+    STRING     →  log.Info().Msg($expr$)
+
+.logDebug : zerolog debug
+    STRING     →  log.Debug().Msg($expr$)
+
+.logWarn : zerolog warn
+    STRING     →  log.Warn().Msg($expr$)
+
+.logError : zerolog err
+    ERROR      →  log.Error().Err($expr$).Msg("$end$")
+
+.logFatal : zerolog fatal
+    STRING     →  log.Fatal().Msg($expr$)
+
+.logPanic : zerolog panic
+    STRING     →  log.Panic().Msg($expr$)
+
+.logDebugInt : zerolog debug int
+    INT        →  log.Debug().Int("$VAR0$", $expr$).Msg("$VAR1$")
+
+.logDebugStr : zerolog debug string
+    STRING     →  log.Debug().Str("$VAR0$", $expr$).Msg("$VAR1$")
+
+.logDebugFloat : zerolog debug float
+    FLOAT      →  log.Debug().Float64("$VAR0$", $expr$).Msg("$VAR1$")
+
+.logDebugBs : zerolog debug byte slice
+    BYTESLICE  →  log.Debug().Bytes("$VAR0$", $expr$).Msg("$VAR1$")
