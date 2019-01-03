@@ -1,7 +1,7 @@
 # Custom Postfix Templates for Intellij IDEA
 
 **Custom Postfix Templates** is an Intellij IDEA plugin that allows you to define your own custom [postfix templates](https://blog.jetbrains.com/idea/2014/03/postfix-completion/).
-At the moment it supports the following programming languages with : Java, Scala, SQL, PHP, Groovy, Kotlin (untyped templates), Python (untyped templates), Dart (untyped templates), JavaScript (untyped templates), and Rust (untyped templates).
+At the moment it supports the following programming languages with : Java, Scala, SQL, PHP, Go, Groovy, Kotlin (untyped templates), Python (untyped templates), Dart (untyped templates), JavaScript (untyped templates), and Rust (untyped templates).
 
 ## So what is the difference to IDEA's postfix templates?
 
@@ -167,6 +167,21 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
   * `\Closure`
   * `\Exception`
   * `\Throwable`
+* In **Go** the *MATCHING_TYPE* can be either a Java/Groovy class name or one of the following special types:
+  * `ANY` - any expression
+  * `ARRAY` - any array
+  * `BOOLEAN` - any boolean expression
+  * `STRING` - any string expression
+  * `INT` - any integer expression
+  * `INT64` - any 64 bit integer expression
+  * `UINT` - any unsigned integer expression
+  * `FLOAT` - any floating point expression
+  * `FLOAT32` - any 32 bit floating point expression
+  * `FLOAT64` - any 64 bit floating point expression
+  * `BYTESLICE` - any byte slice expression
+  * `ERROR` - any error expression
+  * `COMPLEX` - ???
+  * `NIL` - any expression of type Nil
 * In **Groovy** the *MATCHING_TYPE* can be either a Java/Groovy class name or one of the following special types:
   * `ANY` - any expression
   * `ARRAY` - any Java array
