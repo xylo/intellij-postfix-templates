@@ -1,7 +1,7 @@
 <idea-plugin>
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
-	<version>2.8.0.183</version>
+	<version>2.8.1.183</version>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
 	<category>code editing</category>
 
@@ -46,6 +46,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.8.1</h3>
+			<ul>
+				<li>Fixed bug #94.</li>
+			</ul>
+
 			<h3>Version 2.8.0</h3>
 			<ul>
 				<li>Added support for Go.
