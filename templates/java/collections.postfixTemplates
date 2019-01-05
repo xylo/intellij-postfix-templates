@@ -131,6 +131,9 @@
 	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.joining($separator$))
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.joining($separator$))
 
+.toString : convert to String
+	ARRAY                    →  java.util.Arrays.toString($expr$)
+
 .map : map entries
 	java.util.List           →  $expr$.stream().map($f$).collect(java.util.stream.Collectors.toList())
 	java.util.Set            →  $expr$.stream().map($f$).collect(java.util.stream.Collectors.toSet())
