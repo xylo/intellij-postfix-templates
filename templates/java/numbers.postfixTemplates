@@ -36,7 +36,12 @@
 	java.lang.String         →  Double.parseDouble($expr$)
 	java.lang.Number         →  $expr$.doubleValue()
 	NUMBER                   →  ((double) ($expr$))
-
+	
+.toBigDecimal : convert to BigDecimal
+	java.lang.String         →  new BigDecimal($expr$)
+	java.lang.Number         →  new BigDecimal($expr$)
+	NUMBER                   →  new BigDecimal($expr$)
+	
 .format : format number
 	BYTE                     →  String.format("$format::"%d"$", $expr$)
 	SHORT                    →  String.format("$format::"%d"$", $expr$)
