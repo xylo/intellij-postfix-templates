@@ -125,44 +125,44 @@
   website: https://github.com/xylo/intellij-postfix-templates/wiki/PHP-web-templates:-xylo.misc
   description: Provides templates for miscellaneous use cases
 - lang: go
-  id: xylo.numbers
+  id: pg.numbers
   url: https://raw.githubusercontent.com/philipgriggs/go-postfix-templates/master/numbers.postfixTemplates
   author: Philip Griggs
   email: philipgriggs@gmail.com
-  website: https://github.com/xylo/intellij-postfix-templates/wiki/Go-web-templates:-xylo.numbers
+  website: https://github.com/philipgriggs/go-postfix-templates/wiki/numbers
   description: Provides templates for converting between all kind of numbers and strings
 - lang: go
-  id: xylo.collections
+  id: pg.collections
   url: https://raw.githubusercontent.com/philipgriggs/go-postfix-templates/master/collections.postfixTemplates
   author: Philip Griggs
   email: philipgriggs@gmail.com
-  website: https://github.com/xylo/intellij-postfix-templates/wiki/Go-web-templates:-xylo.collections
+  website: https://github.com/philipgriggs/go-postfix-templates/wiki/collections
   description: Provides templates for operating on collections in a functional style
 - lang: go
-  id: xylo.zerolog
+  id: pg.zerolog
   url: https://raw.githubusercontent.com/philipgriggs/go-postfix-templates/master/zerolog.postfixTemplates
   author: Philip Griggs
   email: philipgriggs@gmail.com
-  website: https://github.com/xylo/intellij-postfix-templates/wiki/Go-web-templates:-xylo.zerolog
+  website: https://github.com/philipgriggs/go-postfix-templates/wiki/zerolog
   description: Provides templates for zerolog logging
 - lang: go
-  id: xylo.zap
+  id: pg.zap
   url: https://raw.githubusercontent.com/philipgriggs/go-postfix-templates/master/zap.postfixTemplates
   author: Philip Griggs
   email: philipgriggs@gmail.com
-  website: https://github.com/xylo/intellij-postfix-templates/wiki/Go-web-templates:-xylo.zap
+  website: https://github.com/philipgriggs/go-postfix-templates/wiki/zap
   description: Provides templates for zap logging
 - lang: go
-  id: xylo.testing
+  id: pg.testing
   url: https://raw.githubusercontent.com/philipgriggs/go-postfix-templates/master/testing.postfixTemplates
   author: Philip Griggs
   email: philipgriggs@gmail.com
-  website: https://github.com/xylo/intellij-postfix-templates/wiki/Go-web-templates:-xylo.testing
+  website: https://github.com/philipgriggs/go-postfix-templates/wiki/testing
   description: Provides templates useful for test packages
 - lang: go
-  id: xylo.misc
+  id: pg.misc
   url: https://raw.githubusercontent.com/philipgriggs/go-postfix-templates/master/misc.postfixTemplates
   author: Philip Griggs
   email: philipgriggs@gmail.com
-  website: https://github.com/xylo/intellij-postfix-templates/wiki/Go-web-templates:-xylo.misc
+  website: https://github.com/philipgriggs/go-postfix-templates/wiki/misc
   description: Provides templates for miscellaneous use cases
