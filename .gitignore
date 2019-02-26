@@ -1,6 +1,11 @@
 *.DS_Store
 
-# IDE
-.idea
+.idea/
+*.iml
+/out/
+/build/
 
-out
+.gradle/
+/sandbox/
+
+
