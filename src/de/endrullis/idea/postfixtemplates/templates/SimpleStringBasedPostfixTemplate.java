@@ -113,7 +113,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 
 		PsiElement expression = PsiTreeUtil.getParentOfType(elementAtCaret, PsiElement.class);
 
-		while (expression != null && expression.getTextRange().getEndOffset() == elementAtCaret.getTextRange().getEndOffset()) {
+		while (expression != null && !(expression instanceof PsiFile) && expression.getTextRange().getEndOffset() == elementAtCaret.getTextRange().getEndOffset()) {
 			//System.out.println(expression + " - " + expression.getText() + " - " + expression.getTextRange());
 			final PsiElement finalExpression = expression;
 

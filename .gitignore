@@ -6,5 +6,5 @@
 /build/
 
 .gradle/
-/sandbox/
+/.sandbox/
 
