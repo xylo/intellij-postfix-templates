@@ -1,6 +1,7 @@
 package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,5 +36,10 @@ public class CptFileType extends LanguageFileType {
 	@Override
 	public Icon getIcon() {
 		return CptIcons.FILE;
+	}
+
+	@Override
+	public String getCharset(@NotNull VirtualFile file, @NotNull byte[] content) {
+		return "UTF-8";
 	}
 }
