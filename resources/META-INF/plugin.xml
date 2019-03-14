@@ -45,6 +45,12 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.8.2</h3>
+			<ul>
+				<li>Fixed bug #97: Application of python templates failed.</li>
+				<li>Use always UTF-8 for template files.</li>
+			</ul>
+
 			<h3>Version 2.8.1</h3>
 			<ul>
 				<li>Fixed bug #94.</li>
