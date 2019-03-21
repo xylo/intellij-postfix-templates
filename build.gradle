@@ -62,7 +62,8 @@ intellij {
             'com.jetbrains.php:191.5849.26',
             'java-i18n',
             'DatabaseTools',
-            'org.jetbrains.plugins.go:191.5849.8.67'
+            'org.jetbrains.plugins.go:191.5849.8.67',
+            'org.rust.lang:0.2.92.2116-191'
     updateSinceUntilBuild false
 
 //    plugins = ["PythonCore:2018.2.182.3684.101"]
