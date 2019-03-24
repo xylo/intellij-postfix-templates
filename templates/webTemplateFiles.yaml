@@ -82,6 +82,20 @@
   email: cassiuscai@gmail.com
   website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md
   description: Provides templates for Mockito API
+- lang: java
+  id: cassiuscai.guava-string
+  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/guava-string.postfixTemplates
+  author: Cassius Cai
+  email: cassiuscai@gmail.com
+  website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md
+  description: Provides templates for Guava String API
+- lang: java
+  id: cassiuscai.mockito
+  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/mockito.postfixTemplates
+  author: Cassius Cai
+  email: cassiuscai@gmail.com
+  website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md
+  description: Provides templates for Mockito API
 - lang: scala
   id: xylo.commons-logging
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/commons-logging.postfixTemplates
