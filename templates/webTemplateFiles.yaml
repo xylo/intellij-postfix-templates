@@ -68,6 +68,27 @@
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.idea-dev
   description: Provides templates for Intellij IDEA (plugin) developers
+- lang: java
+  id: cassiuscai.assertj-core
+  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/assertj-core.postfixTemplates
+  author: Cassius Cai
+  email: cassiuscai@gmail.com
+  website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md
+  description: Provides templates for assertj core assertThat API
+- lang: java
+  id: cassiuscai.mockito
+  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/mockito.postfixTemplates
+  author: Cassius Cai
+  email: cassiuscai@gmail.com
+  website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md
+  description: Provides templates for Mockito API
+- lang: java
+  id: cassiuscai.guava-string
+  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/guava-string.postfixTemplates
+  author: Cassius Cai
+  email: cassiuscai@gmail.com
+  website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md
+  description: Provides templates for Guava String API
 - lang: scala
   id: xylo.commons-logging
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/commons-logging.postfixTemplates
