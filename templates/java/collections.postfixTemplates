@@ -121,8 +121,7 @@
 
 .join : joins strings/elements together
 	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.joining($separator$))
-	java.util.Collection     →  $expr$.stream().collect(java.util.stream.Collectors.joining($separator$))
-	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.joining($separator$))
+	java.lang.Iterable       →  String.join($separator::"\", \""$, $expr$)
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.joining($separator$))
 
 .mkString : joins strings/elements together
