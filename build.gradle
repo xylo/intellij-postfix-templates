@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.intellij'
-version '2.8.2.183'
+version '2.8.2.191'
 
 sourceCompatibility = 1.8
 
@@ -47,7 +47,7 @@ sourceSets {
 }
 
 intellij {
-    version 'IU-191.5849.21'
+    version 'IU-191.6183.87'
     //version '2018.2.2'
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
     plugins 'PythonCore:2019.1.191.5849.16',
@@ -55,15 +55,14 @@ intellij {
             'org.intellij.scala:2019.1.5',
             'JavaScriptLanguage',
             'CSS',
-            'Dart:191.5849.16',
+            'Dart:191.6183.87',
             'Groovy',
             'properties',
             'org.jetbrains.plugins.ruby:2019.1.20190227',
-            'com.jetbrains.php:191.5849.26',
+            'com.jetbrains.php:191.6183.95',
             'java-i18n',
             'DatabaseTools',
-            'org.jetbrains.plugins.go:191.5849.8.67',
-            'org.rust.lang:0.2.92.2116-191'
+            'org.jetbrains.plugins.go:191.6183.87.172'
     updateSinceUntilBuild false
 
 //    plugins = ["PythonCore:2018.2.182.3684.101"]

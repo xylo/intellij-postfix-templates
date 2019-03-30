@@ -40,15 +40,15 @@ class GoPostfixTemplatesUtils {
 	}
 
 	private static boolean isBuiltinType(@Nullable GoType type) {
-		return GoPsiImplUtil.builtin(type != null ? type.getUnderlyingType() : null);
+		return GoPsiImplUtil.builtin(type != null ? type.getUnderlyingType((PsiElement) null) : null);
 	}
 
 	static final Condition<PsiElement> IS_BOOL = goExp(element -> {
-		return GoTypeUtil.isBoolean(element.getGoType(null));
+		return GoTypeUtil.isBoolean(element.getGoType(null), element);
 	});
 
 	static final Condition<PsiElement> IS_INT = goExp(element -> {
-		return GoTypeUtil.isIntegerType(element.getGoType(null));
+		return GoTypeUtil.isIntegerType(element.getGoType(null), element);
 	});
 
 	static final Condition<PsiElement> IS_INT64 = goExp(element -> {
@@ -57,46 +57,46 @@ class GoPostfixTemplatesUtils {
 	});
 
 	static final Condition<PsiElement> IS_UINT = goExp(element -> {
-		return GoTypeUtil.isUintType(element.getGoType(null));
+		return GoTypeUtil.isUintType(element.getGoType(null), element);
 	});
 
 	static final Condition<PsiElement> IS_FLOAT32 = goExp(element -> {
-		return GoTypeUtil.isFloat32(element.getGoType(null));
+		return GoTypeUtil.isFloat32(element.getGoType(null), element);
 	});
 
 	static final Condition<PsiElement> IS_FLOAT64 = goExp(element -> {
-		return GoTypeUtil.isFloat64(element.getGoType(null));
+		return GoTypeUtil.isFloat64(element.getGoType(null), element);
 	});
 
 	static final Condition<PsiElement> IS_FLOAT = goExp(element -> {
-		return nullTypeToFalse(element.getGoType(null), GoTypeUtil::isFloatType);
+		return nullTypeToFalse(element.getGoType(null), goType -> GoTypeUtil.isFloatType(goType, element));
 	});
 
 	static final Condition<PsiElement> IS_BYTESLICE = goExp(element -> {
-		return GoTypeUtil.isByteSlice(element.getGoType(null));
+		return GoTypeUtil.isByteSlice(element.getGoType(null), element);
 	});
 
 	static final Condition<PsiElement> IS_ERROR = goExp(element -> {
-		return GoTypeUtil.isError(element.getGoType(null));
+		return GoTypeUtil.isError(element.getGoType(null), element);
 	});
 
 	static final Condition<PsiElement> IS_ARRAY = goExp(element -> {
 //        return GoTypeUtil.isArray(element.getGoType(null));
 		GoType       type = element.getGoType(null);
-		type = type != null ? type.getUnderlyingType() : null;
+		type = type != null ? type.getUnderlyingType(element) : null;
 		return type instanceof GoArrayOrSliceType;
 	});
 
 	static final Condition<PsiElement> IS_COMPLEX = goExp(element -> {
-		return nullTypeToFalse(element.getGoType(null), GoTypeUtil::isComplexType);
+		return nullTypeToFalse(element.getGoType(null), goType -> GoTypeUtil.isComplexType(goType, element));
 	});
 
 	static final Condition<PsiElement> IS_NIL = goExp(element -> {
-		return nullTypeToFalse(element.getGoType(null), GoTypeUtil::isAllowedComparingToNil);
+		return nullTypeToFalse(element.getGoType(null), goType -> GoTypeUtil.isAllowedComparingToNil(goType, element));
 	});
 
 	static final Condition<PsiElement> IS_STRING = goExp(element -> {
-		return GoTypeUtil.isString(element.getGoType(null));
+		return GoTypeUtil.isString(element.getGoType(null), element);
 	});
 
 	private static Condition<PsiElement> goExp(Condition<GoExpression> f) {

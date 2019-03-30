@@ -29,7 +29,6 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.val;
-import lombok.var;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -61,7 +60,7 @@ public class EditorTypedHandler implements TypedActionHandler {
 		val document = editor.getDocument();
 		val project = editor.getProject();
 
-		var isWebTemplateFile = false;
+		boolean isWebTemplateFile = false;
 
 		if (project != null) {
 			val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
