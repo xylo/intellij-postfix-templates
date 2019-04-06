@@ -50,7 +50,7 @@ intellij {
     version 'IU-191.6183.87'
     //version '2018.2.2'
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
-    plugins 'PythonCore:2019.1.191.5849.16',
+    plugins 'PythonCore:2019.1.191.6183.53',
             'Kotlin',
             'org.intellij.scala:2019.1.6',
             'JavaScriptLanguage',
