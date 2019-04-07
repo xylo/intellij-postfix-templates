@@ -11,7 +11,6 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.fileEditor.FileDocumentManagerAdapter;
 import com.intellij.openapi.fileEditor.FileDocumentManagerListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
@@ -44,7 +43,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	 * Template file change listener.
 	 */
 	// TODO remove this code if VirtualFileListener is able to replace this code on all platforms
-	private FileDocumentManagerListener templateFileChangeListener = new FileDocumentManagerAdapter() {
+	private FileDocumentManagerListener templateFileChangeListener = new FileDocumentManagerListener() {
 		@Override
 		public void beforeDocumentSaving(@NotNull Document d) {
 			VirtualFile vFile = FileDocumentManager.getInstance().getFile(d);
