@@ -1,6 +1,7 @@
 package de.endrullis.idea.postfixtemplates.languages.scala;
 
 import com.intellij.codeInsight.template.Template;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.OrderedSet;
@@ -8,12 +9,16 @@ import de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
 import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.plugins.scala.annotator.intention.ScalaImportTypeFix;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.ScalaStringBasedPostfixTemplate;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
+import org.jetbrains.plugins.scala.lang.psi.ScImportsHolder;
 
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.languages.java.CustomJavaStringPostfixTemplate.withProjectClassCondition;
@@ -31,6 +36,8 @@ import static de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPost
 public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTemplate implements NavigatableTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = CustomPostfixTemplates.PREDEFINED_VARIABLES;
+
+	static final Pattern IMPORT_PATTERN = Pattern.compile("\\[IMPORT ([^\\]]+)\\]");
 
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), e -> true);
@@ -66,13 +73,18 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 		*/
 	}};
 
-	private final String template;
+	private final String          template;
 	private final Set<MyVariable> variables = new OrderedSet<>();
-	private final PsiElement psiElement;
+	private final PsiElement      psiElement;
+	private final Set<String>     imports;
 
 	public CustomScalaStringPostfixTemplate(String matchingClass, String conditionClass, String templateName, String example, String template, PsiElement psiElement) {
 		super(templateName.substring(1), example, new AncestorSelector.SelectAllAncestors(getCondition(matchingClass, conditionClass)));
 		this.psiElement = psiElement;
+
+		imports = extractImport(template);
+		template = removeImports(template);
+		template = template.replaceAll("\\[USE_STATIC_IMPORTS\\]", "");
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
@@ -129,6 +141,46 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	@Override
 	public PsiElement getNavigationElement() {
 		return psiElement;
+	}
+
+	@Override
+	protected void prepareAndExpandForChooseExpression(@NotNull PsiElement expression, @NotNull Editor editor) {
+		super.prepareAndExpandForChooseExpression(expression, editor);
+	}
+
+	@Override
+	public void expandForChooseExpression(@NotNull PsiElement expr, @NotNull Editor editor) {
+		super.expandForChooseExpression(expr, editor);
+
+		for (String anImport : imports) {
+			addImport(expr, anImport);
+		}
+	}
+
+	private void addImport(@NotNull PsiElement expr, String qualifiedName) {
+		ScImportsHolder importHolder = ScalaImportTypeFix.getImportHolder(expr, expr.getProject());
+
+		boolean imported = importHolder.getAllImportUsed().exists(i -> i.qualName().exists(n -> n.equals(qualifiedName)));
+
+		if (!imported) {
+			importHolder.addImportForPath(qualifiedName, expr);
+		}
+	}
+
+
+	static Set<String> extractImport(String template) {
+		val matcher = IMPORT_PATTERN.matcher(template);
+		val imports = new HashSet<String>();
+
+		while(matcher.find()) {
+			imports.add(matcher.group(1));
+		}
+
+		return imports;
+	}
+
+	static String removeImports(String template) {
+		return template.replaceAll(IMPORT_PATTERN.toString(), "");
 	}
 
 }
