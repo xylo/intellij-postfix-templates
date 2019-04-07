@@ -57,10 +57,6 @@ public class CptParserDefinition implements ParserDefinition {
 		return new CptFile(viewProvider);
 	}
 
-	public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
-		return SpaceRequirements.MAY;
-	}
-
 	@NotNull
 	public PsiElement createElement(ASTNode node) {
 		return CptTypes.Factory.createElement(node);
