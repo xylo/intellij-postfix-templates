@@ -90,6 +90,12 @@
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.idea-dev
   description: Provides templates for Intellij IDEA (plugin) developers
 - lang: scala
+  id: xylo.kantan
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/kantan.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates:-xylo.kantan
+- lang: scala
   id: xylo.commons-logging
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/commons-logging.postfixTemplates
   author: Stefan Endrullis
