@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.intellij'
-version '2.8.2.183'
+version '2.8.4.191'
 
 sourceCompatibility = 1.8
 
@@ -47,23 +47,28 @@ sourceSets {
 }
 
 intellij {
-    version 'IU-191.5849.21'
+    version 'IU-191.6183.87'
     //version '2018.2.2'
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
-    plugins 'PythonCore:2019.1.191.5849.16',
+    plugins 'PythonCore:2019.1.191.6183.53',
             'Kotlin',
-            'org.intellij.scala:2019.1.5',
+            'org.intellij.scala:2019.1.6',
             'JavaScriptLanguage',
             'CSS',
-            'Dart:191.5849.16',
+            'Dart:191.6183.87',
             'Groovy',
             'properties',
             'org.jetbrains.plugins.ruby:2019.1.20190227',
-            'com.jetbrains.php:191.5849.26',
+            'com.jetbrains.php:191.6183.95',
             'java-i18n',
             'DatabaseTools',
-            'org.jetbrains.plugins.go:191.5849.8.67'
-    updateSinceUntilBuild false
+            'org.jetbrains.plugins.go:191.6183.87.172'
+    updateSinceUntilBuild true
 
 //    plugins = ["PythonCore:2018.2.182.3684.101"]
+}
+
+publishPlugin {
+    username intellijPublishUsername
+    password intellijPublishPassword
 }

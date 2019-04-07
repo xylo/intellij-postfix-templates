@@ -5,6 +5,7 @@ import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
@@ -104,17 +105,23 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 				if (!(value instanceof CheckedTreeNode)) return;
 				CheckedTreeNode node = (CheckedTreeNode) value;
 
-				final Color background = selected ? UIUtil.getTreeSelectionBackground() : UIUtil.getTreeTextBackground();
+				final Color background = selected ? UIUtil.getTreeSelectionBackground(true) : UIUtil.getTreeBackground();
 				FileTreeNode cptTreeNode = ObjectUtils.tryCast(node, FileTreeNode.class);
 
 				SimpleTextAttributes attributes = SimpleTextAttributes.REGULAR_ATTRIBUTES;
 				if (cptTreeNode != null) {
 					if (cptTreeNode.getFile().isSelfMade()) {
-						getTextRenderer().append("[user] ", new SimpleTextAttributes(background, JBColor.GREEN, JBColor.GREEN, attributes.getStyle()));
+						// green
+						Color color = DefaultLanguageHighlighterColors.STRING.getDefaultAttributes().getForegroundColor();
+						getTextRenderer().append("[user] ", new SimpleTextAttributes(background, color, color, attributes.getStyle()));
 					} else if (cptTreeNode.getFile().isLocal()) {
-						getTextRenderer().append("[local] ", new SimpleTextAttributes(background, JBColor.BLUE, JBColor.BLUE, attributes.getStyle()));
+						// gray on white, yellow and black
+						Color color = DefaultLanguageHighlighterColors.METADATA.getDefaultAttributes().getForegroundColor();
+						getTextRenderer().append("[local] ", new SimpleTextAttributes(background, color, color, attributes.getStyle()));
 					} else {
-						getTextRenderer().append("[web] ", new SimpleTextAttributes(background, JBColor.YELLOW, JBColor.YELLOW, attributes.getStyle()));
+						// blue on white, orange on black
+						Color yellow = DefaultLanguageHighlighterColors.KEYWORD.getDefaultAttributes().getForegroundColor();
+						getTextRenderer().append("[web] ", new SimpleTextAttributes(background, yellow, yellow, attributes.getStyle()));
 					}
 
 					//Color fgColor = cptTreeNode.isChanged() || cptTreeNode.isNew() ? JBColor.BLUE : null;

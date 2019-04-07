@@ -11,7 +11,6 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.fileEditor.FileDocumentManagerAdapter;
 import com.intellij.openapi.fileEditor.FileDocumentManagerListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
@@ -44,7 +43,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	 * Template file change listener.
 	 */
 	// TODO remove this code if VirtualFileListener is able to replace this code on all platforms
-	private FileDocumentManagerListener templateFileChangeListener = new FileDocumentManagerAdapter() {
+	private FileDocumentManagerListener templateFileChangeListener = new FileDocumentManagerListener() {
 		@Override
 		public void beforeDocumentSaving(@NotNull Document d) {
 			VirtualFile vFile = FileDocumentManager.getInstance().getFile(d);
@@ -139,7 +138,12 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 		List<PostfixTemplate> templates = new ArrayList<>();
 
 		ApplicationManager.getApplication().runReadAction(() -> {
-			Project project = ProjectManager.getInstance().getOpenProjects()[0];
+			Project[] projects = ProjectManager.getInstance().getOpenProjects();
+
+			if (projects.length == 0) {
+				return;
+			}
+			Project project = projects[0];
 
 			for (VirtualFile vFile : vFiles) {
 				processTemplates(project, vFile, (cptTemplate, mapping) -> {
@@ -148,7 +152,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 						sb.append(element.getText());
 					}
 
-					val template = processEscapes(sb.toString()).trim();
+					val template            = processEscapes(sb.toString()).trim();
 					val templateDescription = template.equals("[SKIP]") ? "[SKIP]" : cptTemplate.getTemplateDescription();
 
 					templates.add(createTemplate(
@@ -190,8 +194,8 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 			if (theseTemplates.size() == 1) {
 				combinedTemplates.add(theseTemplates.get(0));
 			} else {
-				val examples = theseTemplates.stream().map(t -> t.getExample()).filter(s -> !s.equals("[SKIP]")).distinct().collect(Collectors.toList());
-				String example = examples.size() >= 1 ? examples.get(0) : "";
+				val    examples = theseTemplates.stream().map(t -> t.getExample()).filter(s -> !s.equals("[SKIP]")).distinct().collect(Collectors.toList());
+				String example  = examples.size() >= 1 ? examples.get(0) : "";
 				combinedTemplates.add(new CombinedPostfixTemplate(theseTemplates.get(0).getKey(), example, theseTemplates, this));
 			}
 		}
@@ -232,7 +236,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	public PsiFile preCheck(@NotNull PsiFile copyFile, @NotNull Editor realEditor, int currentOffset) {
 		Document document = copyFile.getViewProvider().getDocument();
 		assert document != null;
-		CharSequence sequence = document.getCharsSequence();
+		CharSequence  sequence                 = document.getCharsSequence();
 		StringBuilder fileContentWithSemicolon = new StringBuilder(sequence);
 		if (isSemicolonNeeded(copyFile, realEditor)) {
 			fileContentWithSemicolon.insert(currentOffset, ';');
