@@ -150,11 +150,11 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 
 	@Override
 	public void expandForChooseExpression(@NotNull PsiElement expr, @NotNull Editor editor) {
-		super.expandForChooseExpression(expr, editor);
-
 		for (String anImport : imports) {
 			addImport(expr, anImport);
 		}
+
+		super.expandForChooseExpression(expr, editor);
 	}
 
 	private void addImport(@NotNull PsiElement expr, String qualifiedName) {

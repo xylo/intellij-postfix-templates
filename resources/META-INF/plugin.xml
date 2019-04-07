@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.9.1</h3>
+			<ul>
+				<li>Minor bug fix in new Scala import function.</li>
+			</ul>
+
 			<h3>Version 2.9.0</h3>
 			<ul>
 				<li>Added function to add Scala imports using <code>[IMPORT fully.qualified.ClassName]</code>.</li>
