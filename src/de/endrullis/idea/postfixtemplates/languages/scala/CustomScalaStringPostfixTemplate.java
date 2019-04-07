@@ -1,7 +1,6 @@
 package de.endrullis.idea.postfixtemplates.languages.scala;
 
 import com.intellij.codeInsight.template.Template;
-import com.intellij.codeInsight.template.impl.Variable;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.OrderedSet;
@@ -21,6 +20,7 @@ import static de.endrullis.idea.postfixtemplates.languages.java.CustomJavaString
 import static de.endrullis.idea.postfixtemplates.languages.scala.ScalaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
+import static de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate.addVariablesToTemplate;
 
 /**
  * Custom postfix template for Scala.
@@ -94,12 +94,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	public void setVariables(@NotNull Template template, @NotNull PsiElement psiElement) {
 		super.setVariables(template, psiElement);
 
-		List<MyVariable> sortedVars = variables.stream().sorted(Comparator.comparing(s -> s.getNo())).collect(Collectors.toList());
-
-		for (Variable variable : sortedVars) {
-			template.addVariable(variable.getName(), variable.getExpression(), variable.getDefaultValueExpression(),
-				variable.isAlwaysStopAt(), variable.skipOnStart());
-		}
+		addVariablesToTemplate(template, variables);
 	}
 
 	/**
