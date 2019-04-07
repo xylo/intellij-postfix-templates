@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.8.4</h3>
+			<ul>
+				<li>Improved colors in settings dialog for default theme.</li>
+			</ul>
+
 			<h3>Version 2.8.3</h3>
 			<ul>
 				<li>Fixed a compatibility problem with IDEA 2019.1 Go and Kotlin plugins.</li>
