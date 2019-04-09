@@ -69,6 +69,6 @@ intellij {
 }
 
 publishPlugin {
-    username intellijPublishUsername
-    password intellijPublishPassword
+    username findProperty('intellijPublishUsername')
+    password findProperty('intellijPublishPassword')
 }
