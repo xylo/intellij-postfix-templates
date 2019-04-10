@@ -1,26 +1,33 @@
 - lang: java
-  id: casc.common-assert
-  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/common-assert.postfixTemplates
+  id: cassiuscai.misc-require
+  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/misc-require.postfixTemplates
   author: Cassius Cai
   email: cassiuscai@gmail.com
-  website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md
-  description: Provides templates for argument check
+  website: https://github.com/cassiuscai/postfix-templates/blob/master/documents/misc-require.md
+  description: Provides templates for check Array/Collection/Map/String/Boolean Arguments
 - lang: java
-  id: casc.assertj-core
+  id: cassiuscai.misc-empty
+  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/misc-empty.postfixTemplates
+  author: Cassius Cai
+  email: cassiuscai@gmail.com
+  website: https://github.com/cassiuscai/postfix-templates/blob/master/documents/misc-empty.md
+  description: Provides templates to check the Array/Collection/Map/String is or not empty
+- lang: java
+  id: cassiuscai.assertj-core
   url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/assertj-core.postfixTemplates
   author: Cassius Cai
   email: cassiuscai@gmail.com
   website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md
   description: Provides templates for assertj core assertThat API
 - lang: java
-  id: casc.mockito
+  id: cassiuscai.mockito
   url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/mockito.postfixTemplates
   author: Cassius Cai
   email: cassiuscai@gmail.com
   website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md
   description: Provides templates for Mockito API
 - lang: java
-  id: casc.guava-string
+  id: cassiuscai.guava-string
   url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/guava-string.postfixTemplates
   author: Cassius Cai
   email: cassiuscai@gmail.com
