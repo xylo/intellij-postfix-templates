@@ -4,7 +4,7 @@
   author: Cassius Cai
   email: cassiuscai@gmail.com
   website: https://github.com/cassiuscai/postfix-templates/blob/master/documents/date-operation.md
-  description: Provides templates for operations for the Date/Calendar API
+  description: Provides templates for operate on the Date/Calendar API
 - lang: java
   id: cassiuscai.date-format
   url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/date-format.postfixTemplates
