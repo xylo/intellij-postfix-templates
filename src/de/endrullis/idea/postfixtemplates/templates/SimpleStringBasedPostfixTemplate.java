@@ -67,12 +67,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 	public void setVariables(@NotNull Template template, @NotNull PsiElement psiElement) {
 		super.setVariables(template, psiElement);
 
-		List<MyVariable> sortedVars = variables.stream().sorted(Comparator.comparing(s -> s.getNo())).collect(Collectors.toList());
-
-		for (Variable variable : sortedVars) {
-			template.addVariable(variable.getName(), variable.getExpression(), variable.getDefaultValueExpression(),
-				variable.isAlwaysStopAt(), variable.skipOnStart());
-		}
+		addVariablesToTemplate(template, variables);
 	}
 
 	@Nullable
@@ -175,6 +170,15 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 				};
 			}
 		};
+	}
+
+	public static void addVariablesToTemplate(@NotNull Template template, Set<MyVariable> variables) {
+		List<MyVariable> sortedVars = variables.stream().sorted(Comparator.comparing(s -> s.getNo())).collect(Collectors.toList());
+
+		for (Variable variable : sortedVars) {
+			template.addVariable(variable.getName(), variable.getExpression(), variable.getDefaultValueExpression(),
+				variable.isAlwaysStopAt(), variable.skipOnStart());
+		}
 	}
 
 }

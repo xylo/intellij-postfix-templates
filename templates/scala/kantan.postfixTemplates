@@ -1,0 +1,10 @@
+## templates for kantan libraries / string interpolation functions ##
+
+.xp : create xpath expression
+	java.lang.String [kantan.xpath.literals.ToXPathLiteral]  →  xp$expr$ [IMPORT kantan.xpath._][IMPORT kantan.xpath.implicits._]
+
+.rx : create regular expression
+	java.lang.String [kantan.regex.ops.StringOps]  →  rx$expr$ [IMPORT kantan.regex._][IMPORT kantan.regex.implicits._][IMPORT kantan.regex.generic._]
+
+.evalRegex : evaluate regular expression
+	java.lang.String [kantan.regex.ops.StringOps]  →  $expr$.evalRegex(rx"$END$") [IMPORT kantan.regex._][IMPORT kantan.regex.implicits._][IMPORT kantan.regex.generic._]
