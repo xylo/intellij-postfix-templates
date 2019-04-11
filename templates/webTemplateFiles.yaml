@@ -1,31 +1,10 @@
 - lang: java
-  id: cassiuscai.date-operation
-  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/date-operation.postfixTemplates
+  id: cassiuscai.commons-lang.date
+  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/commons-lang.date.postfixTemplates
   author: Cassius Cai
   email: cassiuscai@gmail.com
-  website: https://github.com/cassiuscai/postfix-templates/blob/master/documents/date-operation.md
+  website: https://github.com/cassiuscai/postfix-templates/blob/master/documents/commons-lang.date.md
   description: Provides templates for operate on the Date/Calendar API
-- lang: java
-  id: cassiuscai.date-format
-  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/date-format.postfixTemplates
-  author: Cassius Cai
-  email: cassiuscai@gmail.com
-  website: https://github.com/cassiuscai/postfix-templates/blob/master/documents/date-format.md
-  description: Provides templates for format and parse Date
-- lang: java
-  id: cassiuscai.misc-argument
-  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/misc-argument.postfixTemplates
-  author: Cassius Cai
-  email: cassiuscai@gmail.com
-  website: https://github.com/cassiuscai/postfix-templates/blob/master/documents/misc-argument.md
-  description: Provides templates for check Array/Collection/Map/String/Boolean Arguments
-- lang: java
-  id: cassiuscai.misc-empty
-  url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/misc-empty.postfixTemplates
-  author: Cassius Cai
-  email: cassiuscai@gmail.com
-  website: https://github.com/cassiuscai/postfix-templates/blob/master/documents/misc-empty.md
-  description: Provides templates to check the Array/Collection/Map/String is or not empty
 - lang: java
   id: cassiuscai.assertj-core
   url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/assertj-core.postfixTemplates
