@@ -167,7 +167,7 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
   * `\Closure`
   * `\Exception`
   * `\Throwable`
-* In **Go** the *MATCHING_TYPE* can be either a Java/Groovy class name or one of the following special types:
+* In **Go** the *MATCHING_TYPE* can be one of the following special types:
   * `ANY` - any expression
   * `ARRAY` - any array
   * `BOOLEAN` - any boolean expression
@@ -196,8 +196,24 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
   * `FLOAT` - a boxed or unboxed float value
   * `DOUBLE` - a boxed or unboxed double value
   * `CLASS` - any class reference
+* In **Python** the *MATCHING_TYPE* can be one of the following special types:
+  * `ANY` - any expression
+	* `object`
+	* `list`
+	* `dict`
+	* `set`
+	* `tuple`
+	* `int`
+	* `float`
+	* `complex`
+	* `str`
+	* `unicode`
+	* `bytes`
+	* `bool`
+	* `classmethod`
+	* `staticmethod`
+	* `type`
 * In **Kotlin** the *MATCHING_TYPE* has to be `ANY`.
-* In **Python** the *MATCHING_TYPE* has to be `ANY`.
 * In **Dart** the *MATCHING_TYPE* has to be `ANY`.
 * In **JavaScript** the *MATCHING_TYPE* has to be `ANY`.
 * In **Rust** the *MATCHING_TYPE* has to be `ANY`.

@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.10.0</h3>
+			<ul>
+				<li>Added support for basic Python types.</li>
+			</ul>
+
 			<h3>Version 2.9.2</h3>
 			<ul>
 				<li>Fixed bug #118: Chains of postfix completions in PyCharm do not work.</li>

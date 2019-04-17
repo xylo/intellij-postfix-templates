@@ -1,16 +1,8 @@
 package de.endrullis.idea.postfixtemplates.languages.python;
 
-import com.intellij.openapi.util.Condition;
-import com.intellij.psi.PsiElement;
-import com.jetbrains.python.psi.PyPsiFacade;
-import com.jetbrains.python.psi.PyTypedElement;
-import com.jetbrains.python.psi.PyUtil;
-import com.jetbrains.python.psi.impl.PyTypeProvider;
-import com.jetbrains.python.psi.types.PyClassType;
-import com.jetbrains.python.psi.types.PyType;
-import com.jetbrains.python.psi.types.TypeEvalContext;
-import com.jetbrains.python.pyi.PyiTypeProvider;
-import org.jetbrains.annotations.NotNull;
+import java.util.Set;
+
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 /**
  * Utilities for Python postfix templates.
@@ -18,6 +10,30 @@ import org.jetbrains.annotations.NotNull;
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 class PythonPostfixTemplatesUtils {
+
+	static final Set<String> PYTHON_TYPES = _Set(
+		"object",
+		"list",
+		"dict",
+		"set",
+		"tuple",
+		"int",
+		"float",
+		"complex",
+		"str",
+		"unicode",
+		"bytes",
+		"bool",
+		"classmethod",
+		"staticmethod",
+		"type"
+	);
+
+	/*
+	static final Set<PyType> PYTHON_TYPES = _Set(
+		PyBuiltinCache.getInstance(null).getBoolType()
+	);
+	*/
 
 	/*
 	@NotNull

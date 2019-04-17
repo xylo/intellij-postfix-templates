@@ -26,6 +26,16 @@ public class CustomPythonStringPostfixTemplate extends SimpleStringBasedPostfixT
 	/** Contains predefined type-to-psiCondition mappings as well as cached mappings for individual types. */
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), e -> true);
+		for (String pyType : PythonPostfixTemplatesUtils.PYTHON_TYPES) {
+			put(pyType, e -> {
+				if (e instanceof PyTypedElement) {
+					PyType type = TypeEvalContext.codeAnalysis(e.getProject(), e.getContainingFile()).getType((PyTypedElement) e);
+					return type != null && type.getName() != null && type.getName().equals(pyType);
+				} else {
+					return false;
+				}
+			});
+		}
 	}};
 
 	public CustomPythonStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {

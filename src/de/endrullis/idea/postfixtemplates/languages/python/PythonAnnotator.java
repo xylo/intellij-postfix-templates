@@ -20,6 +20,9 @@ public class PythonAnnotator implements CptLangAnnotator {
 
 	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
 		put(SpecialType.ANY.name(), true);
+		for (String pyType : PythonPostfixTemplatesUtils.PYTHON_TYPES) {
+			put(pyType, true);
+		}
 	}};
 
 	@Override
@@ -30,6 +33,9 @@ public class PythonAnnotator implements CptLangAnnotator {
 	@Override
 	public void completeMatchingType(@NotNull CompletionParameters parameters, @NotNull CompletionResultSet resultSet) {
 		resultSet.addElement(LookupElementBuilder.create(SpecialType.ANY.name()));
+		for (String pyType : PythonPostfixTemplatesUtils.PYTHON_TYPES) {
+			resultSet.addElement(LookupElementBuilder.create(pyType));
+		}
 	}
 
 }
