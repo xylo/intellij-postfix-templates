@@ -4,6 +4,7 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvid
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.jetbrains.python.PyElementTypes;
+import com.jetbrains.python.codeInsight.postfix.PyPostfixUtils;
 import com.jetbrains.python.psi.PyTypedElement;
 import com.jetbrains.python.psi.types.PyType;
 import com.jetbrains.python.psi.types.PyTypeTokenTypes;
@@ -28,7 +29,7 @@ public class CustomPythonStringPostfixTemplate extends SimpleStringBasedPostfixT
 	}};
 
 	public CustomPythonStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
-		super(name, example, template, provider, psiElement, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)));
+		super(name, example, template, provider, psiElement, PyPostfixUtils.selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)));
 	}
 
 	@NotNull
