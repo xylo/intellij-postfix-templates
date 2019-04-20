@@ -149,7 +149,6 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
 * In **PHP** the *MATCHING_TYPE* can be either a PHP class name or one of the following special types:
   * `ANY` - any expression
   * `empty`
-  * `mixed`
   * `null`
   * `string`
   * `boolean`

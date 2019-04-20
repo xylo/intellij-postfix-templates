@@ -33,7 +33,7 @@ public class CustomPhpStringPostfixTemplate extends SimpleStringBasedPostfixTemp
 		put(SpecialType.ANY.name(), e -> true);
 		for (PhpType phpType : PhpPostfixTemplatesUtils.PHP_TYPES) {
 			if (phpType.isNotExtendablePrimitiveType()) {
-				put(phpType.toString(), e -> e instanceof PhpTypedElement && ((PhpTypedElement) e).getType().equals(phpType));
+				put(phpType.toString(), e -> e instanceof PhpTypedElement && ((PhpTypedElement) e).getType().getTypes().stream().anyMatch(s -> phpType.getTypes().contains(s)));
 			} else {
 				put(phpType.toString(), e -> e instanceof PhpTypedElement && isInstanceOf(((PhpTypedElement) e).getType(), phpType, e));
 			}

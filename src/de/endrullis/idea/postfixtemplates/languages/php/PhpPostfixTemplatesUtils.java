@@ -20,7 +20,7 @@ class PhpPostfixTemplatesUtils {
 
 	static final Set<PhpType> PHP_TYPES = _Set(
 		PhpType.EMPTY,
-		PhpType.MIXED,
+		//PhpType.MIXED,
 		PhpType.NULL,
 		PhpType.STRING,
 		PhpType.BOOLEAN,
