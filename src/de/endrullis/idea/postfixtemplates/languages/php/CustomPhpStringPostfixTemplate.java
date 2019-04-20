@@ -5,6 +5,7 @@ import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.jetbrains.php.lang.psi.elements.PhpTypedElement;
 import com.jetbrains.php.lang.psi.resolve.types.PhpType;
+import com.jetbrains.php.postfixCompletion.PhpPostfixUtils;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import lombok.val;
@@ -40,7 +41,7 @@ public class CustomPhpStringPostfixTemplate extends SimpleStringBasedPostfixTemp
 	}};
 
 	public CustomPhpStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
-		super(name, example, template, provider, psiElement, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)));
+		super(name, example, template, provider, psiElement, PhpPostfixUtils.selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)));
 	}
 
 	@NotNull
