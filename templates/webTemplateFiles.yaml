@@ -125,7 +125,7 @@
   description: Provides templates for different IO objects/operations
 - lang: scala
   id: xylo.collections
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/collections.postfixTemplates
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/collections.postfixTemplates
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates
