@@ -1,0 +1,4 @@
+## templates for the scala-arm library ##
+
+.managed : managed resource
+	java.io.Closeable [resource.ManagedResource]  →  [IMPORT resource._] managed($expr$)

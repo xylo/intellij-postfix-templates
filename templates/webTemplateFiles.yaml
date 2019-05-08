@@ -103,6 +103,12 @@
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates:-xylo.kantan
 - lang: scala
+  id: xylo.scala-arm
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/scala-arm.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates:-xylo.scala-arm
+- lang: scala
   id: xylo.commons-logging
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/commons-logging.postfixTemplates
   author: Stefan Endrullis
