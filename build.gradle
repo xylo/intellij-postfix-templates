@@ -48,7 +48,7 @@ sourceSets {
 
 intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
-    version 'IU-192-EAP-SNAPSHOT'
+    version 'IU-192.4488.21-EAP-SNAPSHOT'
     //version '2018.2.2'
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
     plugins 'PythonCore:2019.2.192.4488.21',
