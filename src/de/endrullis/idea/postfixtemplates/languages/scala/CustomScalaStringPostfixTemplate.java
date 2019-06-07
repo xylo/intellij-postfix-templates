@@ -12,7 +12,7 @@ import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.plugins.scala.annotator.intention.ScalaImportTypeFix;
+import org.jetbrains.plugins.scala.annotator.intention.ScalaAddImportAction;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.ScalaStringBasedPostfixTemplate;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
 import org.jetbrains.plugins.scala.lang.psi.ScImportsHolder;
@@ -158,7 +158,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	}
 
 	private void addImport(@NotNull PsiElement expr, String qualifiedName) {
-		ScImportsHolder importHolder = ScalaImportTypeFix.getImportHolder(expr, expr.getProject());
+		ScImportsHolder importHolder = ScalaAddImportAction.getImportHolder(expr, expr.getProject());
 
 		boolean imported = importHolder.getAllImportUsed().exists(i -> i.qualName().exists(n -> n.equals(qualifiedName)));
 
