@@ -1,12 +1,15 @@
 ## collection operations ##
 
 .toList : to list
+	scala.collection.TraversableOnce  →  [SKIP]
 	NON_VOID                 →  List($expr$)
 
 .toSet : to set
+	scala.collection.TraversableOnce  →  [SKIP]
 	NON_VOID                 →  Set($expr$)
 
 .toMap : to map
+	scala.collection.TraversableOnce  →  [SKIP]
 	scala.Tuple2             →  Map($expr$)
 
 .toOption : to option
