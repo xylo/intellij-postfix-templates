@@ -6,6 +6,9 @@
 .toURL : get URL
 	java.lang.String         →  new java.net.URL($expr$)
 
+.toURI : get URI
+	java.lang.String         →  new java.net.URI($expr$)
+
 .lines : get lines
 	java.io.File             →  java.nio.file.Files.readAllLines($expr$.toPath(), java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
 	java.nio.file.Path       →  java.nio.file.Files.readAllLines($expr$, java.nio.charset.Charset.forName($encoding::"\"UTF-8\""$))
