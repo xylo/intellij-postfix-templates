@@ -1,0 +1,5 @@
+.enumerate : Enumerate value
+	ANY   →   enumerate($expr$)
+
+.reversed : Reverse iterable
+	ANY   →   reversed($expr$)
