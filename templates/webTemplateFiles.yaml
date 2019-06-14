@@ -206,3 +206,10 @@
   email: philipgriggs@gmail.com
   website: https://github.com/philipgriggs/go-postfix-templates/wiki/misc
   description: Provides templates for miscellaneous use cases
+- lang: python
+  id: bystrousak.stdlib
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/python/stdlib.postfixTemplates
+  author: Bystroushaak
+  email: bystrousak@kitakitsune.org
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Python-web-templates:-bystrousak.stdlib
+  description: Provides templates for the standard library
