@@ -4,8 +4,11 @@
 	CLASS                    →  new $expr$($END$)
 
 .val : extract as value
-	NON_VOID [lombok.val]    →  val $var:suggestVariableName()$ = $expr$;
+	NON_VOID [lombok.val]    →  lombok.val $var:suggestVariableName()$ = $expr$;
 	NON_VOID                 →  final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;
+
+.varl : extract as lombok variable
+	NON_VOID [lombok.var]    →  lombok.var $var:suggestVariableName()$ = $expr$;
 
 .orElse : or else
 	NON_VOID  →  Optional.ofNullable($expr$).orElse($value$)
