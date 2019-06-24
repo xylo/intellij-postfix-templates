@@ -1,0 +1,8 @@
+## Templates for JavaFX ##
+
+.runLater : Platform.runLater(...)
+	ANY  →  Platform.runLater(() -> $expr$) [IMPORT: javafx.application.Platform]
+
+.setToolTip : Tooltip.install(...)
+	javafx.scene.control.Control  →  [SKIP]
+	javafx.scene.Node  →  Tooltip.install($expr$, $tooltip:variableOfType("javafx.scene.control.Tooltip"):"tooltip"$) [IMPORT: javafx.scene.control.Tooltip]
