@@ -6,3 +6,9 @@
 .setToolTip : Tooltip.install(...)
 	javafx.scene.control.Control  →  [SKIP]
 	javafx.scene.Node  →  javafx.scene.control.Tooltip.install($expr$, $tooltip:variableOfType("javafx.scene.control.Tooltip"):"tooltip"$)
+
+.setHgrow : HBox.setHgrow(...)
+	javafx.scene.Node  →  javafx.scene.layout.HBox.setHgrow($expr$, $END$)
+
+.setVgrow : HBox.setHgrow(...)
+	javafx.scene.Node  →  javafx.scene.layout.VBox.setVgrow($expr$, $END$)
