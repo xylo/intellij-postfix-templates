@@ -27,3 +27,14 @@
 
 .select : table.getSelectionModel().select(...)
 	javafx.scene.control.TableView  →  $expr$.getSelectionModel().select($END$)
+
+.toObservableArrayList : FXCollections.observableArrayList(...)
+	ARRAY  →  javafx.collections.FXCollections.observableArrayList($expr$)
+	java.util.Collection  →  javafx.collections.FXCollections.observableArrayList($expr$)
+
+.toObservableArrayList : FXCollections.observableArrayList(...)
+	ARRAY  →  javafx.collections.FXCollections.observableArrayList($expr$)
+	java.util.Collection  →  javafx.collections.FXCollections.observableArrayList($expr$)
+
+.toObservableList : FXCollections.observableArrayList(...)
+	java.util.List  →  javafx.collections.FXCollections.observableList($expr$)
