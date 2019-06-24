@@ -34,6 +34,13 @@
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates%:-xylo.LazySeq
   description: Provides templates for LazySeq collections (alternative to Java 8 streams)
 - lang: java
+  id: xylo.JavaFX
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/javafx.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates%:-xylo.JavaFX
+  description: Provides templates for JavaFX
+- lang: java
   id: xylo.numbers
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/numbers.postfixTemplates
   author: Stefan Endrullis
@@ -115,6 +122,13 @@
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates:-xylo.commons-logging
   description: Provides templates for Apache commons-logging
+- lang: scala
+  id: xylo.JavaFX
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/javafx.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates%:-xylo.JavaFX
+  description: Provides templates for JavaFX
 - lang: scala
   id: xylo.functions
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/functions.postfixTemplates
