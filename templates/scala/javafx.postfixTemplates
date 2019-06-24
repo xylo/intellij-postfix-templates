@@ -12,3 +12,9 @@
 
 .setVgrow : HBox.setHgrow(...)
 	javafx.scene.Node  →  VBox.setVgrow($expr$, $END$) [IMPORT: javafx.scene.layout.VBox]
+
+.setText : set text
+	javafx.scene.control.Spinner  →  $expr$.getEditor().setText($END$)
+
+.getText : get text
+	javafx.scene.control.Spinner  →  $expr$.getEditor().getText()
