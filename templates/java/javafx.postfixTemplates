@@ -18,3 +18,12 @@
 
 .getText : get text
 	javafx.scene.control.Spinner  →  $expr$.getEditor().getText()
+
+.getSelectedItem : table.getSelectionModel().getSelectedItem()
+	javafx.scene.control.TableView  →  $expr$.getSelectionModel().getSelectedItem()
+
+.getSelectedItems : table.getSelectionModel().getSelectedItems()
+	javafx.scene.control.TableView  →  $expr$.getSelectionModel().getSelectedItems()
+
+.select : table.getSelectionModel().select(...)
+	javafx.scene.control.TableView  →  $expr$.getSelectionModel().select($END$)
