@@ -90,6 +90,13 @@
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.misc
   description: Provides templates for miscellaneous cases
 - lang: java
+  id: xylo.java-math
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/java-math.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.java-math
+  description: Provides templates for java.lang.Math
+- lang: java
   id: xylo.java-reflect
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/java-reflect.postfixTemplates
   author: Stefan Endrullis

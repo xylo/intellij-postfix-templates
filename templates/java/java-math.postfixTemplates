@@ -1,0 +1,178 @@
+## Templates for java.lang.Math ##
+
+## Math
+
+.fma : fma
+	FLOAT [java.lang.Math]  →  java.lang.Math.fma($expr$, $arg$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.fma($expr$, $arg$)
+
+.multiplyFull : multiplyFull
+	INT [java.lang.Math]  →  java.lang.Math.multiplyFull($expr$, $arg$)
+
+.sinh : sinh
+	DOUBLE [java.lang.Math]  →  java.lang.Math.sinh($expr$)
+
+.negateExact : negateExact
+	LONG [java.lang.Math]  →  java.lang.Math.negateExact($expr$)
+	INT [java.lang.Math]  →  java.lang.Math.negateExact($expr$)
+
+.toDegrees : toDegrees
+	DOUBLE [java.lang.Math]  →  java.lang.Math.toDegrees($expr$)
+
+.expm1 : expm1
+	DOUBLE [java.lang.Math]  →  java.lang.Math.expm1($expr$)
+
+.getExponent : getExponent
+	FLOAT [java.lang.Math]  →  java.lang.Math.getExponent($expr$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.getExponent($expr$)
+
+.asin : asin
+	DOUBLE [java.lang.Math]  →  java.lang.Math.asin($expr$)
+
+.nextAfter : nextAfter
+	FLOAT [java.lang.Math]  →  java.lang.Math.nextAfter($expr$, $arg$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.nextAfter($expr$, $arg$)
+
+.multiplyExact : multiplyExact
+	LONG [java.lang.Math]  →  java.lang.Math.multiplyExact($expr$, $arg$)
+	INT [java.lang.Math]  →  java.lang.Math.multiplyExact($expr$, $arg$)
+
+.floorMod : floorMod
+	LONG [java.lang.Math]  →  java.lang.Math.floorMod($expr$, $arg$)
+	INT [java.lang.Math]  →  java.lang.Math.floorMod($expr$, $arg$)
+
+.log10 : log10
+	DOUBLE [java.lang.Math]  →  java.lang.Math.log10($expr$)
+
+.min : min
+	FLOAT [java.lang.Math]  →  java.lang.Math.min($expr$, $arg$)
+	LONG [java.lang.Math]  →  java.lang.Math.min($expr$, $arg$)
+	INT [java.lang.Math]  →  java.lang.Math.min($expr$, $arg$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.min($expr$, $arg$)
+
+.multiplyHigh : multiplyHigh
+	LONG [java.lang.Math]  →  java.lang.Math.multiplyHigh($expr$, $arg$)
+
+.subtractExact : subtractExact
+	LONG [java.lang.Math]  →  java.lang.Math.subtractExact($expr$, $arg$)
+	INT [java.lang.Math]  →  java.lang.Math.subtractExact($expr$, $arg$)
+
+.cos : cos
+	DOUBLE [java.lang.Math]  →  java.lang.Math.cos($expr$)
+
+.exp : exp
+	DOUBLE [java.lang.Math]  →  java.lang.Math.exp($expr$)
+
+.hypot : hypot
+	DOUBLE [java.lang.Math]  →  java.lang.Math.hypot($expr$, $arg$)
+
+.cbrt : cbrt
+	DOUBLE [java.lang.Math]  →  java.lang.Math.cbrt($expr$)
+
+.atan : atan
+	DOUBLE [java.lang.Math]  →  java.lang.Math.atan($expr$)
+
+.pow : pow
+	DOUBLE [java.lang.Math]  →  java.lang.Math.pow($expr$, $arg$)
+
+.ceil : ceil
+	DOUBLE [java.lang.Math]  →  java.lang.Math.ceil($expr$)
+
+.nextDown : nextDown
+	FLOAT [java.lang.Math]  →  java.lang.Math.nextDown($expr$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.nextDown($expr$)
+
+.rint : rint
+	DOUBLE [java.lang.Math]  →  java.lang.Math.rint($expr$)
+
+.log1p : log1p
+	DOUBLE [java.lang.Math]  →  java.lang.Math.log1p($expr$)
+
+.max : max
+	FLOAT [java.lang.Math]  →  java.lang.Math.max($expr$, $arg$)
+	LONG [java.lang.Math]  →  java.lang.Math.max($expr$, $arg$)
+	INT [java.lang.Math]  →  java.lang.Math.max($expr$, $arg$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.max($expr$, $arg$)
+
+.toIntExact : toIntExact
+	LONG [java.lang.Math]  →  java.lang.Math.toIntExact($expr$)
+
+.atan2 : atan2
+	DOUBLE [java.lang.Math]  →  java.lang.Math.atan2($expr$, $arg$)
+
+.sqrt : sqrt
+	DOUBLE [java.lang.Math]  →  java.lang.Math.sqrt($expr$)
+
+.copySign : copySign
+	FLOAT [java.lang.Math]  →  java.lang.Math.copySign($expr$, $arg$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.copySign($expr$, $arg$)
+
+.floor : floor
+	DOUBLE [java.lang.Math]  →  java.lang.Math.floor($expr$)
+
+.incrementExact : incrementExact
+	LONG [java.lang.Math]  →  java.lang.Math.incrementExact($expr$)
+	INT [java.lang.Math]  →  java.lang.Math.incrementExact($expr$)
+
+.IEEEremainder : IEEEremainder
+	DOUBLE [java.lang.Math]  →  java.lang.Math.IEEEremainder($expr$, $arg$)
+
+.addExact : addExact
+	LONG [java.lang.Math]  →  java.lang.Math.addExact($expr$, $arg$)
+	INT [java.lang.Math]  →  java.lang.Math.addExact($expr$, $arg$)
+
+.toRadians : toRadians
+	DOUBLE [java.lang.Math]  →  java.lang.Math.toRadians($expr$)
+
+.floorDiv : floorDiv
+	LONG [java.lang.Math]  →  java.lang.Math.floorDiv($expr$, $arg$)
+	INT [java.lang.Math]  →  java.lang.Math.floorDiv($expr$, $arg$)
+
+.tanh : tanh
+	DOUBLE [java.lang.Math]  →  java.lang.Math.tanh($expr$)
+
+.round : round
+	FLOAT [java.lang.Math]  →  java.lang.Math.round($expr$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.round($expr$)
+
+.cosh : cosh
+	DOUBLE [java.lang.Math]  →  java.lang.Math.cosh($expr$)
+
+.tan : tan
+	DOUBLE [java.lang.Math]  →  java.lang.Math.tan($expr$)
+
+.abs : abs
+	FLOAT [java.lang.Math]  →  java.lang.Math.abs($expr$)
+	LONG [java.lang.Math]  →  java.lang.Math.abs($expr$)
+	INT [java.lang.Math]  →  java.lang.Math.abs($expr$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.abs($expr$)
+
+.sin : sin
+	DOUBLE [java.lang.Math]  →  java.lang.Math.sin($expr$)
+
+.nextUp : nextUp
+	FLOAT [java.lang.Math]  →  java.lang.Math.nextUp($expr$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.nextUp($expr$)
+
+.log : log
+	DOUBLE [java.lang.Math]  →  java.lang.Math.log($expr$)
+
+.signum : signum
+	FLOAT [java.lang.Math]  →  java.lang.Math.signum($expr$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.signum($expr$)
+
+.acos : acos
+	DOUBLE [java.lang.Math]  →  java.lang.Math.acos($expr$)
+
+.scalb : scalb
+	FLOAT [java.lang.Math]  →  java.lang.Math.scalb($expr$, $arg$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.scalb($expr$, $arg$)
+
+.ulp : ulp
+	FLOAT [java.lang.Math]  →  java.lang.Math.ulp($expr$)
+	DOUBLE [java.lang.Math]  →  java.lang.Math.ulp($expr$)
+
+.decrementExact : decrementExact
+	LONG [java.lang.Math]  →  java.lang.Math.decrementExact($expr$)
+	INT [java.lang.Math]  →  java.lang.Math.decrementExact($expr$)
+
