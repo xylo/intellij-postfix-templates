@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.10.3</h3>
+			<ul>
+				<li>Fixed bug #127: Edit Variable Popup in "live template" settings does not open.</li>
+			</ul>
+
 			<h3>Version 2.10.2</h3>
 			<ul>
 				<li>Added plugin icon.</li>
@@ -385,7 +390,7 @@
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
 			 on how to target different products -->
 	<depends>com.intellij.modules.lang</depends>
-	<depends optional="true">com.intellij.modules.java</depends>
+	<depends optional="true" config-file="withJavaModule.xml">com.intellij.modules.java</depends>
 	<depends optional="true">org.intellij.scala</depends>
 	<depends optional="true">org.jetbrains.kotlin</depends>
 	<depends optional="true">Dart</depends>
@@ -460,7 +465,6 @@
 		<todoIndexer filetype="CPT file" implementationClass="de.endrullis.idea.postfixtemplates.language.CptTodoIndexer"/>
 		<defaultLiveTemplatesProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLiveTemplatesProvider"/>
 		<liveTemplateContext implementation="de.endrullis.idea.postfixtemplates.language.CptContext"/>
-		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.SuggestShortVariableNameMacro"/>
 		<lookup.actionProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLookupActionProvider"/>
 		<postStartupActivity implementation="de.endrullis.idea.postfixtemplates.MyPostStartupActivity"/>
 		<intentionAction>

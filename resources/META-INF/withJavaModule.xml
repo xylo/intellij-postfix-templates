@@ -1,0 +1,5 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.SuggestShortVariableNameMacro"/>
+	</extensions>
+</idea-plugin>

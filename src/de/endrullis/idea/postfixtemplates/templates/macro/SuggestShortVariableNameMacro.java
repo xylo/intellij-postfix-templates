@@ -110,5 +110,4 @@ public class SuggestShortVariableNameMacro extends Macro {
     return context instanceof JavaCodeContextType;
   }
 
-
 }
