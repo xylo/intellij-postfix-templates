@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.intellij'
-version '2.10.3.192'
+version '2.10.4.192'
 
 sourceCompatibility = 1.8
 
