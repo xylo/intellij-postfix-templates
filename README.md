@@ -231,6 +231,7 @@ The *TEMPLATE_CODE* can be any text which may also contain template variables us
   * *NO* (optional) - number of the variable (defining in which order the variables are expanded)
   * *EXPRESSION* (optional) - a live template macro used to generate a replacement (e.g. `suggestVariableName()`)
   * *DEFAULT_VALUE* (optional) - a default value that may be used by the macro
+* If you want to create multi-line templates you can use a backslash (`\`) at the end of a line to indicate that the template code continues at the next line.
 
 Template examples:
 * Artificial example showing variable reordering, variable reusage, interaction skipping, macros, and default values:
@@ -242,6 +243,13 @@ Template examples:
   ```
   .logd : log a variable
       NON_VOID → Log.d("$user*:user():"MyTag"$", "$className*:className()$ :: $methodName*:methodName()$): $expr$="+$expr$);
+  ```
+* Multi-line template:
+  ```
+  .for : iterate over ...
+      ITERABLE_OR_ARRAY → for ($ELEMENT_TYPE:iterableComponentType(expr):"java.lang.Object"$ $VAR:suggestVariableName()$ : $expr$) {\
+        $END$\
+      }
   ```
 
 While writing the templates you can use the code completion for completing class names, variable names, template macros and arrows (→).
