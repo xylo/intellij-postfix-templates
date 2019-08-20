@@ -4,9 +4,9 @@ plugins {
 }
 
 group 'com.intellij'
-version '2.10.4.192'
+version '2.10.5.192'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.10
 
 repositories {
     mavenCentral()
