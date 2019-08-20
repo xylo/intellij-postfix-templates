@@ -267,8 +267,9 @@ In the chapter above some options have been omitted for simplicity.  If you need
 ```
 * *REQUIRED_CLASS* (optional) is a name of a class that needs to be available in the module to activate the template rule (see next section for a detailed explaination)
 * *FLAG* (optional) can be one of the following flags:
-  * [`USE_STATIC_IMPORTS`](#use_static_imports) - adds static method imports automatically if possible
   * [`SKIP`](#skip) - skips the rule
+  * [`USE_STATIC_IMPORTS`](#use_static_imports) - adds static method imports automatically if possible (Java only)
+  * [`IMPORT` ...](#import) - adds an import to the file header (Scala only)
 
 #### Writing library specific template rules via REQUIRED_CLASS
 
@@ -294,18 +295,6 @@ In general you can use any class name between the square brackets you want to de
 
 #### FLAGs
 
-##### USE_STATIC_IMPORTS
-
-If you tag a template rule with `[USE_STATIC_IMPORTS]` all static methods that are used will be automatically imported and your code gets more compact.  For instance, lets take the following template rule:
-```
-.toList : convert to List
-	ARRAY  →  java.util.Arrays.asList($expr$) [USE_STATIC_IMPORTS]
-```
-Since the rule is tagged with `[USE_STATIC_IMPORTS]` expanding of `array.toList` does not lead to `Arrays.asList(array)` but to `asList(array)` and the following line is added to your import statements:
-```
-import static java.util.Arrays.asList;
-```
-
 ##### SKIP
 
 You can use the `[SKIP]` flag for deactivating the template rule for a given matching type.
@@ -320,6 +309,27 @@ Example:
 In this example a postfix template `.sort` is defined.
 The first rule tells the plugin that there shall be no completition for expressions of type `LazySeq`.
 The second rule defines how `List` expressions shall be completed.
+
+##### USE_STATIC_IMPORTS
+
+If you tag a template rule for Java with `[USE_STATIC_IMPORTS]` all static methods that are used will be automatically imported and your code gets more compact.  For instance, lets take the following template rule:
+```
+.toList : convert to List
+	ARRAY  →  java.util.Arrays.asList($expr$) [USE_STATIC_IMPORTS]
+```
+Since the rule is tagged with `[USE_STATIC_IMPORTS]` expanding of `array.toList` does not lead to `Arrays.asList(array)` but to `asList(array)` and the following line is added to your import statements:
+```
+import static java.util.Arrays.asList;
+```
+
+##### IMPORT
+
+If you tag a template rule for Scala with `[IMPORT FULLY_QUALIFIED_CLASSNAME]` the given class (or method) import is automatically added to the file header when the template gets applied:
+```
+.printStream : get PrintStream
+	java.io.File  →  new PrintStream($expr$)   [IMPORT java.io.PrintStream]
+```
+Note that you can use the `IMPORT` flag multiple times.
 
 ## Update templates and open plugin settings
 
