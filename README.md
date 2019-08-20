@@ -86,6 +86,8 @@ whereas
 * *MATCHING_TYPE* defines the type the template can be applied to, and
 * *TEMPLATE_CODE* defines how the template is applied (how the expression is replaced).
 
+#### MATCHING_TYPE
+
 The options for *MATCHING_TYPE* may differ from programming language to programming language:
 * In **Java** the *MATCHING_TYPE* can be either a Java class name or one of the following special types:
   * `ANY` - any expression
@@ -217,6 +219,8 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
 * In **JavaScript** the *MATCHING_TYPE* has to be `ANY`.
 * In **Rust** the *MATCHING_TYPE* has to be `ANY`.
 
+#### TEMPLATE_CODE
+
 The *TEMPLATE_CODE* can be any text which may also contain template variables used as placeholder.
 * Simple template variables have the format `$NAME$`.
 * The following template variables have a special meaning:
@@ -233,7 +237,8 @@ The *TEMPLATE_CODE* can be any text which may also contain template variables us
   * *DEFAULT_VALUE* (optional) - a default value that may be used by the macro
 * If you want to create multi-line templates you can use a backslash (`\`) at the end of a line to indicate that the template code continues at the next line.
 
-Template examples:
+#### Template Examples
+
 * Artificial example showing variable reordering, variable reusage, interaction skipping, macros, and default values:
   ```
   .test : test
