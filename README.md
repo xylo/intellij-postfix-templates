@@ -83,8 +83,8 @@ A simple template rule has the form
     MATCHING_TYPE  →  TEMPLATE_CODE
 ```
 whereas
-* *MATCHING_TYPE* defines the type the template can be applied to, and
-* *TEMPLATE_CODE* defines how the template is applied (how the expression is replaced).
+* *[`MATCHING_TYPE`](#matching_type)* defines the type the template can be applied to, and
+* *[`TEMPLATE_CODE`](#template_code)* defines how the template is applied (how the expression is replaced).
 
 #### MATCHING_TYPE
 
