@@ -6,7 +6,7 @@ plugins {
 group 'com.intellij'
 version '2.10.5.192'
 
-sourceCompatibility = 1.10
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -71,6 +71,5 @@ intellij {
 }
 
 publishPlugin {
-    username findProperty('intellijPublishUsername')
-    password findProperty('intellijPublishPassword')
+    token findProperty('intellijPublishToken')
 }
