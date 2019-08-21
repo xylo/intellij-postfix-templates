@@ -57,16 +57,18 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	private Tuple2<String, WebTemplateFile>           nextMissingWtf;
 	private Iterator<Tuple2<String, WebTemplateFile>> missingWtfIter;
 
+	private final TreeSelectionListener treeSelectionListener;
+	private final DoubleClickListener doubleClickListener;
+
 	CptManagementTree() {
 		super(getRenderer(), new CheckedTreeNode(null));
 		//canAddFile = ContainerUtil.find(providerToLanguage.keySet(), p -> StringUtil.isNotEmpty(p.getPresentableName())) != null;
 		model = (DefaultTreeModel) getModel();
 		root = (CheckedTreeNode) model.getRoot();
 
-		TreeSelectionListener selectionListener = event -> selectionChanged();
-		getSelectionModel().addTreeSelectionListener(selectionListener);
-		Disposer.register(this, () -> getSelectionModel().removeTreeSelectionListener(selectionListener));
-		DoubleClickListener doubleClickListener = new DoubleClickListener() {
+		treeSelectionListener = event -> selectionChanged();
+		getSelectionModel().addTreeSelectionListener(treeSelectionListener);
+		doubleClickListener = new DoubleClickListener() {
 			@Override
 			protected boolean onDoubleClick(MouseEvent event) {
 				TreePath location = getClosestPathForLocation(event.getX(), event.getY());
@@ -74,7 +76,6 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 			}
 		};
 		doubleClickListener.installOn(this);
-		Disposer.register(this, () -> doubleClickListener.uninstall(this));
 		setRootVisible(false);
 		setShowsRootHandles(true);
 	}
@@ -94,6 +95,8 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 	@Override
 	public void dispose() {
+		getSelectionModel().removeTreeSelectionListener(treeSelectionListener);
+		doubleClickListener.uninstall(this);
 		UIUtil.dispose(this);
 	}
 
