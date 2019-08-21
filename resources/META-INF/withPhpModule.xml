@@ -1,0 +1,6 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<codeInsight.template.postfixTemplateProvider language="PHP"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.php.PhpPostfixTemplateProvider"/>
+	</extensions>
+</idea-plugin>

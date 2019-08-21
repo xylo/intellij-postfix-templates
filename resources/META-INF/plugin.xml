@@ -397,23 +397,23 @@
 	</change-notes>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-	<idea-version since-build="191"/>
+	<idea-version since-build="192"/>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
 			 on how to target different products -->
 	<depends>com.intellij.modules.lang</depends>
 	<depends optional="true" config-file="withJavaModule.xml">com.intellij.modules.java</depends>
-	<depends optional="true">org.intellij.scala</depends>
-	<depends optional="true">org.jetbrains.kotlin</depends>
-	<depends optional="true">Dart</depends>
-	<depends optional="true">com.intellij.modules.python</depends>
-	<depends optional="true">com.jetbrains.php</depends>
-	<depends optional="true">org.rust.lang</depends>
-	<depends optional="true">org.intellij.groovy</depends>
-	<depends optional="true">com.intellij.modules.rider</depends>
-	<depends optional="true">com.intellij.modules.go</depends>
-	<depends optional="true">com.intellij.modules.go-capable</depends>
-	<depends optional="true">org.jetbrains.plugins.go</depends>
+	<depends optional="true" config-file="withScalaModule.xml">org.intellij.scala</depends>
+	<depends optional="true" config-file="withKotlinModule.xml">org.jetbrains.kotlin</depends>
+	<depends optional="true" config-file="withDartModule.xml">Dart</depends>
+	<depends optional="true" config-file="withPythonModule.xml">com.intellij.modules.python</depends>
+	<depends optional="true" config-file="withPhpModule.xml">com.jetbrains.php</depends>
+	<depends optional="true" config-file="withRustModule.xml">org.rust.lang</depends>
+	<depends optional="true" config-file="withGroovyModule.xml">org.intellij.groovy</depends>
+	<depends optional="true" config-file="withRiderModule.xml">com.intellij.modules.rider</depends>
+	<depends optional="true" config-file="withGoModule.xml">com.intellij.modules.go</depends>
+	<depends optional="true" config-file="withGoModule.xml">com.intellij.modules.go-capable</depends>
+	<depends optional="true" config-file="withGoModule.xml">org.jetbrains.plugins.go</depends>
 
 	<application-components>
 		<component>
@@ -423,28 +423,10 @@
 	</application-components>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<codeInsight.template.postfixTemplateProvider language="JAVA"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.java.JavaPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="JavaScript"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="Scala"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.scala.ScalaPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="kotlin"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="Dart"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.dart.DartPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="SQL"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.sql.SqlPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="Python"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.python.PythonPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="PHP"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.php.PhpPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="Rust"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.rust.RustPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="Groovy"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.groovy.GroovyPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="go"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.go.GoPostfixTemplateProvider"/>
 		<!--
 		<codeInsight.template.postfixTemplateProvider language="C#"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.csharp.CsharpPostfixTemplateProvider"/>
@@ -481,7 +463,7 @@
 		<postStartupActivity implementation="de.endrullis.idea.postfixtemplates.MyPostStartupActivity"/>
 		<intentionAction>
 			<className>de.endrullis.idea.postfixtemplates.intention.OverrideTemplateRuleIntention</className>
-			<category>Custom Postfix Templates</category>
+			<category>Custom postfix templates</category>
 		</intentionAction>
 	</extensions>
 

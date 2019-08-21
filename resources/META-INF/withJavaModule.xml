@@ -1,5 +1,8 @@
 <idea-plugin>
 	<extensions defaultExtensionNs="com.intellij">
 		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.SuggestShortVariableNameMacro"/>
+
+		<codeInsight.template.postfixTemplateProvider language="JAVA"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.java.JavaPostfixTemplateProvider"/>
 	</extensions>
 </idea-plugin>
