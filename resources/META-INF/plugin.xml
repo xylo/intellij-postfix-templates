@@ -441,7 +441,9 @@
 		<applicationService serviceImplementation="de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings"/>
 
 		<!-- Postfix templates file type and language -->
-		<fileTypeFactory implementation="de.endrullis.idea.postfixtemplates.language.CptFileTypeFactory"/>
+		<fileType name="Postfix templates file type"
+		          implementationClass="de.endrullis.idea.postfixtemplates.language.CptFileType"
+		          fieldName="INSTANCE" language="CPT" extensions="postfixTemplates"/>
 		<lang.parserDefinition language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptParserDefinition"/>
 		<lang.syntaxHighlighterFactory language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptSyntaxHighlighterFactory"/>
 		<colorSettingsPage implementation="de.endrullis.idea.postfixtemplates.language.CptColorSettingsPage"/>
