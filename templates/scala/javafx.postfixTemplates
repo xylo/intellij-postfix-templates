@@ -1,17 +1,17 @@
 ## Templates for JavaFX ##
 
 .runLater : Platform.runLater(...)
-	ANY  →  Platform.runLater(() -> $expr$) [IMPORT: javafx.application.Platform]
+	ANY  →  Platform.runLater(() -> $expr$) [IMPORT javafx.application.Platform]
 
 .setToolTip : Tooltip.install(...)
 	javafx.scene.control.Control  →  [SKIP]
-	javafx.scene.Node  →  Tooltip.install($expr$, $tooltip:variableOfType("javafx.scene.control.Tooltip"):"tooltip"$) [IMPORT: javafx.scene.control.Tooltip]
+	javafx.scene.Node  →  Tooltip.install($expr$, $tooltip:variableOfType("javafx.scene.control.Tooltip"):"tooltip"$) [IMPORT javafx.scene.control.Tooltip]
 
 .setHgrow : HBox.setHgrow(...)
-	javafx.scene.Node  →  HBox.setHgrow($expr$, $END$) [IMPORT: javafx.scene.layout.HBox]
+	javafx.scene.Node  →  HBox.setHgrow($expr$, $END$) [IMPORT javafx.scene.layout.HBox]
 
 .setVgrow : HBox.setHgrow(...)
-	javafx.scene.Node  →  VBox.setVgrow($expr$, $END$) [IMPORT: javafx.scene.layout.VBox]
+	javafx.scene.Node  →  VBox.setVgrow($expr$, $END$) [IMPORT javafx.scene.layout.VBox]
 
 .setText : set text
 	javafx.scene.control.Spinner  →  $expr$.getEditor().setText($END$)
@@ -29,12 +29,12 @@
 	javafx.scene.control.TableView  →  $expr$.getSelectionModel().select($END$)
 
 .toObservableArrayList : FXCollections.observableArrayList(...)
-	scala.Array  →  FXCollections.observableArrayList($expr$) [IMPORT: javafx.collections.FXCollections]
-	java.util.Collection  →  FXCollections.observableArrayList($expr$) [IMPORT: javafx.collections.FXCollections]
+	scala.Array  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
+	java.util.Collection  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
 
 .toObservableArrayList : FXCollections.observableArrayList(...)
-	scala.Array  →  FXCollections.observableArrayList($expr$) [IMPORT: javafx.collections.FXCollections]
-	java.util.Collection  →  FXCollections.observableArrayList($expr$) [IMPORT: javafx.collections.FXCollections]
+	scala.Array  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
+	java.util.Collection  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
 
 .toObservableList : FXCollections.observableArrayList(...)
-	java.util.List  →  FXCollections.observableList($expr$) [IMPORT: javafx.collections.FXCollections]
+	java.util.List  →  FXCollections.observableList($expr$) [IMPORT javafx.collections.FXCollections]
