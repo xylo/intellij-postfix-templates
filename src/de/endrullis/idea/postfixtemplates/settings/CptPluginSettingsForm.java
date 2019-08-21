@@ -92,7 +92,11 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 						} else if (selectedFile.getWebTemplateFile() != null) {
 							val    webTemplateFile = selectedFile.getWebTemplateFile();
 							String subject         = "";
-							subject = URLEncoder.encode("[Custom Postfix Templates] " + fileName, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+							try {
+								subject = URLEncoder.encode("[Custom Postfix Templates] " + fileName, "UTF-8").replaceAll("\\+", "%20");
+							} catch (UnsupportedEncodingException e) {
+								e.printStackTrace();
+							}
 							String s = "<html><body>Web Template File \"" + fileName + "\"<table style='width: 100%'>";
 							s += "<tr><td>Author:</td><td style='width: 100%'><a href=\"mailto:" + webTemplateFile.email + "?subject=" + subject + "\">" + webTemplateFile.author + "</a></td></tr>";
 							s += "<tr><td>Website:</td><td style='width: 100%'><a href=\"" + webTemplateFile.website + "\">" + limitTo50(webTemplateFile.website) + "</a></td></tr>";
