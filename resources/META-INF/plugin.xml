@@ -11,7 +11,7 @@
 		<br/><br/>
 
 		<p>
-			This plugin lets you define your own postfix templates for Java, Scala, SQL, PHP, Kotlin, Python, Dart, JavaScript, Rust, Go and Groovy.
+			This open source plugin lets you define your own postfix templates for Java, Scala, SQL, PHP, Kotlin, Python, Dart, JavaScript, Rust, Go and Groovy.
 			It also comes with hundreds of useful postfix templates shared by the community.  You're welcome to contribute your templates as well.
 		</p>
 
