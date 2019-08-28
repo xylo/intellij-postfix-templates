@@ -12,7 +12,7 @@ Since IDEA 2018 you are now able to define your own postfix templates in the set
 * You can **use live template macros** to automatically fill some of the template variables (e.g. `$var:suggestVariableName()$`) as well as you can define default values.
 * You can **restrict the availability of templates or template rules to the availability of certain classes or libraries** (e.g. expand `"test".val` to `val s = "test"` if Lombok is available).
 * It allows you to **use static imports instead of class imports** (e.g. `array.toList` can be expanded to `asList(array)` instead of `Arrays.asList(array)` if you add `[USE_STATIC_IMPORTS]` to the rule).
-* It **comes with 208 useful and editable postfix templates** for Java with in total 379 template rules, e.g.
+* It **comes with more than 500 editable postfix templates** with more than 700 template rules, e.g.
   * `string.toInt` → `Integer.parse(string)`
   * `array.toList` → `Arrays.asList(array)`
   * `file.lines` → `Files.readAllLines(file.toPath(), Charset.forName("UTF-8"))`
@@ -83,8 +83,10 @@ A simple template rule has the form
     MATCHING_TYPE  →  TEMPLATE_CODE
 ```
 whereas
-* *MATCHING_TYPE* defines the type the template can be applied to, and
-* *TEMPLATE_CODE* defines how the template is applied (how the expression is replaced).
+* *[`MATCHING_TYPE`](#matching_type)* defines the type the template can be applied to, and
+* *[`TEMPLATE_CODE`](#template_code)* defines how the template is applied (how the expression is replaced).
+
+#### MATCHING_TYPE
 
 The options for *MATCHING_TYPE* may differ from programming language to programming language:
 * In **Java** the *MATCHING_TYPE* can be either a Java class name or one of the following special types:
@@ -217,6 +219,8 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
 * In **JavaScript** the *MATCHING_TYPE* has to be `ANY`.
 * In **Rust** the *MATCHING_TYPE* has to be `ANY`.
 
+#### TEMPLATE_CODE
+
 The *TEMPLATE_CODE* can be any text which may also contain template variables used as placeholder.
 * Simple template variables have the format `$NAME$`.
 * The following template variables have a special meaning:
@@ -231,8 +235,10 @@ The *TEMPLATE_CODE* can be any text which may also contain template variables us
   * *NO* (optional) - number of the variable (defining in which order the variables are expanded)
   * *EXPRESSION* (optional) - a live template macro used to generate a replacement (e.g. `suggestVariableName()`)
   * *DEFAULT_VALUE* (optional) - a default value that may be used by the macro
+* If you want to create multi-line templates you can use a backslash (`\`) at the end of a line to indicate that the template code continues at the next line.
 
-Template examples:
+#### Template Examples
+
 * Artificial example showing variable reordering, variable reusage, interaction skipping, macros, and default values:
   ```
   .test : test
@@ -242,6 +248,13 @@ Template examples:
   ```
   .logd : log a variable
       NON_VOID → Log.d("$user*:user():"MyTag"$", "$className*:className()$ :: $methodName*:methodName()$): $expr$="+$expr$);
+  ```
+* Multi-line template:
+  ```
+  .for : iterate over ...
+      ITERABLE_OR_ARRAY → for ($ELEMENT_TYPE:iterableComponentType(expr):"java.lang.Object"$ $VAR:suggestVariableName()$ : $expr$) {\
+        $END$\
+      }
   ```
 
 While writing the templates you can use the code completion for completing class names, variable names, template macros and arrows (→).
@@ -254,8 +267,9 @@ In the chapter above some options have been omitted for simplicity.  If you need
 ```
 * *REQUIRED_CLASS* (optional) is a name of a class that needs to be available in the module to activate the template rule (see next section for a detailed explaination)
 * *FLAG* (optional) can be one of the following flags:
-  * [`USE_STATIC_IMPORTS`](#use_static_imports) - adds static method imports automatically if possible
   * [`SKIP`](#skip) - skips the rule
+  * [`USE_STATIC_IMPORTS`](#use_static_imports) - adds static method imports automatically if possible (Java only)
+  * [`IMPORT` ...](#import) - adds an import to the file header (Scala only)
 
 #### Writing library specific template rules via REQUIRED_CLASS
 
@@ -281,18 +295,6 @@ In general you can use any class name between the square brackets you want to de
 
 #### FLAGs
 
-##### USE_STATIC_IMPORTS
-
-If you tag a template rule with `[USE_STATIC_IMPORTS]` all static methods that are used will be automatically imported and your code gets more compact.  For instance, lets take the following template rule:
-```
-.toList : convert to List
-	ARRAY  →  java.util.Arrays.asList($expr$) [USE_STATIC_IMPORTS]
-```
-Since the rule is tagged with `[USE_STATIC_IMPORTS]` expanding of `array.toList` does not lead to `Arrays.asList(array)` but to `asList(array)` and the following line is added to your import statements:
-```
-import static java.util.Arrays.asList;
-```
-
 ##### SKIP
 
 You can use the `[SKIP]` flag for deactivating the template rule for a given matching type.
@@ -307,6 +309,27 @@ Example:
 In this example a postfix template `.sort` is defined.
 The first rule tells the plugin that there shall be no completition for expressions of type `LazySeq`.
 The second rule defines how `List` expressions shall be completed.
+
+##### USE_STATIC_IMPORTS
+
+If you tag a template rule for Java with `[USE_STATIC_IMPORTS]` all static methods that are used will be automatically imported and your code gets more compact.  For instance, lets take the following template rule:
+```
+.toList : convert to List
+	ARRAY  →  java.util.Arrays.asList($expr$) [USE_STATIC_IMPORTS]
+```
+Since the rule is tagged with `[USE_STATIC_IMPORTS]` expanding of `array.toList` does not lead to `Arrays.asList(array)` but to `asList(array)` and the following line is added to your import statements:
+```
+import static java.util.Arrays.asList;
+```
+
+##### IMPORT
+
+If you tag a template rule for Scala with `[IMPORT FULLY_QUALIFIED_CLASSNAME]` the given class (or method) import is automatically added to the file header when the template gets applied:
+```
+.printStream : get PrintStream
+	java.io.File  →  new PrintStream($expr$)   [IMPORT java.io.PrintStream]
+```
+Note that you can use the `IMPORT` flag multiple times.
 
 ## Update templates and open plugin settings
 

@@ -28,6 +28,7 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -78,29 +79,29 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 					val selectedFile = checkboxTree.getSelectedFile();
 
 					if (selectedFile != null) {
-						val file = selectedFile.getFile();
-						final String fileName = selectedFile.getName().replace(".postfixTemplates", "");
+						val file     = selectedFile.getFile();
+						val fileName = selectedFile.getName().replace(".postfixTemplates", "");
 						setEditorContent(file.exists() ? CptUtil.getContent(file) : "");
 
 						if (selectedFile.isSelfMade()) {
-							templatesFileInfoLabel.setText("<html>User Template File \"" + fileName + "\"");
+							templatesFileInfoLabel.setText("<html><body>User Template File \"" + fileName + "\"");
 						} else if (selectedFile.isLocal()) {
-							String s = "<html>Local Template File \"" + fileName + "\"<table>";
-							s += "<tr><td>URL:</td><td><a href=\"" + selectedFile.getUrl().toString() + "\">" + limitTo50(selectedFile.getUrl().toString()) + "</a></td></tr></table>";
+							String s = "<html><body>Local Template File \"" + fileName + "\"<table style='width: 100%'>";
+							s += "<tr><td>URL:</td><td style='width: 100%'><a href=\"" + selectedFile.getUrl().toString() + "\">" + limitTo50(selectedFile.getUrl().toString()) + "</a></td></tr></table>";
 							templatesFileInfoLabel.setText(s);
 						} else if (selectedFile.getWebTemplateFile() != null) {
-							val webTemplateFile = selectedFile.getWebTemplateFile();
-							String subject = "";
+							val    webTemplateFile = selectedFile.getWebTemplateFile();
+							String subject         = "";
 							try {
 								subject = URLEncoder.encode("[Custom Postfix Templates] " + fileName, "UTF-8").replaceAll("\\+", "%20");
 							} catch (UnsupportedEncodingException e) {
 								e.printStackTrace();
 							}
-							String s = "<html>Web Template File \"" + fileName + "\"<table>";
-							s += "<tr><td>Author:</td><td><a href=\"mailto:" + webTemplateFile.email + "?subject=" + subject + "\">" + webTemplateFile.author + "</a></td></tr>";
-							s += "<tr><td>Website:</td><td><a href=\"" + webTemplateFile.website + "\">" + limitTo50(webTemplateFile.website) + "</a></td></tr>";
-							s += "<tr><td>URL:</td><td><a href=\"" + selectedFile.getUrl().toString() + "\">" + limitTo50(selectedFile.getUrl().toString()) + "</a></td></tr>";
-							s += "<tr><tds>Description:</td><td>" + webTemplateFile.description + "</td></tr></table>";
+							String s = "<html><body>Web Template File \"" + fileName + "\"<table style='width: 100%'>";
+							s += "<tr><td>Author:</td><td style='width: 100%'><a href=\"mailto:" + webTemplateFile.email + "?subject=" + subject + "\">" + webTemplateFile.author + "</a></td></tr>";
+							s += "<tr><td>Website:</td><td style='width: 100%'><a href=\"" + webTemplateFile.website + "\">" + limitTo50(webTemplateFile.website) + "</a></td></tr>";
+							s += "<tr><td>URL:</td><td style='width: 100%'><a href=\"" + selectedFile.getUrl().toString() + "\">" + limitTo50(selectedFile.getUrl().toString()) + "</a></td></tr>";
+							s += "<tr><tds>Description:</td><td style='width: 100%'>" + webTemplateFile.description + "</td></tr></table>";
 							templatesFileInfoLabel.setText(s);
 						} else {
 							templatesFileInfoLabel.setText("");
@@ -121,7 +122,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			.setRemoveActionUpdater(e -> checkboxTree.canRemoveSelectedFiles())
 			.setRemoveAction(button -> checkboxTree.removeSelectedFiles())
 			.setMoveDownActionUpdater(e -> checkboxTree.canMoveSelectedFiles())
-			.setMoveDownAction( e -> checkboxTree.moveDownSelectedFiles())
+			.setMoveDownAction(e -> checkboxTree.moveDownSelectedFiles())
 			.setMoveUpActionUpdater(e -> checkboxTree.canMoveSelectedFiles())
 			.setMoveUpAction(e -> checkboxTree.moveUpSelectedFiles())
 			.addExtraAction(new AnActionButton("Help", AllIcons.Actions.Help) {
@@ -178,7 +179,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private void askForUpdatingTemplateFilesNow() {
 		val project = CptUtil.getActiveProject();
 
-		val oldSettings = CptApplicationSettings.getInstance().getPluginSettings();
+		val oldSettings     = CptApplicationSettings.getInstance().getPluginSettings();
 		val currentSettings = getPluginSettings();
 
 		if (!oldSettings.equals(currentSettings)) {
@@ -215,8 +216,8 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 		for (CptLang lang : SupportedLanguages.supportedLanguages) {
 			// add files from saved settings
-			List<CptPluginSettings.VFile> cptFiles = new ArrayList<>(langName2virtualFile.getOrDefault(lang.getLanguage(), _List()));
-			val filesFromConfig = cptFiles.stream().map(f -> f.getFile()).collect(Collectors.toSet());
+			List<CptPluginSettings.VFile> cptFiles        = new ArrayList<>(langName2virtualFile.getOrDefault(lang.getLanguage(), _List()));
+			val                           filesFromConfig = cptFiles.stream().map(f -> f.getFile()).collect(Collectors.toSet());
 
 			// add files from filesystem that are not already in the settings
 			val templateFilesFromDir = CptUtil.getTemplateFilesFromLanguageDir(lang.getLanguage());
@@ -269,7 +270,18 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		templatesEditorPanel = new JPanel(new BorderLayout());
 
 		templatesEditor = createEditor();
+		setToolTipRecursively(templatesEditor.getComponent(), "This editor is read-only.  To edit templates, close the settings dialog and press shift+alt+P in a normal IDEA editor tab.");
 		templatesEditorPanel.add(templatesEditor.getComponent(), BorderLayout.CENTER);
+	}
+
+	public static void setToolTipRecursively(JComponent c, String text) {
+		c.setToolTipText(text);
+
+		for (Component cc : c.getComponents()) {
+			if (cc instanceof JComponent) {
+				setToolTipRecursively((JComponent) cc, text);
+			}
+		}
 	}
 
 	/*
@@ -307,8 +319,8 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 	@NotNull
 	private static Editor createEditor() {
-		EditorFactory editorFactory = EditorFactory.getInstance();
-		Document editorDocument = editorFactory.createDocument("");
+		EditorFactory editorFactory  = EditorFactory.getInstance();
+		Document      editorDocument = editorFactory.createDocument("");
 		return editorFactory.createEditor(editorDocument, null, CptFileType.INSTANCE, true);
 	}
 

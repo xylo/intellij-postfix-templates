@@ -45,6 +45,12 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.10.5</h3>
+			<ul>
+				<li>Fixed text color of table in settings dialog.</li>
+				<li>Added hints in the settings dialog.</li>
+			</ul>
+
 			<h3>Version 2.10.4</h3>
 			<ul>
 				<li>Fixed a typo.</li>

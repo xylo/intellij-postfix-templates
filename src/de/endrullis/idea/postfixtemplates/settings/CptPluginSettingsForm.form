@@ -66,6 +66,7 @@
                       <focusable value="false"/>
                       <opaque value="false"/>
                       <requestFocusEnabled value="false"/>
+                      <text value="&lt;html&gt;&#10;  &lt;head&gt;&#10;    &#10;  &lt;/head&gt;&#10;  &lt;body&gt;&#10;  &lt;/body&gt;&#10;&lt;/html&gt;&#10;"/>
                     </properties>
                   </component>
                 </children>
