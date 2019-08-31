@@ -1,15 +1,22 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
 import com.intellij.codeInsight.template.Template;
+import com.intellij.codeInsight.template.impl.SelectionNode;
 import com.intellij.codeInsight.template.impl.Variable;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelector;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelectorBase;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.codeInsight.template.postfix.templates.StringBasedPostfixTemplate;
+import com.intellij.notification.*;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.project.DumbService;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Condition;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiExpression;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.TokenType;
 import com.intellij.psi.util.PsiExpressionTrimRenderer;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
@@ -30,7 +37,7 @@ import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplate
  *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
-public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfixTemplate implements NavigatableTemplate {
+public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfixTemplate implements NavigatablePostfixTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = CustomPostfixTemplates.PREDEFINED_VARIABLES;
 
@@ -67,7 +74,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 	public void setVariables(@NotNull Template template, @NotNull PsiElement psiElement) {
 		super.setVariables(template, psiElement);
 
-		addVariablesToTemplate(template, variables);
+		addVariablesToTemplate(template, variables, psiElement.getProject(), this);
 	}
 
 	@Nullable
@@ -172,12 +179,31 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 		};
 	}
 
-	public static void addVariablesToTemplate(@NotNull Template template, Set<MyVariable> variables) {
+	public static void addVariablesToTemplate(@NotNull Template template, Set<MyVariable> variables, Project project, NavigatablePostfixTemplate postfixTemplate) {
 		List<MyVariable> sortedVars = variables.stream().sorted(Comparator.comparing(s -> s.getNo())).collect(Collectors.toList());
 
 		for (Variable variable : sortedVars) {
-			template.addVariable(variable.getName(), variable.getExpression(), variable.getDefaultValueExpression(),
-				variable.isAlwaysStopAt(), variable.skipOnStart());
+			try {
+				template.addVariable(variable.getName(), variable.getExpression(), variable.getDefaultValueExpression(),
+					variable.isAlwaysStopAt(), variable.skipOnStart());
+			} catch (Exception e) {
+				template.addVariable(variable.getName(), new SelectionNode(), new SelectionNode(), variable.isAlwaysStopAt(), variable.skipOnStart());
+
+				NotificationGroup notificationGroup = new NotificationGroup("Custom Postfix Templates", NotificationDisplayType.STICKY_BALLOON, true);
+
+				Notification notification = notificationGroup.createNotification("Error in Postfix Template", "Your " + postfixTemplate.getKey() + " template contains an error in variable '" + variable.getName() + "'. Please fix it. <a href=\"fix\">Edit template.</a>.", NotificationType.ERROR,
+					(notification1, hyperlinkEvent) -> {
+						notification1.expire();
+						ApplicationManager.getApplication().invokeLater(() -> {
+							if (project.isDisposed()) return;
+
+							postfixTemplate.navigate(true);
+						});
+					}
+				);
+
+				Notifications.Bus.notify(notification, project);
+			}
 		}
 	}
 

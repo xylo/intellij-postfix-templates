@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.10.6</h3>
+			<ul>
+				<li>Fixed #160: NegativeArraySizeException on template expansion.</li>
+			</ul>
+
 			<h3>Version 2.10.5</h3>
 			<ul>
 				<li>Fixed text color of table in settings dialog.</li>

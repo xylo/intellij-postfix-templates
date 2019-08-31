@@ -20,7 +20,7 @@ import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
-import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
+import de.endrullis.idea.postfixtemplates.templates.NavigatablePostfixTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -41,7 +41,7 @@ import static de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPost
  * Custom postfix template for Java.
  */
 @SuppressWarnings("WeakerAccess")
-public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate implements NavigatableTemplate {
+public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate implements NavigatablePostfixTemplate {
 
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), IS_ANY);
@@ -204,7 +204,7 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 	public void setVariables(@NotNull Template template, @NotNull PsiElement psiElement) {
 		super.setVariables(template, psiElement);
 
-		addVariablesToTemplate(template, variables);
+		addVariablesToTemplate(template, variables, psiElement.getProject(), this);
 	}
 
 	/**

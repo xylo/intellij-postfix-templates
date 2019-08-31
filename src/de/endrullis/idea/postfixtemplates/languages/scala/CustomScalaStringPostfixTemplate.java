@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.OrderedSet;
 import de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
-import de.endrullis.idea.postfixtemplates.templates.NavigatableTemplate;
+import de.endrullis.idea.postfixtemplates.templates.NavigatablePostfixTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +33,7 @@ import static de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPost
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 @SuppressWarnings("WeakerAccess")
-public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTemplate implements NavigatableTemplate {
+public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTemplate implements NavigatablePostfixTemplate {
 
 	public static final Set<String> PREDEFINED_VARIABLES = CustomPostfixTemplates.PREDEFINED_VARIABLES;
 
@@ -106,7 +106,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	public void setVariables(@NotNull Template template, @NotNull PsiElement psiElement) {
 		super.setVariables(template, psiElement);
 
-		addVariablesToTemplate(template, variables);
+		addVariablesToTemplate(template, variables, psiElement.getProject(), this);
 	}
 
 	/**
