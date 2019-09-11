@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.intellij'
-version '2.10.6.192'
+version '2.10.7.192'
 
 sourceCompatibility = 1.8
 
@@ -48,6 +48,7 @@ sourceSets {
 
 intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
+    // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
     version 'IU-192.5728.98'
     //version '2018.2.2'
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"

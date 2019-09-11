@@ -38,6 +38,15 @@ public class CustomStringPostfixTemplateTest {
 	}
 
 	@Test
+	public void testParseVariableNames3() {
+		String templateText = processEscapes("$x::\"\\\"\\$\\\"\"$");
+
+		ArrayList<String> variableNames = new ArrayList<>(parseVariableNames(templateText));
+
+		assertEquals(_List("x::\"\\\"$\\\"\""), variableNames);
+	}
+
+	@Test
 	public void testParseVariables() {
 		String templateText = processEscapes("a$b$c$d:v$$e:exp:value$fg\\$h\\$i$j*$k");
 
@@ -64,6 +73,17 @@ public class CustomStringPostfixTemplateTest {
 	}
 
 	@Test
+	public void testParseVariables3() {
+		String templateText = processEscapes("$x::\"\\\"\\$\\\"\"$");
+
+		ArrayList<MyVariable> variables = new ArrayList<>(parseVariables(templateText));
+
+		assertEquals(_List(
+			new MyVariable("x", "", "\"\\\"$\\\"\"", true, false, 0, null)
+		), variables);
+	}
+
+	@Test
 	public void testRemoveVariableValues() {
 		String templateText = processEscapes("a$b$c$d:v$$e:exp:value$fg\\$h\\$i$j*$k");
 
@@ -81,6 +101,16 @@ public class CustomStringPostfixTemplateTest {
 
 		String newTemplateText = removeVariableValues(templateText, variables);
 		assertEquals("Timber.d(\"$expr$ = $$$expr$$END$\")", newTemplateText);
+	}
+
+	@Test
+	public void testRemoveVariableValues3() {
+		String templateText = processEscapes("$x::\"\\\"\\$\\\"\"$");
+
+		Set<MyVariable> variables = new HashSet<>(parseVariables(templateText));
+
+		String newTemplateText = removeVariableValues(templateText, variables);
+		assertEquals("$x$", newTemplateText);
 	}
 
 	@Test

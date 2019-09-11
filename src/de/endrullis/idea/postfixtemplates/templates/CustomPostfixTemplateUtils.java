@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
  */
 public class CustomPostfixTemplateUtils {
 
+	public static final char DOLLAR_REPLACEMENT = '₪';
+
 	/**
 	 * Returns the variable names used in the template.
 	 *
@@ -39,7 +41,7 @@ public class CustomPostfixTemplateUtils {
 				if (varStart == -1) {
 					varStart = i;
 				} else {
-					String varName = templateText.substring(varStart + 1, i);
+					String varName = templateText.substring(varStart + 1, i).replace(DOLLAR_REPLACEMENT, '$');
 					if (!varName.isEmpty()) {
 						variableNames.add(varName);
 					}
@@ -64,13 +66,18 @@ public class CustomPostfixTemplateUtils {
 		StringBuilder sb = new StringBuilder();
 
 		boolean escaped = false;
+		boolean inVar = false;
 
 		for (int i = 0; i < templateText.length(); i++) {
 			char c = templateText.charAt(i);
 
 			if (escaped) {
 				if (c == '$') {
-					sb.append("$$");
+					if (inVar) {
+						sb.append(DOLLAR_REPLACEMENT);
+					} else {
+						sb.append("$$");
+					}
 				} else if (c == '\\') {
 					sb.append('\\');
 				} else if (c == '\n') {
@@ -83,6 +90,9 @@ public class CustomPostfixTemplateUtils {
 			} else if (c == '\\') {
 				escaped = true;
 			} else {
+				if (c == '$') {
+					inVar = !inVar;
+				}
 				sb.append(c);
 				escaped = false;
 			}
@@ -137,7 +147,7 @@ public class CustomPostfixTemplateUtils {
 	 * @return the template text without the variable default values
 	 */
 	public static String removeVariableValues(@NotNull String templateText, Collection<MyVariable> variables) {
-		final String[] newTemplateText = {templateText};
+		final String[] newTemplateText = {templateText.replace(DOLLAR_REPLACEMENT, '$')};
 
 		variables.forEach(variable -> {
 			String varPattern = "$" + variable.getVarCode() + "$";
