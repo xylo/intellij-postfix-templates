@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.10.8</h3>
+			<ul>
+				<li>Fixed dependencies.</li>
+			</ul>
+
 			<h3>Version 2.10.7</h3>
 			<ul>
 				<li>Fixed #139: Cannot use $ in template variables -> escaping (\$) does not work.</li>
@@ -420,8 +425,6 @@
 	<depends optional="true" config-file="withPhpModule.xml">com.jetbrains.php</depends>
 	<depends optional="true" config-file="withRustModule.xml">org.rust.lang</depends>
 	<depends optional="true" config-file="withGroovyModule.xml">org.intellij.groovy</depends>
-	<depends optional="true" config-file="withRiderModule.xml">com.intellij.modules.rider</depends>
-	<depends optional="true" config-file="withGoModule.xml">com.intellij.modules.go</depends>
 	<depends optional="true" config-file="withGoModule.xml">com.intellij.modules.go-capable</depends>
 	<depends optional="true" config-file="withGoModule.xml">org.jetbrains.plugins.go</depends>
 
