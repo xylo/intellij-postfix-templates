@@ -38,7 +38,7 @@
     $END$
 
 .for : Iterate through an object
-	ANY   →   for $var$ as $expr$:\
+	ANY   →   for $var$ in $expr$:\
     $END$
 
 .try : Wrap with try except
