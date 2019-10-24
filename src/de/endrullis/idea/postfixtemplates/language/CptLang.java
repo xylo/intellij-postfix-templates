@@ -1,5 +1,7 @@
 package de.endrullis.idea.postfixtemplates.language;
 
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * Abstract CPT language definition.
  *
@@ -31,8 +33,8 @@ public abstract class CptLang {
 		// instantiate annotator if not yet done
 		if (annotator == null) {
 			try {
-				annotator = annotatorClass.newInstance();
-			} catch (InstantiationException | IllegalAccessException e) {
+				annotator = annotatorClass.getConstructor().newInstance();
+			} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 				e.printStackTrace();
 				return null;
 			}
