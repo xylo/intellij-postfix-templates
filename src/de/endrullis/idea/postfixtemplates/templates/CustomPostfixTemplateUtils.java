@@ -30,7 +30,7 @@ public class CustomPostfixTemplateUtils {
 		Set<String> variableNames = new OrderedSet<>();
 
 		int varStart = -1;
-		int i = 0;
+		int i        = 0;
 
 		while (i < templateText.length()) {
 			char c = templateText.charAt(i);
@@ -66,7 +66,7 @@ public class CustomPostfixTemplateUtils {
 		StringBuilder sb = new StringBuilder();
 
 		boolean escaped = false;
-		boolean inVar = false;
+		boolean inVar   = false;
 
 		for (int i = 0; i < templateText.length(); i++) {
 			char c = templateText.charAt(i);
@@ -118,7 +118,7 @@ public class CustomPostfixTemplateUtils {
 			String[] nameParts = parts[0].split("#", 2);
 
 			boolean skipIfDefined = nameParts[0].endsWith("*");
-			String varName = nameParts[0].replaceFirst("\\*$", "");
+			String  varName       = nameParts[0].replaceFirst("\\*$", "");
 
 			int no;
 			try {
@@ -150,7 +150,7 @@ public class CustomPostfixTemplateUtils {
 		final String[] newTemplateText = {templateText.replace(DOLLAR_REPLACEMENT, '$')};
 
 		variables.forEach(variable -> {
-			String varPattern = "$" + variable.getVarCode() + "$";
+			String varPattern  = "$" + variable.getVarCode() + "$";
 			String replacement = "$" + variable.getName().replaceFirst("\\*$", "") + "$";
 			newTemplateText[0] = newTemplateText[0].replaceAll(Pattern.quote(varPattern), Matcher.quoteReplacement(replacement));
 		});

@@ -9,6 +9,7 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.ui.AnActionButton;
 import com.intellij.ui.GuiUtils;
@@ -177,7 +178,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	}
 
 	private void askForUpdatingTemplateFilesNow() {
-		val project = CptUtil.getActiveProject();
+		val project = ProjectUtil.guessCurrentProject(mainPanel);
 
 		val oldSettings     = CptApplicationSettings.getInstance().getPluginSettings();
 		val currentSettings = getPluginSettings();

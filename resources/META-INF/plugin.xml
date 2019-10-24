@@ -45,6 +45,16 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.10.10</h3>
+			<ul>
+				<li>Removed deprecated code.</li>
+			</ul>
+
+			<h3>Version 2.10.9</h3>
+			<ul>
+				<li>Fixed #143: java.lang.NoClassDefFoundError: com/intellij/lang/javascript/psi/JSExpression.</li>
+			</ul>
+
 			<h3>Version 2.10.8</h3>
 			<ul>
 				<li>Fixed dependencies.</li>
@@ -423,6 +433,7 @@
 	<depends optional="true" config-file="withDartModule.xml">Dart</depends>
 	<depends optional="true" config-file="withPythonModule.xml">com.intellij.modules.python</depends>
 	<depends optional="true" config-file="withPhpModule.xml">com.jetbrains.php</depends>
+	<depends optional="true" config-file="withRustModule.xml">org.rust.lang</depends>
 	<depends optional="true" config-file="withGroovyModule.xml">org.intellij.groovy</depends>
 	<depends optional="true" config-file="withGoModule.xml">com.intellij.modules.go-capable</depends>
 	<depends optional="true" config-file="withGoModule.xml">org.jetbrains.plugins.go</depends>
