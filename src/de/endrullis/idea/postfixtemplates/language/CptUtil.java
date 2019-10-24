@@ -356,12 +356,6 @@ public class CptUtil {
 		//EditorFactory.getInstance().createViewer(document, project);
 	}
 
-	@Deprecated
-	public static Project getActiveProject() {
-		DataContext dataContext = DataManager.getInstance().getDataContextFromFocus().getResult();
-		return CommonDataKeys.PROJECT.getData(dataContext);
-	}
-
 	public static void openPluginSettings(Project project) {
 		ShowSettingsUtil.getInstance().showSettingsDialog(project, CptPluginConfigurable.class);
 	}
