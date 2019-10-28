@@ -10,11 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CptCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
-	@Override
-	public CustomCodeStyleSettings createCustomSettings(CodeStyleSettings settings) {
-		return new CptCodeStyleSettings(settings);
-	}
-
 	@Nullable
 	@Override
 	public String getConfigurableDisplayName() {
