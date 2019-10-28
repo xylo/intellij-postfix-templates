@@ -5,7 +5,6 @@ import com.intellij.application.options.CodeStyleAbstractPanel;
 import com.intellij.psi.codeStyle.CodeStyleConfigurable;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CodeStyleSettingsProvider;
-import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
