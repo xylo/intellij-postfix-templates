@@ -149,7 +149,7 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		return new PostfixTemplateExpressionSelectorBase(additionalFilter) {
 			@Override
 			protected List<PsiElement> getNonFilteredExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
-				return ContainerUtil.newArrayList(collectExpressions(context.getContainingFile(), document,
+				return new ArrayList<>(collectExpressions(context.getContainingFile(), document,
 					Math.max(offset - 1, 0), false));
 			}
 

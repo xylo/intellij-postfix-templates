@@ -146,7 +146,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 		return new PostfixTemplateExpressionSelectorBase(additionalFilter) {
 			@Override
 			protected List<PsiElement> getNonFilteredExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
-				return ContainerUtil.newArrayList(collectExpressions(context.getContainingFile(), document, Math.max(offset - 1, 0), false));
+				return new ArrayList<>(collectExpressions(context.getContainingFile(), document, Math.max(offset - 1, 0), false));
 			}
 
 			@NotNull
