@@ -444,13 +444,6 @@
 	<depends optional="true" config-file="withGoModule.xml">com.intellij.modules.go-capable</depends>
 	<depends optional="true" config-file="withGoModule.xml">org.jetbrains.plugins.go</depends>
 
-	<application-components>
-		<component>
-			<interface-class>de.endrullis.idea.postfixtemplates.ApplicationInterface</interface-class>
-			<implementation-class>de.endrullis.idea.postfixtemplates.ApplicationImpl</implementation-class>
-		</component>
-	</application-components>
-
 	<extensions defaultExtensionNs="com.intellij">
 		<codeInsight.template.postfixTemplateProvider language="JavaScript"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptPostfixTemplateProvider"/>
