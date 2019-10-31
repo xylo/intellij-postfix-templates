@@ -1,6 +1,6 @@
 package de.endrullis.idea.postfixtemplates;
 
-import com.intellij.openapi.editor.actionSystem.EditorActionManager;
+import com.intellij.openapi.editor.actionSystem.TypedAction;
 import de.endrullis.idea.postfixtemplates.actions.EditorTypedHandler;
 import lombok.val;
 
@@ -16,8 +16,7 @@ public class ApplicationImpl implements ApplicationInterface {
 	}
 
 	private void setupEditorTypedHandler() {
-		val actionManager = EditorActionManager.getInstance();
-		val typedAction = actionManager.getTypedAction();
+		val typedAction = TypedAction.getInstance();
 		val oldHandler = typedAction.getHandler();
 		typedAction.setupHandler(new EditorTypedHandler(oldHandler));
 	}
