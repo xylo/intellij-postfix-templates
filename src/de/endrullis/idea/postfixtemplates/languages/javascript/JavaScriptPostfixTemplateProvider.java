@@ -13,6 +13,11 @@ public class JavaScriptPostfixTemplateProvider extends CustomPostfixTemplateProv
 		return "javascript";
 	}
 
+	@Override
+	public String getPluginClassName() {
+		return "com.intellij.lang.javascript.template.postfix.JSPostfixTemplateUtils";
+	}
+
 	@NotNull
 	@Override
 	protected CustomJavaScriptStringPostfixTemplate createTemplate(CptMapping mapping, String matchingClass, String conditionClass, String templateName, String description, String template, PostfixTemplateProvider provider) {
