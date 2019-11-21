@@ -3,11 +3,14 @@
 .new : new instance
 	CLASS                    →  new $expr$($END$)
 
-.val : extract as value
-	NON_VOID [lombok.val]    →  lombok.val $var:suggestVariableName()$ = $expr$;
-	NON_VOID                 →  final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;
 
-.varl : extract as lombok variable
+.val : final T name = expr
+	NON_VOID                →   final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;
+
+.vall : lombok.val name = expr
+	NON_VOID [lombok.val]   →   lombok.val $var:suggestVariableName()$ = $expr$;
+
+.varl : lombok.var name = expr
 	NON_VOID [lombok.var]    →  lombok.var $var:suggestVariableName()$ = $expr$;
 
 .orElse : or else
