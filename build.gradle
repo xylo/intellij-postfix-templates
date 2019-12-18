@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.intellij'
-version '2.10.12.193'
+version '2.10.13.193'
 
 sourceCompatibility = 1.8
 
@@ -19,7 +19,6 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
     compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.9.5'
-    compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.6'
     testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.6'
@@ -49,23 +48,23 @@ sourceSets {
 intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
-    version 'IU-193.4778-EAP-CANDIDATE-SNAPSHOT'
+    version 'IU-193.5662.53'
     //version '2018.2.2'
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
     plugins 'java',
-            'PythonCore:193.4778.7',
+            'PythonCore:193.5662.46',
             'Kotlin',
             'org.intellij.scala:2019.3.9',
             'JavaScriptLanguage',
             'CSS',
-            'Dart:193.4778.7',
+            'Dart:193.5731',
             'Groovy',
             'properties',
-            'org.jetbrains.plugins.ruby:193.4778.7',
-            'com.jetbrains.php:193.4778.7',
+            'org.jetbrains.plugins.ruby:193.5662.46',
+            'com.jetbrains.php:193.5662.46',
             'java-i18n',
             'DatabaseTools',
-            'org.jetbrains.plugins.go:193.4778.7.3'
+            'org.jetbrains.plugins.go:193.5233.102.83'
     updateSinceUntilBuild true
 
 //    plugins = ["PythonCore:2018.2.182.3684.101"]
