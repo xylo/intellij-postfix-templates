@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
+import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates.PREDEFINED_VARIABLES;
 
 /**
  * Common abstract class for simple string based postfix templates.
@@ -38,8 +39,6 @@ import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplate
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfixTemplate implements NavigatablePostfixTemplate {
-
-	public static final Set<String> PREDEFINED_VARIABLES = CustomPostfixTemplates.PREDEFINED_VARIABLES;
 
 	protected final String          template;
 	protected final Set<MyVariable> variables = new OrderedSet<>();

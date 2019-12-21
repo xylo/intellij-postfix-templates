@@ -26,6 +26,7 @@ import static de.endrullis.idea.postfixtemplates.languages.scala.ScalaPostfixTem
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
 import static de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate.addVariablesToTemplate;
+import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates.PREDEFINED_VARIABLES;
 
 /**
  * Custom postfix template for Scala.
@@ -34,8 +35,6 @@ import static de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPost
  */
 @SuppressWarnings("WeakerAccess")
 public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTemplate implements NavigatablePostfixTemplate {
-
-	public static final Set<String> PREDEFINED_VARIABLES = CustomPostfixTemplates.PREDEFINED_VARIABLES;
 
 	static final Pattern IMPORT_PATTERN = Pattern.compile("\\[IMPORT ([^\\]]+)\\]");
 
