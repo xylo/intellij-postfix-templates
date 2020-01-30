@@ -19,7 +19,7 @@ public class JavaPostfixTemplateProvider extends CustomPostfixTemplateProvider {
 
 	@Override
 	public String getPluginClassName() {
-		return "com.intellij.lang.javascript.psi.JSExpression";
+		return "com.intellij.psi.PsiJavaReference";
 	}
 
 	@NotNull
