@@ -6,7 +6,8 @@ plugins {
 group 'com.intellij'
 version '2.10.14.201'
 
-sourceCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_9
+targetCompatibility = JavaVersion.VERSION_1_9
 
 repositories {
     mavenCentral()
