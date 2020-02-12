@@ -27,6 +27,13 @@
   website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md#assertj-core
   description: Provides templates for assertj core assertThat API
 - lang: java
+  id: xylo.junit4
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/junit4.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates%:-xylo.JUnit4
+  description: Provides templates for JUnit4
+- lang: java
   id: cassiuscai.mockito
   url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/mockito.postfixTemplates
   author: Cassius Cai
@@ -136,6 +143,13 @@
   author: Stefan Endrullis
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates:-xylo.scala-arm
+- lang: scala
+  id: xylo.junit4
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/junit4.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates%:-xylo.JUnit4
+  description: Provides templates for JUnit4
 - lang: scala
   id: xylo.commons-logging
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/commons-logging.postfixTemplates
