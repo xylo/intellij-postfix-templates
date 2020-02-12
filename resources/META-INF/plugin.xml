@@ -452,12 +452,12 @@
 	<depends optional="true" config-file="withScalaModule.xml">org.intellij.scala</depends>
 	<depends optional="true" config-file="withKotlinModule.xml">org.jetbrains.kotlin</depends>
 	<depends optional="true" config-file="withDartModule.xml">Dart</depends>
-	<depends optional="true" config-file="withPythonModule.xml">com.intellij.modules.python-core-capable</depends>
+	<!--<depends optional="true" config-file="withPythonModule.xml">com.intellij.modules.python-core-capable</depends>-->
 	<depends optional="true" config-file="withPythonModule.xml">com.intellij.modules.python</depends>
 	<depends optional="true" config-file="withPhpModule.xml">com.jetbrains.php</depends>
 	<depends optional="true" config-file="withRustModule.xml">org.rust.lang</depends>
 	<depends optional="true" config-file="withGroovyModule.xml">org.intellij.groovy</depends>
-	<depends optional="true" config-file="withGoModule.xml">com.intellij.modules.go-capable</depends>
+	<!--<depends optional="true" config-file="withGoModule.xml">com.intellij.modules.go-capable</depends>-->
 	<depends optional="true" config-file="withGoModule.xml">org.jetbrains.plugins.go</depends>
 
 	<extensions defaultExtensionNs="com.intellij">

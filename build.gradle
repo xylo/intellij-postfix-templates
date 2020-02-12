@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.3'
+    id 'org.jetbrains.intellij' version '0.4.16'
 }
 
 group 'com.intellij'
@@ -15,14 +15,14 @@ repositories {
 
 
 dependencies {
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
-    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.9.5'
+    //compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    //compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.2'
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.2'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.6'
-    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.6'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
@@ -53,7 +53,8 @@ intellij {
     //version '2018.2.2'
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
     plugins 'java',
-            'PythonCore:201.4865.17',
+            //'PythonCore:201.4865.17',
+            'Pythonid:201.4865.17',
             'Kotlin',
             'org.intellij.scala:2020.1.8',
             'JavaScriptLanguage',
