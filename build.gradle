@@ -56,7 +56,7 @@ intellij {
             //'PythonCore:201.4865.17',
             'Pythonid:201.4865.17',
             'Kotlin',
-            'org.intellij.scala:2020.1.8',
+            'org.intellij.scala:2020.1.9',
             'JavaScriptLanguage',
             'CSS',
             'Dart:201.4865.19',
