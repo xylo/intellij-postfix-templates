@@ -10,6 +10,7 @@
 	java.util.Map            →  new ArrayList<>($expr$.entrySet())
 	java.util.Optional       →  $expr$.map(e -> Collections.singletonList(e)).orElse(Collections.emptyList())
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toList())
+	NON_VOID                 →  java.util.Collections.singletonList($expr$) [USE_STATIC_IMPORTS]
 
 .toSet : convert to Set
 	ARRAY                    →  java.util.stream.Stream.of($expr$).collect(java.util.stream.Collectors.toSet())
@@ -18,6 +19,7 @@
 	java.util.Map            →  $expr$.entrySet()
 	java.util.Optional       →  $expr$.map(e -> Collections.singleton(e)).orElse(Collections.emptySet())
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toSet())
+	NON_VOID                 →  java.util.Collections.singleton($expr$) [USE_STATIC_IMPORTS]
 
 .toMap : convert to Map
 	ARRAY                    →  java.util.Arrays.stream($expr$).collect(java.util.stream.Collectors.toMap($keyF$, $valueF$))
