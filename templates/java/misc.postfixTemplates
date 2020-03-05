@@ -22,6 +22,12 @@
 .elvis : a ? a : b
 	NON_VOID  →  $expr$ != null ? $expr$ : $END$
 
+.isNull : is null
+	NON_VOID  →  Objects.isNull($expr$)
+
+.notNull: is not null
+	NON_VOID  →  Objects.notNull($expr$)
+
 
 ## String templates ##
 
