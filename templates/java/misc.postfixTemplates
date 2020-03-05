@@ -25,8 +25,8 @@
 .isNull : is null
 	NON_VOID  →  Objects.isNull($expr$)
 
-.notNull: is not null
-	NON_VOID  →  Objects.notNull($expr$)
+.nonNull: is not null
+	NON_VOID  →  Objects.nonNull($expr$)
 
 
 ## String templates ##
