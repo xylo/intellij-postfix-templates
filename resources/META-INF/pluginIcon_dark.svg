@@ -1,101 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="16"
-   height="16"
-   viewBox="0 0 4.2333332 4.2333335"
-   version="1.1"
-   id="svg8"
-   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="cpt-icon.svg"
-   inkscape:export-filename="/home/stefan/programmierung/java/intellij-plugins/intellij-postfix-templates/dev/images/cpt-icon.png"
-   inkscape:export-xdpi="96.000008"
-   inkscape:export-ydpi="96.000008">
-  <defs
-     id="defs2" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="31.678384"
-     inkscape:cx="3.9949409"
-     inkscape:cy="5.3715092"
-     inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
-     showgrid="true"
-     units="px"
-     inkscape:window-width="1576"
-     inkscape:window-height="843"
-     inkscape:window-x="24"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1">
-    <inkscape:grid
-       type="xygrid"
-       id="grid4527" />
-  </sodipodi:namedview>
-  <metadata
-     id="metadata5">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Ebene 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-292.76665)">
-    <ellipse
-       style="opacity:1;fill:#ff9249;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.57156527;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path4529"
-       cx="1.8520833"
-       cy="294.88333"
-       rx="1.5875"
-       ry="1.8520833" />
-    <path
-       style="opacity:1;fill:#f46100;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.57156527;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 1.8520835,293.03123 a 1.5874999,1.8520833 0 0 0 -1.58750001,1.85209 1.5874999,1.8520833 0 0 0 1.58750001,1.85208 1.5874999,1.8520833 0 0 0 1.5874999,-1.85208 1.5874999,1.8520833 0 0 0 -1.5874999,-1.85209 z m 0,0.26459 a 1.3607142,1.5875 0 0 1 1.3607142,1.5875 1.3607142,1.5875 0 0 1 -1.3607142,1.5875 1.3607142,1.5875 0 0 1 -1.36071433,-1.5875 1.3607142,1.5875 0 0 1 1.36071433,-1.5875 z"
-       id="circle4536"
-       inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:125%;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;fill:#0080de;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       x="0.75216246"
-       y="295.91299"
-       id="text3701"
-       inkscape:export-xdpi="96.000008"
-       inkscape:export-ydpi="96.000008"><tspan
-         sodipodi:role="line"
-         id="tspan3699"
-         x="0.75216246"
-         y="295.91299"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';fill:#0080de;fill-opacity:1;stroke-width:0.26458332px;">p</tspan></text>
-    <path
-       id="rect4553"
-       style="opacity:1;fill:#0080de;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.59162241;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 3.7041647,295.01561 0.5291563,-10e-6 -0.5291563,0.52918 z m 0,-0.79374 0.5291634,0.52916 H 3.7041718 Z m -0.7937485,0.52916 1.322919,0 v 0.26457 l -1.322919,0 z"
-       inkscape:connector-curvature="0" />
-    <circle
-       style="opacity:1;fill:#008dee;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path4569"
-       cx="0.26458332"
-       cy="295.67706"
-       r="0.26458332" />
-  </g>
+<svg width="16" height="16" version="1.1" viewBox="0 0 4.2333 4.2333" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(0 -292.77)">
+  <ellipse cx="1.8521" cy="294.88" rx="1.3229" ry="1.5434" fill="#ff9249"/>
+  <path transform="matrix(.26458 0 0 .26458 0 292.77)" d="m7 2.166a5 5.8333 0 0 0-5 5.834 5 5.8333 0 0 0 0.16992 1.4844c-0.18018-0.074862-0.3728-0.11914-0.57031-0.11914-0.85591 0-1.6348 0.77885-1.6348 1.6348-3.8e-8 0.85591 0.77885 1.6348 1.6348 1.6348 0.64034 0 1.2266-0.43926 1.4844-1.0176a5 5.8333 0 0 0 0.25781 0.34961v3.1289c-2.15e-5 0.35074 0.28418 0.63477 0.63477 0.63477h1.1836c0.35058 0 0.63479-0.28422 0.63477-0.63477v-1.4395a5 5.8333 0 0 0 1.2051 0.17773 5 5.8333 0 0 0 4.8926-4.6621h0.43555v1.3281a0.6697 0.6697 0 0 0 1.1445 0.47266l2-2c0.26283-0.26241 0.45324-0.63112 0.43555-1.0117-0.017693-0.38064-0.20963-0.68154-0.41406-0.9082a0.6697 0.6697 0 0 0-0.021485-0.021484l-2-2a0.6697 0.6697 0 0 0-0.48047-0.19922 0.6697 0.6697 0 0 0-0.66406 0.67188v1.3281h-0.42969a5 5.8333 0 0 0-4.8984-4.666zm0 0.83398a4.2857 5 0 0 1 4.2852 5 4.2857 5 0 0 1-4.2852 5 4.2857 5 0 0 1-4.2852-5 4.2857 5 0 0 1 4.2852-5z" fill="#f46100"/>
+  <path d="m1.9063 293.99c-0.068902 0-0.13091 8e-3 -0.18604 0.0243-0.055121 0.0149-0.10508 0.0356-0.14986 0.062-0.043638 0.0253-0.081936 0.0553-0.11524 0.0909-0.033303 0.0345-0.063505 0.0719-0.089917 0.11214h-0.013436l-0.044959-0.25477h-0.25476v2.7388h0.31316v-0.80822c0-0.0184-8.038e-4 -0.0429-0.0031-0.0739-0.0023-0.0322-0.00494-0.0632-0.00723-0.093-0.00345-0.0356-0.00689-0.0731-0.010335-0.11214h0.020671c0.026412 0.0367 0.056614 0.0721 0.089917 0.10542 0.034451 0.0333 0.073151 0.0626 0.11679 0.0879 0.044786 0.0241 0.09474 0.0435 0.14986 0.0584 0.055122 0.0149 0.11673 0.0222 0.18448 0.0222 0.10795 0 0.20613-0.0207 0.29456-0.062 0.088424-0.0425 0.16381-0.1049 0.22583-0.18758 0.06316-0.0827 0.11179-0.18472 0.14624-0.30644 0.034451-0.12288 0.051676-0.26545 0.051676-0.42737 0-0.16077-0.017225-0.30202-0.051676-0.42374-0.034451-0.12173-0.083084-0.22336-0.14624-0.3049-0.062012-0.0827-0.1374-0.14469-0.22583-0.18603-0.088424-0.0413-0.18661-0.062-0.29456-0.062zm1.5332 0.23461v0.52916h-0.62104v0.26459h0.62104v0.52916l0.52917-0.52916c0.092626-0.0925 0.076346-0.17994 0-0.26459zm-1.5937 0.0253c0.15733 0 0.27233 0.0595 0.34468 0.17777 0.073495 0.11828 0.11007 0.2965 0.11007 0.53536 0 0.23427-0.036576 0.41433-0.11007 0.53951-0.072347 0.12517-0.18604 0.18758-0.34106 0.18758-0.093017 0-0.17053-0.0155-0.23254-0.0465-0.062012-0.0322-0.11197-0.0787-0.14986-0.13952-0.036748-0.062-0.062988-0.13781-0.079065-0.22738-0.014929-0.0907-0.022738-0.19407-0.022738-0.31006v-0.0708c0.0023-0.1091 0.01223-0.20384 0.029456-0.28423 0.018374-0.0804 0.045935-0.14756 0.082682-0.20153 0.037896-0.054 0.086529-0.094 0.14624-0.12041 0.060863-0.0264 0.13493-0.0398 0.22221-0.0398zm-1.4143 1.1653c-0.14613 0-0.26459 0.11846-0.26458 0.26459 1.83e-6 0.14612 0.11846 0.26458 0.26458 0.26458 0.14612 0 0.26458-0.11846 0.26458-0.26458 3.69e-6 -0.14613-0.11846-0.26459-0.26458-0.26459z" fill="#00004e"/>
+  <path d="m3.4395 294.22v0.52929h-0.62109v0.26367h0.62109v0.5293l0.5293-0.5293c0.092626-0.0925 0.076346-0.17902 0-0.26367z" fill="#00004e"/>
+ </g>
 </svg>
