@@ -13,9 +13,9 @@ import javax.swing.*;
 
 public class CptPluginConfigurable implements SearchableConfigurable, Configurable.NoScroll {
 	@Nullable
-	private CptPluginSettingsForm form = null;
+	private       CptPluginSettingsForm  form = null;
 	@NotNull
-	private CptApplicationSettings pluginApplicationSettings;
+	private final CptApplicationSettings pluginApplicationSettings;
 
 	public CptPluginConfigurable(@NotNull CptApplicationSettings pluginApplicationSettings) {
 		this.pluginApplicationSettings = pluginApplicationSettings;

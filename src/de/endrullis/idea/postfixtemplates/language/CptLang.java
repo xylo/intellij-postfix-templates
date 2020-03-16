@@ -1,5 +1,8 @@
 package de.endrullis.idea.postfixtemplates.language;
 
+import lombok.SneakyThrows;
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -29,15 +32,12 @@ public abstract class CptLang {
 		return language;
 	}
 
+	@SneakyThrows
+	@NotNull
 	public CptLangAnnotator getAnnotator() {
 		// instantiate annotator if not yet done
 		if (annotator == null) {
-			try {
-				annotator = annotatorClass.getConstructor().newInstance();
-			} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-				e.printStackTrace();
-				return null;
-			}
+			annotator = annotatorClass.getConstructor().newInstance();
 		}
 
 		return annotator;
