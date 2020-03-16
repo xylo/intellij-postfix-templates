@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.intellij'
-version '2.10.14.201'
+version '2.10.15.201'
 
 sourceCompatibility = JavaVersion.VERSION_1_9
 targetCompatibility = JavaVersion.VERSION_1_9
@@ -15,8 +15,8 @@ repositories {
 
 
 dependencies {
-    //compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    //compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.2'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.2'
     compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.2'
@@ -56,7 +56,7 @@ intellij {
             //'PythonCore:201.6073.9',
             'Pythonid:201.6073.9',
             'Kotlin',
-            'org.intellij.scala:2020.1.12',
+            'org.intellij.scala:2020.1.843@nightly',
             'JavaScriptLanguage',
             'CSS',
             'Dart:201.6073.9',
