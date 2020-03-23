@@ -3,22 +3,20 @@ package de.endrullis.idea.postfixtemplates.languages.kotlin;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.kotlin.KtNodeTypes;
-import org.jetbrains.kotlin.caches.resolve.KotlinCacheService;
 import org.jetbrains.kotlin.idea.caches.resolve.ResolutionUtils;
-import org.jetbrains.kotlin.idea.resolve.ResolutionFacade;
-import org.jetbrains.kotlin.psi.*;
+import org.jetbrains.kotlin.psi.KtConstantExpression;
+import org.jetbrains.kotlin.psi.KtExpression;
+import org.jetbrains.kotlin.psi.KtNameReferenceExpression;
+import org.jetbrains.kotlin.psi.KtStringTemplateExpression;
 import org.jetbrains.kotlin.renderer.DescriptorRenderer;
 import org.jetbrains.kotlin.resolve.BindingContext;
-import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode;
 import org.jetbrains.kotlin.types.expressions.KotlinTypeInfo;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
