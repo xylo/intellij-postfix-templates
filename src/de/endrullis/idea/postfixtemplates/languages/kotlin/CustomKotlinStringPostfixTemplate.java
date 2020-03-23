@@ -10,13 +10,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.kotlin.KtNodeTypes;
 import org.jetbrains.kotlin.caches.resolve.KotlinCacheService;
+import org.jetbrains.kotlin.idea.caches.resolve.ResolutionUtils;
 import org.jetbrains.kotlin.idea.resolve.ResolutionFacade;
-import org.jetbrains.kotlin.psi.KtConstantExpression;
-import org.jetbrains.kotlin.psi.KtExpression;
-import org.jetbrains.kotlin.psi.KtLiteralStringTemplateEntry;
-import org.jetbrains.kotlin.psi.KtStringTemplateExpression;
+import org.jetbrains.kotlin.psi.*;
+import org.jetbrains.kotlin.renderer.DescriptorRenderer;
 import org.jetbrains.kotlin.resolve.BindingContext;
 import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode;
+import org.jetbrains.kotlin.types.expressions.KotlinTypeInfo;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,6 +28,8 @@ import java.util.Map;
  */
 @SuppressWarnings("WeakerAccess")
 public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
+
+	private static final DescriptorRenderer typeRenderer = DescriptorRenderer.FQ_NAMES_IN_TYPES;
 
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), e -> e instanceof KtExpression);
@@ -48,16 +50,12 @@ public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixT
 
 	@NotNull
 	public static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String conditionClass) {
-		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
-
-		if (psiElementCondition == null) {
-			//psiElementCondition = MyJavaPostfixTemplatesUtils.isCustomClass(matchingClass);
-		}
+		final Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
 
 		if (psiElementCondition != null) {
 			return psiElementCondition;
 		} else {
-			return e -> false;
+			return psiElement -> classMatches(matchingClass, psiElement);
 		}
 
 		/*
@@ -97,9 +95,20 @@ public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixT
 		//};
 	}
 
-	private static BindingContext analyze(KtExpression ktExpression, BodyResolveMode bodyResolveMode) {
-		final ResolutionFacade resolutionFacade = KotlinCacheService.Companion.getInstance(ktExpression.getProject()).getResolutionFacade(Collections.singletonList(ktExpression));
-		return resolutionFacade.analyze(ktExpression, bodyResolveMode);
+	private static boolean classMatches(String matchingClass, PsiElement psiElement) {
+		if (psiElement instanceof KtNameReferenceExpression) {
+			final KtNameReferenceExpression ktRef = (KtNameReferenceExpression) psiElement;
+			final BindingContext context = ResolutionUtils.analyze(ktRef);
+			final KotlinTypeInfo info = context.get(BindingContext.EXPRESSION_TYPE_INFO, ktRef);
+
+			if (info != null && info.getType() != null) {
+				final String fqdn = typeRenderer.renderType(info.getType());
+
+				return matchingClass.equals(fqdn);
+			}
+		}
+
+		return false;
 	}
 
 }
