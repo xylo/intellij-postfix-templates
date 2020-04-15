@@ -47,8 +47,8 @@
 #	NON_VOID                 →  System.out.println($expr$)
 
 .soutv : print variable to System.out
-	ARRAY                    →  System.out.println("$expr$ = " + java.util.Arrays.toString($expr$));
-	NON_VOID                 →  System.out.println("$expr$ = " + $expr$);
+	ARRAY                    →  System.out.println("$escapedExpr*:escapeString(expr)$ = " + java.util.Arrays.toString($expr$));
+	NON_VOID                 →  System.out.println("$escapedExpr*:escapeString(expr)$ = " + $expr$);
 
 .run : run shell command
 	java.lang.String         →  java.lang.Runtime.getRuntime().exec($expr$)
