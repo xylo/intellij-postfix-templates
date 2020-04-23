@@ -17,6 +17,7 @@
 	ARRAY                    →  java.util.stream.Stream.of($expr$).collect(java.util.stream.Collectors.toSet())
 	java.util.Collection     →  new java.util.HashSet<>($expr$)
 	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toSet())
+	java.util.Enumeration    →  new java.util.HashSet<>(java.util.Collections.list($expr$))
 	java.util.Map            →  $expr$.entrySet()
 	java.util.Optional       →  $expr$.map(e -> java.util.Collections.singleton(e)).orElse(java.util.Collections.emptySet())
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toSet())
