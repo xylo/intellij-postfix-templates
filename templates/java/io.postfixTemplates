@@ -22,6 +22,7 @@
 	java.net.URL             →  new java.util.Scanner($expr$.openStream(), $encoding::"\"UTF-8\""$).useDelimiter("\\\\A").next()
 
 .inputStream : get input stream
+	ARRAY                    →  new java.io.ByteArrayInputStream($expr$)
 	java.lang.String         →  new java.io.ByteArrayInputStream($expr$.getBytes())
 	java.io.File             →  new java.io.FileInputStream($expr$)
 	java.net.URL             →  $expr$.openStream()
