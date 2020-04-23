@@ -7,6 +7,7 @@
 	ARRAY                    →  java.util.Arrays.asList($expr$)
 	java.util.Collection     →  new java.util.ArrayList<>($expr$)
 	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false).collect(java.util.stream.Collectors.toList())
+	java.util.Enumeration    →  java.util.Collections.list($expr$)
 	java.util.Map            →  new ArrayList<>($expr$.entrySet())
 	java.util.Optional       →  $expr$.map(e -> java.util.Collections.singletonList(e)).orElse(java.util.Collections.emptyList())
 	java.util.stream.Stream  →  $expr$.collect(java.util.stream.Collectors.toList())
