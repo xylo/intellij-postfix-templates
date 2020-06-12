@@ -1,13 +1,24 @@
 package de.endrullis.idea.postfixtemplates.languages.go;
 
+import com.goide.util.GoUtil;
+import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelector;
+import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelectorBase;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
+import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiExpression;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.TokenType;
+import com.intellij.psi.util.PsiExpressionTrimRenderer;
+import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.util.Function;
+import com.intellij.util.containers.ContainerUtil;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static de.endrullis.idea.postfixtemplates.languages.go.GoPostfixTemplatesUtils.*;
 
@@ -34,10 +45,74 @@ public class CustomGoStringPostfixTemplate extends SimpleStringBasedPostfixTempl
 		put(GoSpecialType.STRING.name(), IS_STRING);
 	}};
 
+	public static List<PsiElement> collectExpressions(final PsiFile file,
+													  final Document document,
+													  final int offset,
+													  boolean acceptVoid) {
+		CharSequence text = document.getCharsSequence();
+		final PsiElement elementAtCaret = file.findElementAt(offset);
+		final List<PsiElement> expressions = new ArrayList<>();
+
+		PsiElement expression = PsiTreeUtil.getParentOfType(elementAtCaret, PsiElement.class);
+
+		while (expression != null && !(expression instanceof PsiFile) && expression.getTextRange().getEndOffset() == elementAtCaret.getTextRange().getEndOffset()) {
+			final PsiElement finalExpression = expression;
+
+			if (expression.getPrevSibling() == null || expression.getPrevSibling().getNode().getElementType() == TokenType.WHITE_SPACE) {
+				if (expressions.stream().noneMatch(pe -> finalExpression.getTextRange().equals(pe.getTextRange()))) {
+					expressions.add(expression);
+				}
+			}
+
+
+			expression = expression.getParent();
+		}
+
+		// TODO: For an unknown reason this code completion works only with a single expression and not with multiple ones.
+		// TODO: Therefore we have to cut our list to a singleton list.
+		if (expressions.isEmpty()) {
+			return expressions;
+		}
+		ArrayList<PsiElement> es = new ArrayList<>();
+		es.add(expressions.get(0));
+		return es;
+	}
+
 	public CustomGoStringPostfixTemplate(String clazz, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
 		super(name, example, template, provider, psiElement, selectorAllExpressionsWithCurrentOffset(getCondition(clazz)));
 	}
 
+	public static PostfixTemplateExpressionSelector selectorAllExpressionsWithCurrentOffset(final Condition<PsiElement> additionalFilter) {
+		return new PostfixTemplateExpressionSelectorBase(additionalFilter) {
+			@Override
+			protected List<PsiElement> getNonFilteredExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
+				return new ArrayList<>(collectExpressions(context.getContainingFile(), document, Math.max(offset - 1, 0), false));
+			}
+
+			@NotNull
+			@Override
+			public List<PsiElement> getExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
+				if (DumbService.getInstance(context.getProject()).isDumb()) return Collections.emptyList();
+
+				List<PsiElement> expressions = super.getExpressions(context, document, offset);
+
+				if (!expressions.isEmpty()) return expressions;
+
+				final PsiExpression topmostExpression = null;
+				return ContainerUtil.filter(ContainerUtil.<PsiElement>createMaybeSingletonList(topmostExpression), getFilters(offset));
+			}
+
+			@NotNull
+			@Override
+			public Function<PsiElement, String> getRenderer() {
+				return element -> {
+					assert element instanceof PsiExpression;
+
+					return (new PsiExpressionTrimRenderer.RenderFunction()).fun((PsiExpression) element);
+				};
+			}
+		};
+	}
 	@NotNull
 	public static Condition<PsiElement> getCondition(String clazz) {
 		return type2psiCondition.get(clazz);
