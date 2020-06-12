@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.kotlin.KtNodeTypes;
 import org.jetbrains.kotlin.idea.caches.resolve.ResolutionUtils;
+import org.jetbrains.kotlin.idea.codeInsight.postfix.KtPostfixTemplateProviderKt;
 import org.jetbrains.kotlin.psi.KtConstantExpression;
 import org.jetbrains.kotlin.psi.KtExpression;
 import org.jetbrains.kotlin.psi.KtNameReferenceExpression;
@@ -38,7 +39,7 @@ public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixT
 	}};
 
 	public CustomKotlinStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
-		super(name, example, template, provider, psiElement, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)));
+		super(name, example, template, provider, psiElement, KtPostfixTemplateProviderKt.createExpressionSelector(true, false, null));
 	}
 
 	@Override

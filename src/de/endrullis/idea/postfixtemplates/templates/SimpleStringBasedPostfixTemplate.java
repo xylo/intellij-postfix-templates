@@ -22,7 +22,6 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
-import de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,6 +31,7 @@ import java.util.stream.Collectors;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
 import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates.PREDEFINED_VARIABLES;
+import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
 /**
  * Common abstract class for simple string based postfix templates.
@@ -135,10 +135,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 		if (expressions.isEmpty()) {
 			return expressions;
 		}
-		ArrayList<PsiElement> es = new ArrayList<>();
-		es.add(expressions.get(0));
-		//es.add(expressions.get(expressions.size()-1));
-		return es;
+		return _List(expressions.get(0));
 	}
 
 	public static PostfixTemplateExpressionSelector selectorAllExpressionsWithCurrentOffset(final Condition<PsiElement> additionalFilter) {
