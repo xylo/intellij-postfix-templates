@@ -1,5 +1,6 @@
 package de.endrullis.idea.postfixtemplates.languages.go;
 
+import com.goide.util.GoUtil;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelector;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelectorBase;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
@@ -49,24 +50,7 @@ public class CustomGoStringPostfixTemplate extends SimpleStringBasedPostfixTempl
 													  final int offset,
 													  boolean acceptVoid) {
 		CharSequence text = document.getCharsSequence();
-		int correctedOffset = offset;
-		int textLength = document.getTextLength();
-		if (offset >= textLength) {
-			correctedOffset = textLength - 1;
-		} else if (!Character.isJavaIdentifierPart(text.charAt(offset))) {
-			correctedOffset--;
-		}
-		if (correctedOffset < 0) {
-			correctedOffset = offset;
-		} else if (!Character.isJavaIdentifierPart(text.charAt(correctedOffset))) {
-			if (text.charAt(correctedOffset) == ';') {//initially caret on the end of line
-				correctedOffset--;
-			}
-			if (correctedOffset < 0 || text.charAt(correctedOffset) != ')') {
-				correctedOffset = offset;
-			}
-		}
-		final PsiElement elementAtCaret = file.findElementAt(correctedOffset);
+		final PsiElement elementAtCaret = file.findElementAt(offset);
 		final List<PsiElement> expressions = new ArrayList<>();
 
 		PsiElement expression = PsiTreeUtil.getParentOfType(elementAtCaret, PsiElement.class);
