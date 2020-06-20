@@ -1,19 +1,12 @@
-package de.endrullis.idea.postfixtemplates;
+package de.endrullis.idea.postfixtemplates.languages.kotlin;
 
-import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.ide.highlighter.JavaFileType;
-import com.intellij.openapi.projectRoots.JavaSdk;
-import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.LanguageLevelProjectExtension;
 import com.intellij.pom.java.LanguageLevel;
 import com.intellij.psi.PsiFile;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase;
 
-import java.util.List;
-import java.util.regex.Pattern;
-
-public class CptCodeInsightTest extends LightJavaCodeInsightFixtureTestCase {
+public class KotlinTemplatesTest extends LightJavaCodeInsightFixtureTestCase {
 	@Override
 	protected String getTestDataPath() {
 		return "test/src-test";
