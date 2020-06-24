@@ -45,6 +45,12 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.11.2</h3>
+			<ul>
+				<li>Fixed bug #161: Kotlin String to Toast - String is not detected.</li>
+				<li>Fixed bug #163: Kotlin template is only applied to method parameter instead of whole expression.</li>
+			</ul>
+
 			<h3>Version 2.11.1</h3>
 			<ul>
 				<li>Fixed bug #165: ANY doesn't work when function has parameter in Go.
