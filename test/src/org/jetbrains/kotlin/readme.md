@@ -1,1 +1,0 @@
-This directory is copied from the kotlin repo.
