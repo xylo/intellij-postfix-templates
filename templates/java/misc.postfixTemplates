@@ -40,5 +40,8 @@
 
 ## Date templates ##
 
-.toDate : to date
+.toDate : to Date
 	java.time.LocalDateTime   →   java.util.Date.from($expr$.atZone($zone::"ZoneId.systemDefault()"$).toInstant())
+
+.toLocalDateTime : to LocalDateTime
+	java.util.Date            →   java.time.LocalDateTime.ofInstant($expr$.toInstant(), $zone::"ZoneId.systemDefault()"$)
