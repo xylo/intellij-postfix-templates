@@ -36,3 +36,9 @@
 
 .uncapitalize : uncapitalize first character
 	java.lang.String         →  $expr$.substring(0, 1).toLowerCase() + $expr$.substring(1)
+
+
+## Date templates ##
+
+.toDate : to date
+	java.time.LocalDateTime   →   java.util.Date.from($expr$.atZone($zone::"ZoneId.systemDefault()"$).toInstant())
