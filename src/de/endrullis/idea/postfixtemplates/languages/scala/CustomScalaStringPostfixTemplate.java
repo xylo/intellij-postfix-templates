@@ -5,14 +5,12 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.OrderedSet;
-import de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates;
 import de.endrullis.idea.postfixtemplates.templates.MyVariable;
 import de.endrullis.idea.postfixtemplates.templates.NavigatablePostfixTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.plugins.scala.annotator.intention.ScalaAddImportAction;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.ScalaStringBasedPostfixTemplate;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
 import org.jetbrains.plugins.scala.lang.psi.ScImportsHolder;
@@ -38,7 +36,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 
 	static final Pattern IMPORT_PATTERN = Pattern.compile("\\[IMPORT ([^\\]]+)\\]");
 
-	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<>() {{
 		put(SpecialType.ANY.name(), e -> true);
 		put(SpecialType.VOID.name(), VOID);
 		put(SpecialType.NON_VOID.name(), NON_VOID);
@@ -157,7 +155,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	}
 
 	private void addImport(@NotNull PsiElement expr, String qualifiedName) {
-		ScImportsHolder importHolder = ScalaAddImportAction.getImportHolder(expr, expr.getProject());
+		ScImportsHolder importHolder = ScImportsHolder.apply(expr, expr.getProject());
 
 		boolean imported = importHolder.getAllImportUsed().exists(i -> i.qualName().exists(n -> n.equals(qualifiedName)));
 
