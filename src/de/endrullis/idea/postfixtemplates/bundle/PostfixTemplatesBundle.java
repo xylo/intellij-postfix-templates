@@ -15,7 +15,7 @@
  */
 package de.endrullis.idea.postfixtemplates.bundle;
 
-import com.intellij.CommonBundle;
+import com.intellij.AbstractBundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.PropertyKey;
 
@@ -29,6 +29,6 @@ public class PostfixTemplatesBundle {
 
 	@NotNull
 	public static String message(@NotNull @PropertyKey(resourceBundle = BUNDLE_NAME) String key, Object... params) {
-		return CommonBundle.message(BUNDLE, key, params);
+		return AbstractBundle.message(BUNDLE, key, params);
 	}
 }

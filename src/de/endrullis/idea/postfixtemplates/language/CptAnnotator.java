@@ -2,6 +2,7 @@ package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
+import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTypes;
@@ -27,7 +28,7 @@ public class CptAnnotator implements Annotator {
 					final CptLangAnnotator annotator = lang.getAnnotator();
 
 					if (!annotator.isMatchingType(psiElement, className)) {
-						holder.createErrorAnnotation(element.getTextRange(), "Class not found");
+						holder.newAnnotation(HighlightSeverity.ERROR, "Class not found").range(element.getTextRange()).create();
 					}
 				});
 			}

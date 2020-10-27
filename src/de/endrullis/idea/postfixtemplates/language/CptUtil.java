@@ -2,6 +2,7 @@ package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.ide.DataManager;
 import com.intellij.ide.plugins.PluginManager;
+import com.intellij.ide.plugins.PluginManagerCore;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.extensions.PluginId;
@@ -173,7 +174,7 @@ public class CptUtil {
 	 * @return path of the CPT plugin settings directory
 	 */
 	public static File getPluginPath() {
-		File path = PluginManager.getPlugin(PluginId.getId(CptUtil.PLUGIN_ID)).getPath();
+		File path = PluginManagerCore.getPlugin(PluginId.getId(CptUtil.PLUGIN_ID)).getPath();
 
 		if (path.getName().endsWith(".jar")) {
 			path = new File(path.getParentFile(), path.getName().substring(0, path.getName().length() - 4));
