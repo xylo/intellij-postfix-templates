@@ -1,7 +1,7 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.util.Disposer;
 import de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle;
@@ -14,12 +14,6 @@ import javax.swing.*;
 public class CptPluginConfigurable implements SearchableConfigurable, Configurable.NoScroll {
 	@Nullable
 	private CptPluginSettingsForm form = null;
-	@NotNull
-	private CptApplicationSettings pluginApplicationSettings;
-
-	public CptPluginConfigurable(@NotNull CptApplicationSettings pluginApplicationSettings) {
-		this.pluginApplicationSettings = pluginApplicationSettings;
-	}
 
 	@NotNull
 	@Override
@@ -61,17 +55,17 @@ public class CptPluginConfigurable implements SearchableConfigurable, Configurab
 
 	@Override
 	public boolean isModified() {
-		return !getForm().getPluginSettings().equals(pluginApplicationSettings.getPluginSettings());
+		return !getForm().getPluginSettings().equals(getPluginApplicationSettings().getPluginSettings());
 	}
 
 	@Override
-	public void apply() throws ConfigurationException {
-		pluginApplicationSettings.setPluginSettings(getForm().getPluginSettings());
+	public void apply() {
+		getPluginApplicationSettings().setPluginSettings(getForm().getPluginSettings());
 	}
 
 	@Override
 	public void reset() {
-		getForm().setPluginSettings(pluginApplicationSettings.getPluginSettings());
+		getForm().setPluginSettings(getPluginApplicationSettings().getPluginSettings());
 	}
 
 	@Override
@@ -80,6 +74,10 @@ public class CptPluginConfigurable implements SearchableConfigurable, Configurab
 			Disposer.dispose(form);
 		}
 		form = null;
+	}
+
+	private CptApplicationSettings getPluginApplicationSettings(){
+		return ServiceManager.getService(CptApplicationSettings.class);
 	}
 
 }
