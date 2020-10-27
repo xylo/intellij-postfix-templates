@@ -45,6 +45,14 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.11.3</h3>
+			<ul>
+				<li>Hopefully fixed bug #176: Plugin can't be enabled in Android Studio 4.1.</li>
+				<li>Fixed bug #175: IDEA log warning: Class constructor must not have parameters.
+						Credits for implementation go to <a href="https://github.com/ikopysov">ikopysov</a>.</li>
+				</li>
+			</ul>
+
 			<h3>Version 2.11.2</h3>
 			<ul>
 				<li>Fixed bug #161: Kotlin String to Toast - String is not detected.</li>
