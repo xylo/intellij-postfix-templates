@@ -42,7 +42,7 @@ public class CptUpdateUtils {
 
 		if (pluginSettings.isUpdateWebTemplatesAutomatically()) {
 
-			ProgressManager.getInstance().run(new Task.Backgroundable(project, "Updating Custom Postfix Web Templates") {
+			ProgressManager.getInstance().run(new Task.Backgroundable(project, "Updating custom postfix web templates") {
 				public void run(@NotNull ProgressIndicator progressIndicator) {
 					progressIndicator.setIndeterminate(false);
 
@@ -97,7 +97,7 @@ public class CptUpdateUtils {
 						}
 
 						progressIndicator.setFraction(1.0);
-						progressIndicator.setText("finished");
+						progressIndicator.setText("Finished");
 
 						if (afterUpdateAction != null) {
 							afterUpdateAction.run();

@@ -1,10 +1,6 @@
 package de.endrullis.idea.postfixtemplates.language;
 
-import com.intellij.ide.DataManager;
-import com.intellij.ide.plugins.PluginManager;
 import com.intellij.ide.plugins.PluginManagerCore;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.options.ShowSettingsUtil;
@@ -137,9 +133,9 @@ public class CptUtil {
 	 *
 	 * @param file file
 	 * @return content of the given file
-	 * @throws FileNotFoundException
 	 */
-	public static String getContent(@NotNull File file) throws FileNotFoundException {
+	@NotNull
+	public static String getContent(@NotNull File file) {
 		try {
 			return getContent(new FileInputStream(file));
 		} catch (IOException e) {
@@ -174,7 +170,7 @@ public class CptUtil {
 	 * @return path of the CPT plugin settings directory
 	 */
 	public static File getPluginPath() {
-		File path = PluginManagerCore.getPlugin(PluginId.getId(CptUtil.PLUGIN_ID)).getPath();
+		File path = PluginManagerCore.getPlugin(PluginId.getId(CptUtil.PLUGIN_ID)).getPluginPath().toFile();
 
 		if (path.getName().endsWith(".jar")) {
 			path = new File(path.getParentFile(), path.getName().substring(0, path.getName().length() - 4));

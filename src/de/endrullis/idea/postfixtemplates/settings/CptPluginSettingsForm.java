@@ -75,41 +75,37 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		checkboxTree = new CptManagementTree() {
 			@Override
 			protected void selectionChanged() {
-				try {
-					assert checkboxTree != null;
-					val selectedFile = checkboxTree.getSelectedFile();
+				assert checkboxTree != null;
+				val selectedFile = checkboxTree.getSelectedFile();
 
-					if (selectedFile != null) {
-						val file     = selectedFile.getFile();
-						val fileName = selectedFile.getName().replace(".postfixTemplates", "");
-						setEditorContent(file.exists() ? CptUtil.getContent(file) : "");
+				if (selectedFile != null) {
+					val file     = selectedFile.getFile();
+					val fileName = selectedFile.getName().replace(".postfixTemplates", "");
+					setEditorContent(file.exists() ? CptUtil.getContent(file) : "");
 
-						if (selectedFile.isSelfMade()) {
-							templatesFileInfoLabel.setText("<html><body>User Template File \"" + fileName + "\"");
-						} else if (selectedFile.isLocal()) {
-							String s = "<html><body>Local Template File \"" + fileName + "\"<table style='width: 100%'>";
-							s += "<tr><td>URL:</td><td style='width: 100%'><a href=\"" + selectedFile.getUrl().toString() + "\">" + limitTo50(selectedFile.getUrl().toString()) + "</a></td></tr></table>";
-							templatesFileInfoLabel.setText(s);
-						} else if (selectedFile.getWebTemplateFile() != null) {
-							val    webTemplateFile = selectedFile.getWebTemplateFile();
-							String subject         = "";
-							try {
-								subject = URLEncoder.encode("[Custom Postfix Templates] " + fileName, "UTF-8").replaceAll("\\+", "%20");
-							} catch (UnsupportedEncodingException e) {
-								e.printStackTrace();
-							}
-							String s = "<html><body>Web Template File \"" + fileName + "\"<table style='width: 100%'>";
-							s += "<tr><td>Author:</td><td style='width: 100%'><a href=\"mailto:" + webTemplateFile.email + "?subject=" + subject + "\">" + webTemplateFile.author + "</a></td></tr>";
-							s += "<tr><td>Website:</td><td style='width: 100%'><a href=\"" + webTemplateFile.website + "\">" + limitTo50(webTemplateFile.website) + "</a></td></tr>";
-							s += "<tr><td>URL:</td><td style='width: 100%'><a href=\"" + selectedFile.getUrl().toString() + "\">" + limitTo50(selectedFile.getUrl().toString()) + "</a></td></tr>";
-							s += "<tr><tds>Description:</td><td style='width: 100%'>" + webTemplateFile.description + "</td></tr></table>";
-							templatesFileInfoLabel.setText(s);
-						} else {
-							templatesFileInfoLabel.setText("");
+					if (selectedFile.isSelfMade()) {
+						templatesFileInfoLabel.setText("<html><body>User Template File \"" + fileName + "\"");
+					} else if (selectedFile.isLocal()) {
+						String s = "<html><body>Local Template File \"" + fileName + "\"<table style='width: 100%'>";
+						s += "<tr><td>URL:</td><td style='width: 100%'><a href=\"" + selectedFile.getUrl().toString() + "\">" + limitTo50(selectedFile.getUrl().toString()) + "</a></td></tr></table>";
+						templatesFileInfoLabel.setText(s);
+					} else if (selectedFile.getWebTemplateFile() != null) {
+						val    webTemplateFile = selectedFile.getWebTemplateFile();
+						String subject         = "";
+						try {
+							subject = URLEncoder.encode("[Custom Postfix Templates] " + fileName, "UTF-8").replaceAll("\\+", "%20");
+						} catch (UnsupportedEncodingException e) {
+							e.printStackTrace();
 						}
+						String s = "<html><body>Web Template File \"" + fileName + "\"<table style='width: 100%'>";
+						s += "<tr><td>Author:</td><td style='width: 100%'><a href=\"mailto:" + webTemplateFile.email + "?subject=" + subject + "\">" + webTemplateFile.author + "</a></td></tr>";
+						s += "<tr><td>Website:</td><td style='width: 100%'><a href=\"" + webTemplateFile.website + "\">" + limitTo50(webTemplateFile.website) + "</a></td></tr>";
+						s += "<tr><td>URL:</td><td style='width: 100%'><a href=\"" + selectedFile.getUrl().toString() + "\">" + limitTo50(selectedFile.getUrl().toString()) + "</a></td></tr>";
+						s += "<tr><tds>Description:</td><td style='width: 100%'>" + webTemplateFile.description + "</td></tr></table>";
+						templatesFileInfoLabel.setText(s);
+					} else {
+						templatesFileInfoLabel.setText("");
 					}
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
 				}
 			}
 		};

@@ -533,7 +533,7 @@
 		<langCodeStyleSettingsProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLanguageCodeStyleSettingsProvider"/>
 		<lang.commenter language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptCommenter"/>
 		<todoIndexer filetype="CPT file" implementationClass="de.endrullis.idea.postfixtemplates.language.CptTodoIndexer"/>
-		<defaultLiveTemplatesProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLiveTemplatesProvider"/>
+		<defaultLiveTemplates file="liveTemplates/CustomPostfixTCptUtilemplates"/>
 		<liveTemplateContext implementation="de.endrullis.idea.postfixtemplates.language.CptContext"/>
 		<lookup.actionProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLookupActionProvider"/>
 		<postStartupActivity implementation="de.endrullis.idea.postfixtemplates.MyPostStartupActivity"/>
