@@ -38,9 +38,9 @@
 	NUMBER                   →  ((double) ($expr$))
 	
 .toBigDecimal : convert to BigDecimal
-	java.lang.String         →  new BigDecimal($expr$)
-	java.lang.Number         →  new BigDecimal($expr$)
-	NUMBER                   →  new BigDecimal($expr$)
+	java.lang.String         →  new java.math.BigDecimal($expr$)
+	java.lang.Number         →  new java.math.BigDecimal($expr$)
+	NUMBER                   →  new java.math.BigDecimal($expr$)
 	
 .format : format number
 	BYTE                     →  String.format("$format::"%d"$", $expr$)
