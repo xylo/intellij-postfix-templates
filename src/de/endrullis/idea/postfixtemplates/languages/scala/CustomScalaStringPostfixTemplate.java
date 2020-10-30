@@ -36,7 +36,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 
 	static final Pattern IMPORT_PATTERN = Pattern.compile("\\[IMPORT ([^\\]]+)\\]");
 
-	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<>() {{
+	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), e -> true);
 		put(SpecialType.VOID.name(), VOID);
 		put(SpecialType.NON_VOID.name(), NON_VOID);
