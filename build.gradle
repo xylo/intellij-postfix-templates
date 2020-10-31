@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.intellij'
-version '2.11.3.202'
+version '2.11.5.203'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
