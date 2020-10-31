@@ -29,7 +29,7 @@ public class JavaPostfixTemplateProvider extends CustomPostfixTemplateProvider {
 	}
 
 	protected boolean isSemicolonNeeded(@NotNull PsiFile file, @NotNull Editor editor) {
-		return JavaCompletionContributor.semicolonNeeded(editor, file, CompletionInitializationContext.calcStartOffset(editor.getCaretModel().getCurrentCaret()));
+		return JavaCompletionContributor.semicolonNeeded(file, CompletionInitializationContext.calcStartOffset(editor.getCaretModel().getCurrentCaret()));
 	}
 
 }
