@@ -3,7 +3,7 @@ package de.endrullis.idea.postfixtemplates.languages.scala;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
-import scala.collection.JavaConverters;
+import scala.jdk.javaapi.CollectionConverters;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +32,7 @@ class ScalaPostfixTemplatesUtils {
 	}
 
 	public static Condition<PsiElement> isDescendant(List<String> classes) {
-		return AncestorSelector.isSameOrInheritor(JavaConverters.asScalaBuffer(classes));
+		return AncestorSelector.isSameOrInheritor(CollectionConverters.asScala(classes).toSeq());
 	}
 
 }

@@ -49,24 +49,24 @@ sourceSets {
 intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
-    version 'IU-2020.2.3'
+    version 'IU-203.4818.26-EAP-SNAPSHOT'
     //version '2018.2.2'
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
     plugins 'java',
             //'PythonCore:201.6073.9',
-            'Pythonid:202.7660.27',
+            'Pythonid:203.4818.26',
             'Kotlin',
-            'org.intellij.scala:2020.2.11',
+            'org.intellij.scala:2020.3.8',
             'JavaScriptLanguage',
             'CSS',
-            'Dart:202.7319.5',
+            'Dart:203.4818.26',
             'Groovy',
             'properties',
-            'org.jetbrains.plugins.ruby:202.7660.26',
-            'com.jetbrains.php:202.7660.42',
+            'org.jetbrains.plugins.ruby:203.4818.26',
+            'com.jetbrains.php:203.4818.52',
             'java-i18n',
             'DatabaseTools',
-            'org.jetbrains.plugins.go:202.7660.3'
+            'org.jetbrains.plugins.go:203.4818.26'
     updateSinceUntilBuild true
 
 //    plugins = ["PythonCore:2018.2.182.3684.101"]
