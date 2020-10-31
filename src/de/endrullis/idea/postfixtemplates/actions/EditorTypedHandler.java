@@ -49,7 +49,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
  * Instead of editing those files it offers the user to edit the template in another file.
  */
 public class EditorTypedHandler implements TypedActionHandler {
-	private TypedActionHandler oldHandler;
+	private final TypedActionHandler oldHandler;
 
 	public EditorTypedHandler(TypedActionHandler oldHandler) {
 		this.oldHandler = oldHandler;

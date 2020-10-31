@@ -317,7 +317,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		DataContext context = DataManager.getInstance().getDataContext(button.getContextComponent());
 		ListPopup popup = JBPopupFactory.getInstance().createActionGroupPopup(null, group, context,
 			JBPopupFactory.ActionSelectionAid.ALPHA_NUMBERING, true, null);
-		popup.show(ObjectUtils.assertNotNull(button.getPreferredPopupPoint()));
+		popup.show(Objects.requireNonNull(button.getPreferredPopupPoint()));
 	}
 
 	public void openFileEditDialog(Project project, CptLang lang, FileTreeNode fileNode) {
