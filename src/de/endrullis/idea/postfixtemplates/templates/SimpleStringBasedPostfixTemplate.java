@@ -22,15 +22,16 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.containers.OrderedSet;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates.PREDEFINED_VARIABLES;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
-import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates.PREDEFINED_VARIABLES;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
 /**
@@ -185,18 +186,17 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 			} catch (Exception e) {
 				template.addVariable(variable.getName(), new SelectionNode(), new SelectionNode(), variable.isAlwaysStopAt(), variable.skipOnStart());
 
-				NotificationGroup notificationGroup = new NotificationGroup("Custom Postfix Templates", NotificationDisplayType.STICKY_BALLOON, true);
+				val notificationGroup = NotificationGroupManager.getInstance().getNotificationGroup("Custom Postfix Templates");
 
-				Notification notification = notificationGroup.createNotification("Error in Postfix Template", "Your " + postfixTemplate.getKey() + " template contains an error in variable '" + variable.getName() + "'. Please fix it. <a href=\"fix\">Edit template.</a>.", NotificationType.ERROR,
-					(notification1, hyperlinkEvent) -> {
-						notification1.expire();
-						ApplicationManager.getApplication().invokeLater(() -> {
-							if (project.isDisposed()) return;
+				Notification notification = notificationGroup.createNotification("Error in postfix template",
+					"Your " + postfixTemplate.getKey() + " template contains an error in variable '" + variable.getName() + "'. Please fix it.", NotificationType.ERROR, null
+				).addAction(NotificationAction.createSimpleExpiring("Edit template", () -> {
+					ApplicationManager.getApplication().invokeLater(() -> {
+						if (project.isDisposed()) return;
 
-							postfixTemplate.navigate(true);
-						});
-					}
-				);
+						postfixTemplate.navigate(true);
+					});
+				}));
 
 				Notifications.Bus.notify(notification, project);
 			}

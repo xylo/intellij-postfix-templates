@@ -4,6 +4,8 @@ import com.intellij.application.options.TabbedLanguageCodeStylePanel;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 
 /**
+ * Main panel of code style settings.
+ *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 class CptCodeStyleMainPanel extends TabbedLanguageCodeStylePanel {

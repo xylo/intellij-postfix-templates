@@ -102,7 +102,7 @@ public class CptUpdateUtils {
 						if (afterUpdateAction != null) {
 							afterUpdateAction.run();
 						} else {
-							NotificationGroup notificationGroup = new NotificationGroup("Custom Postfix Templates", NotificationDisplayType.STICKY_BALLOON, true);
+							NotificationGroup notificationGroup = NotificationGroupManager.getInstance().getNotificationGroup("Custom Postfix Templates");
 
 							if (pluginSettings.getSettingsVersion() < 2) {
 								Notification notification = notificationGroup.createNotification("Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files. Please check your <a href=\"settings\">settings</a> to configure the plugin.", NotificationType.INFORMATION,

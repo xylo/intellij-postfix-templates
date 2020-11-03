@@ -507,6 +507,8 @@
 	<depends optional="true" config-file="withGoModule.xml">org.jetbrains.plugins.go</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
+		<notificationGroup id="Custom Postfix Templates" displayType="STICKY_BALLOON"/>
+
 		<codeInsight.template.postfixTemplateProvider language="JavaScript"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="SQL"
@@ -547,6 +549,9 @@
 		<liveTemplateContext implementation="de.endrullis.idea.postfixtemplates.language.CptContext"/>
 		<lookup.actionProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLookupActionProvider"/>
 		<postStartupActivity implementation="de.endrullis.idea.postfixtemplates.MyPostStartupActivity"/>
+		<!--
+		<typedHandler implementation="de.endrullis.idea.postfixtemplates.actions.EditorTypedHandler"/>
+		-->
 		<intentionAction>
 			<className>de.endrullis.idea.postfixtemplates.intention.OverrideTemplateRuleIntention</className>
 			<category>Custom postfix templates</category>
