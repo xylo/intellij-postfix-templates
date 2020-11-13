@@ -13,6 +13,7 @@ import de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptLang;
 import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinLang;
 import de.endrullis.idea.postfixtemplates.languages.php.PhpLang;
 import de.endrullis.idea.postfixtemplates.languages.python.PythonLang;
+import de.endrullis.idea.postfixtemplates.languages.ruby.RubyLang;
 import de.endrullis.idea.postfixtemplates.languages.rust.RustLang;
 import de.endrullis.idea.postfixtemplates.languages.scala.ScalaLang;
 import de.endrullis.idea.postfixtemplates.languages.sql.SqlLang;
@@ -43,6 +44,7 @@ public class SupportedLanguages {
 			new KotlinLang(),
 			new PhpLang(),
 			new PythonLang(),
+			new RubyLang(),
 			new RustLang(),
 			new ScalaLang(),
 			new SqlLang()
