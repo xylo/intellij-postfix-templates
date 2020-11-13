@@ -11,7 +11,7 @@
 		<br/><br/>
 
 		<p>
-			This open source plugin lets you define your own postfix templates for Java, Scala, SQL, PHP, Kotlin, Python, Dart, JavaScript, Rust, Go and Groovy.
+			This open source plugin lets you define your own postfix templates for Java, Scala, SQL, PHP, Kotlin, Python, Dart, JavaScript, Ruby, Rust, Go and Groovy.
 			It also comes with hundreds of useful postfix templates shared by the community.  You're welcome to contribute your templates as well.
 		</p>
 
@@ -45,6 +45,12 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.12.0</h3>
+			<ul>
+				<li>Added untyped support for Ruby.
+						Credits for implementation go to <a href="https://github.com/jimytc">Jim Chen</a>.</li>
+			</ul>
+
 			<h3>Version 2.11.7</h3>
 			<ul>
 				<li>Fixed more deprecations.</li>
