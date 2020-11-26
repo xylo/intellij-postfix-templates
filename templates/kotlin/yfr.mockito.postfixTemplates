@@ -1,0 +1,20 @@
+## Templates for Mockito ##
+
+.mock : mockito mock
+    ANY                 [org.mockito.Mockito]          →  org.mockito.Mockito.mock($expr$)
+
+.when : mockito when
+    ANY                 [org.mockito.Mockito]          →  org.mockito.Mockito.`when`($expr$)
+
+.verify : mockito verify
+    ANY                 [org.mockito.Mockito]          →  org.mockito.Mockito.verify($expr$)
+
+.doThrow : mockito doThrow
+    ANY                 [org.mockito.Mockito]          →  org.mockito.Mockito.doThrow($throwable$).`when`($expr$).$END$
+
+.doReturn : mockito doReturn
+    ANY                 [org.mockito.Mockito]          →  org.mockito.Mockito.doReturn($returnValue$).`when`($expr$).$END$
+
+.given : bdd mockito given
+    ANY                 [org.mockito.BDDMockito]       →  org.mockito.BDDMockito.given($expr$)
+

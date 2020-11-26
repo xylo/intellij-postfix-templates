@@ -1,0 +1,48 @@
+## Templates for assertj ##
+
+## Assert
+
+.assertThat : assertj-core assertThat
+    ANY                          [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$)
+
+.assertThatCode : assertj-core assertThatCode
+    ANY                          [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThatCode { $expr$ }
+
+.assertEqualTo : assertj-core assertEqualTo
+    ANY                          [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isEqualTo($other$)$END$
+
+.assertNull : assertj-core assertNull
+    ANY                          [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isNull()
+
+.assertNotNull : assertj-core assertNotNull
+    ANY                          [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isNotNull
+
+.assertBlank : assertj-core assertBlank
+    kotlin.String                [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isBlank
+
+.assertNotBlank : assertj-core assertNotBlank
+    kotlin.String                [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isNotBlank
+
+.assertTrue : assertj-core assertTrue
+    kotlin.Boolean               [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isTrue
+
+.assertFalse : assertj-core assertFalse
+    kotlin.Boolean               [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isFalse
+
+.assertEmpty : assertj-core assertEmpty
+    java.util.Map                [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isEmpty()
+    java.lang.Iterable           [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isEmpty()
+    kotlin.collections.Iterable  [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isEmpty()
+    kotlin.collections.Map       [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isEmpty()
+
+.assertNotEmpty : assertj-core assertNotEmpty
+    java.util.Map                [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isNotEmpty
+    java.lang.Iterable           [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isNotEmpty
+    kotlin.collections.Iterable  [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isNotEmpty
+    kotlin.collections.Map       [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThat($expr$).isNotEmpty
+
+.assertThrowException : assertj-core assertThrowException
+    ANY                          [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThatThrownBy { $expr$ }.isInstanceOf($other$)$END$
+
+.assertNotThrowException : assertj-core assertNotThrowException
+    ANY                          [org.assertj.core.api.Assertions]     →  org.assertj.core.api.Assertions.assertThatCode { $expr$ }.doesNotThrowAnyException()
