@@ -1,0 +1,35 @@
+## Templates for JUnit 5 jupiter ##
+
+## Assert
+
+.fail : fail
+	kotlin.String [org.junit.jupiter.api.Assertions]                →  org.junit.jupiter.api.Assertions.fail<String>($expr$)
+
+.assertTrue : assertTrue
+	kotlin.Boolean [org.junit.jupiter.api.Assertions]               →  org.junit.jupiter.api.Assertions.assertTrue($expr$)
+
+.assertFalse : assertFalse
+	kotlin.Boolean [org.junit.jupiter.api.Assertions]               →  org.junit.jupiter.api.Assertions.assertFalse($expr$)
+
+.assertNull : assertNull
+	ANY [org.junit.jupiter.api.Assertions]                          →  org.junit.jupiter.api.Assertions.assertNull($expr$)
+
+.assertNotNull : assertNotNull
+	ANY [org.junit.jupiter.api.Assertions]                          →  org.junit.jupiter.api.Assertions.assertNotNull($expr$)
+
+.assertSame : assertSame
+	ANY [org.junit.jupiter.api.Assertions]                          →  org.junit.jupiter.api.Assertions.assertSame($args$, $expr$)
+
+.assertNotSame : assertNotSame
+	ANY [org.junit.jupiter.api.Assertions]                          →  org.junit.jupiter.api.Assertions.assertNotSame($args$, $expr$)
+
+.assertEquals : assertEquals
+	ANY [org.junit.jupiter.api.Assertions]                          →  org.junit.jupiter.api.Assertions.assertEquals($args$, $expr$)
+
+.assertArrayEquals : assertEquals
+	kotlin.Array [org.junit.jupiter.api.Assertions]                 →  org.junit.jupiter.api.Assertions.assertArrayEquals($args$, $expr$)
+
+.assertIterableEquals : assertIterableEquals
+	java.lang.Iterable [org.junit.jupiter.api.Assertions]           →  org.junit.jupiter.api.Assertions.assertIterableEquals($args$, $expr$)
+	kotlin.collections.Iterable [org.junit.jupiter.api.Assertions]  →  org.junit.jupiter.api.Assertions.assertIterableEquals($args$, $expr$)
+
