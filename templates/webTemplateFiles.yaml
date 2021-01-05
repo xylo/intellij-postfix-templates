@@ -262,3 +262,24 @@
   email: info@nachtalb.ch
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Python-web-templates:-bystrousak.stdlib
   description: Provides templates for the standard library
+- lang: kotlin
+  id: yfr.assertj-core
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/kotlin/yfr.assertj-core.postfixTemplates
+  author: Jian-Min-Huang
+  email: yfr.huang@hotmail.com
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Kotlin-web-templates:-yfr.assertj-core
+  description: Provides templates for the AssertJ core
+- lang: kotlin
+  id: yfr.junit5
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/kotlin/yfr.junit5.postfixTemplates
+  author: Jian-Min-Huang
+  email: yfr.huang@hotmail.com
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Kotlin-web-templates:-yfr.junit5
+  description: Provides templates for JUnit 5
+- lang: kotlin
+  id: yfr.mockito
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/kotlin/yfr.mockito.postfixTemplates
+  author: Jian-Min-Huang
+  email: yfr.huang@hotmail.com
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Kotlin-web-templates:-yfr.mockito
+  description: Provides templates for Mockito
