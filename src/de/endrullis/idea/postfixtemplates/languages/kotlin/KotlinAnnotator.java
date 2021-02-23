@@ -20,10 +20,6 @@ public class KotlinAnnotator implements CptLangAnnotator {
 
 	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
 		put(SpecialType.ANY.name(), true);
-		put(SpecialType.STRING_LITERAL.name(), true);
-		put(SpecialType.FLOAT_LITERAL.name(), true);
-		put(SpecialType.INT_LITERAL.name(), true);
-		put(SpecialType.CHAR_LITERAL.name(), true);
 	}};
 
 	@Override
