@@ -34,6 +34,13 @@
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates%:-xylo.JUnit4
   description: Provides templates for JUnit4
 - lang: java
+  id: yfr.junit5
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/yfr.junit5.postfixTemplates
+  author: Jian-Min-Huang
+  email: yfr.huang@hotmail.com
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-yfr.junit5
+  description: Provides templates for JUnit 5
+- lang: java
   id: cassiuscai.mockito
   url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/mockito.postfixTemplates
   author: Cassius Cai
@@ -283,10 +290,3 @@
   email: yfr.huang@hotmail.com
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Kotlin-web-templates:-yfr.mockito
   description: Provides templates for Mockito
-- lang: java
-  id: yfr.junit5
-  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/yfr.junit5.postfixTemplates
-  author: Jian-Min-Huang
-  email: yfr.huang@hotmail.com
-  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-yfr.junit5
-  description: Provides templates for JUnit 5
