@@ -1,0 +1,44 @@
+## Templates for JUnit 5 jupiter ##
+
+## Assert
+## skip assertLinesMatch, assertAll, assertTimesout, assertTimeoutPreemptively
+
+.fail : fail
+	java.lang.String [org.junit.jupiter.api.Assertions]            →  org.junit.jupiter.api.Assertions.fail($expr$)
+
+.assertTrue : assertTrue
+	java.lang.Boolean [org.junit.jupiter.api.Assertions]           →  org.junit.jupiter.api.Assertions.assertTrue($expr$)
+
+.assertFalse : assertFalse
+	java.lang.Boolean [org.junit.jupiter.api.Assertions]           →  org.junit.jupiter.api.Assertions.assertFalse($expr$)
+
+.assertNull : assertNull
+	ANY [org.junit.jupiter.api.Assertions]                         →  org.junit.jupiter.api.Assertions.assertNull($expr$)
+
+.assertNotNull : assertNotNull
+	ANY [org.junit.jupiter.api.Assertions]                         →  org.junit.jupiter.api.Assertions.assertNotNull($expr$)
+
+.assertSame : assertSame
+	ANY [org.junit.jupiter.api.Assertions]                         →  org.junit.jupiter.api.Assertions.assertSame($args$, $expr$)
+
+.assertNotSame : assertNotSame
+	ANY [org.junit.jupiter.api.Assertions]                         →  org.junit.jupiter.api.Assertions.assertNotSame($args$, $expr$)
+
+.assertEquals : assertEquals
+	ANY [org.junit.jupiter.api.Assertions]                         →  org.junit.jupiter.api.Assertions.assertEquals($args$, $expr$)
+
+.assertNotEquals : assertNotEquals
+	ANY [org.junit.jupiter.api.Assertions]                         →  org.junit.jupiter.api.Assertions.assertNotEquals($args$, $expr$)
+
+.assertThrows : assertThrows
+	ANY [org.junit.jupiter.api.Assertions]                         →  org.junit.jupiter.api.Assertions.assertThrows($expr$, $args$)
+
+.assertDoesNotThrow : assertDoesNotThrow
+	ANY [org.junit.jupiter.api.Assertions]                         →  org.junit.jupiter.api.Assertions.assertDoesNotThrow($expr$, $args$)
+
+.assertArrayEquals : assertEquals
+	ARRAY [org.junit.jupiter.api.Assertions]                       →  org.junit.jupiter.api.Assertions.assertArrayEquals($args$, $expr$)
+
+.assertIterableEquals : assertIterableEquals
+	java.lang.Iterable [org.junit.jupiter.api.Assertions]          →  org.junit.jupiter.api.Assertions.assertIterableEquals($args$, $expr$)
+
