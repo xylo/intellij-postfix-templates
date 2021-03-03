@@ -35,6 +35,7 @@
 
 .stream : convert to Stream
 	java.lang.Iterable       →  java.util.stream.StreamSupport.stream($expr$.spliterator(), false)
+	java.util.Iterator       →  java.util.stream.StreamSupport.stream(java.util.Spliterators.spliteratorUnknownSize($expr$, Spliterator.ORDERED | Spliterator.NONNULL), false)
 
 
 
