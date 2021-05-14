@@ -17,8 +17,8 @@
   url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/commons-lang3.postfixTemplates
   author: Cassius Cai
   email: cassiuscai@gmail.com
-  website: https://github.com/cassiuscai/postfix-templates/blob/master/documents/commons-lang.date.md
-  description: Provides templates for the Date/Calendar API
+  website: https://github.com/cassiuscai/postfix-templates/blob/master/README.md
+  description: Provides templates for the Apache commons-lang3 Utils
 - lang: java
   id: cassiuscai.assertj-core
   url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/assertj-core.postfixTemplates
