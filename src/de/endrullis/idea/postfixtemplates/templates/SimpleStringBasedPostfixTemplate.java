@@ -189,7 +189,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 				val notificationGroup = NotificationGroupManager.getInstance().getNotificationGroup("Custom Postfix Templates");
 
 				Notification notification = notificationGroup.createNotification("Error in postfix template",
-					"Your " + postfixTemplate.getKey() + " template contains an error in variable '" + variable.getName() + "'. Please fix it.", NotificationType.ERROR, null
+					"Your " + postfixTemplate.getKey() + " template contains an error in variable '" + variable.getName() + "'. Please fix it.", NotificationType.ERROR
 				).addAction(NotificationAction.createSimpleExpiring("Edit template", () -> {
 					ApplicationManager.getApplication().invokeLater(() -> {
 						if (project.isDisposed()) return;

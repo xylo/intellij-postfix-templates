@@ -19,7 +19,9 @@ import java.util.Map;
 public class RustAnnotator implements CptLangAnnotator {
 
 	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
-		put(SpecialType.ANY.name(), true);
+		for (RustType value : RustType.values()) {
+			put(value.fixedName(), true);
+		}
 	}};
 
 	@Override
@@ -29,7 +31,9 @@ public class RustAnnotator implements CptLangAnnotator {
 
 	@Override
 	public void completeMatchingType(@NotNull CompletionParameters parameters, @NotNull CompletionResultSet resultSet) {
-		resultSet.addElement(LookupElementBuilder.create(SpecialType.ANY.name()));
+		for (String key : className2exists.keySet()) {
+			resultSet.addElement(LookupElementBuilder.create(key));
+		}
 	}
 
 }

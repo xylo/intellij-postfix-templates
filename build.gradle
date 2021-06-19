@@ -72,8 +72,8 @@ intellij {
             'com.jetbrains.php:212.4037.57',
             'java-i18n',
             'DatabaseTools',
-//            'org.rust.lang:0.4.148.3911-212',
-//            'org.toml.lang:0.2.148.3911-212',
+            'org.rust.lang:0.4.148.3911-212',
+            'org.toml.lang:0.2.148.3911-212',
             'org.jetbrains.plugins.go:212.4037.9'
     updateSinceUntilBuild true
 
