@@ -1,7 +1,7 @@
 # Custom Postfix Templates for Intellij IDEA
 
 **Custom Postfix Templates** is an Intellij IDEA plugin that allows you to define your own custom [postfix completion templates](https://blog.jetbrains.com/idea/2014/03/postfix-completion/).
-At the moment it supports the following programming languages with : Java, Scala, SQL, PHP, Go, Groovy, Python, Kotlin (untyped templates), Dart (untyped templates), JavaScript (untyped templates), and Rust (untyped templates).
+At the moment it supports the following programming languages with : Java, Scala, SQL, PHP, Go, Groovy, Python, Rust, Kotlin (untyped templates), Dart (untyped templates), and JavaScript (untyped templates).
 
 ## So what is the difference to IDEA's postfix templates?
 
@@ -199,25 +199,49 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
   * `CLASS` - any class reference
 * In **Python** the *MATCHING_TYPE* can be one of the following special types:
   * `ANY` - any expression
-	* `object`
-	* `list`
-	* `dict`
-	* `set`
-	* `tuple`
-	* `int`
-	* `float`
-	* `complex`
-	* `str`
-	* `unicode`
-	* `bytes`
-	* `bool`
-	* `classmethod`
-	* `staticmethod`
-	* `type`
+  * `object`
+  * `list`
+  * `dict`
+  * `set`
+  * `tuple`
+  * `int`
+  * `float`
+  * `complex`
+  * `str`
+  * `unicode`
+  * `bytes`
+  * `bool`
+  * `classmethod`
+  * `staticmethod`
+  * `type`
+* In **Rust** the *MATCHING_TYPE* can be one of the following special types:
+  * `ANY` - any expression
+  * `i8` - any 8-bit integer
+  * `i16` - any 16-bit integer
+  * `i32` - any 32-bit integer
+  * `i64` - any 64-bit integer
+  * `i128` - any 128-bit integer
+  * `isize` - any native integer
+  * `u8` - any 8-bit unsigned integer
+  * `u16` - any 16-bit unsigned integer
+  * `u32` - any 32-bit unsigned integer
+  * `u64` - any 64-bit unsigned integer
+  * `u128` - any 128-bit unsigned integer
+  * `usize` - any native unsigned integer
+  * `f32` - any 32-bit float
+  * `f64` - any 64-bit float
+  * `bool` - any boolean
+  * `char` - any character
+  * `str` - any string
+  * `tuple` - any tuple such as (1, 2.0)
+  * `array` - any array such as [1, 2, 3]
+  * `integer` - any integer type (`i8`, `i16`, `i32`, `i64`, `i128`)
+  * `unsigned` - any unsigned integer type (`u8`, `u16`, `u32`, `u64`, `u128`)
+  * `float` - any float type (`f32`, `f64`)
+  * `number` - any number type (integer, unsigned, float)
 * In **Kotlin** the *MATCHING_TYPE* has to be `ANY`.
 * In **Dart** the *MATCHING_TYPE* has to be `ANY`.
 * In **JavaScript** the *MATCHING_TYPE* has to be `ANY`.
-* In **Rust** the *MATCHING_TYPE* has to be `ANY`.
 
 #### TEMPLATE_CODE
 
