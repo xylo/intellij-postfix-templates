@@ -45,7 +45,7 @@ public class SupportedLanguages {
 			new PhpLang(),
 			new PythonLang(),
 			new RubyLang(),
-			new RustLang(),
+//			new RustLang(),
 			new ScalaLang(),
 			new SqlLang()
 		).stream().sorted(Comparator.comparing(l -> l.getNiceName().toLowerCase())).collect(Collectors.toList());
