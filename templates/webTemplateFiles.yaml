@@ -1,4 +1,11 @@
 - lang: java
+  id: lxk.hutool
+  url: https://raw.githubusercontent.com/lxk696/intellij-postfix-templates/master/templates/java/hutool-all.postfixTemplates
+  author: liuxiongkang
+  email: liuxiongkang@gmail.com
+  website: https://github.com/lxk696/intellij-postfix-templates/blob/master/README.md
+  description: Provides templates for the hutool-all-5.7.3 Library
+- lang: java
   id: cassiuscai.vavr
   url: https://raw.githubusercontent.com/cassiuscai/postfix-templates/master/templates/vavr.postfixTemplates
   author: Cassius Cai
@@ -138,6 +145,13 @@
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.idea-dev
   description: Provides templates for Intellij IDEA (plugin) developers
+- lang: scala
+  id: lxk.hutool
+  url: https://raw.githubusercontent.com/lxk696/intellij-postfix-templates/master/templates/scala/hutool-all.postfixTemplates
+  author: liuxiongkang
+  email: liuxiongkang@gmail.com
+  website: https://github.com/lxk696/intellij-postfix-templates/blob/master/README.md
+  description: Provides templates for the hutool-all-5.7.3 Library
 - lang: scala
   id: xylo.kantan
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/kantan.postfixTemplates
