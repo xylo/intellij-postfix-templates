@@ -54,3 +54,6 @@ except $error$ as $error_var$:\
     $except$\
 finally:\
     $END$
+
+.str : Cast to str
+	ANY   →   str($expr$)
