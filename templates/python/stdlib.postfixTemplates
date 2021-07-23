@@ -92,9 +92,6 @@ finally:\
 .iter : Return an iterator object
 	ANY   →   iter($expr$)$END$
 
-.len : Return the length (the number of items) of an object
-	ANY   →   len($expr$)$END$
-
 .min : Return the minimal
 	ANY   →   min($expr$)$END$
 
