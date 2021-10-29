@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.intellij'
-version '2.12.1.212'
+version '2.12.1.213'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -54,27 +54,26 @@ sourceSets {
 intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
-    version 'IU-212.4037-EAP-CANDIDATE-SNAPSHOT'
+    version 'IU-213.5449-EAP-CANDIDATE-SNAPSHOT'
     //version '2021.1.1'
     //version 'IU-211.7142.45'
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
     plugins 'java',
-            //'PythonCore:201.6073.9',
-            'Pythonid:212.4037.9',
+            'Pythonid:213.5449.25',
             'Kotlin',
-            'org.intellij.scala:2021.2.9',
+            'org.intellij.scala:2021.3.8',
             'JavaScriptLanguage',
             'CSS',
-            'Dart:212.4037.9',
+            'Dart:213.5449.25',
             'Groovy',
             'properties',
-            'org.jetbrains.plugins.ruby:212.4037.9',
-            'com.jetbrains.php:212.4037.57',
+            'org.jetbrains.plugins.ruby:213.5449.25',
+            'com.jetbrains.php:213.5449.25',
             'java-i18n',
             'DatabaseTools',
-            'org.rust.lang:0.4.148.3911-212',
-            'org.toml.lang:0.2.148.3911-212',
-            'org.jetbrains.plugins.go:212.4037.9'
+            'org.rust.lang:0.4.158.4203-213',
+            'org.toml.lang:213.5449.24',
+            'org.jetbrains.plugins.go:213.5449.25'
     updateSinceUntilBuild true
 
 //    plugins = ["PythonCore:2018.2.182.3684.101"]
