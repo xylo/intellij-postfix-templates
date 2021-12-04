@@ -29,6 +29,7 @@ public class CptParserDefinition implements ParserDefinition {
 	}
 
 	@NotNull
+	@Override
 	public TokenSet getWhitespaceTokens() {
 		return WHITE_SPACES;
 	}

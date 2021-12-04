@@ -7,6 +7,7 @@ import com.intellij.codeInsight.completion.JavaPsiClassReferenceElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
+import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
+@UtilityClass
 public class CptCompletionUtil {
 
 	public static void addCompletions(@NotNull CompletionParameters params, @NotNull CompletionResultSet resultSet) {
