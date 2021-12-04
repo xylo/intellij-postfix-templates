@@ -1,13 +1,15 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.16'
+    id 'org.jetbrains.intellij' version '1.3.0'
 }
 
 group 'com.intellij'
-version '2.12.1.212'
+version '2.13.1.213'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
 
 repositories {
     mavenCentral()
@@ -15,20 +17,20 @@ repositories {
 
 
 dependencies {
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.2'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.2'
-    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.2'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.0'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.0'
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.13.0'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
 
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-   	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+   	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-    testCompileOnly 'org.projectlombok:lombok:1.18.20'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-    testCompile group: 'junit', name: 'junit', version: '4.13.1'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
 }
 
 
@@ -54,32 +56,30 @@ sourceSets {
 intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
-    version 'IU-212.4037-EAP-CANDIDATE-SNAPSHOT'
-    //version '2021.1.1'
+    //version 'IU-212.4037-EAP-CANDIDATE-SNAPSHOT'
+    version = 'IU-213.5744.223'
     //version 'IU-211.7142.45'
-    sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
-    plugins 'java',
+    plugins = ['java',
             //'PythonCore:201.6073.9',
-            'Pythonid:212.4037.9',
+            'Pythonid:213.5744.248',
             'Kotlin',
-            'org.intellij.scala:2021.2.9',
+            'org.intellij.scala:2021.3.14',
             'JavaScriptLanguage',
             'CSS',
-            'Dart:212.4037.9',
+            'Dart:213.5744.122',
             'Groovy',
             'properties',
-            'org.jetbrains.plugins.ruby:212.4037.9',
-            'com.jetbrains.php:212.4037.57',
+            'org.jetbrains.plugins.ruby:213.5744.223',
+            'com.jetbrains.php:213.5744.279',
             'java-i18n',
             'DatabaseTools',
-            'org.rust.lang:0.4.148.3911-212',
-            'org.toml.lang:0.2.148.3911-212',
-            'org.jetbrains.plugins.go:212.4037.9'
-    updateSinceUntilBuild true
-
+            'org.rust.lang:0.4.160.4276-213',
+            'org.toml.lang:213.5744.224',
+            'org.jetbrains.plugins.go:213.5744.223']
+    updateSinceUntilBuild = true
 //    plugins = ["PythonCore:2018.2.182.3684.101"]
 }
 
 publishPlugin {
-    token System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
+    token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
 }
