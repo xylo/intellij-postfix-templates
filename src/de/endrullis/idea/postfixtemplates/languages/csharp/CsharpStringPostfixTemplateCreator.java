@@ -2,11 +2,13 @@ package de.endrullis.idea.postfixtemplates.languages.csharp;
 
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
+import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
+@UtilityClass
 class CsharpStringPostfixTemplateCreator {
 
 	@NotNull

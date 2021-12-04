@@ -1,5 +1,6 @@
 package de.endrullis.idea.postfixtemplates.utils;
 
+import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -9,6 +10,7 @@ import java.util.*;
  *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
+@UtilityClass
 public class CollectionUtils {
 
 	public static <T> Set<T> _Set(Collection<T> values) {

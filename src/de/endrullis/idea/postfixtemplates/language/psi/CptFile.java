@@ -25,8 +25,4 @@ public class CptFile extends PsiFileBase {
 		return "Custom Postfix Templates File";
 	}
 
-	@Override
-	public Icon getIcon(int flags) {
-		return super.getIcon(flags);
-	}
 }

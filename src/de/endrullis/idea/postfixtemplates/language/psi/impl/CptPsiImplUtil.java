@@ -6,10 +6,12 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import de.endrullis.idea.postfixtemplates.language.CptIcons;
 import de.endrullis.idea.postfixtemplates.language.psi.*;
+import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+@UtilityClass
 public class CptPsiImplUtil {
 
 	public static String getTemplateName(CptTemplate element) {

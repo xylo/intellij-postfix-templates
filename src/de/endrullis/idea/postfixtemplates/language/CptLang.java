@@ -15,7 +15,7 @@ public abstract class CptLang {
 	/** Lazily instantiated CptLangAnnotator. */
 	private CptLangAnnotator annotator;
 
-	public CptLang(String niceName, Class<? extends CptLangAnnotator> annotatorClass) {
+	protected CptLang(String niceName, Class<? extends CptLangAnnotator> annotatorClass) {
 		this.niceName = niceName;
 		this.language = niceName.toLowerCase();
 		this.annotatorClass = annotatorClass;
