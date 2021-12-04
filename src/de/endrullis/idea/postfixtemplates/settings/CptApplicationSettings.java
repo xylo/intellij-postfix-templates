@@ -40,7 +40,7 @@ public class CptApplicationSettings implements PersistentStateComponent<CptAppli
 
 	@NotNull
 	public static CptApplicationSettings getInstance() {
-		return ServiceManager.getService(CptApplicationSettings.class);
+		return ApplicationManager.getApplication().getService(CptApplicationSettings.class);
 	}
 
 	@Override
