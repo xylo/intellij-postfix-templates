@@ -1,6 +1,6 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
-import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.util.Disposer;
@@ -77,7 +77,7 @@ public class CptPluginConfigurable implements SearchableConfigurable, Configurab
 	}
 
 	private CptApplicationSettings getPluginApplicationSettings(){
-		return ServiceManager.getService(CptApplicationSettings.class);
+		return ApplicationManager.getApplication().getService(CptApplicationSettings.class);
 	}
 
 }

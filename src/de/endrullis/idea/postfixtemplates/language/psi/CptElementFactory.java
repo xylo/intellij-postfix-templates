@@ -4,7 +4,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFileFactory;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class CptElementFactory {
 	public static CptTemplate createTemplate(Project project, String name, String description) {
 		final CptFile file = createFile(project, "." + name + " : " + description);

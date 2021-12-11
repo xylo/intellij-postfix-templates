@@ -11,6 +11,7 @@ import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
 import de.endrullis.idea.postfixtemplates.settings.CptPluginSettings;
 import de.endrullis.idea.postfixtemplates.settings.CptVirtualFile;
 import de.endrullis.idea.postfixtemplates.settings.WebTemplateFileLoader;
+import lombok.experimental.UtilityClass;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,6 +30,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
  * 
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
+@UtilityClass
 public class CptUpdateUtils {
 
 	private static final Object updateSync = new Object();
@@ -105,7 +107,8 @@ public class CptUpdateUtils {
 							NotificationGroup notificationGroup = NotificationGroupManager.getInstance().getNotificationGroup("Custom Postfix Templates");
 
 							if (pluginSettings.getSettingsVersion() < 2) {
-								Notification notification = notificationGroup.createNotification("Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files. Please check your <a href=\"settings\">settings</a> to configure the plugin.", NotificationType.INFORMATION,
+								Notification notification = notificationGroup.createNotification("Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files. Please check your <a href=\"settings\">settings</a> to configure the plugin.", NotificationType.INFORMATION);
+								notification.setListener(
 									(notification1, hyperlinkEvent) -> {
 										notification1.expire();
 										CptUtil.openPluginSettings(project);
@@ -115,7 +118,8 @@ public class CptUpdateUtils {
 								Notifications.Bus.notify(notification, project);
 							} else
 							if (newTemplateFiles) {
-								Notification notification = notificationGroup.createNotification("Custom Postfix Templates", "New web template files are available.  You can activate them in the <a href=\"settings\">settings</a>.", NotificationType.INFORMATION,
+								Notification notification = notificationGroup.createNotification("Custom Postfix Templates", "New web template files are available.  You can activate them in the <a href=\"settings\">settings</a>.", NotificationType.INFORMATION);
+								notification.setListener(
 									(notification1, hyperlinkEvent) -> {
 										notification1.expire();
 										CptUtil.openPluginSettings(project);

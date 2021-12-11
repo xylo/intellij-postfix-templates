@@ -18,7 +18,7 @@ public enum CptFileType {
 				return "Web template file (URL)";
 		}
 
-		return null;
+		return "";
 	}
 	
 }
