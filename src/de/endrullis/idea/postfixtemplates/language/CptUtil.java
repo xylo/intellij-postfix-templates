@@ -221,7 +221,7 @@ public class CptUtil {
 			if (file.exists()) {
 				// move file to new position
 				val newFile = getTemplateFile(language, "oldUserTemplates");
-				
+
 				file.renameTo(newFile);
 
 				LocalFileSystem.getInstance().refreshIoFiles(_List(newFile));
@@ -269,8 +269,8 @@ public class CptUtil {
 
 			val settings = CptApplicationSettings.getInstance().getPluginSettings();
 
-			val vFiles = settings.getLangName2virtualFiles().getOrDefault(language, new ArrayList<>());
-			val allFilesFromConfig = vFiles.stream().map(f -> CptUtil.fixFilePath(f.file)).collect(Collectors.toSet());
+			val vFiles                 = settings.getLangName2virtualFiles().getOrDefault(language, new ArrayList<>());
+			val allFilesFromConfig     = vFiles.stream().map(f -> CptUtil.fixFilePath(f.file)).collect(Collectors.toSet());
 			val enabledFilesFromConfig = vFiles.stream().filter(fileFilter).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
 
 			val remainingTemplateFilesFromDir = Arrays.stream(filesFromDir).filter(f -> !allFilesFromConfig.contains(CptUtil.fixFilePath(f.getAbsolutePath())));
@@ -341,7 +341,7 @@ public class CptUtil {
 		}
 
 		assert vFile != null;
-		
+
 		openFileInEditor(project, vFile);
 	}
 
@@ -407,9 +407,11 @@ public class CptUtil {
 	private static String applyReplacements(String templatesText, boolean preFilled) {
 		final String[] finalTemplatesText = new String[]{templatesText};
 
-		try(final InputStreamReader in = new InputStreamReader(CptUtil.class.getResourceAsStream("templatemapping/" + (preFilled ? "var" : "empty") + "Lambda.txt"), StandardCharsets.UTF_8);
-		final BufferedReader bufferedReader = new BufferedReader(in)) {
-			bufferedReader.lines().filter(l -> l.contains("→")).map(line -> line.split("→")).forEach(split -> finalTemplatesText[0] = replace(finalTemplatesText[0], split[0].trim(), split[1].trim()));
+		try (final InputStreamReader in = new InputStreamReader(CptUtil.class.getResourceAsStream("templatemapping/" + (preFilled ? "var" : "empty") + "Lambda.txt"), StandardCharsets.UTF_8);
+		     final BufferedReader bufferedReader = new BufferedReader(in)) {
+			bufferedReader.lines().filter(l -> l.contains("→")).map(line -> line.split("→")).forEach(split ->
+				finalTemplatesText[0] = replace(finalTemplatesText[0], split[0].trim(), split[1].trim())
+			);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -463,7 +465,7 @@ public class CptUtil {
 	 */
 	public static WebTemplateFile[] loadWebTemplateFiles() {
 		// download the web templates file only once a day
-		if (!getWebTemplatesInfoFile().exists() || new Date().getTime() - getWebTemplatesInfoFile().lastModified() > 1000*60*60*24) {
+		if (!getWebTemplatesInfoFile().exists() || new Date().getTime() - getWebTemplatesInfoFile().lastModified() > 1000 * 60 * 60 * 24) {
 			try {
 				downloadWebTemplatesInfoFile();
 			} catch (IOException e) {
@@ -490,11 +492,13 @@ public class CptUtil {
 		val pluginSettings = CptApplicationSettings.getInstance().getPluginSettings();
 
 		val langName2virtualFiles = pluginSettings.getLangName2virtualFiles();
-		val vFiles = langName2virtualFiles.computeIfAbsent(language, l -> new ArrayList<>());
+		val vFiles                = langName2virtualFiles.computeIfAbsent(language, l -> new ArrayList<>());
 		vFiles.add(0, new CptPluginSettings.VFile(true, null, null, templateFile.getAbsolutePath()));
 
-		val newLangName2virtualFiles = langName2virtualFiles.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,
-				e -> e.getValue().stream().map(f -> new CptPluginSettings.VFile(f.enabled, f.id, f.url, f.file.replace(CptUtil.getTemplatesPath().getAbsolutePath(), "${PLUGIN}"))).collect(Collectors.toList())));
+		val newLangName2virtualFiles = langName2virtualFiles.entrySet().stream().collect(Collectors.toMap(
+			e -> e.getKey(),
+			e -> e.getValue().stream().map(f -> new CptPluginSettings.VFile(f.enabled, f.id, f.url, f.file.replace(CptUtil.getTemplatesPath().getAbsolutePath(), "${PLUGIN}"))).collect(Collectors.toList())
+		));
 
 		CptPluginSettings newPluginSettings = new CptPluginSettings(
 			pluginSettings.isVarLambdaStyle(),
