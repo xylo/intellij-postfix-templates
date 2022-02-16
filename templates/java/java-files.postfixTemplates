@@ -1,0 +1,160 @@
+## Templates for java.nio.file.Files ##
+
+## Files
+
+.readString : readString
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.readString($expr$, $arg$)
+
+.find : find
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.find($expr$, $arg$)
+
+.writeString : writeString
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.writeString($expr$, $arg$)
+
+.isReadable : isReadable
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.isReadable($expr$)
+
+.move : move
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.move($expr$, $arg$)
+
+.setPosixFilePermissions : setPosixFilePermissions
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.setPosixFilePermissions($expr$, $arg$)
+
+.getFileAttributeView : getFileAttributeView
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.getFileAttributeView($expr$, $arg$)
+
+.isSymbolicLink : isSymbolicLink
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.isSymbolicLink($expr$)
+
+.setAttribute : setAttribute
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.setAttribute($expr$, $arg$)
+
+.size : size
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.size($expr$)
+
+.newDirectoryStream : newDirectoryStream
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.newDirectoryStream($expr$, $arg$)
+
+.newOutputStream : newOutputStream
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.newOutputStream($expr$, $arg$)
+
+.isExecutable : isExecutable
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.isExecutable($expr$)
+
+.readAllLines : readAllLines
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.readAllLines($expr$, $arg$)
+
+.setOwner : setOwner
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.setOwner($expr$, $arg$)
+
+.createDirectories : createDirectories
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.createDirectories($expr$, $arg$)
+
+.readAllBytes : readAllBytes
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.readAllBytes($expr$)
+
+.isHidden : isHidden
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.isHidden($expr$)
+
+.deleteIfExists : deleteIfExists
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.deleteIfExists($expr$)
+
+.isRegularFile : isRegularFile
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.isRegularFile($expr$, $arg$)
+
+.walk : walk
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.walk($expr$, $arg$)
+
+.readSymbolicLink : readSymbolicLink
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.readSymbolicLink($expr$)
+
+.getPosixFilePermissions : getPosixFilePermissions
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.getPosixFilePermissions($expr$, $arg$)
+
+.isDirectory : isDirectory
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.isDirectory($expr$, $arg$)
+
+.createLink : createLink
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.createLink($expr$, $arg$)
+
+.isWritable : isWritable
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.isWritable($expr$)
+
+.newBufferedReader : newBufferedReader
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.newBufferedReader($expr$, $arg$)
+
+.newBufferedWriter : newBufferedWriter
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.newBufferedWriter($expr$, $arg$)
+
+.newByteChannel : newByteChannel
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.newByteChannel($expr$, $arg$)
+
+.getLastModifiedTime : getLastModifiedTime
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.getLastModifiedTime($expr$, $arg$)
+
+.getOwner : getOwner
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.getOwner($expr$, $arg$)
+
+.exists : exists
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.exists($expr$, $arg$)
+
+.createSymbolicLink : createSymbolicLink
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.createSymbolicLink($expr$, $arg$)
+
+.delete : delete
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.delete($expr$)
+
+.getAttribute : getAttribute
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.getAttribute($expr$, $arg$)
+
+.setLastModifiedTime : setLastModifiedTime
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.setLastModifiedTime($expr$, $arg$)
+
+.copy : copy
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.copy($expr$, $arg$)
+	java.io.InputStream [java.nio.file.Files]  →  java.nio.file.Files.copy($expr$, $arg$)
+
+.createDirectory : createDirectory
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.createDirectory($expr$, $arg$)
+
+.walkFileTree : walkFileTree
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.walkFileTree($expr$, $arg$)
+
+.createTempFile : createTempFile
+	java.lang.String [java.nio.file.Files]  →  java.nio.file.Files.createTempFile($expr$, $arg$)
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.createTempFile($expr$, $arg$)
+
+.createTempDirectory : createTempDirectory
+	java.lang.String [java.nio.file.Files]  →  java.nio.file.Files.createTempDirectory($expr$, $arg$)
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.createTempDirectory($expr$, $arg$)
+
+.probeContentType : probeContentType
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.probeContentType($expr$)
+
+.newInputStream : newInputStream
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.newInputStream($expr$, $arg$)
+
+.lines : lines
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.lines($expr$, $arg$)
+
+.isSameFile : isSameFile
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.isSameFile($expr$, $arg$)
+
+.getFileStore : getFileStore
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.getFileStore($expr$)
+
+.readAttributes : readAttributes
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.readAttributes($expr$, $arg$)
+
+.notExists : notExists
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.notExists($expr$, $arg$)
+
+.write : write
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.write($expr$, $arg$)
+
+.list : list
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.list($expr$)
+
+.createFile : createFile
+	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.createFile($expr$, $arg$)
+

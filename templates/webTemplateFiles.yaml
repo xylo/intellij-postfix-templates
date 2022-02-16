@@ -97,6 +97,13 @@
   website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.commons-logging
   description: Provides templates for Apache commons-logging
 - lang: java
+  id: xylo.java-files
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/java-files.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Java-web-templates:-xylo.java-files
+  description: Provides templates for java.nio.file.Files
+- lang: java
   id: xylo.io
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/java/io.postfixTemplates
   author: Stefan Endrullis
@@ -178,6 +185,13 @@
   email: stefan@endrullis.de
   website: https://github.com/xylo/intellij-postfix-templates
   description: Provides the .apply template for all kind of Java function types (Runnable, Supplier, ...)
+- lang: scala
+  id: xylo.java-files
+  url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/java-files.postfixTemplates
+  author: Stefan Endrullis
+  email: stefan@endrullis.de
+  website: https://github.com/xylo/intellij-postfix-templates/wiki/Scala-web-templates:-xylo.java-files
+  description: Provides templates for java.nio.file.Files
 - lang: scala
   id: xylo.io
   url: https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/scala/io.postfixTemplates
