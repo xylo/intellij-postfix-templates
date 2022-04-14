@@ -16,8 +16,8 @@ import org.jetbrains.annotations.NotNull;
 public class MyPostStartupActivity implements StartupActivity {
 
 	public void runActivity(@NotNull Project project) {
-		setupEditorTypedHandler();
-		CptUpdateUtils.checkForWebTemplateUpdates(project);
+		//setupEditorTypedHandler();
+		//CptUpdateUtils.checkForWebTemplateUpdates(project);
 	}
 
 	private void setupEditorTypedHandler() {

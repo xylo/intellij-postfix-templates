@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '1.3.0'
+    id 'org.jetbrains.intellij' version '1.5.2'
 }
 
 group 'com.intellij'
-version '2.12.2.213'
+version '2.12.2.221'
 
 compileJava {
     sourceCompatibility = '1.8'
@@ -53,29 +53,35 @@ sourceSets {
 
 }
 
+// Avoid ClassNotFoundException: com.maddyhome.idea.copyright.psi.UpdateCopyrightsProvider
+tasks.buildSearchableOptions {
+    jvmArgs = ['-Djava.system.class.loader=com.intellij.util.lang.PathClassLoader']
+}
+
 intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
     //version 'IU-212.4037-EAP-CANDIDATE-SNAPSHOT'
-    version = 'IU-213.5744.223'
+    version = 'IU-221.5080.210'
     //version 'IU-211.7142.45'
     plugins = ['java',
             //'PythonCore:201.6073.9',
-            'Pythonid:213.5744.248',
+            'Pythonid:221.5080.212',
             'Kotlin',
-            'org.intellij.scala:2021.3.14',
+            'org.intellij.scala:2022.1.13',
             'JavaScriptLanguage',
             'CSS',
-            'Dart:213.5744.122',
+            'Dart:221.5177',
             'Groovy',
             'properties',
-            'org.jetbrains.plugins.ruby:213.5744.223',
-            'com.jetbrains.php:213.5744.279',
+            'org.jetbrains.plugins.ruby:221.5080.169',
+            'com.jetbrains.php:221.5080.224',
             'java-i18n',
             'DatabaseTools',
-            'org.rust.lang:0.4.160.4276-213',
-            'org.toml.lang:213.5744.224',
-            'org.jetbrains.plugins.go:213.5744.223']
+            'org.rust.lang:0.4.168.4555-221',
+            'org.toml.lang',
+            'org.jetbrains.plugins.go:221.5080.210'
+            ]
     updateSinceUntilBuild = true
 //    plugins = ["PythonCore:2018.2.182.3684.101"]
 }

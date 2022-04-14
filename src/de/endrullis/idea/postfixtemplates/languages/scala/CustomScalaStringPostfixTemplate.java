@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.ScalaStringBasedPostfixTemplate;
 import org.jetbrains.plugins.scala.lang.completion.postfix.templates.selector.AncestorSelector;
 import org.jetbrains.plugins.scala.lang.psi.ScImportsHolder;
+import org.jetbrains.plugins.scala.lang.psi.api.base.ScReference;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -157,10 +158,19 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	private void addImport(@NotNull PsiElement expr, String qualifiedName) {
 		ScImportsHolder importHolder = ScImportsHolder.apply(expr, expr.getProject());
 
-		boolean imported = importHolder.getAllImportUsed().exists(i -> i.qualName().exists(n -> n.equals(qualifiedName)));
+		if (expr instanceof ScReference) {
+			val scReference = ((ScReference) expr);
 
-		if (!imported) {
-			importHolder.addImportForPath(qualifiedName, expr);
+			//TODO: Update for IDEA 22.1
+			//boolean imported = importHolder.getAllImportUsed().exists(i -> i.qualName().exists(n -> n.equals(qualifiedName)));
+			boolean imported = importHolder.getImportStatements().exists(s -> {
+				System.out.println("s = " + s);
+				return false;
+			});
+
+			if (!imported) {
+				importHolder.addImportForPath(qualifiedName, scReference);
+			}
 		}
 	}
 

@@ -14,9 +14,9 @@ public class CptReferenceContributor extends PsiReferenceContributor {
 			new PsiReferenceProvider() {
 				@NotNull
 				@Override
-				public PsiReference[] getReferencesByElement(@NotNull PsiElement element,
-				                                             @NotNull ProcessingContext
-					                                             context) {
+				public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement element,
+				                                                       @NotNull ProcessingContext
+					                                                     context) {
 					PsiLiteralExpression literalExpression = (PsiLiteralExpression) element;
 					String value = literalExpression.getValue() instanceof String ?
 						(String) literalExpression.getValue() : null;

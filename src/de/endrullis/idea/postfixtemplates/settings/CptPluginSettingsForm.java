@@ -72,6 +72,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	}
 
 	private void createTree() {
+		/*
 		checkboxTree = new CptManagementTree() {
 			@Override
 			protected void selectionChanged() {
@@ -129,9 +130,10 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 				}
 			})
 			.createPanel());
+		 */
 
 		treeContainer.setLayout(new BorderLayout());
-		treeContainer.add(panel);
+		//treeContainer.add(panel);
 	}
 
 	private String limitTo50(String string) {
@@ -148,6 +150,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	}
 
 	JComponent getComponent() {
+		/*
 		GuiUtils.replaceJSplitPaneWithIDEASplitter(mainPanel);
 
 		emptyLambdaRadioButton.addActionListener(e -> changeLambdaStyle(false));
@@ -169,10 +172,12 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		if (checkboxTree == null) {
 			createTree();
 		}
+		 */
 
 		return mainPanel;
 	}
 
+	/*
 	private void askForUpdatingTemplateFilesNow() {
 		val project = ProjectUtil.guessCurrentProject(mainPanel);
 
@@ -227,6 +232,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 		checkboxTree.initTree(lang2file, activateNewFiles);
 	}
+	 */
 
 	private void changeLambdaStyle(boolean preFilled) {
 		if (preFilled) {
@@ -266,9 +272,9 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private void createUIComponents() {
 		templatesEditorPanel = new JPanel(new BorderLayout());
 
-		templatesEditor = createEditor();
-		setToolTipRecursively(templatesEditor.getComponent(), "This editor is read-only.  To edit templates, close the settings dialog and press shift+alt+P in a normal IDEA editor tab.");
-		templatesEditorPanel.add(templatesEditor.getComponent(), BorderLayout.CENTER);
+		//templatesEditor = createEditor();
+		//setToolTipRecursively(templatesEditor.getComponent(), "This editor is read-only.  To edit templates, close the settings dialog and press shift+alt+P in a normal IDEA editor tab.");
+		//templatesEditorPanel.add(templatesEditor.getComponent(), BorderLayout.CENTER);
 	}
 
 	public static void setToolTipRecursively(JComponent c, String text) {
@@ -323,12 +329,14 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 
 	@Override
 	public void setPluginSettings(@NotNull CptPluginSettings settings) {
+		/*
 		automaticUpdatesCheckBox.setSelected(settings.isUpdateWebTemplatesAutomatically());
 		activateNewWebTemplatesCheckBox.setSelected(settings.isActivateNewWebTemplateFilesAutomatically());
 
 		changeLambdaStyle(settings.isVarLambdaStyle());
 
 		fillTree(settings.getLangName2virtualFiles(), settings.isActivateNewWebTemplateFilesAutomatically());
+		 */
 	}
 
 	@NotNull
