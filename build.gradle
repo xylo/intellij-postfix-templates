@@ -15,8 +15,8 @@ group 'com.intellij'
 version '2.12.4.221'
 
 compileJava {
-    sourceCompatibility = '11'
-    targetCompatibility = '11'
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
 }
 
 repositories {
@@ -32,11 +32,11 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.2'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
 
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-   	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+   	annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
-    testCompileOnly 'org.projectlombok:lombok:1.18.22'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     testImplementation 'junit:junit:4.13.2'
 }
@@ -63,7 +63,8 @@ sourceSets {
 
 // Avoid ClassNotFoundException: com.maddyhome.idea.copyright.psi.UpdateCopyrightsProvider
 tasks.buildSearchableOptions {
-    jvmArgs = ['-Djava.system.class.loader=com.intellij.util.lang.PathClassLoader']
+//    jvmArgs = ['-Djava.system.class.loader=com.intellij.util.lang.PathClassLoader']
+    enabled = false
 }
 
 intellij {

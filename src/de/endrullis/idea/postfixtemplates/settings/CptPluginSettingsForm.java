@@ -92,11 +92,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 					} else if (selectedFile.getWebTemplateFile() != null) {
 						val    webTemplateFile = selectedFile.getWebTemplateFile();
 						String subject         = "";
-						try {
-							subject = URLEncoder.encode("[Custom Postfix Templates] " + fileName, "UTF-8").replaceAll("\\+", "%20");
-						} catch (UnsupportedEncodingException e) {
-							e.printStackTrace();
-						}
+						subject = URLEncoder.encode("[Custom Postfix Templates] " + fileName, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
 						String s = "<html><body>Web Template File \"" + fileName + "\"<table style='width: 100%'>";
 						s += "<tr><td>Author:</td><td style='width: 100%'><a href=\"mailto:" + webTemplateFile.email + "?subject=" + subject + "\">" + webTemplateFile.author + "</a></td></tr>";
 						s += "<tr><td>Website:</td><td style='width: 100%'><a href=\"" + webTemplateFile.website + "\">" + limitTo50(webTemplateFile.website) + "</a></td></tr>";
@@ -180,7 +176,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		val currentSettings = getPluginSettings();
 
 		if (!oldSettings.equals(currentSettings)) {
-			val builder = new DialogBuilder().title("Unsaved changes").centerPanel(
+			val builder = new DialogBuilder().title("Unsaved Changes").centerPanel(
 				new JLabel("Please apply the unsaved changes before running the update.")
 			);
 			builder.removeAllActions();
@@ -196,7 +192,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			fillTree(currentSettings.getLangName2virtualFiles(), currentSettings.isActivateNewWebTemplateFilesAutomatically());
 
 			ApplicationManager.getApplication().invokeLater(() -> {
-				val builder = new DialogBuilder().title("Update successful").centerPanel(
+				val builder = new DialogBuilder().title("Update Successful").centerPanel(
 					new JLabel("The templates have been successfully updated.")
 				);
 				builder.removeAllActions();
