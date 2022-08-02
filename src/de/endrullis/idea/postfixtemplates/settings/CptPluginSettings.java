@@ -20,19 +20,19 @@ public final class CptPluginSettings {
 	public static final CptPluginSettings DEFAULT = new CptPluginSettings();
 
 	@Attribute("VarLambdaStyle")
-	private boolean varLambdaStyle;
+	private final boolean varLambdaStyle;
 
 	@Attribute("UpdateWebTemplatesAutomatically")
-	private boolean updateWebTemplatesAutomatically;
+	private final boolean updateWebTemplatesAutomatically;
 
 	@Attribute("ActivateNewWebTemplateFilesAutomatically")
-	private boolean activateNewWebTemplateFilesAutomatically;
+	private final boolean activateNewWebTemplateFilesAutomatically;
 
 	@Attribute("SettingsVersion")
-	private int settingsVersion;
+	private final int settingsVersion;
 
 	@MapAnnotation()
-	private Map<String, List<VFile>> langName2virtualFiles;
+	private final Map<String, List<VFile>> langName2virtualFiles;
 
 	private transient Map<String, String>                file2langName;
 	private transient Map<String, Tuple2<String, VFile>> file2langAndVFile;

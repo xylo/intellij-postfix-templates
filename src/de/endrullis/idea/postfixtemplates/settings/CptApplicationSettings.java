@@ -33,7 +33,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 public class CptApplicationSettings implements PersistentStateComponent<CptApplicationSettings.State>, CptPluginSettings.Holder {
 
 	@Getter
-	private State state = new State();
+	private final State state = new State();
 
 	public CptApplicationSettings() {
 	}

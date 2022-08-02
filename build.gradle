@@ -8,15 +8,15 @@ plugins {
     // Gradle Qodana Plugin
     id "org.jetbrains.qodana" version "0.1.13"
     // Gradle IntelliJ Plugin
-    id "org.jetbrains.intellij" version "1.5.3"
+    id "org.jetbrains.intellij" version "1.7.0"
 }
 
 group 'com.intellij'
-version '2.12.3.221'
+version '2.12.4.221'
 
 compileJava {
-    sourceCompatibility = '1.8'
-    targetCompatibility = '1.8'
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
 }
 
 repositories {
@@ -70,25 +70,25 @@ intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
     //version 'IU-212.4037-EAP-CANDIDATE-SNAPSHOT'
-    version = 'IU-221.5080.210'
-    //version 'IU-211.7142.45'
+    version = 'IU-222.3345.118'
+    //version 'IU-222.3345.118'
     plugins = ['java',
             //'PythonCore:201.6073.9',
-            'Pythonid:221.5080.212',
+            'Pythonid:222.3345.131',
             'Kotlin',
-            'org.intellij.scala:2022.1.13',
+            'org.intellij.scala:2022.2.10',
             'JavaScriptLanguage',
             'CSS',
-            'Dart:221.5177',
+            'Dart:222.3345.108',
             'Groovy',
             'properties',
-            'org.jetbrains.plugins.ruby:221.5080.169',
-            'com.jetbrains.php:221.5080.224',
+            'org.jetbrains.plugins.ruby:222.3345.118',
+            'com.jetbrains.php:222.3345.135',
             'java-i18n',
             'DatabaseTools',
-            'org.rust.lang:0.4.168.4555-221',
+            'org.rust.lang:0.4.175.4772-222',
             'org.toml.lang',
-            'org.jetbrains.plugins.go:221.5080.210'
+            'org.jetbrains.plugins.go:222.3345.118'
             ]
     updateSinceUntilBuild = true
 //    plugins = ["PythonCore:2018.2.182.3684.101"]

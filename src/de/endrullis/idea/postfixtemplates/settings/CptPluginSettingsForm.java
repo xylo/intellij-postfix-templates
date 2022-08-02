@@ -124,7 +124,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			.setMoveUpAction(e -> checkboxTree.moveUpSelectedFiles())
 			.addExtraAction(new AnActionButton("Help", AllIcons.Actions.Help) {
 				@Override
-				public void actionPerformed(AnActionEvent event) {
+				public void actionPerformed(@NotNull AnActionEvent event) {
 					showHelpDialog(event.getProject());
 				}
 			})
