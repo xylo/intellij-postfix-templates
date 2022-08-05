@@ -12,7 +12,7 @@ plugins {
 }
 
 group 'com.intellij'
-version '2.12.4.221'
+version '2.12.5.221'
 
 compileJava {
     sourceCompatibility = '17'
