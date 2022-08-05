@@ -1,6 +1,8 @@
 package de.endrullis.idea.postfixtemplates.language;
 
+import com.intellij.ide.DataManager;
 import com.intellij.ide.plugins.PluginManagerCore;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.options.ShowSettingsUtil;
@@ -25,11 +27,13 @@ import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -56,6 +60,10 @@ public class CptUtil {
 		}
 
 		return (containingFile == null ? element : containingFile).getProject();
+	}
+
+	public static Project findProject(@NotNull Component component) {
+		return CommonDataKeys.PROJECT.getData(DataManager.getInstance().getDataContext(component));
 	}
 
 	public static List<CptMapping> findMappings(Project project, String key) {

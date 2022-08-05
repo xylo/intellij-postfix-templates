@@ -8,7 +8,6 @@ import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.util.text.StringUtil;
@@ -368,7 +367,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		val file = fileNode.getFile();
 
 		if (isEditable(file)) {
-			val project = ProjectUtil.guessCurrentProject(this);;
+			val project = CptUtil.findProject(this);
 			openFileEditDialog(project, fileNode.getLang(), fileNode);
 
 			model.nodeChanged(fileNode);

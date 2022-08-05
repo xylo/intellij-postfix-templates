@@ -169,7 +169,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	}
 
 	private void askForUpdatingTemplateFilesNow() {
-		val project = ProjectUtil.guessCurrentProject(mainPanel);
+		val project = CptUtil.findProject(mainPanel);
 
 		val oldSettings     = CptApplicationSettings.getInstance().getPluginSettings();
 		val currentSettings = getPluginSettings();
