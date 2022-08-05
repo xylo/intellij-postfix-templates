@@ -55,7 +55,7 @@ public class SupportedLanguages {
 
 	public static final Set<String> supportedLanguageIds = supportedLanguages.stream().map(cl -> cl.getLanguage()).collect(Collectors.toSet());
 
-	private static final HashMap<String, CptLang> languageToCptLang = new HashMap<String, CptLang>() {{
+	private static final HashMap<String, CptLang> languageToCptLang = new HashMap<>() {{
 		supportedLanguages.forEach(lang -> put(lang.getLanguage(), lang));
 	}};
 

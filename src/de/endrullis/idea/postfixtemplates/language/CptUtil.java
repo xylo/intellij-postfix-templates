@@ -119,8 +119,8 @@ public class CptUtil {
 	 * @return predefined plugin templates for the given language
 	 */
 	public static String getDefaultTemplates(String language) {
-		InputStream stream = CptUtil.class.getResourceAsStream("defaulttemplates/" + language + ".postfixTemplates");
-		try {
+		try (InputStream stream = CptUtil.class.getResourceAsStream("defaulttemplates/" + language + ".postfixTemplates")) {
+			assert stream != null;
 			return getContent(stream);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -170,7 +170,7 @@ public class CptUtil {
 	 * @return path of the CPT plugin settings directory
 	 */
 	public static File getPluginPath() {
-		File path = PluginManagerCore.getPlugin(PluginId.getId(CptUtil.PLUGIN_ID)).getPluginPath().toFile();
+		File path = Objects.requireNonNull(PluginManagerCore.getPlugin(PluginId.getId(CptUtil.PLUGIN_ID))).getPluginPath().toFile();
 
 		if (path.getName().endsWith(".jar")) {
 			path = new File(path.getParentFile(), path.getName().substring(0, path.getName().length() - 4));
@@ -271,7 +271,7 @@ public class CptUtil {
 
 			val vFiles                 = settings.getLangName2virtualFiles().getOrDefault(language, new ArrayList<>());
 			val allFilesFromConfig     = vFiles.stream().map(f -> CptUtil.fixFilePath(f.file)).collect(Collectors.toSet());
-			val enabledFilesFromConfig = vFiles.stream().filter(fileFilter).map(f -> new File(f.file)).filter(f -> f.exists()).collect(Collectors.toList());
+			val enabledFilesFromConfig = vFiles.stream().filter(fileFilter).map(f -> new File(f.file)).filter(f -> f.exists()).toList();
 
 			val remainingTemplateFilesFromDir = Arrays.stream(filesFromDir).filter(f -> !allFilesFromConfig.contains(CptUtil.fixFilePath(f.getAbsolutePath())));
 
@@ -439,22 +439,25 @@ public class CptUtil {
 		val preFilled = CptApplicationSettings.getInstance().getPluginSettings().isVarLambdaStyle();
 
 		val tmpFile = File.createTempFile("idea.cpt." + cptVirtualFile.getName(), null);
-		val content = applyReplacements(getContent(cptVirtualFile.getUrl().openStream()), preFilled);
 
-		FileUtils.writeStringToFile(tmpFile, content, StandardCharsets.UTF_8);
+		try (val webStream = Objects.requireNonNull(cptVirtualFile.getUrl()).openStream()) {
+			val content = applyReplacements(getContent(webStream), preFilled);
 
-		//Arrays.equals(Files.readAllBytes(tmpFile.toPath()), Files.readAllBytes(cptVirtualFile.getFile().toPath()));
-		boolean isNew = !cptVirtualFile.getFile().exists();
-		if (cptVirtualFile.getFile().exists()) {
-			cptVirtualFile.getFile().setWritable(true);
+			FileUtils.writeStringToFile(tmpFile, content, StandardCharsets.UTF_8);
+
+			//Arrays.equals(Files.readAllBytes(tmpFile.toPath()), Files.readAllBytes(cptVirtualFile.getFile().toPath()));
+			boolean isNew = !cptVirtualFile.getFile().exists();
+			if (cptVirtualFile.getFile().exists()) {
+				cptVirtualFile.getFile().setWritable(true);
+			}
+			Files.move(tmpFile.toPath(), cptVirtualFile.getFile().toPath(), REPLACE_EXISTING);
+
+			if (cptVirtualFile.getId() != null) {
+				cptVirtualFile.getFile().setReadOnly();
+			}
+
+			return isNew;
 		}
-		Files.move(tmpFile.toPath(), cptVirtualFile.getFile().toPath(), REPLACE_EXISTING);
-
-		if (cptVirtualFile.getId() != null) {
-			cptVirtualFile.getFile().setReadOnly();
-		}
-
-		return isNew;
 	}
 
 	/**

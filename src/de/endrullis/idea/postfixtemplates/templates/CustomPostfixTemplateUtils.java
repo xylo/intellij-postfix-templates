@@ -94,7 +94,6 @@ public class CustomPostfixTemplateUtils {
 					inVar = !inVar;
 				}
 				sb.append(c);
-				escaped = false;
 			}
 		}
 

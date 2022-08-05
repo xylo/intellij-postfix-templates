@@ -1,7 +1,5 @@
 package de.endrullis.idea.postfixtemplates.languages.rust;
 
-import scala.reflect.api.FlagSets;
-
 import java.util.Set;
 import java.util.stream.Collectors;
 

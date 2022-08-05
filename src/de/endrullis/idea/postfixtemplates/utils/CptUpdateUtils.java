@@ -5,6 +5,7 @@ import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
+import de.endrullis.idea.postfixtemplates.language.CptIcons;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings;
@@ -27,7 +28,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * CPT update utilities.
- * 
+ *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 @UtilityClass
@@ -107,7 +108,10 @@ public class CptUpdateUtils {
 							NotificationGroup notificationGroup = NotificationGroupManager.getInstance().getNotificationGroup("Custom Postfix Templates");
 
 							if (pluginSettings.getSettingsVersion() < 2) {
+								//noinspection DialogTitleCapitalization
 								Notification notification = notificationGroup.createNotification("Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files. Please check your <a href=\"settings\">settings</a> to configure the plugin.", NotificationType.INFORMATION);
+								notification.setIcon(CptIcons.FILE);
+								notification.setImportantSuggestion(true);
 								notification.setListener(
 									(notification1, hyperlinkEvent) -> {
 										notification1.expire();
@@ -116,9 +120,11 @@ public class CptUpdateUtils {
 								);
 
 								Notifications.Bus.notify(notification, project);
-							} else
-							if (newTemplateFiles) {
+							} else if (newTemplateFiles) {
+								//noinspection DialogTitleCapitalization
 								Notification notification = notificationGroup.createNotification("Custom Postfix Templates", "New web template files are available.  You can activate them in the <a href=\"settings\">settings</a>.", NotificationType.INFORMATION);
+								notification.setIcon(CptIcons.FILE);
+								notification.setImportantSuggestion(true);
 								notification.setListener(
 									(notification1, hyperlinkEvent) -> {
 										notification1.expire();

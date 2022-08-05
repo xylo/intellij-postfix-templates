@@ -50,8 +50,7 @@ public abstract class CptLang {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof CptLang) {
-			CptLang that = (CptLang) obj;
+		if (obj instanceof CptLang that) {
 			return this.language.equals(that.language);
 		}
 		return false;

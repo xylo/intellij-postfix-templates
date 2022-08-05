@@ -18,9 +18,9 @@ public class CptCompletionContributor extends CompletionContributor {
 	public CptCompletionContributor() {
 		extend(CompletionType.BASIC,
 			PlatformPatterns.psiElement(CptTypes.CLASS_NAME).withLanguage(CptLanguage.INSTANCE),
-			new CompletionProvider<CompletionParameters>() {
+			new CompletionProvider<>() {
 				public void addCompletions(@NotNull CompletionParameters parameters,
-				                           ProcessingContext context,
+				                           @NotNull ProcessingContext context,
 				                           @NotNull CompletionResultSet resultSet) {
 					PsiElement psiElement = parameters.getPosition();
 
@@ -37,9 +37,9 @@ public class CptCompletionContributor extends CompletionContributor {
 
 		extend(CompletionType.BASIC,
 			PlatformPatterns.psiElement(CptTypes.TEMPLATE_VARIABLE_NAME).withLanguage(CptLanguage.INSTANCE),
-			new CompletionProvider<CompletionParameters>() {
+			new CompletionProvider<>() {
 				public void addCompletions(@NotNull CompletionParameters parameters,
-				                           ProcessingContext context,
+				                           @NotNull ProcessingContext context,
 				                           @NotNull CompletionResultSet resultSet) {
 					if (isUserTemplateFile(parameters.getPosition())) {
 						for (String name : PREDEFINED_VARIABLES) {
@@ -52,9 +52,9 @@ public class CptCompletionContributor extends CompletionContributor {
 
 		extend(CompletionType.BASIC,
 			PlatformPatterns.psiElement(CptTypes.TEMPLATE_VARIABLE_EXPRESSION).withLanguage(CptLanguage.INSTANCE),
-			new CompletionProvider<CompletionParameters>() {
+			new CompletionProvider<>() {
 				public void addCompletions(@NotNull CompletionParameters parameters,
-				                           ProcessingContext context,
+				                           @NotNull ProcessingContext context,
 				                           @NotNull CompletionResultSet resultSet) {
 					if (isUserTemplateFile(parameters.getPosition())) {
 						for (Macro macro : MacroFactory.getMacros()) {

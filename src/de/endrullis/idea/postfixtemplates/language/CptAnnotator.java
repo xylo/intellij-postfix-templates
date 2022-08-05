@@ -18,8 +18,7 @@ public class CptAnnotator implements Annotator {
 
 	@Override
 	public void annotate(@NotNull final PsiElement element, @NotNull AnnotationHolder holder) {
-		if (element instanceof LeafPsiElement) {
-			final LeafPsiElement psiElement = (LeafPsiElement) element;
+		if (element instanceof final LeafPsiElement psiElement) {
 
 			if (psiElement.getElementType().equals(CptTypes.CLASS_NAME)) {
 				final String className = element.getText();

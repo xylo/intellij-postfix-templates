@@ -53,7 +53,7 @@ public class CptCompletionUtil {
 		if (basePackage != null) {
 			PsiPackage[] subPackages = basePackage.getSubPackages();
 			for (PsiPackage pkg : subPackages) {
-				// For some reason, we see some invalid packages here - eg. META-INF. Filter them out.
+				// For some reason, we see some invalid packages here - e.g. META-INF. Filter them out.
 				String name = pkg.getName();
 				boolean invalidPkg = false;
 				assert name != null;  // can only be null for default package, which this is not, as it's a subpackage.

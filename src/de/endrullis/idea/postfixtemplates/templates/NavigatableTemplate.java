@@ -13,8 +13,7 @@ public interface NavigatableTemplate extends Navigatable {
 	@Override
 	default void navigate(boolean b) {
 		final PsiElement navigationElement = getNavigationElement();
-		if (navigationElement instanceof Navigatable) {
-			final Navigatable navigatable = (Navigatable) navigationElement;
+		if (navigationElement instanceof final Navigatable navigatable) {
 			if (navigatable.canNavigate()) {
 				navigatable.navigate(true);
 			}

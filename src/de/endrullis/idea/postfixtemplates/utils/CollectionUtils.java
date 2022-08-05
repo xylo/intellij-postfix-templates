@@ -13,16 +13,19 @@ import java.util.*;
 @UtilityClass
 public class CollectionUtils {
 
+	@NotNull
 	public static <T> Set<T> _Set(Collection<T> values) {
 		return new HashSet<>(values);
 	}
 
 	@SafeVarargs
+	@NotNull
 	public static <T> Set<T> _Set(T... values) {
 		return _Set(Arrays.asList(values));
 	}
 
 	@SafeVarargs
+	@NotNull
 	public static <T> List<T> _List(T... values) {
 		return Arrays.asList(values);
 	}

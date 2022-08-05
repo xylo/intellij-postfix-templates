@@ -16,7 +16,7 @@ public class CptStructureViewModel extends StructureViewModelBase implements
 
 	@NotNull
 	@Override
-	public Sorter[] getSorters() {
+	public Sorter @NotNull [] getSorters() {
 		return new Sorter[]{Sorter.ALPHA_SORTER};
 	}
 

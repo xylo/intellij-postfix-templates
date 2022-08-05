@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CptReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
-	private String key;
+	private final String key;
 
 	public CptReference(@NotNull PsiElement element, TextRange textRange) {
 		super(element, textRange);
@@ -22,7 +22,7 @@ public class CptReference extends PsiReferenceBase<PsiElement> implements PsiPol
 
 	@NotNull
 	@Override
-	public ResolveResult[] multiResolve(boolean incompleteCode) {
+	public ResolveResult @NotNull [] multiResolve(boolean incompleteCode) {
 		Project project = myElement.getProject();
 		final List<CptMapping> properties = CptUtil.findMappings(project, key);
 		List<ResolveResult> results = new ArrayList<>();
@@ -41,7 +41,7 @@ public class CptReference extends PsiReferenceBase<PsiElement> implements PsiPol
 
 	@NotNull
 	@Override
-	public Object[] getVariants() {
+	public Object @NotNull [] getVariants() {
 		Project project = myElement.getProject();
 		List<CptMapping> properties = CptUtil.findMappings(project);
 		List<LookupElement> variants = new ArrayList<>();

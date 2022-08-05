@@ -43,7 +43,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 	 * Template file change listener.
 	 */
 	// TODO remove this code if VirtualFileListener is able to replace this code on all platforms
-	private FileDocumentManagerListener templateFileChangeListener = new FileDocumentManagerListener() {
+	private final FileDocumentManagerListener templateFileChangeListener = new FileDocumentManagerListener() {
 		@Override
 		public void beforeDocumentSaving(@NotNull Document d) {
 			VirtualFile vFile = FileDocumentManager.getInstance().getFile(d);

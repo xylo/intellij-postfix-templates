@@ -28,9 +28,9 @@ import java.util.Optional;
 
 public class CombinedPostfixTemplate extends PostfixTemplate implements Navigatable {
 
-	private List<PostfixTemplate> myTemplates;
+	private final List<PostfixTemplate>     myTemplates;
 	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-	private Optional<PostfixTemplate> myApplicableTemplate;
+	private       Optional<PostfixTemplate> myApplicableTemplate;
 
 	public CombinedPostfixTemplate(@NotNull String name,
 	                               @NotNull String example,
@@ -54,7 +54,7 @@ public class CombinedPostfixTemplate extends PostfixTemplate implements Navigata
 
 	@Override
 	public void navigate(boolean b) {
-		if (canNavigate()) {
+		if (canNavigate() && myApplicableTemplate.isPresent()) {
 			Navigatable navigatable = (Navigatable) myApplicableTemplate.get();
 			navigatable.navigate(b);
 		}
@@ -63,8 +63,7 @@ public class CombinedPostfixTemplate extends PostfixTemplate implements Navigata
 	@Override
 	public boolean canNavigate() {
 		return myApplicableTemplate.map(t -> {
-			if (t instanceof Navigatable) {
-				Navigatable navigatable = (Navigatable) t;
+			if (t instanceof Navigatable navigatable) {
 				return navigatable.canNavigate();
 			} else {
 				return false;

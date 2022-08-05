@@ -1,7 +1,6 @@
 package de.endrullis.idea.postfixtemplates.language.psi;
 
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFileFactory;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import lombok.experimental.UtilityClass;
@@ -16,11 +15,6 @@ public class CptElementFactory {
 	public static CptMapping createMapping(Project project, String name, String code) {
 		final CptFile file = createFile(project, name + " -> " + code);
 		return (CptMapping) file.getFirstChild();
-	}
-
-	public static PsiElement createCRLF(Project project) {
-		final CptFile file = createFile(project, "\n");
-		return file.getFirstChild();
 	}
 
 	public static CptFile createFile(Project project, String text) {

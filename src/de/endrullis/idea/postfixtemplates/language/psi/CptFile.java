@@ -7,8 +7,6 @@ import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import de.endrullis.idea.postfixtemplates.language.CptLanguage;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-
 public class CptFile extends PsiFileBase {
 	public CptFile(@NotNull FileViewProvider viewProvider) {
 		super(viewProvider, CptLanguage.INSTANCE);

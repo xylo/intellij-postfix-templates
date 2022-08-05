@@ -49,7 +49,7 @@ public class SuggestShortVariableNameMacro extends Macro {
   }
 
   @Override
-  public Result calculateResult(@NotNull Expression[] params, ExpressionContext context) {
+  public Result calculateResult(@NotNull Expression @NotNull [] params, ExpressionContext context) {
     String[] names = getNames(context);
     if (names == null || names.length == 0) return null;
     return new TextResult(names[0]);
@@ -57,12 +57,12 @@ public class SuggestShortVariableNameMacro extends Macro {
 
   @Nullable
   @Override
-  public Result calculateQuickResult(@NotNull Expression[] params, ExpressionContext context) {
+  public Result calculateQuickResult(@NotNull Expression @NotNull [] params, ExpressionContext context) {
     return calculateResult(params, context);
   }
 
   @Override
-  public LookupElement[] calculateLookupItems(@NotNull Expression[] params, final ExpressionContext context) {
+  public LookupElement[] calculateLookupItems(@NotNull Expression @NotNull [] params, final ExpressionContext context) {
     String[] names = getNames(context);
     if (names == null || names.length < 2) return null;
     LookupElement[] items = new LookupElement[names.length];
@@ -78,7 +78,7 @@ public class SuggestShortVariableNameMacro extends Macro {
 
 	  for (int i = 0; i < names.length; i++) {
 		  String name = names[i];
-		  names[i] = (name.substring(0, 1) + name.substring(1).replaceAll("[^A-Z]", "")).toLowerCase();
+		  names[i] = (name.charAt(0) + name.substring(1).replaceAll("[^A-Z]", "")).toLowerCase();
 	  }
 
     PsiFile file = PsiDocumentManager.getInstance(context.getProject()).getPsiFile(context.getEditor().getDocument());

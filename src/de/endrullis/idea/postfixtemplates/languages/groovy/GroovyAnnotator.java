@@ -8,7 +8,6 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.search.GlobalSearchScope;
 import de.endrullis.idea.postfixtemplates.language.CptCompletionUtil;
 import de.endrullis.idea.postfixtemplates.language.CptLangAnnotator;
-import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 

@@ -19,6 +19,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
@@ -96,7 +97,7 @@ public class AddTemplateFileDialog extends DialogWrapper {
 
 			@Override
 			public boolean isFileSelectable(VirtualFile virtualFile) {
-				return extensions.contains(virtualFile.getExtension());
+				return virtualFile != null && extensions.contains(virtualFile.getExtension());
 			}
 
 			@Override
@@ -157,7 +158,7 @@ public class AddTemplateFileDialog extends DialogWrapper {
 	}
 
 	public static void main(String[] args) {
-		val dialog = new AddTemplateFileDialog(null, SupportedLanguages.getCptLang("java"), null, _Set());
+		val dialog = new AddTemplateFileDialog(null, Objects.requireNonNull(SupportedLanguages.getCptLang("java")), null, _Set());
 
 		new JDialog() {{
 			getRootPane().setContentPane(dialog.createCenterPanel());

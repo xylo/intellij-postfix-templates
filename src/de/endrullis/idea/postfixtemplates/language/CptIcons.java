@@ -2,9 +2,9 @@ package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.openapi.util.IconLoader;
 import de.endrullis.idea.postfixtemplates.ApplicationInterface;
+import lombok.experimental.UtilityClass;
 
 import javax.swing.*;
-import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class CptIcons {

@@ -1,8 +1,9 @@
 package de.endrullis.idea.postfixtemplates.utils;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import lombok.experimental.UtilityClass;
 
 /**
  * String utilities.

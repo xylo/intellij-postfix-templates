@@ -104,8 +104,7 @@ public class EditorTypedHandler implements TypedActionHandler {
 		val language = CptUtil.getLanguageOfTemplateFile(vFile);
 
 		if (language != null && element != null) {
-			if (element instanceof CptMapping) {
-				CptMapping cptMapping = (CptMapping) element;
+			if (element instanceof CptMapping cptMapping) {
 				CptTemplate cptTemplate = (CptTemplate) cptMapping.getParent().getParent();
 				openFileEditDialog(project, language.getLanguage(), vFile, cptTemplate, cptMapping, userTriedToEditFile);
 			}
@@ -125,7 +124,7 @@ public class EditorTypedHandler implements TypedActionHandler {
 		}
 
 		if (editableTemplateFiles.isEmpty()) {
-			val builder = new DialogBuilder().title("Override template rule").centerPanel(
+			val builder = new DialogBuilder().title("Override Template Rule").centerPanel(
 				new VerticalBox() {{
 					if (userTriedToEditFile) {
 						add(new JLabel("Web template files cannot be edited directly."));
@@ -168,7 +167,7 @@ public class EditorTypedHandler implements TypedActionHandler {
 		} else {
 			final ComboBox<FileWrapper> fileComboBox = new ComboBox<>(editableTemplateFiles.toArray(new FileWrapper[0]));
 
-			val builder = new DialogBuilder().title("Override template rule").centerPanel(
+			val builder = new DialogBuilder().title("Override Template Rule").centerPanel(
 				new VerticalBox() {{
 					if (userTriedToEditFile) {
 						add(new JLabel("Web template files cannot be edited directly."));

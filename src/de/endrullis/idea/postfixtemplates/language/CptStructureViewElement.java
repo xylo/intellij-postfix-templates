@@ -10,12 +10,14 @@ import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import de.endrullis.idea.postfixtemplates.language.psi.CptFile;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CptStructureViewElement implements StructureViewTreeElement, SortableTreeElement {
-	private PsiElement element;
+	private final PsiElement element;
 
 	public CptStructureViewElement(PsiElement element) {
 		this.element = element;
@@ -46,25 +48,25 @@ public class CptStructureViewElement implements StructureViewTreeElement, Sortab
 	}
 
 	@Override
-	public String getAlphaSortKey() {
-		return element instanceof PsiNamedElement ? ((PsiNamedElement) element).getName() : null;
+	public @NotNull String getAlphaSortKey() {
+		return Objects.requireNonNull(element instanceof PsiNamedElement ? ((PsiNamedElement) element).getName() : null);
 	}
 
 	@Override
-	public ItemPresentation getPresentation() {
-		return element instanceof NavigationItem ?
-			((NavigationItem) element).getPresentation() : null;
+	public @NotNull ItemPresentation getPresentation() {
+		return Objects.requireNonNull(element instanceof NavigationItem ? ((NavigationItem) element).getPresentation() : null);
 	}
 
 	@Override
-	public TreeElement[] getChildren() {
+	public TreeElement @NotNull [] getChildren() {
 		if (element instanceof CptFile) {
 			CptTemplate[] templates = PsiTreeUtil.getChildrenOfType(element, CptTemplate.class);
+			assert templates != null;
 			List<TreeElement> treeElements = new ArrayList<>(templates.length);
 			for (CptTemplate template : templates) {
 				treeElements.add(new CptStructureViewElement(template));
 			}
-			return treeElements.toArray(new TreeElement[treeElements.size()]);
+			return treeElements.toArray(new TreeElement[0]);
 		} else {
 			return EMPTY_ARRAY;
 		}

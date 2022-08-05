@@ -39,7 +39,7 @@ public class CptFileType extends LanguageFileType {
 	}
 
 	@Override
-	public String getCharset(@NotNull VirtualFile file, @NotNull byte[] content) {
+	public String getCharset(@NotNull VirtualFile file, byte @NotNull [] content) {
 		return "UTF-8";
 	}
 }

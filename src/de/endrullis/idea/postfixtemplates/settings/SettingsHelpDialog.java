@@ -15,7 +15,7 @@ public class SettingsHelpDialog extends DialogWrapper {
 	public SettingsHelpDialog(@Nullable Project project) {
 		super(project);
 
-		setTitle("How it works");
+		setTitle("How It Works");
 
 		if (project != null) {
 			init();

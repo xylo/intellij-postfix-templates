@@ -15,7 +15,6 @@ public class WebTemplateFileParsingTestApp {
 				System.out.println(ReflectionToStringBuilder.toString(entry, ToStringStyle.MULTI_LINE_STYLE));
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

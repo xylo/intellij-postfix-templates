@@ -3,6 +3,7 @@ package de.endrullis.idea.postfixtemplates.language;
 import com.intellij.lexer.Lexer;
 import com.intellij.psi.impl.cache.impl.OccurrenceConsumer;
 import com.intellij.psi.impl.cache.impl.id.LexerBasedIdIndexer;
+import org.jetbrains.annotations.NotNull;
 
 public class CptIndexer extends LexerBasedIdIndexer {
 
@@ -11,7 +12,7 @@ public class CptIndexer extends LexerBasedIdIndexer {
 	}
 
 	@Override
-	public Lexer createLexer(final OccurrenceConsumer consumer) {
+	public @NotNull Lexer createLexer(final @NotNull OccurrenceConsumer consumer) {
 		return createIndexingLexer(consumer);
 	}
 }

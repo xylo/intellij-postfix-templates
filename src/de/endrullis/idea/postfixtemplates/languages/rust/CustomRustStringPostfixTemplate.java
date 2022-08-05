@@ -4,13 +4,10 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvid
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
-import de.endrullis.idea.postfixtemplates.templates.SpecialType;
-import kotlin.jvm.internal.Intrinsics;
 import org.jetbrains.annotations.NotNull;
 import org.rust.ide.template.postfix.RsExprParentsSelector;
 import org.rust.lang.core.psi.RsExpr;
 import org.rust.lang.core.types.ExtensionsKt;
-import org.rust.lang.core.types.ty.*;
 
 import java.util.HashMap;
 import java.util.Map;

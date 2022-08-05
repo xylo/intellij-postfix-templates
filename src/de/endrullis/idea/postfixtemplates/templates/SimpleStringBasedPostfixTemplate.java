@@ -90,8 +90,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 
 	public static List<PsiElement> collectExpressions(final PsiFile file,
 	                                                  final Document document,
-	                                                  final int offset,
-	                                                  boolean acceptVoid) {
+	                                                  final int offset) {
 		CharSequence text = document.getCharsSequence();
 		int correctedOffset = offset;
 		int textLength = document.getTextLength();
@@ -143,7 +142,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 		return new PostfixTemplateExpressionSelectorBase(additionalFilter) {
 			@Override
 			protected List<PsiElement> getNonFilteredExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
-				return new ArrayList<>(collectExpressions(context.getContainingFile(), document, Math.max(offset - 1, 0), false));
+				return new ArrayList<>(collectExpressions(context.getContainingFile(), document, Math.max(offset - 1, 0)));
 			}
 
 			@NotNull
@@ -152,10 +151,6 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 				if (DumbService.getInstance(context.getProject()).isDumb()) return Collections.emptyList();
 
 				List<PsiElement> expressions = super.getExpressions(context, document, offset);
-
-				for (PsiElement expression : expressions) {
-					//System.out.println(expression);
-				}
 
 				if (!expressions.isEmpty()) return expressions;
 
@@ -177,7 +172,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 	}
 
 	public static void addVariablesToTemplate(@NotNull Template template, Set<MyVariable> variables, Project project, NavigatablePostfixTemplate postfixTemplate) {
-		List<MyVariable> sortedVars = variables.stream().sorted(Comparator.comparing(s -> s.getNo())).collect(Collectors.toList());
+		List<MyVariable> sortedVars = variables.stream().sorted(Comparator.comparing(s -> s.getNo())).toList();
 
 		for (Variable variable : sortedVars) {
 			try {

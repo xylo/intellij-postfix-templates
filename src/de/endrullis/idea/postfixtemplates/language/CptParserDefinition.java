@@ -50,11 +50,11 @@ public class CptParserDefinition implements ParserDefinition {
 	}
 
 	@Override
-	public IFileElementType getFileNodeType() {
+	public @NotNull IFileElementType getFileNodeType() {
 		return FILE;
 	}
 
-	public PsiFile createFile(FileViewProvider viewProvider) {
+	public @NotNull PsiFile createFile(@NotNull FileViewProvider viewProvider) {
 		return new CptFile(viewProvider);
 	}
 

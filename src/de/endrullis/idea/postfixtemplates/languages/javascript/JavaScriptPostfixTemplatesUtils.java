@@ -2,10 +2,7 @@ package de.endrullis.idea.postfixtemplates.languages.javascript;
 
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
-import com.intellij.lang.javascript.JSElementTypes;
 import com.intellij.lang.javascript.index.JavaScriptIndex;
-import com.intellij.lang.javascript.psi.JSType;
-import com.intellij.lang.javascript.psi.resolve.JavaScriptTypeHelper;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 

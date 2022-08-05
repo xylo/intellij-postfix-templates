@@ -56,7 +56,7 @@ public class CptSyntaxHighlighter extends SyntaxHighlighterBase {
 
 	@NotNull
 	@Override
-	public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
+	public TextAttributesKey @NotNull [] getTokenHighlights(IElementType tokenType) {
 		if (tokenType.equals(CptTypes.SEPARATOR) || tokenType.equals(CptTypes.MAP)) {
 			return SEPARATOR_KEYS;
 		} else if (tokenType.equals(CptTypes.TEMPLATE_NAME)) {

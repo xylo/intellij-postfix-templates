@@ -15,12 +15,12 @@ import java.util.List;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 public class CptBlock extends AbstractBlock {
-	private SpacingBuilder spacingBuilder;
+	private final SpacingBuilder spacingBuilder;
 
-	private Indent indent;
-	private Indent childIndent;
+	private final Indent indent;
+	private final Indent childIndent;
 
-	private Alignment mapAlignment = Alignment.createAlignment(false, Alignment.Anchor.LEFT);
+	private final Alignment mapAlignment = Alignment.createAlignment(false, Alignment.Anchor.LEFT);
 
 	protected CptBlock(@NotNull ASTNode node, @Nullable Wrap wrap, Indent indent, Indent childIndent, @Nullable Alignment alignment,
 	                   SpacingBuilder spacingBuilder) {

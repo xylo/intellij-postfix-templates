@@ -29,7 +29,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.intellij.codeInsight.template.postfix.util.JavaPostfixTemplatesUtils.*;
-import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.IS_ARRAY;
 import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.IS_ITERABLE_OR_ARRAY;
 import static de.endrullis.idea.postfixtemplates.languages.java.MyJavaPostfixTemplatesUtils.*;
 import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates.PREDEFINED_VARIABLES;

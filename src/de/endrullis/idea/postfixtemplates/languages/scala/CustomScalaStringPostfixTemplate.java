@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.languages.java.CustomJavaStringPostfixTemplate.withProjectClassCondition;
 import static de.endrullis.idea.postfixtemplates.languages.scala.ScalaPostfixTemplatesUtils.*;
+import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates.PREDEFINED_VARIABLES;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.parseVariables;
 import static de.endrullis.idea.postfixtemplates.templates.CustomPostfixTemplateUtils.removeVariableValues;
 import static de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate.addVariablesToTemplate;
-import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates.PREDEFINED_VARIABLES;
 
 /**
  * Custom postfix template for Scala.
@@ -35,9 +35,9 @@ import static de.endrullis.idea.postfixtemplates.settings.CustomPostfixTemplates
 @SuppressWarnings("WeakerAccess")
 public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTemplate implements NavigatablePostfixTemplate {
 
-	static final Pattern IMPORT_PATTERN = Pattern.compile("\\[IMPORT ([^\\]]+)\\]");
+	static final Pattern IMPORT_PATTERN = Pattern.compile("\\[IMPORT ([^]]+)]");
 
-	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<>() {{
 		put(SpecialType.ANY.name(), e -> true);
 		put(SpecialType.VOID.name(), VOID);
 		put(SpecialType.NON_VOID.name(), NON_VOID);
@@ -82,7 +82,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 
 		imports = extractImport(template);
 		template = removeImports(template);
-		template = template.replaceAll("\\[USE_STATIC_IMPORTS\\]", "");
+		template = template.replaceAll("\\[USE_STATIC_IMPORTS]", "");
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());

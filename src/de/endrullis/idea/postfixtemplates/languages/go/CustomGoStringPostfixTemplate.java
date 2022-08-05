@@ -1,6 +1,5 @@
 package de.endrullis.idea.postfixtemplates.languages.go;
 
-import com.goide.util.GoUtil;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelector;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateExpressionSelectorBase;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
@@ -28,7 +27,7 @@ import static de.endrullis.idea.postfixtemplates.languages.go.GoPostfixTemplates
 @SuppressWarnings("WeakerAccess")
 public class CustomGoStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
 
-	static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+	static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<>() {{
 		put(GoSpecialType.ANY.name(), e -> true);
 		put(GoSpecialType.BOOLEAN.name(), IS_BOOL);
 		put(GoSpecialType.INT.name(), IS_INT);
