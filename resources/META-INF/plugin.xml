@@ -601,7 +601,7 @@
 
 	<actions>
 		<!-- Add your actions here -->
-		<group text="Custom _Postfix Templates" popup="true" id="Cpt.Menu" icon="/de/endrullis/idea/postfixtemplates/icons/cpt-icon.png"> <!-- class="de.endrullis.idea.postfixtemplates.actions.MenuAction">-->
+		<group text="Custom _Postfix Templates" popup="true" id="Cpt.Menu" icon="/de/endrullis/idea/postfixtemplates/icons/cpt-icon.png">
 			<add-to-group group-id="ToolsMenu" anchor="last"/>
 		</group>
 
