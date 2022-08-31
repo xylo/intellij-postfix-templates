@@ -16,6 +16,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.plugins.groovy.lang.psi.GroovyElementTypes;
@@ -35,7 +36,7 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 public class CustomGroovyStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
 
 	/** Contains predefined type-to-psiCondition mappings as well as cached mappings for individual types. */
-	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<>() {{
 		put(GroovyType.ANY.name(), e -> true);
 		//put(GroovyType.VOID.name(), IS_VOID);
 		//put(GroovyType.NON_VOID.name(), IS_NON_VOID);
@@ -77,7 +78,7 @@ public class CustomGroovyStringPostfixTemplate extends SimpleStringBasedPostfixT
 	                                                  final Document document,
 	                                                  final int offset,
 	                                                  boolean acceptVoid) {
-		CharSequence text = document.getCharsSequence();
+		val text            = document.getCharsSequence();
 		int correctedOffset = offset;
 		int textLength = document.getTextLength();
 		if (offset >= textLength) {
@@ -140,10 +141,6 @@ public class CustomGroovyStringPostfixTemplate extends SimpleStringBasedPostfixT
 				if (DumbService.getInstance(context.getProject()).isDumb()) return Collections.emptyList();
 
 				List<PsiElement> expressions = super.getExpressions(context, document, offset);
-
-				for (PsiElement expression : expressions) {
-					//System.out.println(expression);
-				}
 
 				if (!expressions.isEmpty()) return expressions;
 

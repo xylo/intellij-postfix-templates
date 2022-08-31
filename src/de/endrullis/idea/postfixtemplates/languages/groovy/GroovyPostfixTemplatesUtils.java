@@ -29,8 +29,6 @@ abstract class GroovyPostfixTemplatesUtils {
 		return element -> {
 			if (element instanceof GrExpression) {
 				return isCustomClass(((GrExpression) element).getType(), clazz);
-			} else if (element instanceof GrExpression) {
-				return isCustomClass(((GrExpression) element).getType(), clazz);
 			} else {
 				return false;
 			}

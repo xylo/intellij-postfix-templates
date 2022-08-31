@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class GroovyAnnotator implements CptLangAnnotator {
 
-	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
+	private final Map<String, Boolean> className2exists = new HashMap<>() {{
 		for (GroovyType value : GroovyType.values()) {
 			put(value.name(), true);
 		}
