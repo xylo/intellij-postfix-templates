@@ -9,16 +9,12 @@ public enum CptFileType {
 
 	@Override
 	public String toString() {
-		switch (this) {
-			case LocalInPluginDir:
-				return "User template file (local file in plugin directory)";
-			case LocalInFs:
-				return "Local file in filesystem";
-			case Web:
-				return "Web template file (URL)";
-		}
+		return switch (this) {
+			case LocalInPluginDir -> "User template file (local file in plugin directory)";
+			case LocalInFs -> "Local file in filesystem";
+			case Web -> "Web template file (URL)";
+		};
 
-		return "";
 	}
 	
 }

@@ -27,10 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreePath;
+import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -69,7 +66,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		getSelectionModel().addTreeSelectionListener(treeSelectionListener);
 		doubleClickListener = new DoubleClickListener() {
 			@Override
-			protected boolean onDoubleClick(MouseEvent event) {
+			protected boolean onDoubleClick(@NotNull MouseEvent event) {
 				TreePath location = getClosestPathForLocation(event.getX(), event.getY());
 				return location != null && doubleClick(location.getLastPathComponent());
 			}
@@ -104,8 +101,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 		return new CheckboxTreeCellRenderer() {
 			@Override
 			public void customizeRenderer(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-				if (!(value instanceof CheckedTreeNode)) return;
-				CheckedTreeNode node = (CheckedTreeNode) value;
+				if (!(value instanceof CheckedTreeNode node)) return;
 
 				final Color background = selected ? UIUtil.getTreeSelectionBackground(true) : UIUtil.getTreeBackground();
 				FileTreeNode cptTreeNode = ObjectUtils.tryCast(node, FileTreeNode.class);
@@ -154,7 +150,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 		for (Map.Entry<CptLang, List<CptPluginSettings.VFile>> entry : lang2file.entrySet()) {
 			val lang = entry.getKey();
-			val vFiles = entry.getValue().stream().filter(f -> new File(f.file).exists()).collect(Collectors.toList());
+			val vFiles = entry.getValue().stream().filter(f -> new File(f.file).exists()).toList();
 			val langNode = findOrCreateLangNode(lang);
 			val vFileIds = vFiles.stream().map(f -> f.id).collect(Collectors.toSet());
 			val webTemplateFiles = lang2webTemplateFiles.getOrDefault(lang.getLanguage(), _List());
@@ -221,8 +217,8 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 					node.setChecked(activateNewFiles);
 
 					langNode.add(node);
-				} catch (IOException ignored) {
-					ignored.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 				nextMissingWtf = missingWtfIter.hasNext() ? missingWtfIter.next() : null;
 
@@ -254,10 +250,10 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	}
 
 	private void visitFileNodes(@NotNull Consumer<FileTreeNode> consumer) {
-		Enumeration languages = root.children();
+		val languages = root.children();
 		while (languages.hasMoreElements()) {
 			CheckedTreeNode langNode = (CheckedTreeNode) languages.nextElement();
-			Enumeration fileNodes = langNode.children();
+			val fileNodes = langNode.children();
 			while (fileNodes.hasMoreElements()) {
 				Object fileNode = fileNodes.nextElement();
 				if (fileNode instanceof FileTreeNode) {
@@ -483,8 +479,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 			val fileNode = (MutableTreeNode) path.getLastPathComponent();
 			val parentNode = (MutableTreeNode) path.getParentPath().getLastPathComponent();
 
-			if (getModel() instanceof DefaultTreeModel) {
-				val model = (DefaultTreeModel) getModel();
+			if (getModel() instanceof DefaultTreeModel model) {
 				val index = model.getIndexOfChild(parentNode, fileNode) + direction;
 
 				if (index >= 0 && index < model.getChildCount(parentNode)) {
