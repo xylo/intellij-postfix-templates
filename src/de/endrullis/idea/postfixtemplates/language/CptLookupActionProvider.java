@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
 public class CptLookupActionProvider implements LookupActionProvider {
+
 	@Override
 	public void fillActions(@NotNull LookupElement element, final @NotNull Lookup lookup, @NotNull Consumer<LookupElementAction> consumer) {
 		if (element instanceof final PostfixTemplateLookupElement templateLookupElement) {
@@ -40,4 +41,5 @@ public class CptLookupActionProvider implements LookupActionProvider {
 			}
 		}
 	}
+
 }

@@ -116,7 +116,6 @@ public class CptPsiImplUtil {
 				return containingFile == null ? null : containingFile.getName();
 			}
 
-			@Nullable
 			@Override
 			public Icon getIcon(boolean unused) {
 				return CptIcons.FILE;
@@ -139,7 +138,6 @@ public class CptPsiImplUtil {
 				return containingFile == null ? null : containingFile.getName();
 			}
 
-			@Nullable
 			@Override
 			public Icon getIcon(boolean unused) {
 				return CptIcons.FILE;

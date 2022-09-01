@@ -51,11 +51,8 @@ public class CptUtil {
 
 	public static Project findProject(PsiElement element) {
 		PsiFile containingFile = element.getContainingFile();
-		if (containingFile == null) {
-			if (!element.isValid()) {
-				return null;
-			}
-		} else if (!containingFile.isValid()) {
+
+		if (!Objects.requireNonNullElse(containingFile, element).isValid()) {
 			return null;
 		}
 
@@ -329,8 +326,8 @@ public class CptUtil {
 
 	@NotNull
 	public static VirtualFile getAbsoluteVirtualFile(@NotNull VirtualFile vFile) {
-		if (vFile instanceof LightVirtualFile) {
-			final VirtualFile originalFile = ((LightVirtualFile) vFile).getOriginalFile();
+		if (vFile instanceof LightVirtualFile lvFile) {
+			val originalFile = lvFile.getOriginalFile();
 
 			if (originalFile != null) {
 				vFile = originalFile;
@@ -355,7 +352,7 @@ public class CptUtil {
 
 	public static void openFileInEditor(@NotNull Project project, @NotNull VirtualFile vFile) {
 		// open templates file in an editor
-		final OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, vFile);
+		val openFileDescriptor = new OpenFileDescriptor(project, vFile);
 		openFileDescriptor.navigate(true);
 
 		//EditorFactory.getInstance().createViewer(document, project);
@@ -399,9 +396,9 @@ public class CptUtil {
 	}
 
 	public static void processTemplates(Project project, VirtualFile vFile, BiConsumer<CptTemplate, CptMapping> action) {
-		CptFile cptFile = (CptFile) PsiManager.getInstance(project).findFile(vFile);
+		val cptFile = (CptFile) PsiManager.getInstance(project).findFile(vFile);
 		if (cptFile != null) {
-			CptTemplate[] cptTemplates = PsiTreeUtil.getChildrenOfType(cptFile, CptTemplate.class);
+			val cptTemplates = PsiTreeUtil.getChildrenOfType(cptFile, CptTemplate.class);
 			if (cptTemplates != null) {
 				for (CptTemplate cptTemplate : cptTemplates) {
 					for (CptMapping mapping : cptTemplate.getMappings().getMappingList()) {
@@ -415,8 +412,7 @@ public class CptUtil {
 	private static String applyReplacements(String templatesText, boolean preFilled) {
 		final String[] finalTemplatesText = new String[]{templatesText};
 
-		try (final InputStreamReader in = new InputStreamReader(CptUtil.class.getResourceAsStream("templatemapping/" + (preFilled ? "var" : "empty") + "Lambda.txt"), StandardCharsets.UTF_8);
-		     final BufferedReader bufferedReader = new BufferedReader(in)) {
+		try (val bufferedReader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(CptUtil.class.getResourceAsStream("templatemapping/" + (preFilled ? "var" : "empty") + "Lambda.txt")), StandardCharsets.UTF_8))) {
 			bufferedReader.lines().filter(l -> l.contains("→")).map(line -> line.split("→")).forEach(split ->
 				finalTemplatesText[0] = replace(finalTemplatesText[0], split[0].trim(), split[1].trim())
 			);
@@ -428,7 +424,7 @@ public class CptUtil {
 
 	/** Downloads/updates the web template info file. */
 	public static void downloadWebTemplatesInfoFile() throws IOException {
-		URL url = new URL("https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/webTemplateFiles.yaml");
+		val url = new URL("https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/webTemplateFiles.yaml");
 
 		val tmpFile = File.createTempFile("idea.cpt.webtemplates", null);
 		val content = getContent(url.openStream());
@@ -511,7 +507,7 @@ public class CptUtil {
 			e -> e.getValue().stream().map(f -> new CptPluginSettings.VFile(f.enabled, f.id, f.url, f.file.replace(CptUtil.getTemplatesPath().getAbsolutePath(), "${PLUGIN}"))).collect(Collectors.toList())
 		));
 
-		CptPluginSettings newPluginSettings = new CptPluginSettings(
+		val newPluginSettings = new CptPluginSettings(
 			pluginSettings.isVarLambdaStyle(),
 			pluginSettings.isUpdateWebTemplatesAutomatically(),
 			pluginSettings.isActivateNewWebTemplateFilesAutomatically(),

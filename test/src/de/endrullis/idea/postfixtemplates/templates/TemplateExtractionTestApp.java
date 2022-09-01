@@ -1,7 +1,7 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
 import java.io.*;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class TemplateExtractionTestApp {
 		File javaTemplateFile = new File("test/src/de/endrullis/idea/postfixtemplates/templates/TemplatesTestTemplate.java");
 		File javaOutputFile   = new File("test/src/de/endrullis/idea/postfixtemplates/templates/TemplatesTestOutput.java");
 
-		List<String> javaTemplateLines = Files.readAllLines(javaTemplateFile.toPath(), Charset.forName("UTF-8"));
+		List<String> javaTemplateLines = Files.readAllLines(javaTemplateFile.toPath(), StandardCharsets.UTF_8);
 
 		try (PrintStream out = new PrintStream(javaOutputFile)) {
 			for (String javaLine : javaTemplateLines) {
@@ -38,9 +38,11 @@ public class TemplateExtractionTestApp {
 
 	private static void printTemplates(PrintStream out) {
 		InputStream templatesIn = TemplateExtractionTestApp.class.getResourceAsStream("/de/endrullis/idea/postfixtemplates/language/defaulttemplates/java.postfixTemplates");
+		assert templatesIn != null;
 		Stream<String> templateLines = new BufferedReader(new InputStreamReader(templatesIn)).lines().filter(s -> s.contains("→"));
 
 		InputStream typeMappingIn = TemplateExtractionTestApp.class.getResourceAsStream("/de/endrullis/idea/postfixtemplates/templates/typeMapping.txt");
+		assert typeMappingIn != null;
 		Map<String, String> type2var = new BufferedReader(new InputStreamReader(typeMappingIn)).lines().filter(s -> s.contains("→"))
 			.map(l -> l.split("→")).collect(Collectors.toMap(a -> a[0].trim(), a -> a[1].trim()));
 

@@ -43,7 +43,7 @@ public class JavaTemplatesTest extends LightJavaCodeInsightFixtureTestCase {
 		LanguageLevelProjectExtension.getInstance(getProject()).setLanguageLevel(LanguageLevel.JDK_1_8);
 	}
 
-	public void testWrapWithArray() throws Exception {
+	public void testWrapWithArray() {
 		// int.toDouble
 		assertExpansion("((double) (123))", "123.toDouble\t");
 		// int.toInt

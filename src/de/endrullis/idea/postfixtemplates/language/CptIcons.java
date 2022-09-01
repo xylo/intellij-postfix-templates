@@ -6,6 +6,11 @@ import lombok.experimental.UtilityClass;
 
 import javax.swing.*;
 
+/**
+ * CPT icons.
+ *
+ * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
+ */
 @UtilityClass
 public class CptIcons {
 

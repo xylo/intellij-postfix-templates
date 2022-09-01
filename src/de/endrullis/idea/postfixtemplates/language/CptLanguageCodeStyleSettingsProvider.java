@@ -12,7 +12,13 @@ import static com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable.SpacingOp
 import static com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable.SpacingOption.SPACE_AROUND_LAMBDA_ARROW;
 import static com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable.WrappingOrBraceOption.ALIGN_GROUP_FIELD_DECLARATIONS;
 
+/**
+ * The code style settings provider for CPT.
+ *
+ * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
+ */
 public class CptLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSettingsProvider {
+
 	@NotNull
 	@Override
 	public Language getLanguage() {
@@ -42,4 +48,5 @@ public class CptLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSetti
 	public IndentOptionsEditor getIndentOptionsEditor() {
 		return new SmartIndentOptionsEditor();
 	}
+
 }

@@ -15,4 +15,5 @@ public class CptIndexer extends LexerBasedIdIndexer {
 	public @NotNull Lexer createLexer(final @NotNull OccurrenceConsumer consumer) {
 		return createIndexingLexer(consumer);
 	}
+
 }

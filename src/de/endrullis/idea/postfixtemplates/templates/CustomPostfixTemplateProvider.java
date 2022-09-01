@@ -194,7 +194,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 			if (theseTemplates.size() == 1) {
 				combinedTemplates.add(theseTemplates.get(0));
 			} else {
-				val    examples = theseTemplates.stream().map(t -> t.getExample()).filter(s -> !s.equals("[SKIP]")).distinct().collect(Collectors.toList());
+				val    examples = theseTemplates.stream().map(t -> t.getExample()).filter(s -> !s.equals("[SKIP]")).distinct().toList();
 				String example  = examples.size() >= 1 ? examples.get(0) : "";
 				combinedTemplates.add(new CombinedPostfixTemplate(theseTemplates.get(0).getKey(), example, theseTemplates, this));
 			}
