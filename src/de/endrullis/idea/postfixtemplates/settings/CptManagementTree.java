@@ -132,7 +132,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 				if (cptTreeNode != null) {
 					URL url = cptTreeNode.getFile().getUrl();
 					if (url != null) {
-						getTextRenderer().append("  " + url.toString(), new SimpleTextAttributes(SimpleTextAttributes.STYLE_SMALLER, JBColor.GRAY), false);
+						getTextRenderer().append("  " + url, new SimpleTextAttributes(SimpleTextAttributes.STYLE_SMALLER, JBColor.GRAY), false);
 					}
 				}
 			}

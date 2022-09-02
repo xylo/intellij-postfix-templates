@@ -40,7 +40,7 @@ class CptLexer implements FlexLexer {
    *                  at the beginning of a line
    * l is of the form l = 2*k, k a non negative integer
    */
-  private static final int ZZ_LEXSTATE[] = { 
+  private static final int[] ZZ_LEXSTATE = {
      0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7,  7, 
      8,  8,  9,  9, 10, 10
   };
@@ -55,15 +55,15 @@ class CptLexer implements FlexLexer {
   }
 
   /* The ZZ_CMAP_Z table has 272 entries */
-  static final char ZZ_CMAP_Z[] = zzUnpackCMap(
+  static final char[] ZZ_CMAP_Z = zzUnpackCMap(
     "\1\0\1\100\1\200\u010d\100");
 
   /* The ZZ_CMAP_Y table has 192 entries */
-  static final char ZZ_CMAP_Y[] = zzUnpackCMap(
+  static final char[] ZZ_CMAP_Y = zzUnpackCMap(
     "\1\0\1\1\1\2\175\3\1\4\5\3\1\5\71\3");
 
   /* The ZZ_CMAP_A table has 384 entries */
-  static final char ZZ_CMAP_A[] = zzUnpackCMap(
+  static final char[] ZZ_CMAP_A = zzUnpackCMap(
     "\11\0\1\4\1\2\1\1\1\5\1\3\22\0\1\6\2\0\1\7\1\20\10\0\1\14\1\11\1\0\12\17\1"+
     "\22\2\0\1\10\1\15\2\0\32\17\1\12\1\21\1\13\1\0\1\17\1\0\32\17\12\0\1\1\242"+
     "\0\2\1\50\0\1\16\55\0");
@@ -235,7 +235,7 @@ class CptLexer implements FlexLexer {
   }
 
   /** the input device */
-  private java.io.Reader zzReader;
+  private final java.io.Reader zzReader;
 
   /** the current state of the DFA */
   private int zzState;
