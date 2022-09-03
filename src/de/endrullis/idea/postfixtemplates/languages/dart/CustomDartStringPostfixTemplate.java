@@ -16,7 +16,7 @@ import static de.endrullis.idea.postfixtemplates.languages.dart.DartPostfixTempl
 @SuppressWarnings("WeakerAccess")
 public class CustomDartStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
 
-	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<>() {{
 		put(SpecialType.ANY.name(), IS_ANY);
 	}};
 

@@ -5,6 +5,7 @@ import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,9 +27,8 @@ public class CustomCsharpStringPostfixTemplate extends SimpleStringBasedPostfixT
 		super(name, example, template, provider, psiElement, selectorAllExpressionsWithCurrentOffset(getCondition(matchingClass, conditionClass)));
 	}
 
-	@NotNull
 	public static Condition<PsiElement> getCondition(final @NotNull String matchingClass, final @Nullable String conditionClass) {
-		Condition<PsiElement> psiElementCondition = type2psiCondition.get(matchingClass);
+		val psiElementCondition = type2psiCondition.get(matchingClass);
 
 		// PyElementTypes.INTEGER_LITERAL_EXPRESSION
 		//TypeEvalContext.codeAnalysis(e.getProject(), e.getContainingFile()).getType((PyTypedElement) e)
