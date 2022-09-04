@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class GoAnnotator implements CptLangAnnotator {
 
-	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
+	private final Map<String, Boolean> className2exists = new HashMap<>() {{
 		for (String key : CustomGoStringPostfixTemplate.type2psiCondition.keySet()) {
 			put(key, true);
 		}

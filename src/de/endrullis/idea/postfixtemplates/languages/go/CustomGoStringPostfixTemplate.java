@@ -15,6 +15,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -45,12 +46,12 @@ public class CustomGoStringPostfixTemplate extends SimpleStringBasedPostfixTempl
 	}};
 
 	public static List<PsiElement> collectExpressions(final PsiFile file,
-													  final Document document,
-													  final int offset,
-													  boolean acceptVoid) {
-		CharSequence text = document.getCharsSequence();
-		final PsiElement elementAtCaret = file.findElementAt(offset);
-		final List<PsiElement> expressions = new ArrayList<>();
+	                                                  final Document document,
+	                                                  final int offset,
+	                                                  boolean acceptVoid) {
+		val text           = document.getCharsSequence();
+		val elementAtCaret = file.findElementAt(offset);
+		val expressions    = new ArrayList<PsiElement>();
 
 		PsiElement expression = PsiTreeUtil.getParentOfType(elementAtCaret, PsiElement.class);
 
@@ -112,6 +113,7 @@ public class CustomGoStringPostfixTemplate extends SimpleStringBasedPostfixTempl
 			}
 		};
 	}
+
 	@NotNull
 	public static Condition<PsiElement> getCondition(String clazz) {
 		return type2psiCondition.get(clazz);
