@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class JavaAnnotator implements CptLangAnnotator {
 
-	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
+	private final Map<String, Boolean> className2exists = new HashMap<>() {{
 		for (SpecialType specialType : SpecialType.values()) {
 			put(specialType.name(), true);
 		}

@@ -42,7 +42,7 @@ import static de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPost
 @SuppressWarnings("WeakerAccess")
 public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate implements NavigatablePostfixTemplate {
 
-	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<>() {{
 		put(SpecialType.ANY.name(), IS_ANY);
 		put(SpecialType.VOID.name(), IS_VOID);
 		put(SpecialType.NON_VOID.name(), IS_NON_VOID);
@@ -176,7 +176,7 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		this.psiElement = psiElement;
 
 		useStaticImports = template.contains("[USE_STATIC_IMPORTS]");
-		template = template.replaceAll("\\[USE_STATIC_IMPORTS\\]", "");
+		template = template.replaceAll("\\[USE_STATIC_IMPORTS]", "");
 
 		List<MyVariable> allVariables = parseVariables(template).stream().filter(v -> {
 			return !PREDEFINED_VARIABLES.contains(v.getName());
