@@ -95,8 +95,7 @@ public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixT
 	}
 
 	private static boolean classMatches(String matchingClass, PsiElement psiElement) {
-		if (psiElement instanceof KtNameReferenceExpression) {
-			final KtNameReferenceExpression ktRef = (KtNameReferenceExpression) psiElement;
+		if (psiElement instanceof final KtNameReferenceExpression ktRef) {
 			final BindingContext context = ResolutionUtils.analyze(ktRef);
 			final KotlinTypeInfo info = context.get(BindingContext.EXPRESSION_TYPE_INFO, ktRef);
 
