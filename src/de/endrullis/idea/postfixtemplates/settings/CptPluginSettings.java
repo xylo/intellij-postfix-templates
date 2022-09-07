@@ -7,6 +7,10 @@ import de.endrullis.idea.postfixtemplates.utils.Tuple2;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,6 +115,14 @@ public final class CptPluginSettings {
 
 		public boolean isLocalTemplateFile() {
 			return url != null && url.startsWith("file:");
+		}
+
+		public InputStream getInputStream() throws IOException {
+			if (file != null) {
+				return new FileInputStream(file);
+			} else {
+				return new URL(url).openStream();
+			}
 		}
 	}
 }

@@ -59,10 +59,10 @@ public class CptUpdateUtils {
 							if (vFiles != null) {
 								for (CptPluginSettings.VFile vFile : vFiles) {
 									if (vFile.isLocalTemplateFile()) {
-										try {
-											Files.copy(new URL(vFile.getUrl()).openStream(), new File(vFile.file).toPath(), REPLACE_EXISTING);
+										try (val stream = vFile.getInputStream()) {
+											Files.copy(stream, new File(vFile.file).toPath(), REPLACE_EXISTING);
 										} catch (IOException e) {
-											e.printStackTrace();
+											throw new RuntimeException(e);
 										}
 									}
 								}
