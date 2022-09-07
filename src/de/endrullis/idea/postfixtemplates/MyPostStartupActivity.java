@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public class MyPostStartupActivity implements StartupActivity {
 
 	public void runActivity(@NotNull Project project) {
-		setupSentry();
+		//setupSentry();
 		setupEditorTypedHandler();
 		CptUpdateUtils.checkForWebTemplateUpdates(project);
 	}

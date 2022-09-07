@@ -5,11 +5,13 @@ import com.intellij.util.xmlb.annotations.MapAnnotation;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.utils.Tuple2;
 import lombok.*;
+import org.apache.commons.lang.SystemUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -117,12 +119,10 @@ public final class CptPluginSettings {
 			return url != null && url.startsWith("file:");
 		}
 
-		public InputStream getInputStream() throws IOException {
-			if (file != null) {
-				return new FileInputStream(file);
-			} else {
-				return new URL(url).openStream();
-			}
+		public URL getJavaUrl() throws MalformedURLException {
+			return SystemUtils.IS_OS_WINDOWS
+				? new URL(url.replaceFirst("file://", "file:///"))
+				: new URL(url);
 		}
 	}
 }

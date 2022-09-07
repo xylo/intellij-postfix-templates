@@ -27,7 +27,7 @@ public class CptVirtualFile {
 	@Getter
 	@Setter
 	private File file;
-	/** Old URL used when changing the the file in the settings dialog. */
+	/** Old URL used when changing the file in the settings dialog. */
 	@Getter
 	@Setter
 	@Nullable

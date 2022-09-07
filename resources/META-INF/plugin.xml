@@ -45,6 +45,12 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.13.2</h3>
+			<ul>
+				<li>Fixed bug #213: Cannot load local template file.</li>
+				<li>Deactivated error reporting again.</li>
+			</ul>
+
 			<h3>Version 2.13.1</h3>
 			<ul>
 				<li>Fixed bug #213: Cannot load local template file.</li>
@@ -600,7 +606,9 @@
 		<liveTemplateContext implementation="de.endrullis.idea.postfixtemplates.language.CptContext"/>
 		<lookup.actionProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLookupActionProvider"/>
 		<postStartupActivity implementation="de.endrullis.idea.postfixtemplates.MyPostStartupActivity"/>
+		<!--
 		<errorHandler implementation="de.endrullis.idea.postfixtemplates.SentryErrorReporter"/>
+		-->
 		<!--
 		<typedHandler implementation="de.endrullis.idea.postfixtemplates.actions.EditorTypedHandler"/>
 		-->
