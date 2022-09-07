@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class RustAnnotator implements CptLangAnnotator {
 
-	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
+	private final Map<String, Boolean> className2exists = new HashMap<>() {{
 		for (RustType value : RustType.values()) {
 			put(value.fixedName(), true);
 		}

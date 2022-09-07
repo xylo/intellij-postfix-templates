@@ -21,7 +21,7 @@ import java.util.Map;
 public class CustomRustStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
 
 	/** Contains predefined type-to-psiCondition mappings as well as cached mappings for individual types. */
-	private static final Map<String, Condition<RsExpr>> type2psiCondition = new HashMap<String, Condition<RsExpr>>() {{
+	private static final Map<String, Condition<RsExpr>> type2psiCondition = new HashMap<>() {{
 		for (RustType value : RustType.values()) {
 			if (value == RustType.ANY) {
 				put(value.fixedName(), e -> true);

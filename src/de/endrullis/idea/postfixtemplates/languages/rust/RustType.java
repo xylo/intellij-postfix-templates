@@ -14,9 +14,9 @@ public enum RustType {
 
 	ANY, i8, i16, i32, i64, i128, isize, u8, u16, u32, u64, u128, usize, f32, f64, bool, char_, str, tuple, array, integer, unsigned, float_, number;
 
-	private static Set<RustType> INTEGER_TYPES = _Set(i8, i16, i32, i64, i128);
-	private static Set<RustType> UNSIGNED_TYPES = _Set(u8, u16, u32, u64, u128);
-	private static Set<RustType> FLOAT_TYPES = _Set(f32, f64);
+	private static final Set<RustType> INTEGER_TYPES  = _Set(i8, i16, i32, i64, i128);
+	private static final Set<RustType> UNSIGNED_TYPES = _Set(u8, u16, u32, u64, u128);
+	private static final Set<RustType> FLOAT_TYPES    = _Set(f32, f64);
 
 	private static final Set<String> INTEGER_TYPES_AS_STRING = INTEGER_TYPES.stream().map(t -> t.fixedName()).collect(Collectors.toSet());
 	private static final Set<String> UNSIGNED_TYPES_AS_STRING = UNSIGNED_TYPES.stream().map(t -> t.fixedName()).collect(Collectors.toSet());

@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class PythonAnnotator implements CptLangAnnotator {
 
-	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
+	private final Map<String, Boolean> className2exists = new HashMap<>() {{
 		put(SpecialType.ANY.name(), true);
 		for (String pyType : PythonPostfixTemplatesUtils.PYTHON_TYPES) {
 			put(pyType, true);

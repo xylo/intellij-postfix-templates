@@ -158,9 +158,7 @@ public class CustomScalaStringPostfixTemplate extends ScalaStringBasedPostfixTem
 	private void addImport(@NotNull PsiElement expr, String qualifiedName) {
 		ScImportsHolder importHolder = ScImportsHolder.apply(expr, expr.getProject());
 
-		if (expr instanceof ScReference) {
-			val scReference = ((ScReference) expr);
-
+		if (expr instanceof ScReference scReference) {
 			//TODO: Update for IDEA 22.1
 			//boolean imported = importHolder.getAllImportUsed().exists(i -> i.qualName().exists(n -> n.equals(qualifiedName)));
 			boolean imported = importHolder.getImportStatements().exists(s -> {

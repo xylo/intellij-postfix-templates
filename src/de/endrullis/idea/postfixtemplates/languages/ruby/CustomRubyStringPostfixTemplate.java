@@ -18,7 +18,7 @@ import java.util.Map;
 public class CustomRubyStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
 
 	/** Contains predefined type-to-psiCondition mappings as well as cached mappings for individual types. */
-	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<>() {{
 		put(SpecialType.ANY.name(), e -> true);
 	}};
 

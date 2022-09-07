@@ -37,7 +37,7 @@ public class ScalaAnnotator implements CptLangAnnotator {
 		SpecialType.DOUBLE,
 	};
 
-	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
+	private final Map<String, Boolean> className2exists = new HashMap<>() {{
 		for (SpecialType specialType : supportedTypes) {
 			put(specialType.name(), true);
 		}
