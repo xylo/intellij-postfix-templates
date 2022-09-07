@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.13.0</h3>
+			<ul>
+				<li>Added support for reporting errors.</li>
+			</ul>
+
 			<h3>Version 2.12.5</h3>
 			<ul>
 				<li>Fixed two deprecations.</li>
@@ -528,7 +533,7 @@
 	</change-notes>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-	<idea-version since-build="193.1784"/>
+	<idea-version since-build="222.0"/>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
 			 on how to target different products -->
@@ -590,6 +595,7 @@
 		<liveTemplateContext implementation="de.endrullis.idea.postfixtemplates.language.CptContext"/>
 		<lookup.actionProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLookupActionProvider"/>
 		<postStartupActivity implementation="de.endrullis.idea.postfixtemplates.MyPostStartupActivity"/>
+		<errorHandler implementation="de.endrullis.idea.postfixtemplates.SentryErrorReporter"/>
 		<!--
 		<typedHandler implementation="de.endrullis.idea.postfixtemplates.actions.EditorTypedHandler"/>
 		-->

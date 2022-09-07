@@ -2,7 +2,7 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.6.20"
+    id("org.jetbrains.kotlin.jvm") version "1.7.10"
     // Gradle Changelog Plugin
     //id("org.jetbrains.changelog") version "1.3.1"
     // Gradle Qodana Plugin
@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.intellij"
-version = "2.12.5.222"
+version = "2.13.0.222"
 
 tasks.withType<JavaCompile> {
     sourceCompatibility = "17"
@@ -31,6 +31,9 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.13.4")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.4")
+    implementation("io.sentry:sentry:6.4.1") {
+        exclude("org.slf4j")
+    }
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
 
     compileOnly("org.projectlombok:lombok:1.18.24")

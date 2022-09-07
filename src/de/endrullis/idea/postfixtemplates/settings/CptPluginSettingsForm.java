@@ -9,7 +9,6 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.ui.AnActionButton;
 import com.intellij.ui.GuiUtils;
@@ -35,7 +34,9 @@ import java.util.stream.Collectors;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
 public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposable {
-	/** This field holds the last state of the tree before saving the settings or null. */
+	/**
+	 * This field holds the last state of the tree before saving the settings or null.
+	 */
 	@Nullable
 	private static Map<CptLang, List<CptVirtualFile>> lastTreeState;
 
@@ -58,6 +59,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 	private JCheckBox    automaticUpdatesCheckBox;
 	private JCheckBox    activateNewWebTemplatesCheckBox;
 	private JButton      updateNowButton;
+	private JButton      testErrorReportButton;
 
 	@Nullable
 	private Editor templatesEditor;
@@ -90,8 +92,8 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 						templatesFileInfoLabel.setText(s);
 					} else if (selectedFile.getWebTemplateFile() != null) {
 						val    webTemplateFile = selectedFile.getWebTemplateFile();
-						String subject = URLEncoder.encode("[Custom Postfix Templates] " + fileName, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
-						String s = "<html><body>Web Template File \"" + fileName + "\"<table style='width: 100%'>";
+						String subject         = URLEncoder.encode("[Custom Postfix Templates] " + fileName, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+						String s               = "<html><body>Web Template File \"" + fileName + "\"<table style='width: 100%'>";
 						s += "<tr><td>Author:</td><td style='width: 100%'><a style='width: 100%' href=\"mailto:" + webTemplateFile.email + "?subject=" + subject + "\">" + webTemplateFile.author + "</a></td></tr>";
 						s += "<tr><td>Website:</td><td style='width: 100%'><a style='width: 100%' href=\"" + webTemplateFile.website + "\">" + limitTo50(webTemplateFile.website) + "</a></td></tr>";
 						assert selectedFile.getUrl() != null;
@@ -149,6 +151,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		varLambdaRadioButton.addActionListener(e -> changeLambdaStyle(true));
 
 		updateNowButton.addActionListener(e -> askForUpdatingTemplateFilesNow());
+		testErrorReportButton.addActionListener(e -> testErrorReport());
 
 		templatesFileInfoLabel.addHyperlinkListener(e -> {
 			if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())) {
@@ -166,6 +169,10 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		}
 
 		return mainPanel;
+	}
+
+	private void testErrorReport() {
+		throw new RuntimeException("Test");
 	}
 
 	private void askForUpdatingTemplateFilesNow() {
