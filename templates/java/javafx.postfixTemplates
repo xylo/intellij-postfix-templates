@@ -1,7 +1,7 @@
 ## Templates for JavaFX ##
 
 .runLater : Platform.runLater(...)
-	ANY  →  javafx.application.Platform.runLater(() -> $expr$)
+	ANY [javafx.application.Platform]  →  javafx.application.Platform.runLater(() -> $expr$)
 
 .setToolTip : Tooltip.install(...)
 	javafx.scene.control.Control  →  [SKIP]
@@ -29,12 +29,27 @@
 	javafx.scene.control.TableView  →  $expr$.getSelectionModel().select($END$)
 
 .toObservableArrayList : FXCollections.observableArrayList(...)
-	ARRAY  →  javafx.collections.FXCollections.observableArrayList($expr$)
-	java.util.Collection  →  javafx.collections.FXCollections.observableArrayList($expr$)
+	ARRAY [javafx.collections.FXCollections]  →  javafx.collections.FXCollections.observableArrayList($expr$)
+	java.util.Collection [javafx.collections.FXCollections]  →  javafx.collections.FXCollections.observableArrayList($expr$)
 
 .toObservableArrayList : FXCollections.observableArrayList(...)
-	ARRAY  →  javafx.collections.FXCollections.observableArrayList($expr$)
-	java.util.Collection  →  javafx.collections.FXCollections.observableArrayList($expr$)
+	ARRAY [javafx.collections.FXCollections]  →  javafx.collections.FXCollections.observableArrayList($expr$)
+	java.util.Collection [javafx.collections.FXCollections]  →  javafx.collections.FXCollections.observableArrayList($expr$)
 
 .toObservableList : FXCollections.observableArrayList(...)
-	java.util.List  →  javafx.collections.FXCollections.observableList($expr$)
+	java.util.List [javafx.collections.FXCollections]  →  javafx.collections.FXCollections.observableList($expr$)
+
+
+## Duration templates ##
+
+.millis : millis
+	NUMBER [javafx.util.Duration]   →   javafx.util.Duration.millis($expr$)
+
+.seconds : seconds
+	NUMBER [javafx.util.Duration]   →   javafx.util.Duration.seconds($expr$)
+
+.minutes : minutes
+	NUMBER [javafx.util.Duration]   →   javafx.util.Duration.minutes($expr$)
+
+.hours : hours
+	NUMBER [javafx.util.Duration]   →   javafx.util.Duration.hours($expr$)
