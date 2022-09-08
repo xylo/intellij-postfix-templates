@@ -1,7 +1,7 @@
 ## Templates for JavaFX ##
 
 .runLater : Platform.runLater(...)
-	ANY  →  Platform.runLater(() -> $expr$) [IMPORT javafx.application.Platform]
+	ANY [javafx.application.Platform]  →  Platform.runLater(() -> $expr$) [IMPORT javafx.application.Platform]
 
 .setToolTip : Tooltip.install(...)
 	javafx.scene.control.Control  →  [SKIP]
@@ -29,12 +29,27 @@
 	javafx.scene.control.TableView  →  $expr$.getSelectionModel().select($END$)
 
 .toObservableArrayList : FXCollections.observableArrayList(...)
-	scala.Array  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
-	java.util.Collection  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
+	scala.Array [javafx.collections.FXCollections]  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
+	java.util.Collection [javafx.collections.FXCollections]  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
 
 .toObservableArrayList : FXCollections.observableArrayList(...)
-	scala.Array  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
-	java.util.Collection  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
+	scala.Array [javafx.collections.FXCollections]  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
+	java.util.Collection [javafx.collections.FXCollections]  →  FXCollections.observableArrayList($expr$) [IMPORT javafx.collections.FXCollections]
 
 .toObservableList : FXCollections.observableArrayList(...)
-	java.util.List  →  FXCollections.observableList($expr$) [IMPORT javafx.collections.FXCollections]
+	java.util.List [javafx.collections.FXCollections]  →  FXCollections.observableList($expr$) [IMPORT javafx.collections.FXCollections]
+
+
+## Duration templates ##
+
+.millis : millis
+	NUMBER [javafx.util.Duration]  →  Duration.millis($expr$) [IMPORT javafx.util.Duration]
+
+.seconds : seconds
+	NUMBER [javafx.util.Duration]  →  Duration.seconds($expr$) [IMPORT javafx.util.Duration]
+
+.minutes : minutes
+	NUMBER [javafx.util.Duration]  →  Duration.minutes($expr$) [IMPORT javafx.util.Duration]
+
+.hours : hours
+	NUMBER [javafx.util.Duration]  →  Duration.hours($expr$) [IMPORT javafx.util.Duration]
