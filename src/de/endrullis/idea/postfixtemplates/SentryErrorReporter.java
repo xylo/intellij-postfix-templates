@@ -14,9 +14,7 @@ import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.util.Consumer;
-import io.sentry.Sentry;
-import io.sentry.SentryEvent;
-import io.sentry.SentryLevel;
+import io.sentry.*;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,6 +29,8 @@ import java.awt.*;
  */
 public class SentryErrorReporter extends ErrorReportSubmitter {
 
+	private Hub hub;
+
 	@NotNull
 	@Override
 	public String getReportActionText() {
@@ -42,6 +42,10 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 	                      @Nullable String additionalInfo,
 	                      @NotNull Component parentComponent,
 	                      @NotNull Consumer<? super SubmittedReportInfo> consumer) {
+
+		if (hub == null) {
+			hub = createHub();
+		}
 
 		val context = DataManager.getInstance().getDataContext(parentComponent);
 		val project = CommonDataKeys.PROJECT.getData(context);
@@ -82,7 +86,7 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 				event.setExtra("last_action", IdeaLogger.ourLastActionId);
 
 				// by default, Sentry is sending async in a background thread
-				Sentry.captureEvent(event);
+				hub.captureEvent(event);
 
 				ApplicationManager.getApplication().invokeLater(() -> {
 					// we're a bit lazy here.
@@ -95,6 +99,18 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 		}.queue();
 
 		return true;
+	}
+
+	private static Hub createHub() {
+		val options = new SentryOptions();
+		options.setDsn("https://d5db57a4e01b468b823e45f831d58fb7@o1399782.ingest.sentry.io/6727652");
+		// Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+		// We recommend adjusting this value in production.
+		options.setTracesSampleRate(1.0);
+		// When first trying Sentry it's good to see what the SDK is doing:
+		//options.setDebug(true);
+		
+		return new Hub(options);
 	}
 
 }
