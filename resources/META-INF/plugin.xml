@@ -583,6 +583,8 @@
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptPostfixTemplateProvider"/>
 		<codeInsight.template.postfixTemplateProvider language="SQL"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.sql.SqlPostfixTemplateProvider"/>
+		<codeInsight.template.postfixTemplateProvider language="Swift"
+													  implementationClass="de.endrullis.idea.postfixtemplates.languages.swift.SwiftPostfixTemplateProvider"/>
 		<!--
 		<codeInsight.template.postfixTemplateProvider language="C#"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.csharp.CsharpPostfixTemplateProvider"/>
