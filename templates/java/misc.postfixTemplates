@@ -41,7 +41,15 @@
 ## Date templates ##
 
 .toDate : to Date
+	java.time.LocalDate       →   java.util.Date.from($expr$.atStartOfDay().atZone($zone::"ZoneId.systemDefault()"$).toInstant())
+	java.time.LocalTime       →   java.util.Date.from($expr$.atDate($date$).atZone($zone::"ZoneId.systemDefault()"$).toInstant())
 	java.time.LocalDateTime   →   java.util.Date.from($expr$.atZone($zone::"ZoneId.systemDefault()"$).toInstant())
 
+.toLocalDate : to LocalDate
+	java.util.Date            →   $expr$.toInstant().atZone($zone::"ZoneId.systemDefault()"$).toLocalDate()
+
+.toLocalTime : to LocalTime
+	java.util.Date            →   $expr$.toInstant().atZone($zone::"ZoneId.systemDefault()"$).toLocalTime()
+
 .toLocalDateTime : to LocalDateTime
-	java.util.Date            →   java.time.LocalDateTime.ofInstant($expr$.toInstant(), $zone::"ZoneId.systemDefault()"$)
+	java.util.Date            →   $expr$.toInstant().atZone($zone::"ZoneId.systemDefault()"$).toLocalDateTime()
