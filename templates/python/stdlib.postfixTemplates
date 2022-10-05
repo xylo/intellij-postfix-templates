@@ -5,13 +5,13 @@
 	ANY   →   reversed($expr$)
 
 .sort : Sort iterable
-	ANY   →   sort($expr$)$END$
+	ANY   →   sorted($expr$)$END$
 
 .sortk : Sort iterable with key
-	ANY   →   sort($expr$, key=$key$)$END$
+	ANY   →   sorted($expr$, key=$key$)$END$
 
 .sortl : Sort iterable with lambda key
-	ANY   →   sort($expr$, key=lambda o: $key$)$END$
+	ANY   →   sorted($expr$, key=lambda o: $key$)$END$
 
 .filter : Filter iterable
 	ANY   →   filter($first$, $expr$)$END$
