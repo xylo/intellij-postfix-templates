@@ -566,6 +566,8 @@
 	<!-- Requires the Ruby plugin -->
 	<depends optional="true" config-file="withRubyModule.xml">com.intellij.modules.ruby</depends>
 
+	<depends optional="true" config-file="withLatexModule.xml">nl.rubensten.texifyidea</depends>
+
 	<extensions defaultExtensionNs="com.intellij">
 		<notificationGroup id="Custom Postfix Templates" displayType="STICKY_BALLOON"/>
 
