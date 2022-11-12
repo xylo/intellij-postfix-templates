@@ -86,7 +86,8 @@ intellij {
             "DatabaseTools",
             "org.rust.lang:0.4.175.4772-222",
             "org.toml.lang",
-            "org.jetbrains.plugins.go:222.3345.118"
+            "org.jetbrains.plugins.go:222.3345.118",
+            "nl.rubensten.texifyidea:0.7.23"
         )
     )
     updateSinceUntilBuild.set(true)
