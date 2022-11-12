@@ -5,13 +5,13 @@
 	ANY   →   reversed($expr$)
 
 .sort : Sort iterable
-	ANY   →   sort($expr$)$END$
+	ANY   →   sorted($expr$)$END$
 
 .sortk : Sort iterable with key
-	ANY   →   sort($expr$, key=$key$)$END$
+	ANY   →   sorted($expr$, key=$key$)$END$
 
 .sortl : Sort iterable with lambda key
-	ANY   →   sort($expr$, key=lambda o: $key$)$END$
+	ANY   →   sorted($expr$, key=lambda o: $key$)$END$
 
 .filter : Filter iterable
 	ANY   →   filter($first$, $expr$)$END$
@@ -41,6 +41,10 @@
 	ANY   →   for $var$ in $expr$:\
     $END$
 
+.fore : Iterate through an object
+	ANY   →   for i, $var$ in enumerate($expr$):\
+    $END$
+
 .try : Wrap with try except
 	ANY   →   try:\
     $expr$\
@@ -54,3 +58,45 @@ except $error$ as $error_var$:\
     $except$\
 finally:\
     $END$
+
+.bytes : Cast to bytes
+	ANY   →   bytes($expr$)$END$
+
+.str : Cast to str
+	ANY   →   str($expr$)$END$
+
+.float : Cast to float
+	ANY   →   float($expr$)$END$
+
+.int : Cast to int
+	ANY   →   int($expr$)$END$
+
+.set : Wrap with set
+	ANY   →   set($expr$)$END$
+
+.frozenset : Wrap with frozenset
+	ANY   →   frozenset($expr$)$END$
+
+.list : Wrap with list
+	ANY   →   list($expr$)$END$
+
+.dict : Wrap with dict
+	ANY   →   dict($expr$)$END$
+
+.tuple : Wrap with tuple
+	ANY   →   tuple($expr$)$END$
+
+.next : Retrieve the next item from the iterator
+	ANY   →   next($expr$)$END$
+
+.iter : Return an iterator object
+	ANY   →   iter($expr$)$END$
+
+.min : Return the minimal
+	ANY   →   min($expr$)$END$
+
+.max : Return the maximal
+	ANY   →   max($expr$)$END$
+
+.abs : Return the absolute value
+	ANY   →   abs($expr$)$END$
