@@ -217,7 +217,11 @@ The options for *MATCHING_TYPE* may differ from programming language to programm
 * In **Kotlin** the *MATCHING_TYPE* has to be `ANY`.
 * In **Dart** the *MATCHING_TYPE* has to be `ANY`.
 * In **JavaScript** the *MATCHING_TYPE* has to be `ANY`.
-* In **Rust** the *MATCHING_TYPE* has to be `ANY`.
+* In **Rust** the *MATCHING_TYPE* has to be `ANY`
+* In **Latex** the *MATCHING_TYPE* can be one of the following types:
+  * `ANY` - any expression in any context
+  * `TEXT` - any expression that is *not* within a math environment
+  * `MATH` - any expression that *is* within a math environment
 
 #### TEMPLATE_CODE
 
