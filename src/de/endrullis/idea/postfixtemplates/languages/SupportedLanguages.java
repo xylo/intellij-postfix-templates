@@ -11,6 +11,7 @@ import de.endrullis.idea.postfixtemplates.languages.groovy.GroovyLang;
 import de.endrullis.idea.postfixtemplates.languages.java.JavaLang;
 import de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptLang;
 import de.endrullis.idea.postfixtemplates.languages.kotlin.KotlinLang;
+import de.endrullis.idea.postfixtemplates.languages.latex.LatexLang;
 import de.endrullis.idea.postfixtemplates.languages.php.PhpLang;
 import de.endrullis.idea.postfixtemplates.languages.python.PythonLang;
 import de.endrullis.idea.postfixtemplates.languages.ruby.RubyLang;
@@ -47,7 +48,8 @@ public class SupportedLanguages {
 			new RubyLang(),
 			new RustLang(),
 			new ScalaLang(),
-			new SqlLang()
+			new SqlLang(),
+            new LatexLang()
 		).stream().sorted(Comparator.comparing(l -> l.getNiceName().toLowerCase())).collect(Collectors.toList());
 	}
 
