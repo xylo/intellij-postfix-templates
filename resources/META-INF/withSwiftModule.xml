@@ -1,0 +1,6 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<codeInsight.template.postfixTemplateProvider language="Swift"
+													  implementationClass="de.endrullis.idea.postfixtemplates.languages.swift.SwiftPostfixTemplateProvider"/>
+	</extensions>
+</idea-plugin>

@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.intellij"
-version = "2.15.0.223"
+version = "2.16.0.223"
 
 tasks.withType<JavaCompile> {
     sourceCompatibility = "17"
