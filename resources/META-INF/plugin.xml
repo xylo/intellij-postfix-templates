@@ -573,16 +573,12 @@
 	<depends optional="true" config-file="withRubyModule.xml">com.intellij.modules.ruby</depends>
 
 	<depends optional="true" config-file="withLatexModule.xml">nl.rubensten.texifyidea</depends>
+	<depends optional="true" config-file="withJavaScriptModule.xml">JavaScript</depends>
+	<depends optional="true" config-file="withDatabaseModule.xml">com.intellij.database</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 		<notificationGroup id="Custom Postfix Templates" displayType="STICKY_BALLOON"/>
 
-		<codeInsight.template.postfixTemplateProvider language="ruby"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.ruby.RubyPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="JavaScript"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptPostfixTemplateProvider"/>
-		<codeInsight.template.postfixTemplateProvider language="SQL"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.sql.SqlPostfixTemplateProvider"/>
 		<!--
 		<codeInsight.template.postfixTemplateProvider language="C#"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.csharp.CsharpPostfixTemplateProvider"/>

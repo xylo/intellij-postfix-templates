@@ -1,0 +1,6 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<codeInsight.template.postfixTemplateProvider language="SQL"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.sql.SqlPostfixTemplateProvider"/>
+	</extensions>
+</idea-plugin>

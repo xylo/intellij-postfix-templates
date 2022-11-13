@@ -1,6 +1,6 @@
 <idea-plugin>
 	<extensions defaultExtensionNs="com.intellij">
-		<codeInsight.template.postfixTemplateProvider language="Ruby"
+		<codeInsight.template.postfixTemplateProvider language="ruby"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.ruby.RubyPostfixTemplateProvider"/>
 	</extensions>
 </idea-plugin>
