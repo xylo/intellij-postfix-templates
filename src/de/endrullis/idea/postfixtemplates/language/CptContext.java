@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CptContext extends TemplateContextType {
 	public CptContext() {
-		super("CPT", "Custom postfix templates");
+		super("Custom postfix templates");
 	}
 
 	@Override
