@@ -87,7 +87,7 @@ intellij {
             "org.rust.lang:0.4.182.4996-223",
             "org.toml.lang",
             "org.jetbrains.plugins.go:223.7571.182",
-            "nl.rubensten.texifyidea:0.7.24"
+            "nl.rubensten.texifyidea:0.7.25"
         )
     )
     updateSinceUntilBuild.set(true)
