@@ -31,7 +31,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.14.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.0")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.0")
-    implementation("io.sentry:sentry:6.7.0") {
+    implementation("io.sentry:sentry:6.9.0") {
         exclude("org.slf4j")
     }
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
@@ -66,13 +66,13 @@ intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
     //version "IU-212.4037-EAP-CANDIDATE-SNAPSHOT"
-    version.set("IU-223.7571-EAP-CANDIDATE-SNAPSHOT")
-    //version "IU-222.3345.118"
+    type.set("IU")
+    version.set("223.7571.182")
+
     plugins.set(
         listOf(
             "java",
-            //"PythonCore:201.6073.9",
-            "Pythonid:223.7571.4",
+            "Pythonid:223.7571.182",
             "Kotlin",
             "org.intellij.scala:2022.3.10",
             "JavaScript",
@@ -80,13 +80,13 @@ intellij {
             "Dart:223.7571.10",
             "Groovy",
             "properties",
-            "org.jetbrains.plugins.ruby:223.7571.4",
-            "com.jetbrains.php:223.7571.4",
+            "org.jetbrains.plugins.ruby:223.7571.123",
+            "com.jetbrains.php:223.7571.182",
             "java-i18n",
             "DatabaseTools",
             "org.rust.lang:0.4.182.4996-223",
             "org.toml.lang",
-            "org.jetbrains.plugins.go:223.7571.4",
+            "org.jetbrains.plugins.go:223.7571.182",
             "nl.rubensten.texifyidea:0.7.24"
         )
     )
