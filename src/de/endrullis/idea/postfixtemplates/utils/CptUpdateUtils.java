@@ -1,6 +1,8 @@
 package de.endrullis.idea.postfixtemplates.utils;
 
 import com.intellij.notification.*;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
@@ -115,31 +117,9 @@ public class CptUpdateUtils {
 							NotificationGroup notificationGroup = NotificationGroupManager.getInstance().getNotificationGroup("Custom Postfix Templates");
 
 							if (pluginSettings.getSettingsVersion() < 2) {
-								//noinspection DialogTitleCapitalization
-								Notification notification = notificationGroup.createNotification("Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files. Please check your <a href=\"settings\">settings</a> to configure the plugin.", NotificationType.INFORMATION);
-								notification.setIcon(CptIcons.FILE);
-								notification.setImportantSuggestion(true);
-								notification.setListener(
-									(notification1, hyperlinkEvent) -> {
-										notification1.expire();
-										CptUtil.openPluginSettings(project);
-									}
-								);
-
-								Notifications.Bus.notify(notification, project);
+								openNotification(notificationGroup, "Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files.  Please open the settings to configure the plugin.", project);
 							} else if (newTemplateFiles) {
-								//noinspection DialogTitleCapitalization
-								Notification notification = notificationGroup.createNotification("Custom Postfix Templates", "New web template files are available.  You can activate them in the <a href=\"settings\">settings</a>.", NotificationType.INFORMATION);
-								notification.setIcon(CptIcons.FILE);
-								notification.setImportantSuggestion(true);
-								notification.setListener(
-									(notification1, hyperlinkEvent) -> {
-										notification1.expire();
-										CptUtil.openPluginSettings(project);
-									}
-								);
-
-								Notifications.Bus.notify(notification, project);
+								openNotification(notificationGroup, "Custom Postfix Templates", "New web template files are available.  Please open the settings to activate them.", project);
 							}
 						}
 					}
@@ -147,6 +127,21 @@ public class CptUpdateUtils {
 			});
 
 		}
+	}
+
+	private static void openNotification(NotificationGroup notificationGroup, String title, String content, Project project) {
+		Notification notification = notificationGroup.createNotification(title, content, NotificationType.INFORMATION);
+		notification.setIcon(CptIcons.FILE);
+		notification.setImportantSuggestion(true);
+		notification.addAction(new AnAction("Open Settings") {
+			@Override
+			public void actionPerformed(@NotNull AnActionEvent e) {
+				notification.expire();
+				CptUtil.openPluginSettings(project);
+			}
+		});
+
+		Notifications.Bus.notify(notification, project);
 	}
 
 }
