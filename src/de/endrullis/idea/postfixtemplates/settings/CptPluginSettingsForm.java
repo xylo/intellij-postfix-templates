@@ -3,6 +3,7 @@ package de.endrullis.idea.postfixtemplates.settings;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.BrowserUtil;
 import com.intellij.openapi.Disposable;
+import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
@@ -119,7 +120,7 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 			.setMoveDownAction(e -> checkboxTree.moveDownSelectedFiles())
 			.setMoveUpActionUpdater(e -> checkboxTree.canMoveSelectedFiles())
 			.setMoveUpAction(e -> checkboxTree.moveUpSelectedFiles())
-			.addExtraAction(new AnActionButton("Help", AllIcons.Actions.Help) {
+			.addExtraAction(new AnAction("Help", null, AllIcons.Actions.Help) {
 				@Override
 				public void actionPerformed(@NotNull AnActionEvent event) {
 					showHelpDialog(event.getProject());

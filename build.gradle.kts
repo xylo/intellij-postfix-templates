@@ -101,7 +101,7 @@ tasks {
     }
 
     runPluginVerifier {
-        ideVersions.set(listOf(intellij.version.get()))
+        //ideVersions.set(listOf(intellij.type.get() + "-" + intellij.version.get()))
         //ideVersions("IU-222.3345.118")
         //setFailureLevel(RunPluginVerifierTask.FailureLevel.ALL)
     }
