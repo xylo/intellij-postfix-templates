@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.16.1</h3>
+			<ul>
+				<li>Fixed some deprecations.</li>
+			</ul>
+
 			<h3>Version 2.16.0</h3>
 			<ul>
 				<li>Added experimental and untyped support for Swift.
