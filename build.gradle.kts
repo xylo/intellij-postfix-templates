@@ -8,7 +8,7 @@ plugins {
     // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.9.0"
+    id("org.jetbrains.intellij") version "1.10.0"
 }
 
 group = "com.intellij"
@@ -104,6 +104,7 @@ tasks {
         //ideVersions.set(listOf(intellij.type.get() + "-" + intellij.version.get()))
         //ideVersions("IU-222.3345.118")
         //setFailureLevel(RunPluginVerifierTask.FailureLevel.ALL)
+        //downloadDir.set(System.getProperty("user.home") + "/.pluginVerifier/ides")
     }
 
     publishPlugin {
