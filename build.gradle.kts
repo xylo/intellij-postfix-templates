@@ -8,7 +8,7 @@ plugins {
     // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.9.0"
+    id("org.jetbrains.intellij") version "1.11.0-SNAPSHOT"
 }
 
 group = "com.intellij"
@@ -87,7 +87,7 @@ intellij {
             "org.rust.lang:0.4.182.4996-223",
             "org.toml.lang",
             "org.jetbrains.plugins.go:223.7571.182",
-            "nl.rubensten.texifyidea:0.7.25"
+            "nl.rubensten.texifyidea:0.7.25.1"
         )
     )
     updateSinceUntilBuild.set(true)
