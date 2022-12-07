@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.16.2</h3>
+			<ul>
+				<li>Fixed some deprecations.</li>
+			</ul>
+
 			<h3>Version 2.16.1</h3>
 			<ul>
 				<li>Fixed some deprecations.</li>
@@ -626,9 +631,7 @@
 		<lookup.actionProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLookupActionProvider"/>
 		<postStartupActivity implementation="de.endrullis.idea.postfixtemplates.MyPostStartupActivity"/>
 		<errorHandler implementation="de.endrullis.idea.postfixtemplates.SentryErrorReporter"/>
-		<!--
-		<typedHandler implementation="de.endrullis.idea.postfixtemplates.actions.EditorTypedHandler"/>
-		-->
+		<typedHandler implementation="de.endrullis.idea.postfixtemplates.actions.EditorTypedHandlerDelegate"/>
 		<intentionAction>
 			<className>de.endrullis.idea.postfixtemplates.intention.OverrideTemplateRuleIntention</className>
 			<category>Custom postfix templates</category>

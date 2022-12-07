@@ -1,14 +1,14 @@
 package de.endrullis.idea.postfixtemplates.actions;
 
-import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.codeInsight.editorActions.TypedHandlerDelegate;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.actionSystem.TypedActionHandler;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.DialogBuilder;
@@ -17,6 +17,7 @@ import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.ui.SeparatorComponent;
 import com.intellij.ui.components.panels.VerticalBox;
@@ -43,55 +44,40 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
 /**
- * Handler for typed events in editors.
- * <p>
- * This handler prevents that web template files are edited by the user.
- * Instead of editing those files it offers the user to edit the template in another file.
+ * @author Stefan Endrullis (endrullis@iat.uni-leipzig.de)
  */
-public class EditorTypedHandler implements TypedActionHandler {
-	private final TypedActionHandler oldHandler;
-
-	public EditorTypedHandler(TypedActionHandler oldHandler) {
-		this.oldHandler = oldHandler;
-	}
+public class EditorTypedHandlerDelegate extends TypedHandlerDelegate {
 
 	@Override
-	public void execute(@NotNull Editor editor, char c, @NotNull DataContext dataContext) {
+	public @NotNull Result beforeCharTyped(char c, @NotNull Project project, @NotNull Editor editor, @NotNull PsiFile psiFile, @NotNull FileType fileType) {
 		val document = editor.getDocument();
-		val project = editor.getProject();
 
 		boolean isWebTemplateFile = false;
 
-		if (project != null) {
-			val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
+		//val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
 
-			if (psiFile != null) {
-				val fileType = psiFile.getFileType();
+		//if (psiFile != null) {
+			if (fileType.equals(CptFileType.INSTANCE)) {
+				val virtualFile = FileDocumentManager.getInstance().getFile(document);
 
-				if (fileType.equals(CptFileType.INSTANCE)) {
-					val virtualFile = FileDocumentManager.getInstance().getFile(document);
+				if (virtualFile != null) {
+					val langAndVFile = CptUtil.getLangAndVFile(virtualFile);
 
-					if (virtualFile != null) {
-						val langAndVFile = CptUtil.getLangAndVFile(virtualFile);
-
-						isWebTemplateFile = langAndVFile != null && langAndVFile._2.id != null;
-					}
-					//WriteCommandAction.runWriteCommandAction(project, () -> document.insertString(0, "Typed\n"));
+					isWebTemplateFile = langAndVFile != null && langAndVFile._2.id != null;
 				}
+				//WriteCommandAction.runWriteCommandAction(project, () -> document.insertString(0, "Typed\n"));
 			}
-		}
+		//}
 
 		if (isWebTemplateFile) {
 			val offset = editor.getCaretModel().getOffset();
 
-			val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
+			val element = psiFile.findElementAt(offset);
+			eventuallyOpenFileEditDialog(document, project, element, true);
 
-			if (psiFile != null) {
-				val element = psiFile.findElementAt(offset);
-				eventuallyOpenFileEditDialog(document, project, element, true);
-			}
+			return Result.STOP;
 		} else {
-			oldHandler.execute(editor, c, dataContext);
+			return Result.DEFAULT;
 		}
 	}
 

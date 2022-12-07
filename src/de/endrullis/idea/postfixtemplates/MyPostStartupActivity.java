@@ -1,12 +1,8 @@
 package de.endrullis.idea.postfixtemplates;
 
-import com.intellij.openapi.editor.actionSystem.TypedAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;
-import de.endrullis.idea.postfixtemplates.actions.EditorTypedHandler;
 import de.endrullis.idea.postfixtemplates.utils.CptUpdateUtils;
-import io.sentry.Sentry;
-import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,14 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class MyPostStartupActivity implements StartupActivity {
 
 	public void runActivity(@NotNull Project project) {
-		setupEditorTypedHandler();
 		CptUpdateUtils.checkForWebTemplateUpdates(project);
-	}
-
-	private void setupEditorTypedHandler() {
-		val typedAction = TypedAction.getInstance();
-		val oldHandler  = typedAction.getHandler();
-		typedAction.setupHandler(new EditorTypedHandler(oldHandler));
 	}
 
 }

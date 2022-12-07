@@ -8,7 +8,7 @@ import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.IncorrectOperationException;
-import de.endrullis.idea.postfixtemplates.actions.EditorTypedHandler;
+import de.endrullis.idea.postfixtemplates.actions.EditorTypedHandlerDelegate;
 import de.endrullis.idea.postfixtemplates.language.CptFileType;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
@@ -57,7 +57,7 @@ public class OverrideTemplateRuleIntention extends PsiElementBaseIntentionAction
 		val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
 
 		if (psiFile != null) {
-			EditorTypedHandler.eventuallyOpenFileEditDialog(document, project, element, false);
+			EditorTypedHandlerDelegate.eventuallyOpenFileEditDialog(document, project, element, false);
 		}
 	}
 
