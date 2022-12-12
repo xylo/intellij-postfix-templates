@@ -209,15 +209,22 @@ public class CptPluginSettingsForm implements CptPluginSettings.Holder, Disposab
 		});
 	}
 
+	/**
+	 * Fills the checkboxTree with template files.
+	 *
+	 * @param langName2virtualFile maps a language name to its VFile directory containing the template files
+	 * @param activateNewFiles     if new template files shall be activated
+	 */
 	private void fillTree(Map<String, List<CptPluginSettings.VFile>> langName2virtualFile, boolean activateNewFiles) {
 		assert checkboxTree != null;
 
+		// to map a CptLang to its template files
 		Map<CptLang, List<CptPluginSettings.VFile>> lang2file = new HashMap<>();
 
 		for (CptLang lang : SupportedLanguages.supportedLanguages) {
 			// add files from saved settings
-			List<CptPluginSettings.VFile> cptFiles        = new ArrayList<>(langName2virtualFile.getOrDefault(lang.getLanguage(), _List()));
-			val                           filesFromConfig = cptFiles.stream().map(f -> f.getFile()).collect(Collectors.toSet());
+			val cptFiles        = new ArrayList<>(langName2virtualFile.getOrDefault(lang.getLanguage(), _List()));
+			val filesFromConfig = cptFiles.stream().map(f -> f.getFile()).collect(Collectors.toSet());
 
 			// add files from filesystem that are not already in the settings
 			val templateFilesFromDir = CptUtil.getTemplateFilesFromLanguageDir(lang.getLanguage());
