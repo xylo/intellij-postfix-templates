@@ -440,6 +440,14 @@ public class CptUtil {
 	 * @return true if the file is new
 	 */
 	public static boolean downloadWebTemplateFile(CptVirtualFile cptVirtualFile) throws IOException {
+		// TODO: debug code for issue #202
+		/*
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+		}
+		*/
+
 		val preFilled = CptApplicationSettings.getInstance().getPluginSettings().isVarLambdaStyle();
 
 		val tmpFile = File.createTempFile("idea.cpt." + cptVirtualFile.getName(), null);
