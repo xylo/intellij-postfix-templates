@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public class CptLookupActionProvider implements LookupActionProvider {
 
 	@Override
-	public void fillActions(@NotNull LookupElement element, final @NotNull Lookup lookup, @NotNull Consumer<LookupElementAction> consumer) {
+	public void fillActions(@NotNull LookupElement element, @NotNull Lookup lookup, @NotNull Consumer<? super @NotNull LookupElementAction> consumer) {
 		if (element instanceof final PostfixTemplateLookupElement templateLookupElement) {
 			final PostfixTemplate template = templateLookupElement.getPostfixTemplate();
 
