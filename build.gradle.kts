@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.intellij"
-version = "2.16.3.231"
+version = "2.16.4.231"
 
 tasks.withType<JavaCompile> {
     sourceCompatibility = "17"
@@ -67,27 +67,27 @@ intellij {
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
     //version "IU-212.4037-EAP-CANDIDATE-SNAPSHOT"
     type.set("IU")
-    version.set("231.4840.387-EAP-SNAPSHOT")
+    version.set("231.6890-EAP-CANDIDATE-SNAPSHOT")
 
     plugins.set(
         listOf(
             "java",
-            "Pythonid:231.4840.387",
+            "Pythonid:231.6890.12",
             "Kotlin",
-            "org.intellij.scala:2023.1.3",
+            "org.intellij.scala:2023.1.7",
             "JavaScript",
             //"CSS",
-            "Dart:231.4840.362",
+            "Dart:231.6890.12",
             "Groovy",
             "properties",
-            "org.jetbrains.plugins.ruby:231.4840.387",
-            "com.jetbrains.php:231.4840.387",
+            "org.jetbrains.plugins.ruby:231.6890.12",
+            "com.jetbrains.php:231.6890.12",
             "java-i18n",
             "DatabaseTools",
-            "org.rust.lang:0.4.186.5143-223",
+            "org.rust.lang:0.4.188.5205-231",
             "org.toml.lang",
-            "org.jetbrains.plugins.go:231.4840.387",
-            "nl.rubensten.texifyidea:0.7.25.1"
+            "org.jetbrains.plugins.go:231.6890.12",
+            "nl.rubensten.texifyidea:0.7.26"
         )
     )
     updateSinceUntilBuild.set(true)

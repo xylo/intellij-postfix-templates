@@ -51,20 +51,20 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		put(SpecialType.ITERABLE_OR_ARRAY.name(), IS_ITERABLE_OR_ARRAY);
 		put(SpecialType.NOT_PRIMITIVE.name(), IS_NOT_PRIMITIVE);
 		put(SpecialType.NUMBER.name(), IS_DECIMAL_NUMBER);
-		put(SpecialType.BYTE.name(), isCertainNumberType(PsiType.BYTE));
-		put(SpecialType.SHORT.name(), isCertainNumberType(PsiType.SHORT));
-		put(SpecialType.CHAR.name(), isCertainNumberType(PsiType.CHAR));
-		put(SpecialType.INT.name(), isCertainNumberType(PsiType.INT));
-		put(SpecialType.LONG.name(), isCertainNumberType(PsiType.LONG));
-		put(SpecialType.FLOAT.name(), isCertainNumberType(PsiType.FLOAT));
-		put(SpecialType.DOUBLE.name(), isCertainNumberType(PsiType.DOUBLE));
-		put(SpecialType.BYTE_LITERAL.name(), isCertainNumberLiteral(PsiType.BYTE));
-		put(SpecialType.SHORT_LITERAL.name(), isCertainNumberLiteral(PsiType.SHORT));
-		put(SpecialType.CHAR_LITERAL.name(), isCertainNumberLiteral(PsiType.CHAR));
-		put(SpecialType.INT_LITERAL.name(), isCertainNumberLiteral(PsiType.INT));
-		put(SpecialType.LONG_LITERAL.name(), isCertainNumberLiteral(PsiType.LONG));
-		put(SpecialType.FLOAT_LITERAL.name(), isCertainNumberLiteral(PsiType.FLOAT));
-		put(SpecialType.DOUBLE_LITERAL.name(), isCertainNumberLiteral(PsiType.DOUBLE));
+		put(SpecialType.BYTE.name(), isCertainNumberType(PsiTypes.byteType()));
+		put(SpecialType.SHORT.name(), isCertainNumberType(PsiTypes.shortType()));
+		put(SpecialType.CHAR.name(), isCertainNumberType(PsiTypes.charType()));
+		put(SpecialType.INT.name(), isCertainNumberType(PsiTypes.intType()));
+		put(SpecialType.LONG.name(), isCertainNumberType(PsiTypes.longType()));
+		put(SpecialType.FLOAT.name(), isCertainNumberType(PsiTypes.floatType()));
+		put(SpecialType.DOUBLE.name(), isCertainNumberType(PsiTypes.doubleType()));
+		put(SpecialType.BYTE_LITERAL.name(), isCertainNumberLiteral(PsiTypes.byteType()));
+		put(SpecialType.SHORT_LITERAL.name(), isCertainNumberLiteral(PsiTypes.shortType()));
+		put(SpecialType.CHAR_LITERAL.name(), isCertainNumberLiteral(PsiTypes.charType()));
+		put(SpecialType.INT_LITERAL.name(), isCertainNumberLiteral(PsiTypes.intType()));
+		put(SpecialType.LONG_LITERAL.name(), isCertainNumberLiteral(PsiTypes.longType()));
+		put(SpecialType.FLOAT_LITERAL.name(), isCertainNumberLiteral(PsiTypes.floatType()));
+		put(SpecialType.DOUBLE_LITERAL.name(), isCertainNumberLiteral(PsiTypes.doubleType()));
 		put(SpecialType.NUMBER_LITERAL.name(), IS_DECIMAL_NUMBER_LITERAL);
 		put(SpecialType.STRING_LITERAL.name(), STRING_LITERAL);
 		put(SpecialType.CLASS.name(), IS_CLASS);
@@ -116,7 +116,7 @@ public class CustomJavaStringPostfixTemplate extends StringBasedPostfixTemplate 
 		PsiExpression expression = PsiTreeUtil.getParentOfType(elementAtCaret, PsiExpression.class);
 		while (expression != null) {
 			if (!expressions.contains(expression) && !(expression instanceof PsiParenthesizedExpression) && !(expression instanceof PsiSuperExpression) &&
-				(acceptVoid || !PsiType.VOID.equals(expression.getType()))) {
+				(acceptVoid || !PsiTypes.voidType().equals(expression.getType()))) {
 				if (expression instanceof PsiMethodReferenceExpression) {
 					expressions.add(expression);
 				} else if (!(expression instanceof PsiAssignmentExpression)) {

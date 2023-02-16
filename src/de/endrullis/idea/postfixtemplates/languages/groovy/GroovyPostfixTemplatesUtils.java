@@ -100,7 +100,7 @@ abstract class GroovyPostfixTemplatesUtils {
 	 * Contains byte, short, char, int, long, float, and double.
 	 */
 	static final Set<PsiType> NUMERIC_TYPES = new HashSet<>(Arrays.asList(
-		PsiType.BYTE, PsiType.SHORT, PsiType.CHAR, PsiType.INT, PsiType.LONG, PsiType.FLOAT, PsiType.DOUBLE)
+		PsiTypes.byteType(), PsiTypes.shortType(), PsiTypes.charType(), PsiTypes.intType(), PsiTypes.longType(), PsiTypes.floatType(), PsiTypes.doubleType())
 	);
 
 	@Contract("null,_ -> false")
@@ -130,7 +130,7 @@ abstract class GroovyPostfixTemplatesUtils {
 
 	@Contract("null -> false")
 	static boolean isVoid(@Nullable PsiType type) {
-		return PsiType.VOID.equals(type);
+		return PsiTypes.voidType().equals(type);
 	}
 
 }

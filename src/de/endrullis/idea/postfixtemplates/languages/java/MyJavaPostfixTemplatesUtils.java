@@ -91,7 +91,7 @@ public abstract class MyJavaPostfixTemplatesUtils {
 	 * Contains byte, short, char, int, long, float, and double.
 	 */
 	public static final Set<PsiType> NUMERIC_TYPES = new HashSet<>(Arrays.asList(
-		PsiType.BYTE, PsiType.SHORT, PsiType.CHAR, PsiType.INT, PsiType.LONG, PsiType.FLOAT, PsiType.DOUBLE)
+		PsiTypes.byteType(), PsiTypes.shortType(), PsiTypes.charType(), PsiTypes.intType(), PsiTypes.longType(), PsiTypes.floatType(), PsiTypes.doubleType())
 	);
 
 	@Contract("null,_ -> false")
@@ -119,7 +119,7 @@ public abstract class MyJavaPostfixTemplatesUtils {
 
 	@Contract("null -> false")
 	public static boolean isVoid(@Nullable PsiType type) {
-		return PsiType.VOID.equals(type);
+		return PsiTypes.voidType().equals(type);
 	}
 
 }
