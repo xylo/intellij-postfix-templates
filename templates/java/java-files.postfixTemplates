@@ -111,7 +111,8 @@
 	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.setLastModifiedTime($expr$, $arg$)
 
 .copy : copy
-	java.nio.file.Path [java.nio.file.Files]  →  java.nio.file.Files.copy($expr$, $arg$)
+	java.io.File [java.nio.file.Files]         →  java.nio.file.Files.copy($expr$.toPath(), $arg$)
+	java.nio.file.Path [java.nio.file.Files]   →  java.nio.file.Files.copy($expr$, $arg$)
 	java.io.InputStream [java.nio.file.Files]  →  java.nio.file.Files.copy($expr$, $arg$)
 
 .createDirectory : createDirectory
