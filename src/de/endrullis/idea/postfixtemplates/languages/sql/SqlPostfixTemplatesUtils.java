@@ -23,8 +23,10 @@ class SqlPostfixTemplatesUtils {
 		return StringUtils.substringBefore(sqlType.getDisplayName(), "(").equals(type);
 	}
 
+	/*
 	static Condition<PsiElement> isCategory(SqlType.Category category) {
 		return element -> element instanceof SqlExpression && ((SqlExpression) element).getSqlType().getCategory().equals(category);
 	}
+	 */
 
 }

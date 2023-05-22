@@ -23,9 +23,11 @@ public class CustomSqlStringPostfixTemplate extends SimpleStringBasedPostfixTemp
 	/** Contains predefined type-to-psiCondition mappings as well as cached mappings for individual types. */
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), e -> true);
+		/*
 		for (SqlType.Category category : SqlType.Category.values()) {
 			put(category.name(), SqlPostfixTemplatesUtils.isCategory(category));
 		}
+		 */
 	}};
 
 	public CustomSqlStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
