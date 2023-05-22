@@ -45,6 +45,12 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.17.0</h3>
+			<ul>
+				<li>Made CPT compatible with IDEA 2023.2.</li>
+				<li>Lost support for typed SQL templates (because of update).</li>
+			</ul>
+
 			<h3>Version 2.16.4</h3>
 			<ul>
 				<li>Fixed some deprecations.</li>
