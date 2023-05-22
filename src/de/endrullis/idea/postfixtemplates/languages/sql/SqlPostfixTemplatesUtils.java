@@ -1,5 +1,6 @@
 package de.endrullis.idea.postfixtemplates.languages.sql;
 
+import com.intellij.database.types.DasTypeCategory;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.sql.psi.SqlExpression;
@@ -23,10 +24,8 @@ class SqlPostfixTemplatesUtils {
 		return StringUtils.substringBefore(sqlType.getDisplayName(), "(").equals(type);
 	}
 
-	/*
-	static Condition<PsiElement> isCategory(SqlType.Category category) {
+	static Condition<PsiElement> isCategory(DasTypeCategory category) {
 		return element -> element instanceof SqlExpression && ((SqlExpression) element).getSqlType().getCategory().equals(category);
 	}
-	 */
 
 }

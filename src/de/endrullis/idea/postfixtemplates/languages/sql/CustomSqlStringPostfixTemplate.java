@@ -1,9 +1,9 @@
 package de.endrullis.idea.postfixtemplates.languages.sql;
 
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
+import com.intellij.database.types.DasTypeCategory;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
-import com.intellij.sql.psi.SqlType;
 import de.endrullis.idea.postfixtemplates.templates.SimpleStringBasedPostfixTemplate;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
@@ -23,11 +23,9 @@ public class CustomSqlStringPostfixTemplate extends SimpleStringBasedPostfixTemp
 	/** Contains predefined type-to-psiCondition mappings as well as cached mappings for individual types. */
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), e -> true);
-		/*
-		for (SqlType.Category category : SqlType.Category.values()) {
+		for (DasTypeCategory category : DasTypeCategory.values()) {
 			put(category.name(), SqlPostfixTemplatesUtils.isCategory(category));
 		}
-		 */
 	}};
 
 	public CustomSqlStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {

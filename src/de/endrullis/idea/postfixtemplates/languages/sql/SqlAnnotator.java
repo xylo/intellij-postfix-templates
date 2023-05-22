@@ -3,8 +3,8 @@ package de.endrullis.idea.postfixtemplates.languages.sql;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.database.types.DasTypeCategory;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
-import com.intellij.sql.psi.SqlType;
 import de.endrullis.idea.postfixtemplates.language.CptLangAnnotator;
 import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
@@ -21,11 +21,9 @@ public class SqlAnnotator implements CptLangAnnotator {
 
 	private final Map<String, Boolean> className2exists = new HashMap<String, Boolean>() {{
 		put(SpecialType.ANY.name(), true);
-		/*
-		for (SqlType.Category category : SqlType.Category.values()) {
+		for (DasTypeCategory category : DasTypeCategory.values()) {
 			put(category.name(), true);
 		}
-		 */
 	}};
 
 	@Override
@@ -35,12 +33,9 @@ public class SqlAnnotator implements CptLangAnnotator {
 
 	@Override
 	public void completeMatchingType(@NotNull CompletionParameters parameters, @NotNull CompletionResultSet resultSet) {
-		resultSet.addElement(LookupElementBuilder.create(SpecialType.ANY.name()));
-		/*
-		for (SqlType.Category category : SqlType.Category.values()) {
-			resultSet.addElement(LookupElementBuilder.create(category.name()));
+		for (String key : className2exists.keySet()) {
+			resultSet.addElement(LookupElementBuilder.create(key));
 		}
-		 */
 	}
 
 }
