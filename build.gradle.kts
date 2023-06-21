@@ -9,11 +9,11 @@ plugins {
     id("org.jetbrains.qodana") version "0.1.13"
     // Gradle IntelliJ Plugin
     id("org.jetbrains.intellij") version "1.14.1"
-    kotlin("jvm") version "1.8.22"
+    kotlin("jvm") version "1.8.0"
 }
 
 group = "com.intellij"
-version = "2.18.0.232"
+version = "2.18.1.232"
 
 tasks.withType<JavaCompile> {
     sourceCompatibility = "17"

@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.18.1</h3>
+			<ul>
+				<li>Fixed Kotlin compile error by downgrading Kotlin.</li>
+			</ul>
+
 			<h3>Version 2.18.0</h3>
 			<ul>
 				<li>Fixed a deprecation.</li>
