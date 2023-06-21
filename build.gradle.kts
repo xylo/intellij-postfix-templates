@@ -9,6 +9,7 @@ plugins {
     id("org.jetbrains.qodana") version "0.1.13"
     // Gradle IntelliJ Plugin
     id("org.jetbrains.intellij") version "1.14.1"
+    kotlin("jvm") version "1.8.22"
 }
 
 group = "com.intellij"
@@ -43,6 +44,7 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:1.18.26")
 
     testImplementation("junit:junit:4.13.2")
+    //implementation(kotlin("stdlib-jdk8"))
 }
 
 
@@ -108,5 +110,16 @@ tasks {
 
     publishPlugin {
         token.set(System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken"))
+    }
+}
+/*
+kotlin {
+    jvmToolchain(20)
+}
+ */
+tasks.compileKotlin {
+    kotlinOptions {
+        jvmTarget = "17"
+        freeCompilerArgs = listOf("-Xjvm-default=all")
     }
 }
