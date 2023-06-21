@@ -237,7 +237,7 @@ public class EditorTypedHandlerDelegate extends TypedHandlerDelegate {
 					});
 				}
 			});
-		}, ModalityState.NON_MODAL);
+		}, ModalityState.nonModal());
 	}
 
 	@Data

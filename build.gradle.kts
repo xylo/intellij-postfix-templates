@@ -8,11 +8,11 @@ plugins {
     // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.13.3"
+    id("org.jetbrains.intellij") version "1.14.1"
 }
 
 group = "com.intellij"
-version = "2.17.1.232"
+version = "2.18.0.232"
 
 tasks.withType<JavaCompile> {
     sourceCompatibility = "17"
@@ -67,27 +67,27 @@ intellij {
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
     //version "IU-212.4037-EAP-CANDIDATE-SNAPSHOT"
     type.set("IU")
-    version.set("232.6095.10-EAP-SNAPSHOT")
+    version.set("232.7754.73-EAP-SNAPSHOT")
 
     plugins.set(
         listOf(
             "java",
-            "Pythonid:232.6095.10",
+            "Pythonid:232.7754.73",
             "Kotlin",
             "org.intellij.scala:2023.2.3",
             "JavaScript",
             //"CSS",
-            "Dart:232.6095.10",
+            "Dart:232.7754.71",
             "Groovy",
             "properties",
-            "org.jetbrains.plugins.ruby:232.6095.10",
-            "com.jetbrains.php:232.6095.10",
+            "org.jetbrains.plugins.ruby:232.7754.73",
+            "com.jetbrains.php:232.7754.73",
             "java-i18n",
             "DatabaseTools",
-            "org.rust.lang:0.4.194.5382-231",
+            "org.rust.lang:0.4.196.5423-232",
             "org.toml.lang",
-            "org.jetbrains.plugins.go:232.6095.10",
-            "nl.rubensten.texifyidea:0.7.29"
+            "org.jetbrains.plugins.go:232.7754.73",
+            "nl.rubensten.texifyidea:0.7.30"
         )
     )
     updateSinceUntilBuild.set(true)

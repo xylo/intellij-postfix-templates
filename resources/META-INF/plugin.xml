@@ -45,6 +45,12 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.18.0</h3>
+			<ul>
+				<li>Fixed a deprecation.</li>
+				<li>Updated some libs.</li>
+			</ul>
+
 			<h3>Version 2.17.1</h3>
 			<ul>
 				<li>Re-added typed support for SQL again.</li>
@@ -593,7 +599,7 @@
 	</change-notes>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-	<idea-version since-build="222.0"/>
+	<idea-version since-build="232.7754.73"/>
 
 	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
 			 on how to target different products -->
