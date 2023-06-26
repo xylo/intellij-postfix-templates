@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.18.2</h3>
+			<ul>
+				<li>Fixed progress bar when updating web templates.</li>
+			</ul>
+
 			<h3>Version 2.18.1</h3>
 			<ul>
 				<li>Fixed Kotlin compile error by downgrading Kotlin.</li>

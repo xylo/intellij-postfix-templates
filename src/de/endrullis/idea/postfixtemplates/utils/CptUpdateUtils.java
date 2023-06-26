@@ -48,8 +48,11 @@ public class CptUpdateUtils {
 		if (pluginSettings.isUpdateWebTemplatesAutomatically()) {
 
 			ProgressManager.getInstance().run(new Task.Backgroundable(project, "Updating custom postfix web templates") {
+				@Override
 				public void run(@NotNull ProgressIndicator progressIndicator) {
 					progressIndicator.setIndeterminate(false);
+					progressIndicator.setText("Updating local postfix templates...");
+					progressIndicator.setFraction(0);
 
 					synchronized (updateSync) {
 						for (String language : SupportedLanguages.supportedLanguageIds) {
@@ -83,10 +86,12 @@ public class CptUpdateUtils {
 						// download the web templates file only once a day
 						if (forceUpdate || !getWebTemplatesInfoFile().exists() || new Date().getTime() - getWebTemplatesInfoFile().lastModified() > 1000 * 60 * 60 * 24) {
 							try {
+								progressIndicator.setText("Updating postfix web templates...");
+								progressIndicator.setFraction(0.05);
+
 								downloadWebTemplatesInfoFile();
 
-								progressIndicator.setFraction(0.10);
-								//progressIndicator.setText("90% to finish");
+								progressIndicator.setFraction(0.1);
 
 								val webTemplateFiles = WebTemplateFileLoader.load(getWebTemplatesInfoFile());
 
@@ -101,7 +106,7 @@ public class CptUpdateUtils {
 
 									newTemplateFiles |= CptUtil.downloadWebTemplateFile(cptFile);
 
-									progressIndicator.setFraction(0.10 + 0.90 * (i + 1));
+									progressIndicator.setFraction(0.10 + 0.90 * (i + 1) / (webTemplateFiles.length));
 								}
 							} catch (IOException e) {
 								e.printStackTrace();
