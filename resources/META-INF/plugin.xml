@@ -1,4 +1,4 @@
-<idea-plugin>
+<idea-plugin require-restart="true">
 	<id>de.endrullis.idea.postfixtemplates</id>
 	<name>Custom Postfix Templates</name>
 	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.18.4</h3>
+			<ul>
+				<li>Plugin update requires restart.</li>
+			</ul>
+
 			<h3>Version 2.18.3</h3>
 			<ul>
 				<li>Allow to cancel the web templates update process.</li>
