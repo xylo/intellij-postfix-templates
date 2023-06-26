@@ -114,7 +114,11 @@ public class CptUpdateUtils {
 									progressIndicator.setFraction(0.10 + 0.90 * (i + 1) / (webTemplateFiles.length));
 								}
 							} catch (IOException e) {
+								//noinspection CallToPrintStackTrace
 								e.printStackTrace();
+								MyNotifier.notificationGroup
+									.createNotification("Failed to download postfix web templates. Please check your internet connection.", NotificationType.ERROR)
+									.notify(project);
 							}
 						}
 
@@ -126,12 +130,10 @@ public class CptUpdateUtils {
 								afterUpdateAction.run();
 							});
 						} else {
-							NotificationGroup notificationGroup = NotificationGroupManager.getInstance().getNotificationGroup("Custom Postfix Templates");
-
 							if (pluginSettings.getSettingsVersion() < 2) {
-								openNotification(notificationGroup, "Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files.  Please open the settings to configure the plugin.", project);
+								openNotification("Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files.  Please open the settings to configure the plugin.", project);
 							} else if (newTemplateFiles) {
-								openNotification(notificationGroup, "Custom Postfix Templates", "New web template files are available.  Please open the settings to activate them.", project);
+								openNotification("Custom Postfix Templates", "New web template files are available.  Please open the settings to activate them.", project);
 							}
 						}
 					}
@@ -141,8 +143,8 @@ public class CptUpdateUtils {
 		}
 	}
 
-	private static void openNotification(NotificationGroup notificationGroup, String title, String content, Project project) {
-		Notification notification = notificationGroup.createNotification(title, content, NotificationType.INFORMATION);
+	private static void openNotification(String title, String content, Project project) {
+		Notification notification = MyNotifier.notificationGroup.createNotification(title, content, NotificationType.INFORMATION);
 		notification.setIcon(CptIcons.FILE);
 		notification.setImportantSuggestion(true);
 		notification.addAction(new AnAction("Open Settings") {

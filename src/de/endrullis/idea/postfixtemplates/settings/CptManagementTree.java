@@ -39,6 +39,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static de.endrullis.idea.postfixtemplates.language.CptUtil.downloadWebTemplateFile;
+import static de.endrullis.idea.postfixtemplates.language.CptUtil.findProject;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils.$;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 
@@ -146,7 +147,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	public void initTree(@NotNull Map<CptLang, List<CptPluginSettings.VFile>> lang2files, boolean activateNewFiles) {
 		root.removeAllChildren();
 
-		val lang2webTemplateFiles = Arrays.stream(CptUtil.loadWebTemplateFiles()).collect(Collectors.groupingBy(f -> f.lang));
+		val lang2webTemplateFiles = Arrays.stream(CptUtil.loadWebTemplateFiles(findProject(this))).collect(Collectors.groupingBy(f -> f.lang));
 
 		for (Map.Entry<CptLang, List<CptPluginSettings.VFile>> entry : lang2files.entrySet()) {
 			val lang = entry.getKey();

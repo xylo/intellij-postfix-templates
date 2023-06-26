@@ -2,6 +2,7 @@ package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.ide.DataManager;
 import com.intellij.ide.plugins.PluginManagerCore;
+import com.intellij.notification.NotificationType;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
@@ -21,6 +22,7 @@ import de.endrullis.idea.postfixtemplates.language.psi.CptMapping;
 import de.endrullis.idea.postfixtemplates.language.psi.CptTemplate;
 import de.endrullis.idea.postfixtemplates.languages.SupportedLanguages;
 import de.endrullis.idea.postfixtemplates.settings.*;
+import de.endrullis.idea.postfixtemplates.utils.MyNotifier;
 import de.endrullis.idea.postfixtemplates.utils.Tuple2;
 import lombok.val;
 import org.apache.commons.io.FileUtils;
@@ -424,7 +426,7 @@ public class CptUtil {
 
 	/** Downloads/updates the web template info file. */
 	public static void downloadWebTemplatesInfoFile() throws IOException {
-		val url = new URL("https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/webTemplateFiles.yaml");
+		val url = new URL("https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/webTemplateFiles.yaml2");
 
 		val tmpFile = File.createTempFile("idea.cpt.webtemplates", null);
 
@@ -481,13 +483,17 @@ public class CptUtil {
 	 *
 	 * @return returns the web template files listed in the info file
 	 */
-	public static WebTemplateFile[] loadWebTemplateFiles() {
+	public static WebTemplateFile[] loadWebTemplateFiles(Project project) {
 		// download the web templates file only once a day
 		if (!getWebTemplatesInfoFile().exists() || new Date().getTime() - getWebTemplatesInfoFile().lastModified() > 1000 * 60 * 60 * 24) {
 			try {
 				downloadWebTemplatesInfoFile();
 			} catch (IOException e) {
+				//noinspection CallToPrintStackTrace
 				e.printStackTrace();
+				MyNotifier.notificationGroup
+					.createNotification("Failed to download postfix web templates. Please check your internet connection.", NotificationType.ERROR)
+					.notify(project);
 			}
 		}
 

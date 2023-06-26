@@ -47,6 +47,7 @@
 	<change-notes><![CDATA[
 			<h3>Version 2.18.6</h3>
 			<ul>
+				<li>Show an error notification when postfix web templates could not be loaded from the internet.</li>
 				<li>Fixed potential memory leak.</li>
 			</ul>
 
