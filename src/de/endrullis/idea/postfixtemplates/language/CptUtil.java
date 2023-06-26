@@ -426,7 +426,7 @@ public class CptUtil {
 
 	/** Downloads/updates the web template info file. */
 	public static void downloadWebTemplatesInfoFile() throws IOException {
-		val url = new URL("https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/webTemplateFiles.yaml2");
+		val url = new URL("https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/webTemplateFiles.yaml");
 
 		val tmpFile = File.createTempFile("idea.cpt.webtemplates", null);
 
