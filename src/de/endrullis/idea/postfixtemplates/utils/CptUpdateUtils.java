@@ -67,14 +67,18 @@ public class CptUpdateUtils {
 										try (val stream = vFile.getJavaUrl().openStream()) {
 											val targetFile = new File(vFile.getFile());
 											if (!targetFile.getParentFile().exists()) {
-												targetFile.getParentFile().mkdirs();
+												if (!targetFile.getParentFile().mkdirs()) {
+													throw new FailedToCopyLocalTemplatesException("Could not create directory \"" + targetFile.getParent() + "\"");
+												}
 											}
-											if (targetFile.exists()) {
-												targetFile.setWritable(true);
+											if (targetFile.exists() && !targetFile.canWrite()) {
+												if (!targetFile.setWritable(true)) {
+													throw new FailedToCopyLocalTemplatesException("Cannot make file \"" + targetFile.getAbsoluteFile() + "\" writable.");
+												}
 											}
 											Files.copy(stream, new File(vFile.file).toPath(), REPLACE_EXISTING);
 										} catch (IOException e) {
-											throw new RuntimeException(e);
+											throw new FailedToCopyLocalTemplatesException(e);
 										}
 									}
 								}
@@ -95,7 +99,7 @@ public class CptUpdateUtils {
 
 								val webTemplateFiles = WebTemplateFileLoader.load(getWebTemplatesInfoFile());
 
-								for (int i = 0; i < webTemplateFiles.length; i++) {
+								for (int i = 0; i < webTemplateFiles.length && !progressIndicator.isCanceled(); i++) {
 									val webTemplateFile = webTemplateFiles[i];
 
 									CptVirtualFile cptFile = new CptVirtualFile(
