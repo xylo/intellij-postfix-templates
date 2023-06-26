@@ -427,11 +427,14 @@ public class CptUtil {
 		val url = new URL("https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/webTemplateFiles.yaml");
 
 		val tmpFile = File.createTempFile("idea.cpt.webtemplates", null);
-		val content = getContent(url.openStream());
 
-		FileUtils.writeStringToFile(tmpFile, content, StandardCharsets.UTF_8);
+		try (val stream  = url.openStream()) {
+			val content = getContent(stream);
 
-		Files.move(tmpFile.toPath(), getWebTemplatesInfoFile().toPath(), REPLACE_EXISTING);
+			FileUtils.writeStringToFile(tmpFile, content, StandardCharsets.UTF_8);
+
+			Files.move(tmpFile.toPath(), getWebTemplatesInfoFile().toPath(), REPLACE_EXISTING);
+		}
 	}
 
 	/**
