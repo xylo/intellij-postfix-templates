@@ -21,11 +21,13 @@ class SqlPostfixTemplatesUtils {
 	}
 
 	private static boolean isCustomClass(SqlType sqlType, String type) {
-		return StringUtils.substringBefore(sqlType.getDisplayName(), "(").equals(type);
+		return StringUtils.substringBefore(sqlType.getDasType().getDescription(), "(").equals(type);
 	}
 
 	static Condition<PsiElement> isCategory(DasTypeCategory category) {
-		return element -> element instanceof SqlExpression && ((SqlExpression) element).getSqlType().getCategory().equals(category);
+		//return element -> element instanceof SqlExpression && ((SqlExpression) element).getSqlType().getCategory().equals(category);
+		//return element -> element instanceof SqlExpression && ((SqlExpression) element).getSqlType().getDasType().getCategory().equals(category);
+		return e -> true;
 	}
 
 }

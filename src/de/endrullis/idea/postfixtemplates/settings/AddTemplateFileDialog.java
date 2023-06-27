@@ -17,6 +17,8 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
@@ -132,13 +134,13 @@ public class AddTemplateFileDialog extends DialogWrapper {
 				isNew = cptVirtualFile.isNew();
 			}
 
-			val urlString = urlField.getText().trim().equals("") ? null : urlField.getText();
-			val newUrl = urlString != null ? new URL(urlString) : null;
+			val urlString = urlField.getText().trim().isEmpty() ? null : urlField.getText();
+			val newUrl = urlString != null ? new URI(urlString).toURL() : null;
 			val newFile = CptUtil.getTemplateFile(lang.getLanguage(), nameField.getText().trim());
 
 			val newCptVirtualFile = new CptVirtualFile(null, newUrl, newFile, isNew);
 
-			if (!isNew && newUrl != null && oldUrl != null && !newUrl.equals(oldUrl)) {
+			if (!isNew && newUrl != null && oldUrl != null && !newUrl.toString().equals(oldUrl.toString())) {
 				newCptVirtualFile.setOldUrl(oldUrl);
 			}
 			if (!isNew && oldFile != null && !FileUtil.filesEqual(newFile, oldFile)) {
@@ -146,7 +148,7 @@ public class AddTemplateFileDialog extends DialogWrapper {
 			}
 
 			return newCptVirtualFile;
-		} catch (MalformedURLException ignored) {
+		} catch (MalformedURLException | URISyntaxException ignored) {
 			return null;
 		}
 	}
@@ -173,16 +175,18 @@ public class AddTemplateFileDialog extends DialogWrapper {
 		val urlString = urlField.getText().trim();
 		if (typeField.getSelectedItem() == CptFileType.LocalInFs) {
 			try {
-				new URL(urlString);
-			} catch (MalformedURLException e) {
+				//noinspection ResultOfMethodCallIgnored
+				new URI(urlString).toURL();
+			} catch (URISyntaxException | MalformedURLException e) {
 				return new ValidationInfo("Please select an existing file.", fileChooserButton);
 			}
 		}
 
 		if (typeField.getSelectedItem() == CptFileType.Web) {
 			try {
-				new URL(urlString);
-			} catch (MalformedURLException e) {
+				//noinspection ResultOfMethodCallIgnored
+				new URI(urlString).toURL();
+			} catch (URISyntaxException | MalformedURLException e) {
 				return new ValidationInfo("Please enter a valid URL.", urlField);
 			}
 		}

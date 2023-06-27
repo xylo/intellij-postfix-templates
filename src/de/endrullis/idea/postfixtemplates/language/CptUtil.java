@@ -31,7 +31,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.io.*;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
@@ -192,8 +193,11 @@ public class CptUtil {
 	 * @return path "$CPT_PLUGIN_SETTINGS/templates"
 	 */
 	public static File getTemplatesPath() {
-		final File templates = new File(getPluginPath(), "templates");
-		templates.mkdirs();
+		val templates = new File(getPluginPath(), "templates");
+
+		if (!templates.exists()) {
+			templates.mkdirs();
+		}
 
 		return templates;
 	}
@@ -425,8 +429,8 @@ public class CptUtil {
 	}
 
 	/** Downloads/updates the web template info file. */
-	public static void downloadWebTemplatesInfoFile() throws IOException {
-		val url = new URL("https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/webTemplateFiles.yaml");
+	public static void downloadWebTemplatesInfoFile() throws IOException, URISyntaxException {
+		val url = new URI("https://raw.githubusercontent.com/xylo/intellij-postfix-templates/master/templates/webTemplateFiles.yaml").toURL();
 
 		val tmpFile = File.createTempFile("idea.cpt.webtemplates", null);
 
@@ -488,7 +492,7 @@ public class CptUtil {
 		if (!getWebTemplatesInfoFile().exists() || new Date().getTime() - getWebTemplatesInfoFile().lastModified() > 1000 * 60 * 60 * 24) {
 			try {
 				downloadWebTemplatesInfoFile();
-			} catch (IOException e) {
+			} catch (IOException | URISyntaxException e) {
 				//noinspection CallToPrintStackTrace
 				e.printStackTrace();
 				MyNotifier.notificationGroup

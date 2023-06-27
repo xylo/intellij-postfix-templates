@@ -22,7 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.Date;
 
@@ -105,7 +106,7 @@ public class CptUpdateUtils {
 
 									CptVirtualFile cptFile = new CptVirtualFile(
 										webTemplateFile.getId(),
-										new URL(webTemplateFile.getUrl()),
+										new URI(webTemplateFile.getUrl()).toURL(),
 										CptUtil.getTemplateFile(webTemplateFile.getLang(), webTemplateFile.getId()),
 										true);
 
@@ -113,7 +114,7 @@ public class CptUpdateUtils {
 
 									progressIndicator.setFraction(0.10 + 0.90 * (i + 1) / (webTemplateFiles.length));
 								}
-							} catch (IOException e) {
+							} catch (URISyntaxException | IOException e) {
 								//noinspection CallToPrintStackTrace
 								e.printStackTrace();
 								MyNotifier.notificationGroup
