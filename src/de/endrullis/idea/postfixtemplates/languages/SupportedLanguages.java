@@ -49,7 +49,7 @@ public class SupportedLanguages {
 			new RustLang(),
 			new ScalaLang(),
 			new SqlLang(),
-            new LatexLang()
+      new LatexLang()
 		).stream().sorted(Comparator.comparing(l -> l.getNiceName().toLowerCase())).collect(Collectors.toList());
 	}
 

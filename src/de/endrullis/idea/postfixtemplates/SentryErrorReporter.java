@@ -72,7 +72,7 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 					//
 					// Sentry accesses Throwable.getStackTrace(),
 					// So, we workaround this by retrieving the original exception from the data property
-					if (ideaEvent instanceof IdeaReportingEvent && ideaEvent.getData() instanceof AbstractMessage) {
+					if (ideaEvent instanceof IdeaReportingEvent) {
 						Throwable ex = ((AbstractMessage) ideaEvent.getData()).getThrowable();
 
 						event.setThrowable(ex);

@@ -20,7 +20,7 @@ public class CptCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
 	public CodeStyleConfigurable createConfigurable(@NotNull CodeStyleSettings settings, @NotNull CodeStyleSettings originalSettings) {
 		return new CodeStyleAbstractConfigurable(settings, originalSettings, "CustomPostfixTemplates") {
 			@Override
-			protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
+			protected @NotNull CodeStyleAbstractPanel createPanel(@NotNull CodeStyleSettings settings) {
 				return new CptCodeStyleMainPanel(getCurrentSettings(), settings);
 			}
 

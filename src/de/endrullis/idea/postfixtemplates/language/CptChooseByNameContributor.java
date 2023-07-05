@@ -16,7 +16,7 @@ public class CptChooseByNameContributor implements ChooseByNameContributor {
 		val mappings = CptUtil.findMappings(project);
 		val names    = new ArrayList<String>(mappings.size());
 		for (CptMapping mapping : mappings) {
-			if (mapping.getMatchingClassName() != null && mapping.getMatchingClassName().length() > 0) {
+			if (mapping.getMatchingClassName() != null && !mapping.getMatchingClassName().isEmpty()) {
 				names.add(mapping.getMatchingClassName());
 			}
 		}

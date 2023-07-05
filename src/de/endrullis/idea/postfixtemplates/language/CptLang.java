@@ -1,5 +1,7 @@
 package de.endrullis.idea.postfixtemplates.language;
 
+import lombok.Getter;
+
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -7,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
+@Getter
 public abstract class CptLang {
 
 	private final String                            niceName;
@@ -19,14 +22,6 @@ public abstract class CptLang {
 		this.niceName = niceName;
 		this.language = niceName.toLowerCase();
 		this.annotatorClass = annotatorClass;
-	}
-
-	public String getNiceName() {
-		return niceName;
-	}
-
-	public String getLanguage() {
-		return language;
 	}
 
 	public CptLangAnnotator getAnnotator() {

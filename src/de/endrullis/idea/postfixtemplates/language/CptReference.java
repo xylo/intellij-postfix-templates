@@ -46,7 +46,7 @@ public class CptReference extends PsiReferenceBase<PsiElement> implements PsiPol
 		List<CptMapping> properties = CptUtil.findMappings(project);
 		List<LookupElement> variants = new ArrayList<>();
 		for (final CptMapping property : properties) {
-			if (property.getMatchingClassName() != null && property.getMatchingClassName().length() > 0) {
+			if (property.getMatchingClassName() != null && !property.getMatchingClassName().isEmpty()) {
 				variants.add(LookupElementBuilder.create(property).
 					withIcon(CptIcons.FILE).
 					withTypeText(property.getContainingFile().getName())

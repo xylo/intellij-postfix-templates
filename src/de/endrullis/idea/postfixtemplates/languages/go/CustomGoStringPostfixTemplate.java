@@ -45,11 +45,8 @@ public class CustomGoStringPostfixTemplate extends SimpleStringBasedPostfixTempl
 		put(GoSpecialType.STRING.name(), IS_STRING);
 	}};
 
-	public static List<PsiElement> collectExpressions(final PsiFile file,
-	                                                  final Document document,
-	                                                  final int offset,
-	                                                  boolean acceptVoid) {
-		val text           = document.getCharsSequence();
+	public static @NotNull List<PsiElement> collectExpressions(final PsiFile file,
+	                                                           final int offset) {
 		val elementAtCaret = file.findElementAt(offset);
 		val expressions    = new ArrayList<PsiElement>();
 
@@ -63,7 +60,6 @@ public class CustomGoStringPostfixTemplate extends SimpleStringBasedPostfixTempl
 					expressions.add(expression);
 				}
 			}
-
 
 			expression = expression.getParent();
 		}
@@ -86,7 +82,7 @@ public class CustomGoStringPostfixTemplate extends SimpleStringBasedPostfixTempl
 		return new PostfixTemplateExpressionSelectorBase(additionalFilter) {
 			@Override
 			protected List<PsiElement> getNonFilteredExpressions(@NotNull PsiElement context, @NotNull Document document, int offset) {
-				return new ArrayList<>(collectExpressions(context.getContainingFile(), document, Math.max(offset - 1, 0), false));
+				return new ArrayList<>(collectExpressions(context.getContainingFile(), Math.max(offset - 1, 0)));
 			}
 
 			@NotNull
