@@ -67,29 +67,29 @@ sourceSets {
 intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
-    //version "IU-212.4037-EAP-CANDIDATE-SNAPSHOT"
+    //version "IU-233.8264.8-EAP-SNAPSHOT"
     type.set("IU")
-    version.set("232.8660.185")
+    version.set("233.8264.8-EAP-SNAPSHOT")
 
     plugins.set(
         listOf(
             "java",
-            "Pythonid:232.8660.185",
+            "Pythonid:233.8264.8",
             "Kotlin",
-            "org.intellij.scala:2023.2.8",
+            "org.intellij.scala:2023.3.2",
             "JavaScript",
             //"CSS",
-            "Dart:232.8660.129",
+            "Dart:233.8264.3",
             "Groovy",
             "properties",
-            "org.jetbrains.plugins.ruby:232.8660.185",
-            "com.jetbrains.php:232.8660.205",
+            "org.jetbrains.plugins.ruby:233.8264.8",
+            "com.jetbrains.php:233.8264.9",
             "java-i18n",
             "DatabaseTools",
-            "org.rust.lang:0.4.200.5421-232",
+            "org.rust.lang:0.4.201.5424-232",
             "org.toml.lang",
-            "org.jetbrains.plugins.go:232.8660.142",
-            "nl.rubensten.texifyidea:0.7.33"
+            "org.jetbrains.plugins.go:233.8264.8",
+            "nl.rubensten.texifyidea:0.9.1"
         )
     )
     updateSinceUntilBuild.set(true)
