@@ -25,8 +25,7 @@ class SqlPostfixTemplatesUtils {
 	}
 
 	static Condition<PsiElement> isCategory(DasTypeCategory category) {
-		//return element -> element instanceof SqlExpression && ((SqlExpression) element).getSqlType().getCategory().equals(category);
-		//return element -> element instanceof SqlExpression && ((SqlExpression) element).getSqlType().getDasType().getCategory().equals(category);
+		//return element -> element instanceof SqlExpression && ((SqlExpression) element).getDasType().getCategory().equals(category);
 		return e -> true;
 	}
 
