@@ -5,7 +5,7 @@ import com.intellij.util.xmlb.annotations.MapAnnotation;
 import de.endrullis.idea.postfixtemplates.language.CptUtil;
 import de.endrullis.idea.postfixtemplates.utils.Tuple2;
 import lombok.*;
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.MalformedURLException;
