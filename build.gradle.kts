@@ -9,7 +9,7 @@ plugins {
     id("org.jetbrains.qodana") version "0.1.13"
     // Gradle IntelliJ Plugin
     id("org.jetbrains.intellij") version "1.14.2"
-    kotlin("jvm") version "1.8.0"
+    kotlin("jvm") version "1.9.10"
 }
 
 group = "com.intellij"
@@ -67,28 +67,28 @@ sourceSets {
 intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
-    //version "IU-233.8264.8-EAP-SNAPSHOT"
+    //version "IU-233.11799.6-EAP-SNAPSHOT"
     type.set("IU")
-    version.set("233.8264.8-EAP-SNAPSHOT")
+    version.set("233.11799.6-EAP-SNAPSHOT")
 
     plugins.set(
         listOf(
             "java",
-            "Pythonid:233.8264.8",
+            "Pythonid:233.11799.6",
             "Kotlin",
-            "org.intellij.scala:2023.3.2",
+            "org.intellij.scala:2023.3.10",
             "JavaScript",
             //"CSS",
-            "Dart:233.8264.3",
+            "Dart:233.11799.7",
             "Groovy",
             "properties",
-            "org.jetbrains.plugins.ruby:233.8264.8",
-            "com.jetbrains.php:233.8264.9",
+            "org.jetbrains.plugins.ruby:233.11799.6",
+            "com.jetbrains.php:233.11799.6",
             "java-i18n",
             "DatabaseTools",
             "org.rust.lang:0.4.201.5424-232",
             "org.toml.lang",
-            "org.jetbrains.plugins.go:233.8264.8",
+            "org.jetbrains.plugins.go:233.11799.6",
             "nl.rubensten.texifyidea:0.9.1"
         )
     )
