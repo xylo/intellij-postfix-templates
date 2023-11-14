@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.intellij"
-version = "2.19.0.233"
+version = "2.20.0.233"
 
 tasks.withType<JavaCompile> {
     sourceCompatibility = "17"
@@ -28,7 +28,7 @@ repositories {
 
 dependencies {
     implementation("commons-io:commons-io:2.11.0")
-    implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("org.apache.commons:commons-lang3:3.13.0")
     implementation("com.fasterxml.jackson.core:jackson-core:2.15.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.1")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.1")

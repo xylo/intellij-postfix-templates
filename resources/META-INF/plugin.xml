@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.20.0</h3>
+			<ul>
+				<li>Replaced some deprecated libs.</li>
+			</ul>
+
 			<h3>Version 2.19.0</h3>
 			<ul>
 				<li>Lost support for typed SQL templates (because of API changes in SQL module).</li>
