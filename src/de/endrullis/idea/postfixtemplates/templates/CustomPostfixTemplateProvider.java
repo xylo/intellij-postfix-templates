@@ -1,6 +1,5 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
-import com.intellij.AppTopics;
 import com.intellij.codeInsight.template.postfix.templates.PostfixLiveTemplate;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplate;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
@@ -74,7 +73,7 @@ public abstract class CustomPostfixTemplateProvider implements PostfixTemplatePr
 		messageBus.subscribe(CptApplicationSettings.SettingsChangedListener.TOPIC, this);
 
 		// listen to file changes of template file
-		messageBus.subscribe(AppTopics.FILE_DOCUMENT_SYNC, templateFileChangeListener);
+		messageBus.subscribe(FileDocumentManagerListener.TOPIC, templateFileChangeListener);
 
 		// load templates
 		reload(CptApplicationSettings.getInstance());
