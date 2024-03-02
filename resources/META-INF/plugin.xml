@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.20.2</h3>
+			<ul>
+				<li>Removed Rust support in IDEA 2024.1.</li>
+			</ul>
+
 			<h3>Version 2.20.1</h3>
 			<ul>
 				<li>Fixed deprecated API usage.</li>
@@ -657,7 +662,6 @@
 	<depends optional="true" config-file="withDartModule.xml">Dart</depends>
 	<depends optional="true" config-file="withPythonModule.xml">com.intellij.modules.python</depends>
 	<depends optional="true" config-file="withPhpModule.xml">com.jetbrains.php</depends>
-	<depends optional="true" config-file="withRustModule.xml">org.rust.lang</depends>
 	<depends optional="true" config-file="withGroovyModule.xml">org.intellij.groovy</depends>
 	<depends optional="true" config-file="withGoModule.xml">org.jetbrains.plugins.go</depends>
 	<depends optional="true" config-file="withRubyModule.xml">com.intellij.modules.ruby</depends>
