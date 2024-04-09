@@ -69,25 +69,26 @@ intellij {
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
     //version "IU-233.11799.6-EAP-SNAPSHOT"
     type.set("IU")
-    version.set("241.14024.14-EAP-SNAPSHOT")
+    //version.set("241.14024.14-EAP-SNAPSHOT")
+    version.set("241.14494.240")
 
     plugins.set(
         listOf(
             "java",
-            "Pythonid:241.14024.14",
+            "Pythonid:241.14494.240",
             "Kotlin",
             "org.intellij.scala:2024.1.7",
             "JavaScript",
             //"CSS",
-            "Dart:241.14024.14",
+            "Dart:241.15845",
             "Groovy",
             "properties",
-            "org.jetbrains.plugins.ruby:241.14024.14",
-            "com.jetbrains.php:241.14024.14",
+            "org.jetbrains.plugins.ruby:241.14494.240",
+            "com.jetbrains.php:241.14494.240",
             "java-i18n",
             "DatabaseTools",
             "org.toml.lang",
-            "org.jetbrains.plugins.go:241.14024.14",
+            "org.jetbrains.plugins.go:241.14494.240",
             "nl.rubensten.texifyidea:0.9.4"
         )
     )
