@@ -16,6 +16,9 @@ plugins {
 
     // Plugin which can update Gradle dependencies, use the help/useLatestVersions task.
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
+
+    // Vulnerability scanning
+    id("org.owasp.dependencycheck") version "9.2.0"
 }
 
 group = "com.intellij"
