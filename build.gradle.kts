@@ -41,7 +41,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.17.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.1")
-    implementation("io.sentry:sentry:6.9.0") {
+    implementation("io.sentry:sentry:7.10.0") {
         exclude("org.slf4j")
     }
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
