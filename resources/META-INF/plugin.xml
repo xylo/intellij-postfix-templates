@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.20.3</h3>
+			<ul>
+				<li>Updated dependencies.</li>
+			</ul>
+
 			<h3>Version 2.20.2</h3>
 			<ul>
 				<li>Removed Rust support in IDEA 2024.1.</li>
