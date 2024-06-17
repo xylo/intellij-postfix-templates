@@ -6,14 +6,20 @@ plugins {
     // Gradle Changelog Plugin
     //id("org.jetbrains.changelog") version "1.3.1"
     // Gradle Qodana Plugin
-    id("org.jetbrains.qodana") version "0.1.13"
+    id("org.jetbrains.qodana") version "2024.1.5"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.14.2"
-    kotlin("jvm") version "1.9.10"
+    id("org.jetbrains.intellij") version "1.17.4"
+    kotlin("jvm") version "1.9.20"
+
+    // Plugin which can check for Gradle dependencies, use the help/dependencyUpdates task.
+    id("com.github.ben-manes.versions") version "0.51.0"
+
+    // Plugin which can update Gradle dependencies, use the help/useLatestVersions task.
+    id("se.patrikerdes.use-latest-versions") version "0.2.18"
 }
 
 group = "com.intellij"
-version = "2.20.2.241"
+version = "2.20.3.241"
 
 tasks.withType<JavaCompile> {
     sourceCompatibility = "17"
