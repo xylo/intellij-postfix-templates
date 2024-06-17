@@ -22,9 +22,12 @@ group = "com.intellij"
 version = "2.20.3.241"
 
 tasks.withType<JavaCompile> {
-    sourceCompatibility = "17"
-    targetCompatibility = "17"
     options.encoding = "UTF-8"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -33,21 +36,21 @@ repositories {
 
 
 dependencies {
-    implementation("commons-io:commons-io:2.11.0")
-    implementation("org.apache.commons:commons-lang3:3.13.0")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.15.1")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.1")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.1")
+    implementation("commons-io:commons-io:2.16.1")
+    implementation("org.apache.commons:commons-lang3:3.14.0")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.17.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.1")
     implementation("io.sentry:sentry:6.9.0") {
         exclude("org.slf4j")
     }
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
 
-    compileOnly("org.projectlombok:lombok:1.18.26")
-    annotationProcessor("org.projectlombok:lombok:1.18.26")
+    compileOnly("org.projectlombok:lombok:1.18.32")
+    annotationProcessor("org.projectlombok:lombok:1.18.32")
 
-    testCompileOnly("org.projectlombok:lombok:1.18.26")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.26")
+    testCompileOnly("org.projectlombok:lombok:1.18.32")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.32")
 
     testImplementation("junit:junit:4.13.2")
     //implementation(kotlin("stdlib-jdk8"))
