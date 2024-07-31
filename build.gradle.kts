@@ -99,7 +99,9 @@ intellijPlatform {
 
 dependencies {
     intellijPlatform {
-        //create("IU", "242.18071.24-EAP-SNAPSHOT")
+        // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
+        // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
+        //create("IU", "242.20224.91-EAP-SNAPSHOT")
         intellijIdeaUltimate("2024.1.4")
         //plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         //bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -122,8 +124,6 @@ dependencies {
 
 /*
 intellij {
-    // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
-    // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
     //version "IU-233.11799.6-EAP-SNAPSHOT"
 //    type.set("IU")
     //version.set("241.14024.14-EAP-SNAPSHOT")

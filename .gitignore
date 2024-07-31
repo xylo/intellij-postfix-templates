@@ -8,3 +8,4 @@
 .gradle/
 gradle.properties
 /.sandbox/
+/.intellijPlatform/
