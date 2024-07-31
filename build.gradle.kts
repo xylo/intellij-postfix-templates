@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
 plugins {
     // Java support
     id("java")
@@ -101,7 +104,7 @@ dependencies {
     intellijPlatform {
         // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
         // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
-        //create("IU", "242.20224.91-EAP-SNAPSHOT")
+        //create("IU", "242.20224.159-EAP-SNAPSHOT")
         intellijIdeaUltimate("2024.1.4")
         //plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         //bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -154,9 +157,9 @@ intellij {
  */
 
 tasks {
-    compileKotlin {
-        kotlinOptions {
-            jvmTarget = "17"
+    withType<KotlinJvmCompile>().configureEach {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
             freeCompilerArgs = listOf("-Xjvm-default=all")
         }
     }
