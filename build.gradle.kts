@@ -45,12 +45,14 @@ repositories {
         defaultRepositories()
         //localPlatformArtifacts()
     }
+    /*
     intellijPlatformTesting {
       runIde
       testIde
       testIdeUi
       testIdePerformance
     }
+     */
 }
 
 
@@ -73,7 +75,7 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
     //implementation(kotlin("stdlib-jdk8"))
-    testImplementation("org.opentest4j:opentest4j:1.3.0")
+    //testImplementation("org.opentest4j:opentest4j:1.3.0")
 }
 
 
