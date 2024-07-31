@@ -6,23 +6,26 @@ plugins {
     // Gradle Changelog Plugin
     //id("org.jetbrains.changelog") version "1.3.1"
     // Gradle Qodana Plugin
-    id("org.jetbrains.qodana") version "2024.1.5"
+    //id("org.jetbrains.qodana") version "2024.1.5"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.17.4"
-    kotlin("jvm") version "1.9.20"
+    id("org.jetbrains.intellij.platform") version "2.0.0"
+    //id("org.jetbrains.intellij.platform.migration") version "2.0.0-beta6"
+    //id("org.jetbrains.intellij") version "1.17.4"
+    //kotlin("jvm") version "1.9.20"
+    id("org.jetbrains.kotlin.jvm") version "2.0.0"
 
     // Plugin which can check for Gradle dependencies, use the help/dependencyUpdates task.
-    id("com.github.ben-manes.versions") version "0.51.0"
+    //id("com.github.ben-manes.versions") version "0.51.0"
 
     // Plugin which can update Gradle dependencies, use the help/useLatestVersions task.
-    id("se.patrikerdes.use-latest-versions") version "0.2.18"
+    //id("se.patrikerdes.use-latest-versions") version "0.2.18"
 
     // Vulnerability scanning
-    id("org.owasp.dependencycheck") version "9.2.0"
+    //id("org.owasp.dependencycheck") version "9.2.0"
 }
 
 group = "com.intellij"
-version = "2.20.3.241"
+version = "2.20.3.242"
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
@@ -35,6 +38,16 @@ java {
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+        //localPlatformArtifacts()
+    }
+    intellijPlatformTesting {
+      runIde
+      testIde
+      testIdeUi
+      testIdePerformance
+    }
 }
 
 
@@ -57,6 +70,7 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
     //implementation(kotlin("stdlib-jdk8"))
+    testImplementation("org.opentest4j:opentest4j:1.3.0")
 }
 
 
@@ -68,53 +82,92 @@ sourceSets {
         resources.srcDir("resources")
     }
 
+    /*
     test {
         java.srcDir("test/src")
         resources.srcDir("test/resources")
     }
+     */
 
 }
 
+intellijPlatform {
+    pluginConfiguration {
+        name = "foo"
+    }
+}
 
+dependencies {
+    intellijPlatform {
+        //create("IU", "242.18071.24-EAP-SNAPSHOT")
+        intellijIdeaUltimate("2024.1.4")
+        //plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
+        //bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
+        bundledPlugin("com.intellij.css")
+        bundledPlugin("com.intellij.database")
+        bundledPlugin("org.intellij.groovy")
+        bundledPlugin("org.intellij.intelliLang")
+        bundledPlugin("com.intellij.java")
+        bundledPlugin("JavaScript")
+        bundledPlugin("org.jetbrains.kotlin")
+        plugin("org.intellij.scala", "2024.2.5")
+        plugin("com.jetbrains.php", "242.16677.21")
+        plugin("org.jetbrains.plugins.ruby", "242.16677.21")
+        plugin("org.jetbrains.plugins.go", "242.16677.21")
+        plugin("nl.rubensten.texifyidea", "0.9.6")
+        plugin("Pythonid", "242.16677.21")
+        instrumentationTools()
+    }
+}
+
+/*
 intellij {
     // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
     // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
     //version "IU-233.11799.6-EAP-SNAPSHOT"
-    type.set("IU")
+//    type.set("IU")
     //version.set("241.14024.14-EAP-SNAPSHOT")
-    version.set("241.14494.240")
+//    version.set("242.16677.21-EAP-SNAPSHOT")
 
     plugins.set(
         listOf(
             "java",
-            "Pythonid:241.14494.240",
-            "Kotlin",
-            "org.intellij.scala:2024.1.7",
+            "Pythonid:242.16677.21",
+            //"Kotlin",
+            "org.intellij.scala:2024.2.5",
             "JavaScript",
             //"CSS",
-            "Dart:241.15845",
+            "Dart:242.16677.12",
             "Groovy",
             "properties",
-            "org.jetbrains.plugins.ruby:241.14494.240",
-            "com.jetbrains.php:241.14494.240",
+            "org.jetbrains.plugins.ruby:242.16677.21",
+            "com.jetbrains.php:242.16677.21",
             "java-i18n",
             "DatabaseTools",
             "org.toml.lang",
-            "org.jetbrains.plugins.go:241.14494.240",
-            "nl.rubensten.texifyidea:0.9.4"
+            "org.jetbrains.plugins.go:242.16677.21",
+            "nl.rubensten.texifyidea:0.9.6"
         )
     )
     updateSinceUntilBuild.set(true)
 }
+ */
 
 tasks {
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "17"
+            freeCompilerArgs = listOf("-Xjvm-default=all")
+        }
+    }
+
     // Avoid ClassNotFoundException: com.maddyhome.idea.copyright.psi.UpdateCopyrightsProvider
     buildSearchableOptions {
         // jvmArgs = ["-Djava.system.class.loader=com.intellij.util.lang.PathClassLoader"]
         enabled = false
     }
 
-    runPluginVerifier {
+    verifyPlugin {
         //ideVersions.set(listOf(intellij.type.get() + "-" + intellij.version.get()))
         //ideVersions("IU-222.3345.118")
         //setFailureLevel(RunPluginVerifierTask.FailureLevel.ALL)
@@ -129,9 +182,3 @@ kotlin {
     jvmToolchain(20)
 }
  */
-tasks.compileKotlin {
-    kotlinOptions {
-        jvmTarget = "17"
-        freeCompilerArgs = listOf("-Xjvm-default=all")
-    }
-}
