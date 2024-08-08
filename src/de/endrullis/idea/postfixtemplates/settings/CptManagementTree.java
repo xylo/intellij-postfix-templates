@@ -33,6 +33,8 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.*;
@@ -184,9 +186,9 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 
 				URL url = null;
 				try {
-					url = vFile.id != null ? new URL(webTemplateFile.url) :
-								vFile.url != null ? new URL(vFile.url) : null;
-				} catch (MalformedURLException ignored) {
+					url = vFile.id != null ? new URI(webTemplateFile.url).toURL() :
+					      vFile.url != null ? new URI(vFile.url).toURL() : null;
+				} catch (MalformedURLException | URISyntaxException ignored) {
 				}
 				val cptFile = new CptVirtualFile(vFile.id, url, new File(vFile.file));
 				cptFile.setWebTemplateFile(webTemplateFile);
@@ -210,7 +212,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 			if (Objects.equals(nextMissingWtf._1, lastFileId)) {
 				WebTemplateFile webTemplateFile = nextMissingWtf._2;
 				try {
-					CptVirtualFile cptFile = new CptVirtualFile(webTemplateFile.id, new URL(webTemplateFile.url), CptUtil.getTemplateFile(lang.getLanguage(), webTemplateFile.id), true);
+					CptVirtualFile cptFile = new CptVirtualFile(webTemplateFile.id, new URI(webTemplateFile.url).toURL(), CptUtil.getTemplateFile(lang.getLanguage(), webTemplateFile.id), true);
 					lastFileId = webTemplateFile.id;
 					downloadWebTemplateFile(cptFile);
 
@@ -218,7 +220,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 					node.setChecked(activateNewFiles);
 
 					langNode.add(node);
-				} catch (IOException e) {
+				} catch (IOException | URISyntaxException e) {
 					e.printStackTrace();
 				}
 				nextMissingWtf = missingWtfIter.hasNext() ? missingWtfIter.next() : null;

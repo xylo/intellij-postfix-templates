@@ -79,7 +79,7 @@ public class CptUpdateUtils {
 												}
 											}
 											Files.copy(stream, new File(vFile.file).toPath(), REPLACE_EXISTING);
-										} catch (IOException e) {
+										} catch (IOException | URISyntaxException e) {
 											throw new FailedToCopyLocalTemplatesException(e);
 										}
 									}
@@ -132,7 +132,7 @@ public class CptUpdateUtils {
 							});
 						} else {
 							if (pluginSettings.getSettingsVersion() < 2) {
-								openNotification("Custom Postfix Templates 2.0", "Version 2.0 brings you user and web template files.  Please open the settings to configure the plugin.", project);
+								openNotification("Custom Postfix Templates 2.x", "Version 2.x brings you user and web template files.  Please open the settings to configure the plugin.", project);
 							} else if (newTemplateFiles) {
 								openNotification("Custom Postfix Templates", "New web template files are available.  Please open the settings to activate them.", project);
 							}

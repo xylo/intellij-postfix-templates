@@ -9,6 +9,8 @@ import org.apache.commons.lang3.SystemUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -116,10 +118,10 @@ public final class CptPluginSettings {
 			return url != null && url.startsWith("file:");
 		}
 
-		public URL getJavaUrl() throws MalformedURLException {
+		public URL getJavaUrl() throws MalformedURLException, URISyntaxException {
 			return SystemUtils.IS_OS_WINDOWS
-				? new URL(url.replaceFirst("file://", "file:///"))
-				: new URL(url);
+				? new URI(url.replaceFirst("file://", "file:///")).toURL()
+				: new URI(url).toURL();
 		}
 	}
 }
