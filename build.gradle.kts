@@ -28,7 +28,7 @@ plugins {
 }
 
 group = "com.intellij"
-version = "2.20.3.242"
+version = "2.20.4.242"
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
