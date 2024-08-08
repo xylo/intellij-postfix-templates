@@ -43,6 +43,7 @@ repositories {
     mavenCentral()
     intellijPlatform {
         defaultRepositories()
+        snapshots()
         //localPlatformArtifacts()
     }
     /*
@@ -107,7 +108,8 @@ dependencies {
         // full list of IntelliJ IDEA releases at https://www.jetbrains.com/intellij-repository/releases
         // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
         //create("IU", "242.20224.159-EAP-SNAPSHOT")
-        intellijIdeaUltimate("2024.1.4")
+        //intellijIdeaUltimate("242.20224.159-EAP-SNAPSHOT")
+        intellijIdeaUltimate("2024.2")
         //plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         //bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
         bundledPlugin("com.intellij.css")
