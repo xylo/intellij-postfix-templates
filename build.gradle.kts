@@ -1,5 +1,9 @@
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
+group = "com.intellij"
+version = "2.20.4.242"
 
 plugins {
     // Java support
@@ -27,22 +31,12 @@ plugins {
     //id("org.owasp.dependencycheck") version "9.2.0"
 }
 
-group = "com.intellij"
-version = "2.20.4.242"
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 repositories {
     mavenCentral()
+
     intellijPlatform {
         defaultRepositories()
+        releases()
         snapshots()
         //localPlatformArtifacts()
     }
@@ -56,50 +50,13 @@ repositories {
      */
 }
 
-
-dependencies {
-    implementation("commons-io:commons-io:2.16.1")
-    implementation("org.apache.commons:commons-lang3:3.14.0")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.17.1")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.1")
-    implementation("io.sentry:sentry:7.10.0") {
-        exclude("org.slf4j")
-    }
-    // https://mvnrepository.com/artifact/org.projectlombok/lombok
-
-    compileOnly("org.projectlombok:lombok:1.18.32")
-    annotationProcessor("org.projectlombok:lombok:1.18.32")
-
-    testCompileOnly("org.projectlombok:lombok:1.18.32")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.32")
-
-    testImplementation("junit:junit:4.13.2")
-    //implementation(kotlin("stdlib-jdk8"))
-    //testImplementation("org.opentest4j:opentest4j:1.3.0")
-}
-
-
-
-
-sourceSets {
-    main {
-        java.srcDirs("src", "gen")
-        resources.srcDir("resources")
-    }
-
-    /*
-    test {
-        java.srcDir("test/src")
-        resources.srcDir("test/resources")
-    }
-     */
-
-}
-
 intellijPlatform {
     pluginConfiguration {
         name = "Custom Postfix Templates"
+
+        ideaVersion {
+            untilBuild.set(provider { null })
+        }
     }
 }
 
@@ -119,48 +76,61 @@ dependencies {
         bundledPlugin("com.intellij.java")
         bundledPlugin("JavaScript")
         bundledPlugin("org.jetbrains.kotlin")
-        plugin("org.intellij.scala", "2024.2.5")
-        plugin("com.jetbrains.php", "242.16677.21")
-        plugin("org.jetbrains.plugins.ruby", "242.16677.21")
-        plugin("org.jetbrains.plugins.go", "242.16677.21")
-        plugin("nl.rubensten.texifyidea", "0.9.6")
+        bundledPlugin("org.jetbrains.kotlin")
+        plugin("com.jetbrains.php", "242.20224.300")
+        plugin("org.jetbrains.plugins.ruby", "242.20224.300")
+        plugin("org.jetbrains.plugins.go", "242.20224.300")
         plugin("Pythonid", "242.16677.21")
+        plugin("org.intellij.scala", "2024.2.20")
+        plugin("nl.rubensten.texifyidea", "0.9.7")
         instrumentationTools()
+
+        pluginVerifier()
+        testFramework(TestFrameworkType.Platform)
     }
+
+    implementation("commons-io:commons-io:2.16.1")
+    implementation("org.apache.commons:commons-lang3:3.14.0")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.17.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.1")
+    implementation("io.sentry:sentry:7.10.0") {
+        exclude("org.slf4j")
+    }
+
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly("org.projectlombok:lombok:1.18.34")
+    annotationProcessor("org.projectlombok:lombok:1.18.34")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.34")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.34")
+
+    testImplementation("junit:junit:4.13.2")
+    //implementation(kotlin("stdlib-jdk8"))
+    //testImplementation("org.opentest4j:opentest4j:1.3.0")
 }
 
-/*
-intellij {
-    //version "IU-233.11799.6-EAP-SNAPSHOT"
-//    type.set("IU")
-    //version.set("241.14024.14-EAP-SNAPSHOT")
-//    version.set("242.16677.21-EAP-SNAPSHOT")
+sourceSets {
+    main {
+        java.srcDirs("src", "gen")
+        resources.srcDir("resources")
+    }
 
-    plugins.set(
-        listOf(
-            "java",
-            "Pythonid:242.16677.21",
-            //"Kotlin",
-            "org.intellij.scala:2024.2.5",
-            "JavaScript",
-            //"CSS",
-            "Dart:242.16677.12",
-            "Groovy",
-            "properties",
-            "org.jetbrains.plugins.ruby:242.16677.21",
-            "com.jetbrains.php:242.16677.21",
-            "java-i18n",
-            "DatabaseTools",
-            "org.toml.lang",
-            "org.jetbrains.plugins.go:242.16677.21",
-            "nl.rubensten.texifyidea:0.9.6"
-        )
-    )
-    updateSinceUntilBuild.set(true)
+    /*
+    test {
+        java.srcDir("test/src")
+        resources.srcDir("test/resources")
+    }
+     */
+
 }
- */
 
 tasks {
+    withType<JavaCompile> {
+        options.encoding = "UTF-8"
+        sourceCompatibility = "17"
+        targetCompatibility = "17"
+    }
     withType<KotlinJvmCompile>().configureEach {
         compilerOptions {
             jvmTarget = JvmTarget.JVM_17
@@ -184,8 +154,3 @@ tasks {
         token.set(System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken"))
     }
 }
-/*
-kotlin {
-    jvmToolchain(20)
-}
- */
