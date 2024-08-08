@@ -5,6 +5,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 group = "com.intellij"
 version = "2.20.4.242"
 
+// TODO: improve, see https://github.com/gitpod-io/gitpod/blob/b43c97ed9a7e81a0568e237ef0d267fb312a317a/components/ide/jetbrains/backend-plugin/build.gradle.kts#L17
+
 plugins {
     // Java support
     id("java")
@@ -128,12 +130,12 @@ sourceSets {
 tasks {
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
     }
     withType<KotlinJvmCompile>().configureEach {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_17
+            jvmTarget = JvmTarget.JVM_21
             freeCompilerArgs = listOf("-Xjvm-default=all")
         }
     }
