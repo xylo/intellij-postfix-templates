@@ -99,7 +99,7 @@ sourceSets {
 
 intellijPlatform {
     pluginConfiguration {
-        name = "foo"
+        name = "Custom Postfix Templates"
     }
 }
 
