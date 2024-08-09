@@ -122,7 +122,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 				if (expressions.stream().noneMatch(pe -> finalExpression.getTextRange().equals(pe.getTextRange()))) {
 					expressions.add(expression);
 				}
-			} else {
+			//} else {
 				//System.out.println("prevSilbing: " + expression.getPrevSibling().getNode().getElementType());
 			}
 
@@ -135,7 +135,7 @@ public abstract class SimpleStringBasedPostfixTemplate extends StringBasedPostfi
 		if (expressions.isEmpty()) {
 			return expressions;
 		}
-		return _List(expressions.get(0));
+		return _List(expressions.getFirst());
 	}
 
 	public static PostfixTemplateExpressionSelector selectorAllExpressionsWithCurrentOffset(final Condition<PsiElement> additionalFilter) {

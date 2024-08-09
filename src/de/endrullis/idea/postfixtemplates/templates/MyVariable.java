@@ -1,6 +1,8 @@
 package de.endrullis.idea.postfixtemplates.templates;
 
 import com.intellij.codeInsight.template.impl.Variable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -9,9 +11,12 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author Stefan Endrullis &lt;stefan@endrullis.de&gt;
  */
+@EqualsAndHashCode(of = {"skipOnStart", "no"}, callSuper = true)
 public class MyVariable extends Variable {
+	@Getter
 	private final String  varCode;
 	private final boolean skipOnStart;
+	@Getter
 	private final int     no;
 
 	public MyVariable(@NotNull String name, @Nullable String expression, @Nullable String defaultValue,
@@ -25,34 +30,5 @@ public class MyVariable extends Variable {
 	@Override
 	public boolean skipOnStart() {
 		return skipOnStart;
-	}
-
-	public int getNo() {
-		return no;
-	}
-
-	public String getVarCode() {
-		return varCode;
-	}
-
-	@Override
-	public int hashCode() {
-		int result = super.hashCode();
-		result = 29 * result + (skipOnStart ? 1 : 0);
-		result = 29 * result + no;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (!super.equals(o)) {
-			return false;
-		}
-
-		MyVariable that = (MyVariable) o;
-
-		return
-			this.skipOnStart == that.skipOnStart &&
-				this.no == that.no;
 	}
 }
