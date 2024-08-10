@@ -38,6 +38,7 @@ repositories {
 
     intellijPlatform {
         defaultRepositories()
+        //jetbrainsRuntime()
         releases()
         snapshots()
         //localPlatformArtifacts()
@@ -69,6 +70,7 @@ dependencies {
         //create("IU", "242.20224.159-EAP-SNAPSHOT")
         //intellijIdeaUltimate("242.20224.159-EAP-SNAPSHOT")
         intellijIdeaUltimate("2024.2")
+        //jetbrainsRuntime()
         //plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         //bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
         bundledPlugin("com.intellij.css")
@@ -82,7 +84,8 @@ dependencies {
         plugin("com.jetbrains.php", "242.20224.300")
         plugin("org.jetbrains.plugins.ruby", "242.20224.300")
         plugin("org.jetbrains.plugins.go", "242.20224.300")
-        plugin("Pythonid", "242.16677.21")
+        plugin("PythonCore", "242.20224.300")
+        plugin("Pythonid", "242.20224.300")
         plugin("org.intellij.scala", "2024.2.20")
         plugin("nl.rubensten.texifyidea", "0.9.7")
         instrumentationTools()
