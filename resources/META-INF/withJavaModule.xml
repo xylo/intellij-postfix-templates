@@ -1,6 +1,8 @@
 <idea-plugin>
 	<extensions defaultExtensionNs="com.intellij">
 		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.SuggestShortVariableNameMacro"/>
+		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.GoArrayElementTypeNameMacro"/>
+		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.GoMapKeyTypeNameMacro"/>
 
 		<codeInsight.template.postfixTemplateProvider language="JAVA"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.java.JavaPostfixTemplateProvider"/>
