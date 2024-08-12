@@ -3,6 +3,7 @@
 		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.SuggestShortVariableNameMacro"/>
 		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.GoArrayElementTypeNameMacro"/>
 		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.GoMapKeyTypeNameMacro"/>
+		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.GoMapValueTypeNameMacro"/>
 
 		<codeInsight.template.postfixTemplateProvider language="JAVA"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.java.JavaPostfixTemplateProvider"/>
