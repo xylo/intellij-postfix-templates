@@ -8,6 +8,6 @@ package de.endrullis.idea.postfixtemplates.languages.go;
  */
 public enum GoSpecialType {
 
-	ANY, BOOLEAN, STRING, INT, INT64, UINT, FLOAT, FLOAT32, FLOAT64, BYTESLICE, ERROR, COMPLEX, ARRAY, NIL
+	ANY, BOOLEAN, STRING, INT, INT64, UINT, FLOAT, FLOAT32, FLOAT64, BYTESLICE, ERROR, COMPLEX, ARRAY, NIL , MAP, STRUCT
 
 }

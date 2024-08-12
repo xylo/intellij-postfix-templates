@@ -1,8 +1,6 @@
 package de.endrullis.idea.postfixtemplates.languages.go;
 
-import com.goide.psi.GoArrayOrSliceType;
-import com.goide.psi.GoExpression;
-import com.goide.psi.GoType;
+import com.goide.psi.*;
 import com.goide.psi.impl.GoPsiImplUtil;
 import com.goide.psi.impl.GoTypeUtil;
 import com.intellij.codeInsight.completion.CompletionParameters;
@@ -14,6 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
+
+import static com.goide.psi.impl.GoPsiImplUtil.getUnderlyingType;
 
 /**
  * Utilities for PHP postfix templates.
@@ -99,6 +99,11 @@ class GoPostfixTemplatesUtils {
 		return GoTypeUtil.isString(element.getGoType(null), element);
 	});
 
+	static final Condition<PsiElement> IS_STRUCT = goExp(element -> nullTypeOrPoint(element, GoStructType.class));
+
+	static final Condition<PsiElement> IS_MAP = goExp(element -> nullTypeToFalse(element.getGoType(null),
+			goType -> goType instanceof GoMapType));
+
 	private static Condition<PsiElement> goExp(Condition<GoExpression> f) {
 		return expression -> {
 			if (expression instanceof GoExpression) {
@@ -114,6 +119,26 @@ class GoPostfixTemplatesUtils {
 			return false;
 		} else {
 			return f.apply(goType);
+		}
+	}
+
+	private static boolean nullTypeOrPoint(GoExpression element, Class<? extends GoType> clazz) {
+		GoType goType = element.getGoType(null);
+		if (goType == null) {
+			return false;
+		}
+
+		if (clazz.isInstance(goType)) {
+			return true;
+		}else if (goType instanceof GoPointerType) {
+			GoType pt = ((GoPointerType) goType).getType();
+			if (pt == null) {
+				return false;
+			}
+			GoType st = pt.getUnderlyingType(element);
+			return nullTypeToFalse(st, t -> clazz.isInstance(st));
+		}else{
+			return false;
 		}
 	}
 

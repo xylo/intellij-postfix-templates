@@ -43,6 +43,9 @@ public class CustomGoStringPostfixTemplate extends SimpleStringBasedPostfixTempl
 		put(GoSpecialType.COMPLEX.name(), IS_COMPLEX);
 		put(GoSpecialType.NIL.name(), IS_NIL);
 		put(GoSpecialType.STRING.name(), IS_STRING);
+		put(GoSpecialType.STRUCT.name(), IS_STRUCT);
+		put(GoSpecialType.MAP.name(), IS_MAP);
+
 	}};
 
 	public static @NotNull List<PsiElement> collectExpressions(final PsiFile file,
