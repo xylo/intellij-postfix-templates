@@ -48,6 +48,7 @@
 			<h3>Version 2.22.1</h3>
 			<ul>
 				<li>Fixed some deprecations.</li>
+				<li>Added compatibility with K2.</li>
 			</ul>
 
 			<h3>Version 2.22.0</h3>
@@ -751,6 +752,10 @@
 			<className>de.endrullis.idea.postfixtemplates.intention.OverrideTemplateRuleIntention</className>
 			<category>Custom postfix templates</category>
 		</intentionAction>
+	</extensions>
+
+	<extensions defaultExtensionNs="org.jetbrains.kotlin">
+    <supportsKotlinPluginMode supportsK2="true" />
 	</extensions>
 
 	<actions>
