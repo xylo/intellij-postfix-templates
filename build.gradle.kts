@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 group = "com.intellij"
-version = "2.22.0.242"
+version = "2.22.0.243"
 
 // TODO: improve, see https://github.com/gitpod-io/gitpod/blob/b43c97ed9a7e81a0568e237ef0d267fb312a317a/components/ide/jetbrains/backend-plugin/build.gradle.kts#L17
 
@@ -17,11 +17,11 @@ plugins {
     // Gradle Qodana Plugin
     //id("org.jetbrains.qodana") version "2024.1.5"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij.platform") version "2.0.0"
+    id("org.jetbrains.intellij.platform") version "2.2.1"
     //id("org.jetbrains.intellij.platform.migration") version "2.0.0-beta6"
     //id("org.jetbrains.intellij") version "1.17.4"
     //kotlin("jvm") version "1.9.20"
-    id("org.jetbrains.kotlin.jvm") version "2.0.0"
+    id("org.jetbrains.kotlin.jvm") version "2.1.20-RC"
 
     // Plugin which can check for Gradle dependencies, use the help/dependencyUpdates task.
     //id("com.github.ben-manes.versions") version "0.51.0"
@@ -69,7 +69,7 @@ dependencies {
         // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
         //create("IU", "242.20224.159-EAP-SNAPSHOT")
         //intellijIdeaUltimate("242.20224.159-EAP-SNAPSHOT")
-        intellijIdeaUltimate("2024.2")
+        intellijIdeaUltimate("2024.3.3")
         //jetbrainsRuntime()
         //plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         //bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -81,16 +81,15 @@ dependencies {
         bundledPlugin("JavaScript")
         bundledPlugin("org.jetbrains.kotlin")
         bundledPlugin("org.jetbrains.kotlin")
-        plugin("com.jetbrains.php", "242.20224.300")
-        plugin("com.jetbrains.rust", "242.20224.309")
-        plugin("org.jetbrains.plugins.ruby", "242.20224.300")
-        plugin("org.jetbrains.plugins.go", "242.20224.300")
-        plugin("PythonCore", "242.20224.300")
-        plugin("Pythonid", "242.20224.300")
-        //plugin("intellij.jupyter", "242.20224.300")
-        plugin("org.intellij.scala", "2024.2.20")
-        plugin("nl.rubensten.texifyidea", "0.9.7")
-        instrumentationTools()
+        plugin("com.jetbrains.php", "243.24978.50")
+        plugin("com.jetbrains.rust", "243.23654.180")
+        plugin("org.jetbrains.plugins.ruby", "243.24978.46")
+        plugin("org.jetbrains.plugins.go", "243.24978.46")
+        plugin("PythonCore", "243.24978.46")
+        plugin("Pythonid", "243.24978.46")
+        //plugin("intellij.jupyter", "243.24978.50")
+        plugin("org.intellij.scala", "2024.3.38")
+        plugin("nl.rubensten.texifyidea", "0.10.1")
 
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
