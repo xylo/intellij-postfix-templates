@@ -101,11 +101,6 @@ public class AddTemplateFileDialog extends DialogWrapper {
 			public boolean isFileSelectable(VirtualFile virtualFile) {
 				return virtualFile != null && extensions.contains(virtualFile.getExtension());
 			}
-
-			@Override
-			public boolean isFileVisible(VirtualFile file, boolean showHiddenFiles) {
-				return super.isFileVisible(file, showHiddenFiles) && (file.isDirectory() || isFileSelectable(file));
-			}
 		};
 
 		val virtualFile = FileChooser.chooseFile(descriptor, project, null);
