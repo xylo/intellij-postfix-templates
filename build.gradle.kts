@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 group = "com.intellij"
-version = "2.22.1.243"
+version = "2.23.0.243"
 
 // TODO: improve, see https://github.com/gitpod-io/gitpod/blob/b43c97ed9a7e81a0568e237ef0d267fb312a317a/components/ide/jetbrains/backend-plugin/build.gradle.kts#L17
 
@@ -80,7 +80,6 @@ dependencies {
         bundledPlugin("com.intellij.java")
         bundledPlugin("JavaScript")
         bundledPlugin("org.jetbrains.kotlin")
-        bundledPlugin("org.jetbrains.kotlin")
         plugin("com.jetbrains.php", "243.24978.50")
         plugin("com.jetbrains.rust", "243.23654.180")
         plugin("org.jetbrains.plugins.ruby", "243.24978.46")
@@ -91,6 +90,7 @@ dependencies {
         //plugin("intellij.jupyter", "243.24978.50")
         plugin("org.intellij.scala", "2024.3.38")
         plugin("nl.rubensten.texifyidea", "0.10.1")
+        plugin("dev.j-a.swift", "1.2.1.368-243")
 
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)

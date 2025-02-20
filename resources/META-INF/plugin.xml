@@ -48,6 +48,7 @@
 			<h3>Version 2.23.0</h3>
 			<ul>
 				<li>Fixed missing Dart support.</li>
+				<li>Dropped non-working Swift support.</li>
 			</ul>
 
 			<h3>Version 2.22.1</h3>
@@ -710,7 +711,9 @@
 	<depends optional="true" config-file="withLatexModule.xml">nl.rubensten.texifyidea</depends>
 	<depends optional="true" config-file="withJavaScriptModule.xml">JavaScript</depends>
 	<depends optional="true" config-file="withDatabaseModule.xml">com.intellij.database</depends>
+	<!--
 	<depends optional="true" config-file="withSwiftModule.xml">Swift</depends>
+	-->
 
 	<extensions defaultExtensionNs="com.intellij">
 		<notificationGroup id="Custom Postfix Templates" displayType="STICKY_BALLOON"/>
