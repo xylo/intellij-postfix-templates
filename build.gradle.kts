@@ -87,6 +87,7 @@ dependencies {
         plugin("org.jetbrains.plugins.go", "243.24978.46")
         plugin("PythonCore", "243.24978.46")
         plugin("Pythonid", "243.24978.46")
+        plugin("Dart", "243.23654.44")
         //plugin("intellij.jupyter", "243.24978.50")
         plugin("org.intellij.scala", "2024.3.38")
         plugin("nl.rubensten.texifyidea", "0.10.1")
