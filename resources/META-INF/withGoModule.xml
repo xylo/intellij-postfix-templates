@@ -1,5 +1,9 @@
 <idea-plugin>
 	<extensions defaultExtensionNs="com.intellij">
+		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.GoArrayElementTypeNameMacro"/>
+		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.GoMapKeyTypeNameMacro"/>
+		<liveTemplateMacro implementation="de.endrullis.idea.postfixtemplates.templates.macro.GoMapValueTypeNameMacro"/>
+
 		<codeInsight.template.postfixTemplateProvider language="go"
 		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.go.GoPostfixTemplateProvider"/>
 	</extensions>
