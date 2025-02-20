@@ -28,17 +28,17 @@ import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._List;
 import static de.endrullis.idea.postfixtemplates.utils.CollectionUtils._Set;
 
 public class AddTemplateFileDialog extends DialogWrapper {
-	private final Project project;
-	private final CptLang lang;
+	private final Project        project;
+	private final CptLang        lang;
 	private final CptVirtualFile cptVirtualFile;
-	private final Set<String> otherFileNames;
+	private final Set<String>    otherFileNames;
 
 	private JPanel                 contentPane;
 	private JComboBox<CptFileType> typeField;
 	private JTextField             urlField;
 	private JButton                fileChooserButton;
 	private JTextField             nameField;
-	private JLabel urlLabel;
+	private JLabel                 urlLabel;
 
 	public AddTemplateFileDialog(Project project, @NotNull CptLang lang, @Nullable CptVirtualFile cptVirtualFile, @NotNull Set<String> otherFileNames) {
 		super(project);
@@ -113,9 +113,9 @@ public class AddTemplateFileDialog extends DialogWrapper {
 
 	public CptVirtualFile getCptVirtualFile() {
 		try {
-			URL oldUrl = null;
-			File oldFile = null;
-			boolean isNew = true;
+			URL     oldUrl  = null;
+			File    oldFile = null;
+			boolean isNew   = true;
 
 			if (cptVirtualFile != null) {
 				oldUrl = cptVirtualFile.getOldUrl();
@@ -130,8 +130,8 @@ public class AddTemplateFileDialog extends DialogWrapper {
 			}
 
 			val urlString = urlField.getText().trim().isEmpty() ? null : urlField.getText();
-			val newUrl = urlString != null ? new URI(urlString).toURL() : null;
-			val newFile = CptUtil.getTemplateFile(lang.getLanguage(), nameField.getText().trim());
+			val newUrl    = urlString != null ? new URI(urlString).toURL() : null;
+			val newFile   = CptUtil.getTemplateFile(lang.getLanguage(), nameField.getText().trim());
 
 			val newCptVirtualFile = new CptVirtualFile(null, newUrl, newFile, isNew);
 
