@@ -485,7 +485,7 @@
 
 			<h3>Version 2.0.3</h3>
 			<ul>
-				<li>Added an option to skip the application of an postfix template for a given data type (just use "[SKIP]" as template code).</li>
+				<li>Added an option to skip the application of a postfix template for a given data type (just use "[SKIP]" as template code).</li>
 			</ul>
 
 			<h3>Version 2.0.2</h3>
