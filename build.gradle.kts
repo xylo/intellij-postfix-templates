@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 group = "com.intellij"
-version = "2.21.0.242"
+version = "2.22.0.242"
 
 // TODO: improve, see https://github.com/gitpod-io/gitpod/blob/b43c97ed9a7e81a0568e237ef0d267fb312a317a/components/ide/jetbrains/backend-plugin/build.gradle.kts#L17
 

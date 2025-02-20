@@ -45,6 +45,16 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.22.0</h3>
+			<ul>
+				<li>Improved Go support (contributed by yarkizhang):
+					<ul>
+						<li>New supported types: MAP and STRUCT</li>
+						<li>New live template macros: goArrayElementTypeName, goMapKeyType, goMapValueType</li>
+					</ul>
+				</li>
+			</ul>
+
 			<h3>Version 2.21.0</h3>
 			<ul>
 				<li>Added typed Rust support again.</li>
