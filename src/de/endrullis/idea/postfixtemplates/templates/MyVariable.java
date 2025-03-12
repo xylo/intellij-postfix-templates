@@ -21,7 +21,7 @@ public class MyVariable extends Variable {
 
 	public MyVariable(@NotNull String name, @Nullable String expression, @Nullable String defaultValue,
 	                  boolean alwaysStopAt, boolean skipOnStart, int no, String varCode) {
-		super(name, expression, defaultValue, alwaysStopAt);
+		super(name, expression, defaultValue, !skipOnStart);
 		this.skipOnStart = skipOnStart;
 		this.no = no;
 		this.varCode = varCode;

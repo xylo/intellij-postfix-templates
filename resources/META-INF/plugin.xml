@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.23.1</h3>
+			<ul>
+				<li>Fixed bug #250: Asterisk tag on variables gets ignored: variable skip not working</li>
+			</ul>
+
 			<h3>Version 2.23.0</h3>
 			<ul>
 				<li>Fixed missing Dart support.</li>
