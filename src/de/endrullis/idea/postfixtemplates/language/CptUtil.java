@@ -495,7 +495,7 @@ public class CptUtil {
 			} catch (IOException | URISyntaxException e) {
 				//noinspection CallToPrintStackTrace
 				e.printStackTrace();
-				MyNotifier.notificationGroup
+				MyNotifier.getNotificationGroup()
 					.createNotification("Failed to download postfix web templates. Please check your internet connection.", NotificationType.ERROR)
 					.notify(project);
 			}
@@ -521,7 +521,7 @@ public class CptUtil {
 
 		val langName2virtualFiles = pluginSettings.getLangName2virtualFiles();
 		val vFiles                = langName2virtualFiles.computeIfAbsent(language, l -> new ArrayList<>());
-		vFiles.add(0, new CptPluginSettings.VFile(true, null, null, templateFile.getAbsolutePath()));
+		vFiles.addFirst(new CptPluginSettings.VFile(true, null, null, templateFile.getAbsolutePath()));
 
 		val newLangName2virtualFiles = langName2virtualFiles.entrySet().stream().collect(Collectors.toMap(
 			e -> e.getKey(),

@@ -15,11 +15,13 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class MyNotifier {
 
-	public static final NotificationGroup notificationGroup = NotificationGroupManager.getInstance().getNotificationGroup("Custom Postfix Templates");
+	public static NotificationGroup getNotificationGroup() {
+		return NotificationGroupManager.getInstance().getNotificationGroup("Custom Postfix Templates");
+	}
 
 	public static void notifyError(@Nullable Project project,
 	                               String content) {
-		notificationGroup
+		getNotificationGroup()
 			.createNotification(content, NotificationType.ERROR)
 			.notify(project);
 	}

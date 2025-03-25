@@ -45,6 +45,11 @@
 	</description>
 
 	<change-notes><![CDATA[
+			<h3>Version 2.23.2</h3>
+			<ul>
+				<li>Fixed bug #251: Exception in class initialization of MyNotifier</li>
+			</ul>
+
 			<h3>Version 2.23.1</h3>
 			<ul>
 				<li>Fixed bug #250: Asterisk tag on variables gets ignored: variable skip not working</li>

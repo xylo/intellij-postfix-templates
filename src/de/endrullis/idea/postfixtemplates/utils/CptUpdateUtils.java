@@ -117,7 +117,7 @@ public class CptUpdateUtils {
 							} catch (URISyntaxException | IOException e) {
 								//noinspection CallToPrintStackTrace
 								e.printStackTrace();
-								MyNotifier.notificationGroup
+								MyNotifier.getNotificationGroup()
 									.createNotification("Failed to download postfix web templates. Please check your internet connection.", NotificationType.ERROR)
 									.notify(project);
 							}
@@ -145,7 +145,7 @@ public class CptUpdateUtils {
 	}
 
 	private static void openNotification(String title, String content, Project project) {
-		Notification notification = MyNotifier.notificationGroup.createNotification(title, content, NotificationType.INFORMATION);
+		Notification notification = MyNotifier.getNotificationGroup().createNotification(title, content, NotificationType.INFORMATION);
 		notification.setIcon(CptIcons.FILE);
 		notification.setImportantSuggestion(true);
 		notification.addAction(new AnAction("Open Settings") {
