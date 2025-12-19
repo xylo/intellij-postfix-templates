@@ -1,7 +1,6 @@
 package de.endrullis.idea.postfixtemplates.settings;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +13,7 @@ import java.io.IOException;
 public class WebTemplateFileLoader {
 
 	public static WebTemplateFile[] load(File file) throws IOException {
-		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+		YAMLMapper mapper = new YAMLMapper();
 		return mapper.readValue(file, WebTemplateFile[].class);
 	}
 

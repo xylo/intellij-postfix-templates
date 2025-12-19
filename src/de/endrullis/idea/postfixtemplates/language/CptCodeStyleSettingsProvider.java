@@ -32,4 +32,9 @@ public class CptCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
 		};
 	}
 
+	@Nullable
+	@Override
+	public com.intellij.lang.Language getLanguage() {
+		return CptLanguage.INSTANCE;
+	}
 }
