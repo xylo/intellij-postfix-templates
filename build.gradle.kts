@@ -17,11 +17,11 @@ plugins {
     // Gradle Qodana Plugin
     //id("org.jetbrains.qodana") version "2024.1.5"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij.platform") version "2.2.1"
+    id("org.jetbrains.intellij.platform") version "2.10.5"
     //id("org.jetbrains.intellij.platform.migration") version "2.0.0-beta6"
     //id("org.jetbrains.intellij") version "1.17.4"
     //kotlin("jvm") version "1.9.20"
-    id("org.jetbrains.kotlin.jvm") version "2.1.20-RC"
+    id("org.jetbrains.kotlin.jvm") version "2.3.0"
 
     // Plugin which can check for Gradle dependencies, use the help/dependencyUpdates task.
     //id("com.github.ben-manes.versions") version "0.51.0"
@@ -69,7 +69,7 @@ dependencies {
         // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
         //create("IU", "242.20224.159-EAP-SNAPSHOT")
         //intellijIdeaUltimate("242.20224.159-EAP-SNAPSHOT")
-        intellijIdeaUltimate("2024.3.3")
+        intellijIdeaUltimate("2025.3.1")
         //jetbrainsRuntime()
         //plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         //bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -80,16 +80,16 @@ dependencies {
         bundledPlugin("com.intellij.java")
         bundledPlugin("JavaScript")
         bundledPlugin("org.jetbrains.kotlin")
-        plugin("com.jetbrains.php", "243.24978.50")
-        plugin("com.jetbrains.rust", "243.23654.180")
-        plugin("org.jetbrains.plugins.ruby", "243.24978.46")
-        plugin("org.jetbrains.plugins.go", "243.24978.46")
-        plugin("PythonCore", "243.24978.46")
-        plugin("Pythonid", "243.24978.46")
-        plugin("Dart", "243.23654.44")
+        plugin("com.jetbrains.php", "253.29346.138")
+        plugin("com.jetbrains.rust", "253.29346.139")
+        plugin("org.jetbrains.plugins.ruby", "253.29346.138")
+        plugin("org.jetbrains.plugins.go", "253.29346.50")
+        plugin("PythonCore", "253.29346.138")
+        plugin("Pythonid", "253.29346.138")
+        plugin("Dart", "500.0.0")
         //plugin("intellij.jupyter", "243.24978.50")
-        plugin("org.intellij.scala", "2024.3.38")
-        plugin("nl.rubensten.texifyidea", "0.10.1")
+        plugin("org.intellij.scala", "2025.3.26")
+        plugin("nl.rubensten.texifyidea", "0.11.5")
         plugin("dev.j-a.swift", "1.2.1.368-243")
 
         pluginVerifier()
