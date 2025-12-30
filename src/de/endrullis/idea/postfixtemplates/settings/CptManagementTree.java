@@ -24,6 +24,7 @@ import lombok.val;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionListener;
@@ -60,7 +61,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	private final DoubleClickListener doubleClickListener;
 
 	CptManagementTree() {
-		super(getRenderer(), new CheckedTreeNode(null));
+		super(getRenderer(), new CheckedTreeNode(null), CheckPolicy.PROPAGATE_EVERYTHING_POLICY);
 		//canAddFile = ContainerUtil.find(providerToLanguage.keySet(), p -> StringUtil.isNotEmpty(p.getPresentableName())) != null;
 		model = (DefaultTreeModel) getModel();
 		root = (CheckedTreeNode) model.getRoot();
@@ -103,7 +104,7 @@ public class CptManagementTree extends CheckboxTree implements Disposable {
 	private static CheckboxTreeCellRenderer getRenderer() {
 		return new CheckboxTreeCellRenderer() {
 			@Override
-			public void customizeRenderer(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+			public void customizeRenderer(@NonNull JTree tree, @NonNull Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 				if (!(value instanceof CheckedTreeNode node)) return;
 
 				final Color background = selected ? UIUtil.getTreeSelectionBackground(true) : UIUtil.getTreeBackground();
