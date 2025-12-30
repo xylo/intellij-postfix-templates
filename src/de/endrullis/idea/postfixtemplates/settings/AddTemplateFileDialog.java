@@ -94,14 +94,8 @@ public class AddTemplateFileDialog extends DialogWrapper {
 	}
 
 	private void onChooseFile() {
-		final FileChooserDescriptor descriptor = new FileChooserDescriptor(true, false, false, false, false, false) {
-			private final List<String> extensions = _List("postfixTemplates");
-
-			@Override
-			public boolean isFileSelectable(VirtualFile virtualFile) {
-				return virtualFile != null && extensions.contains(virtualFile.getExtension());
-			}
-		};
+		val descriptor = new FileChooserDescriptor(true, false, false, false, false, false)
+			.withExtensionFilter("postfixTemplates");
 
 		val virtualFile = FileChooser.chooseFile(descriptor, project, null);
 
