@@ -1,7 +1,5 @@
 package de.endrullis.idea.postfixtemplates;
 
-import com.intellij.diagnostic.AbstractMessage;
-import com.intellij.diagnostic.IdeaReportingEvent;
 import com.intellij.ide.DataManager;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.idea.IdeaLogger;
@@ -72,6 +70,7 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 					//
 					// Sentry accesses Throwable.getStackTrace(),
 					// So, we workaround this by retrieving the original exception from the data property
+					/*
 					if (ideaEvent instanceof IdeaReportingEvent) {
 						Throwable ex = ((AbstractMessage) ideaEvent.getData()).getThrowable();
 
@@ -80,6 +79,11 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 					} else {
 						// ignoring this ideaEvent, you might not want to do this
 					}
+					 */
+					Throwable ex = ideaEvent.getThrowable();
+
+					event.setThrowable(ex);
+					break;
 				}
 				//event.setExceptions(errors);
 				// might be useful to debug the exception
@@ -91,7 +95,7 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 				ApplicationManager.getApplication().invokeLater(() -> {
 					// we're a bit lazy here.
 					// Alternatively, we could add a listener to the sentry client
-					// to be notified if the message was successfully send
+					// to be notified if the message was successfully sent
 					Messages.showInfoMessage(parentComponent, "Thank you for submitting your report!", "Error Report");
 					consumer.consume(new SubmittedReportInfo(SubmittedReportInfo.SubmissionStatus.NEW_ISSUE));
 				});
