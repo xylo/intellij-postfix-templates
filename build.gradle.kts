@@ -90,7 +90,7 @@ dependencies {
         //plugin("intellij.jupyter", "243.24978.50")
         plugin("org.intellij.scala", "2025.3.26")
         plugin("nl.rubensten.texifyidea", "0.11.5")
-        plugin("dev.j-a.swift", "1.2.1.368-243")
+        plugin("dev.j-a.swift", "1.6.0.415-253")
 
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
