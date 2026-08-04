@@ -6,6 +6,5 @@
 /build/
 
 .gradle/
-gradle.properties
 /.sandbox/
 /.intellijPlatform/

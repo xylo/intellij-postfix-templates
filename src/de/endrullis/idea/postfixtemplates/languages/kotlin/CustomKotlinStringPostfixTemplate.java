@@ -8,15 +8,13 @@ import de.endrullis.idea.postfixtemplates.templates.SpecialType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.kotlin.KtNodeTypes;
-import org.jetbrains.kotlin.idea.caches.resolve.ResolutionUtils;
-import org.jetbrains.kotlin.idea.codeInsight.postfix.KtPostfixTemplateProviderKt;
+import org.jetbrains.kotlin.analysis.api.types.KaClassType;
+import org.jetbrains.kotlin.idea.codeInsight.postfix.ExpressionTypeFilter;
+import org.jetbrains.kotlin.idea.codeInsight.postfix.KotlinPostfixTemplateKt;
 import org.jetbrains.kotlin.psi.KtConstantExpression;
 import org.jetbrains.kotlin.psi.KtExpression;
 import org.jetbrains.kotlin.psi.KtNameReferenceExpression;
 import org.jetbrains.kotlin.psi.KtStringTemplateExpression;
-import org.jetbrains.kotlin.renderer.DescriptorRenderer;
-import org.jetbrains.kotlin.resolve.BindingContext;
-import org.jetbrains.kotlin.types.expressions.KotlinTypeInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +26,6 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
 
-	private static final DescriptorRenderer typeRenderer = DescriptorRenderer.FQ_NAMES_IN_TYPES;
-
 	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
 		put(SpecialType.ANY.name(), e -> e instanceof KtExpression);
 		put(SpecialType.STRING_LITERAL.name(), e -> e instanceof KtStringTemplateExpression);
@@ -39,7 +35,7 @@ public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixT
 	}};
 
 	public CustomKotlinStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
-		super(name, example, template, provider, psiElement, KtPostfixTemplateProviderKt.createExpressionSelector(true, false, null));
+		super(name, example, template, provider, psiElement, KotlinPostfixTemplateKt.allExpressions());
 	}
 
 	@Override
@@ -96,14 +92,11 @@ public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixT
 
 	private static boolean classMatches(String matchingClass, PsiElement psiElement) {
 		if (psiElement instanceof final KtNameReferenceExpression ktRef) {
-			final BindingContext context = ResolutionUtils.analyze(ktRef);
-			final KotlinTypeInfo info = context.get(BindingContext.EXPRESSION_TYPE_INFO, ktRef);
-
-			if (info != null && info.getType() != null) {
-				final String fqdn = typeRenderer.renderType(info.getType());
-
-				return matchingClass.equals(fqdn);
-			}
+			final ExpressionTypeFilter filter = new ExpressionTypeFilter((session, type) ->
+				type instanceof KaClassType classType
+					&& matchingClass.equals(classType.getClassId().asFqNameString())
+			);
+			return filter.invoke(ktRef);
 		}
 
 		return false;

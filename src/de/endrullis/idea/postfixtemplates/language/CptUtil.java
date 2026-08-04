@@ -1,11 +1,10 @@
 package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.ide.DataManager;
-import com.intellij.ide.plugins.PluginManagerCore;
 import com.intellij.notification.NotificationType;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
+import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
@@ -178,13 +177,7 @@ public class CptUtil {
 	 * @return path of the CPT plugin settings directory
 	 */
 	public static File getPluginPath() {
-		File path = Objects.requireNonNull(PluginManagerCore.getPlugin(PluginId.getId(CptUtil.PLUGIN_ID))).getPluginPath().toFile();
-
-		if (path.getName().endsWith(".jar")) {
-			path = new File(path.getParentFile(), path.getName().substring(0, path.getName().length() - 4));
-		}
-
-		return new File(path.getParentFile(), path.getName() + "_templates");
+		return PathManager.getPluginsDir().resolve("intellij-postfix-templates_templates").toFile();
 	}
 
 	/**

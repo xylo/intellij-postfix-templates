@@ -27,7 +27,7 @@ import java.awt.*;
  */
 public class SentryErrorReporter extends ErrorReportSubmitter {
 
-	private Hub hub;
+	private IScopes scopes;
 
 	@NotNull
 	@Override
@@ -41,8 +41,8 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 	                      @NotNull Component parentComponent,
 	                      @NotNull Consumer<? super SubmittedReportInfo> consumer) {
 
-		if (hub == null) {
-			hub = createHub();
+		if (scopes == null) {
+			scopes = createScopes();
 		}
 
 		val context = DataManager.getInstance().getDataContext(parentComponent);
@@ -90,7 +90,7 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 				event.setExtra("last_action", IdeaLogger.ourLastActionId);
 
 				// by default, Sentry is sending async in a background thread
-				hub.captureEvent(event);
+				scopes.captureEvent(event);
 
 				ApplicationManager.getApplication().invokeLater(() -> {
 					// we're a bit lazy here.
@@ -105,7 +105,7 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 		return true;
 	}
 
-	private static Hub createHub() {
+	private static IScopes createScopes() {
 		val options = new SentryOptions();
 		options.setDsn("https://d5db57a4e01b468b823e45f831d58fb7@o1399782.ingest.sentry.io/6727652");
 		// Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
@@ -114,7 +114,9 @@ public class SentryErrorReporter extends ErrorReportSubmitter {
 		// When first trying Sentry it's good to see what the SDK is doing:
 		//options.setDebug(true);
 		
-		return new Hub(options);
+		val scopes = new Scopes(new Scope(options), new Scope(options), new Scope(options), "custom-postfix-templates");
+		scopes.bindClient(new SentryClient(options));
+		return scopes;
 	}
 
 }
