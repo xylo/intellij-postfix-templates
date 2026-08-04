@@ -26,7 +26,7 @@ import java.util.Map;
 @SuppressWarnings("WeakerAccess")
 public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixTemplate {
 
-	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<String, Condition<PsiElement>>() {{
+	private static final Map<String, Condition<PsiElement>> type2psiCondition = new HashMap<>() {{
 		put(SpecialType.ANY.name(), e -> e instanceof KtExpression);
 		put(SpecialType.STRING_LITERAL.name(), e -> e instanceof KtStringTemplateExpression);
 		put(SpecialType.FLOAT_LITERAL.name(), e -> e instanceof KtConstantExpression && ((KtConstantExpression) e).getNode().getElementType() == KtNodeTypes.FLOAT_CONSTANT);
@@ -34,13 +34,9 @@ public class CustomKotlinStringPostfixTemplate extends SimpleStringBasedPostfixT
 		put(SpecialType.CHAR_LITERAL.name(), e -> e instanceof KtConstantExpression && ((KtConstantExpression) e).getNode().getElementType() == KtNodeTypes.CHARACTER_CONSTANT);
 	}};
 
+	@SuppressWarnings("unchecked")
 	public CustomKotlinStringPostfixTemplate(String matchingClass, String conditionClass, String name, String example, String template, PostfixTemplateProvider provider, PsiElement psiElement) {
 		super(name, example, template, provider, psiElement, KotlinPostfixTemplateKt.allExpressions());
-	}
-
-	@Override
-	protected PsiElement getElementToRemove(PsiElement expr) {
-		return expr;
 	}
 
 	@NotNull

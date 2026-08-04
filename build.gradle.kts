@@ -26,7 +26,7 @@ plugins {
     // Plugin which can check for Gradle dependencies, use the help/dependencyUpdates task.
     //id("com.github.ben-manes.versions") version "0.51.0"
 
-    // Plugin which can update Gradle dependencies, use the help/useLatestVersions task.
+    // Plugin that can update Gradle dependencies, use the help/useLatestVersions task.
     //id("se.patrikerdes.use-latest-versions") version "0.2.18"
 
     // Vulnerability scanning
@@ -109,8 +109,10 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.46")
     annotationProcessor("org.projectlombok:lombok:1.18.46")
 
+    /*
     testCompileOnly("org.projectlombok:lombok:1.18.46")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.46")
+     */
 
     testImplementation("junit:junit:4.13.2")
     //implementation(kotlin("stdlib-jdk8"))
@@ -142,6 +144,8 @@ tasks {
     withType<JavaCompile> {
         options.encoding = "UTF-8"
         options.release = 25
+        options.compilerArgs.add("-Xlint:unchecked")
+        options.compilerArgs.add("-Xlint:deprecation")
     }
     withType<KotlinJvmCompile>().configureEach {
         compilerOptions {
