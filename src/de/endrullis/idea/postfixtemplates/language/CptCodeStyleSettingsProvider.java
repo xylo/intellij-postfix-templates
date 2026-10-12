@@ -2,6 +2,7 @@ package de.endrullis.idea.postfixtemplates.language;
 
 import com.intellij.application.options.CodeStyleAbstractConfigurable;
 import com.intellij.application.options.CodeStyleAbstractPanel;
+import com.intellij.lang.Language;
 import com.intellij.psi.codeStyle.CodeStyleConfigurable;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CodeStyleSettingsProvider;
@@ -13,6 +14,12 @@ public class CptCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
 	@Override
 	public String getConfigurableDisplayName() {
 		return "Custom Postfix Templates";
+	}
+
+	@Nullable
+	@Override
+	public String getConfigurableId() {
+		return "preferences.sourceCode." + CptLanguage.INSTANCE.getID();
 	}
 
 	@NotNull
@@ -34,7 +41,7 @@ public class CptCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
 
 	@Nullable
 	@Override
-	public com.intellij.lang.Language getLanguage() {
+	public Language getLanguage() {
 		return CptLanguage.INSTANCE;
 	}
 }
