@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 group = "com.intellij"
-version = "2.24.0.262"
+version = "2.24.0.263"
 
 // TODO: improve, see https://github.com/gitpod-io/gitpod/blob/b43c97ed9a7e81a0568e237ef0d267fb312a317a/components/ide/jetbrains/backend-plugin/build.gradle.kts#L17
 
@@ -69,7 +69,7 @@ dependencies {
         // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
         //create("IU", "242.20224.159-EAP-SNAPSHOT")
         //intellijIdeaUltimate("242.20224.159-EAP-SNAPSHOT")
-        intellijIdeaUltimate("2026.2.0.1")
+        intellijIdeaUltimate("263.6259.32")
         //jetbrainsRuntime()
         //plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         //bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -80,17 +80,17 @@ dependencies {
         bundledPlugin("com.intellij.java")
         bundledPlugin("JavaScript")
         bundledPlugin("org.jetbrains.kotlin")
-        plugin("com.jetbrains.php", "262.8665.176")
-        plugin("com.jetbrains.rust", "262.8665.323")
-        plugin("org.jetbrains.plugins.ruby", "262.8665.309")
-        plugin("org.jetbrains.plugins.go", "262.8665.258")
-        plugin("PythonCore", "262.8665.337")
-        plugin("Pythonid", "262.8665.337")
-        plugin("Dart", "508.0.0")
+        plugin("com.jetbrains.php", "263.6259.32")
+        plugin("com.jetbrains.rust", "263.6259.37-windows-x86_64")
+        plugin("org.jetbrains.plugins.ruby", "263.6259.36")
+        plugin("org.jetbrains.plugins.go", "263.6259.32")
+        plugin("PythonCore", "263.6259.32")
+        plugin("Pythonid", "263.6259.32")
+        plugin("Dart", "510.0.0")
         //plugin("intellij.jupyter", "243.24978.50")
-        plugin("org.intellij.scala", "2026.2.15")
-        plugin("nl.rubensten.texifyidea", "1.0.0")
-        plugin("dev.j-a.swift", "2.1.1.499-262")
+        plugin("org.intellij.scala", "2026.3.11")
+        plugin("nl.rubensten.texifyidea", "1.1.1")
+        plugin("dev.j-a.swift", "3.2.0.509-263")
 
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
@@ -98,8 +98,8 @@ dependencies {
 
     implementation("commons-io:commons-io:2.22.0")
     implementation("org.apache.commons:commons-lang3:3.20.0")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.22.1")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.1")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.22.3")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.3")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.1")
     implementation("io.sentry:sentry:8.51.0") {
         exclude("org.slf4j")
