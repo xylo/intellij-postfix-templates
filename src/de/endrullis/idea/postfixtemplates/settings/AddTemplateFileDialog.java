@@ -166,7 +166,7 @@ public class AddTemplateFileDialog extends DialogWrapper {
 			try {
 				//noinspection ResultOfMethodCallIgnored
 				new URI(urlString).toURL();
-			} catch (URISyntaxException | MalformedURLException e) {
+			} catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
 				return new ValidationInfo("Please select an existing file.", fileChooserButton);
 			}
 		}
