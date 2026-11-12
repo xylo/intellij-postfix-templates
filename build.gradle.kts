@@ -17,7 +17,7 @@ plugins {
     // Gradle Qodana Plugin
     //id("org.jetbrains.qodana") version "2024.1.5"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij.platform") version "2.18.1"
+    id("org.jetbrains.intellij.platform") version "2.20.1"
     //id("org.jetbrains.intellij.platform.migration") version "2.0.0-beta6"
     //id("org.jetbrains.intellij") version "1.17.4"
     //kotlin("jvm") version "1.9.20"
@@ -69,7 +69,7 @@ dependencies {
         // full list of IntelliJ IDEA EAP releases at https://www.jetbrains.com/intellij-repository/snapshots
         //create("IU", "242.20224.159-EAP-SNAPSHOT")
         //intellijIdeaUltimate("242.20224.159-EAP-SNAPSHOT")
-        intellijIdeaUltimate("263.6259.32")
+        intellijIdeaUltimate("263.7307.200")
         //jetbrainsRuntime()
         //plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         //bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -80,17 +80,17 @@ dependencies {
         bundledPlugin("com.intellij.java")
         bundledPlugin("JavaScript")
         bundledPlugin("org.jetbrains.kotlin")
-        plugin("com.jetbrains.php", "263.6259.32")
-        plugin("com.jetbrains.rust", "263.6259.37-windows-x86_64")
-        plugin("org.jetbrains.plugins.ruby", "263.6259.36")
-        plugin("org.jetbrains.plugins.go", "263.6259.32")
-        plugin("PythonCore", "263.6259.32")
-        plugin("Pythonid", "263.6259.32")
-        plugin("Dart", "510.0.0")
+        plugin("com.jetbrains.php", "263.7307.200")
+        plugin("com.jetbrains.rust", "263.7307.65-windows-x86_64")
+        plugin("org.jetbrains.plugins.ruby", "262.10968.63")
+        plugin("org.jetbrains.plugins.go", "263.7307.200")
+        plugin("PythonCore", "263.7307.200")
+        plugin("Pythonid", "263.7307.200")
+        plugin("Dart", "511.0.0")
         //plugin("intellij.jupyter", "243.24978.50")
-        plugin("org.intellij.scala", "2026.3.11")
+        plugin("org.intellij.scala", "2026.3.4")
         plugin("nl.rubensten.texifyidea", "1.1.1")
-        plugin("dev.j-a.swift", "3.2.0.509-263")
+        plugin("dev.j-a.swift", "4.0.0.517-263")
 
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
