@@ -757,7 +757,7 @@
 		          fieldName="INSTANCE" language="CPT" extensions="postfixTemplates"/>
 		<lang.parserDefinition language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptParserDefinition"/>
 		<lang.syntaxHighlighterFactory language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptSyntaxHighlighterFactory"/>
-		<colorSettingsPage implementation="de.endrullis.idea.postfixtemplates.language.CptColorSettingsPage"/>
+		<colorSettings id="CptColorSettings" implementation="de.endrullis.idea.postfixtemplates.language.CptColorSettingsPage" displayName="Custom Postfix Templates"/>
 		<annotator language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptAnnotator"/>
 		<completion.contributor language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptCompletionContributor" order="first" id="compositieAttributeValues"/>
 		<!--
@@ -782,9 +782,6 @@
 		</intentionAction>
 	</extensions>
 
-	<extensions defaultExtensionNs="org.jetbrains.kotlin">
-	    <supportsKotlinPluginMode supportsK2="true" />
-	</extensions>
 
 	<actions>
 		<!-- Add your actions here -->
