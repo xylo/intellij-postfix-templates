@@ -101,7 +101,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.22.4")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.22.4")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.2")
-    implementation("io.sentry:sentry:8.51.0") {
+    implementation("io.sentry:sentry:8.63.0") {
         exclude("org.slf4j")
     }
 
