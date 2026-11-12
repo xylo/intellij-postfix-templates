@@ -783,7 +783,7 @@
 	</extensions>
 
 	<extensions defaultExtensionNs="org.jetbrains.kotlin">
-    <supportsKotlinPluginMode supportsK2="true" />
+	    <supportsKotlinPluginMode supportsK2="true" />
 	</extensions>
 
 	<actions>

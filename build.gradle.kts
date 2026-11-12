@@ -156,8 +156,7 @@ tasks {
 
     // Avoid ClassNotFoundException: com.maddyhome.idea.copyright.psi.UpdateCopyrightsProvider
     buildSearchableOptions {
-        // jvmArgs = ["-Djava.system.class.loader=com.intellij.util.lang.PathClassLoader"]
-        enabled = false
+        jvmArgs = listOf("-Djava.system.class.loader=com.intellij.util.lang.PathClassLoader")
     }
 
     verifyPlugin {
